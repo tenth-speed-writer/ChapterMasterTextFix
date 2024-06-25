@@ -185,6 +185,22 @@ function planet_numeral_name(planet, star="none"){
 		}		
 	}
 }
+function has_any_problem_planet(planet, star="none"){
+	if (star=="none"){
+		for (var i=0;i<array_length(p_problem[planet]);i++){
+			if (p_problem[planet][i] != ""){
+				return true;
+			}
+		}
+	} else {
+		with (star){
+			return has_any_problem_planet(planet);
+		}
+	}
+	return false;
+}
+
+
 function has_problem_star(problem, star="none"){
 	var has_problem = false;
 	if (star=="none"){
@@ -387,6 +403,21 @@ function scr_faction_string_name(faction){
 			break;																
 	}
 	return name;
+}
+
+function scr_new_governor_mission(planet){
+	if (p_type=="Death"){
+		problem = choose("hunt_beast", "provide_garrison");
+		accept_time = 6+irandom(30);
+	} else if (p_type == "Hive"){
+		problem = choose("Show_of_power", "Garrison", "Purge_enemies");
+	} else if (p_type == "Temperate"){
+		problem = choose("Garrison", "Train_forces");
+	}else if (p_type == "Shrine"){
+		problem = choose("Garrison", "join_communion");
+	}else if (p_type == "Shrine"){
+		problem = choose("Garrison", "join_communion");
+	}
 }
 //function scr_get_player_fleets() {
 //	var player_fleets = [];

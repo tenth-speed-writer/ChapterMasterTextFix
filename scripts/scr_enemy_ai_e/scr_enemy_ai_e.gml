@@ -896,9 +896,15 @@ function scr_enemy_ai_e() {
             }
         }
     }
-    with (obj_p_fleet){
-        if (array_length(complex_route)>0  && action == ""){
-            set_new_player_fleet_course(complex_route);
+
+    for (i=1;i<=planets;i++){
+        var existing_problem = has_any_problem_planet(i);
+        if (!existing_problem){
+            if (!irandom(50)){
+                if (p_owner[i] == eFACTION.Imperium){
+                    scr_new_governor_mission();
+                }
+            }
         }
     }
     

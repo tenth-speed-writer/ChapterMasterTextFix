@@ -1121,7 +1121,7 @@ function scr_load(argument0, argument1) {
 	        scr_shader_initialize();
 	    }
 	    with (obj_star){
-	    	star_ui_name_node();
+//	    	star_ui_name_node();
 	    }
 
 	    var tempa,tempa2,q,good;tempa="";tempa2=0;q=0;good=0;

@@ -1364,3 +1364,8 @@ research_end();
 apothecary_simple();
 
 //complex route plotting for player fleets
+with (obj_p_fleet){
+    if (array_length(complex_route)>0  && action == ""){
+        set_new_player_fleet_course(complex_route);
+    }
+}
