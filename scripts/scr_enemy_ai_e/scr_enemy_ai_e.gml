@@ -900,7 +900,7 @@ function scr_enemy_ai_e() {
     for (i=1;i<=planets;i++){
         var existing_problem = has_any_problem_planet(i);
         if (!existing_problem){
-            if (!irandom(50)){
+            if (!irandom(50) && p_owner[i]==eFaction.Imperium){
                 if (p_owner[i] == eFACTION.Imperium){
                     scr_new_governor_mission();
                 }

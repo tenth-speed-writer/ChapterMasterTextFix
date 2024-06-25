@@ -24,7 +24,8 @@ enum P_features {
 			Arsenal,
 			Gene_Vault,
 			Forge,
-			Gene_Stealer_Cult
+			Gene_Stealer_Cult,
+			Mission
 
 	};
 	

@@ -333,11 +333,11 @@ if (obj_controller.selecting_planet!=0){
         
         
         if (target.p_large[current_planet]=0){
-            var temp2;temp2=string(scr_display_number(target.p_population[current_planet]));
-            draw_text(xx+480,yy+220,string_hash_to_newline("Population: "+string(temp2)));
+            var temp2=string(scr_display_number(target.p_population[current_planet]));
+            draw_text(xx+480,yy+220,"Population: "+string(temp2));
         }
         if (target.p_large[current_planet]=1){
-            draw_text(xx+480,yy+220,string_hash_to_newline("Population: "+string(target.p_population[current_planet])+" billion"));
+            draw_text(xx+480,yy+220,"Population: "+string(target.p_population[current_planet])+" billion");
         }
         
         if (target.craftworld=0) and (target.space_hulk=0){
@@ -370,10 +370,7 @@ if (obj_controller.selecting_planet!=0){
                 if (array_contains(obj_ini.adv, "Siege Masters")) then improve_cost=1100;
                 
                 draw_set_color(0);
-                draw_text(xx+671-1,yy+281-1,string_hash_to_newline(string(improve_cost)));
-                draw_text(xx+671+1,yy+281-1,string_hash_to_newline(string(improve_cost)));
-                draw_text(xx+671+1,yy+281+1,string_hash_to_newline(string(improve_cost)));
-                draw_text(xx+671-1,yy+281+1,string_hash_to_newline(string(improve_cost)));
+                draw_text_outline(xx+671, yy+281,improve_cost);
                 draw_set_color(16291875);
                 draw_text(xx+671,yy+281,string_hash_to_newline(string(improve_cost)));
                 
@@ -462,7 +459,7 @@ if (obj_controller.selecting_planet!=0){
     	var feat_count, _cur_feature;
     	var feat_count = array_length(target.p_feature[current_planet]);
         var upgrade_count = array_length(target.p_upgrades[current_planet]);
-        var size = ["", "Small", "", "Large"]
+        var size = ["", "Small", "", "Large"];
     	if ( feat_count > 0){
         	for (i =0; i <  feat_count ;i++){
                 cur_feature= target.p_feature[current_planet][i]
@@ -494,6 +491,22 @@ if (obj_controller.selecting_planet!=0){
                         var size_string= $"{size[forge.size]} Chapter Forge"
                         array_push(planet_displays, [size_string, target.p_upgrades[current_planet][i].forge_data]);
                     }
+                }
+            }
+        }
+        var problems = target.p_problem[current_planet];
+        var problems_data = target.p_problem_other_data[current_planet];
+        var problem_data;
+        for (i=0;i<array_length(problems);i++){
+            if (problems[i]=="") then continue;
+            problem_data = problems_data[i];
+            if (struct_exists(problem_data, "stage")){
+                if (problem_data.stage == "preliminary"){
+                    var mission_string  = $"{problem_data.applicant} Audience";
+                    problem_data.f_type = P_features.Mission;
+                    problem_data.time = target.p_timer[current_planet][i];
+                    problem_data.problem = problems[i];
+                    array_push(planet_displays, [mission_string, problem_data);
                 }
             }
         }

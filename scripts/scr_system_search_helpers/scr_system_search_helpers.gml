@@ -406,17 +406,46 @@ function scr_faction_string_name(faction){
 }
 
 function scr_new_governor_mission(planet){
+	problem = "";
 	if (p_type=="Death"){
 		problem = choose("hunt_beast", "provide_garrison");
 		accept_time = 6+irandom(30);
 	} else if (p_type == "Hive"){
-		problem = choose("Show_of_power", "Garrison", "Purge_enemies");
+		problem = choose("Show_of_power", "provide_garrison", "purge_enemies", "raid_black_market");
 	} else if (p_type == "Temperate"){
-		problem = choose("Garrison", "Train_forces");
+		problem = choose("provide_garrison", "train_forces", "join_parade");
 	}else if (p_type == "Shrine"){
-		problem = choose("Garrison", "join_communion");
-	}else if (p_type == "Shrine"){
-		problem = choose("Garrison", "join_communion");
+		problem = choose("provide_garrison", "join_communion");
+	}else if (p_type == "Ice"){
+		problem = choose("provide_garrison", "hunt_beast");
+	}else if (p_type == "Lava"){
+		problem = choose("provide_garrison", "protect_raiders");
+	}else if (p_type == "Agri"){
+		problem = choose("provide_garrison", "protect_raiders", "recover_artifacts");
+	}
+	var mission_data = {
+			stage : "preliminary",
+			applicant : "Governor"
+		};
+	if (problem != ""){
+		if (problem == "provide_garrison"){
+			if (system_garrison[i-1].garrison_force) then exit;
+			mission_data.reason = choose("stability", "importance");
+		} else if (problem=="purge_enemies"){
+			var enemy = 0;
+			if (planets>1){
+				for (var i=1;i<=planets;i++){
+					if(i=planet) then continue;
+					if (p_owner[i]==eFACTION.Imperium){
+						enemy=i;
+						break;
+					}
+				}
+			}
+			mission_data.target=enemy;
+			if (!enemy) then exit;
+		}
+		add_new_problem(planet,problem, 20+irandom(20), mission_data);
 	}
 }
 

@@ -20,7 +20,13 @@ function mission_name_key(mission){
 		"great_crusade": "Answer Crusade Muster Call",
 		"harlequins" : "Harlequin presence Report",
 		"artifact_loan" : "Safeguard Artifact for the inquisition",
-		"fund_elder" : "provide assistance to Eldar"
+		"fund_elder" : "provide assistance to Eldar",
+		"provide_garrison" : "Provision Garrison",
+		"hunt_beast" : "Hunt Beasts",
+		"protect_raiders" : "Protect From Raiders",
+		"join_communion" : "Join Planetary Religious Celebration",
+		"join_parade" : "Join Parade on Planet Surface",
+		"recover_artifacts" : "Recover Artifacts"
 	}
 	if (struct_exists(mission_key, mission)){
 		return mission_key[$ mission];
