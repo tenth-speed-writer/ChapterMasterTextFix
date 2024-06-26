@@ -527,8 +527,14 @@ if (slide=2){
             }
         }
         draw_set_alpha(1);
-        if (scr_hit(436,564,631,583)){tooltip="Chapter Advantages";tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";}
-        if (scr_hit(810,564,1030,583)){tooltip="Chapter Disadvantages";tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";}
+        if (scr_hit(436,564,631,583)){
+            tooltip="Chapter Advantages";
+            tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";
+        }
+        if (scr_hit(810,564,1030,583)){
+            tooltip="Chapter Disadvantages";
+            tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";
+        }
     }else if (popup="icons"){
         draw_set_alpha(1);
         draw_set_color(0);
@@ -541,17 +547,19 @@ if (slide=2){
         
         draw_set_font(fnt_40k_30b);
         draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select an Icon"),0.6,0.6,0);
-        draw_text_transformed(800,687,string_hash_to_newline("Cancel"),0.6,0.6,0);
+        draw_text_transformed(800,211,"Select an Icon",0.6,0.6,0);
+        draw_text_transformed(800,687,"Cancel",0.6,0.6,0);
         
         var cw,ch;
         cw=string_width(string_hash_to_newline("Cancel"))*0.6;
         ch=string_height(string_hash_to_newline("Cancel"))*0.6;
         
         if (scr_hit(800,687,800+cw,687+ch)){
-            draw_set_color(c_white);draw_set_alpha(0.25);
+            draw_set_color(c_white);
+            draw_set_alpha(0.25);
             draw_text_transformed(800,687,string_hash_to_newline("Cancel"),0.6,0.6,0);
-            draw_set_color(38144);draw_set_alpha(1);
+            draw_set_color(38144);
+            draw_set_alpha(1);
             
             if (mouse_left=1) and (cooldown<=0){
                 cooldown=8000;

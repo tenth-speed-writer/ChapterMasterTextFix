@@ -410,6 +410,12 @@ global.trait_list = {
 		flavour_text:"a superlative duelist favoring traditional dueling weaponry",
 		effect:"Bonus to using swords and advantages in duels",
 
+	},
+	"siege_master" : {
+		wisdom : [2,2,"max"],
+		constitution : [2,2],
+		flavour_text:"Understands the ins and outs of defences both in building them and in taking them appart",
+		effect:"Bonus when commanding defences and extra boosts when leading a garrison",
 	}
 }
 global.base_stats = { //tempory stats subject to change by anyone that wishes to try their luck
@@ -2610,10 +2616,33 @@ function pen_and_paper_sim() constructor{
 
 		return [winner, pass_margin];
 	}
+	static evaluate_tags = function(unit, tags){
+		var total_mod = 0,tag;
+		for (var i=0;i<array_length(tags);i++){
+			tag=tags[i];
+			if (tag=="siege"){
+                if (scr_has_adv("Siege Masters")){
+                    total_mod+=10
+                }
+                if (unit.has_tag("siege_master")){
+                	total_mod+=10;
+                }			
+			}
+			else if (tag=="tyranids"){
+				if (unit.scr_has_adv("Enemy: Tyranids")){
+					total_mod+=10
+				}
+				if (unit.has_tag("tyrannic_vet")){
+                	total_mod+=10;
+                }
+			}
+		}
+	}
 
-	static standard_test = function(unit, stat, difficulty_mod=0){
+	static standard_test = function(unit, stat, difficulty_mod=0, tags = []){
 		var passed =false;
-		var margin=0
+		var margin=0;
+		difficulty_mod+=evaluate_tags(unit, tags);
 		var random_roll = irandom(99)+1;
 		if (random_roll<unit[$ stat]+difficulty_mod){
 			passed = true;

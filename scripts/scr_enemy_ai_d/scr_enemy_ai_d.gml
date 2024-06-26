@@ -376,15 +376,32 @@ function scr_enemy_ai_d() {
                     var p_garrison = system_garrison[i-1];
                     var  result = p_garrison.garrison_disposition_change(id, i);
                     if (result == "none"){
-                       
+                    //TODO make a dedicated plus minus string function if there isn't one already
                     } else if (!result){
                         var effect = result*irandom_range(5-20);
-                        dispo[planet] += effect;
-                        mission_string += $"A nunmber of incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition {effect})";
+                        dispo[i] += effect;
+                        mission_string += $"A number of diplomatic incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition +{effect})";
                     } else {
                         var effect = result*irandom_range(5-20);
-                        dispo[planet] += result*effect;
-                        mission_string += $"As a diplomatic mission the duration of the stay was a success with our political position with the planet being enhanced greatly (effect)";
+                        dispo[i] += result*effect;
+                        mission_string += $"As a diplomatic mission the duration of the stay was a success with our political position with the planet being enhanced greatly (disposition +{effect})";
+                    } 
+                    var tester = global.character_tester;
+                    var widom_test = tester.standard_test(garrison.garrison_leader, "wisdom",modify, ["siege"]);
+                    if (widom_test[0]){
+                        p_fortified[i]++;
+                        mission_string+="while stationed {garrison.garrison_leader.name_role()} makes several notable observations and is able to instruct the planets defense core leaving the world better defended (fortifications++).";
+                    }
+                    //TODO jsut generall apply this each turn with a garrison to see if a cult is found
+                    if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){
+                        var cult = return_planet_features(p_feature[current_planet],P_features.Gene_Stealer_Cult)[0];
+                        if (cult.hiding){
+                            widom_test = tester.standard_test(garrison.garrison_leader, "wisdom",modify, ["tyranids"]);
+                            if (widom_test[0]){
+                                cult.hiding = false;
+                                mission_string+="Most alarmingly signs of a genestealer cult are noted by the garrison. how far the rot has gone will now need to be investigated and the xenos taint purged.";
+                            }
+                        }
                     }
                 }
             }
