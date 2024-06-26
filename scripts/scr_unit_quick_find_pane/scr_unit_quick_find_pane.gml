@@ -757,6 +757,14 @@ function planet_selection_action(){
 		                    };
 		                    array_push(target.p_operatives[sel_plan],operation_data);
 		                    target.garrison = true;
+		                    var garrison_request = find_problem_planet(obj_controller.selecting_planet, "provide_garrison", target);
+		                    if (garrison_request){
+		                    	var mission_data = target.p_problem_other_data[obj_controller.selecting_planet][garrison_request];
+		                    	if (mission_data.stage == "preliminary"){
+		                    		mission_data.stage = "active";
+		                    		target.p_timer[obj_controller.selecting_planet][garrison_request] = 10+irandom(6);
+		                    	}
+		                    }
 		                    instance_destroy();
 		                }
 	                } else if (!loading){

@@ -344,7 +344,8 @@ function scr_enemy_ai_d() {
 	           remove_planet_problem(i,"spyrer"); 
          }
          if (has_problem_planet_and_time(i,"fallen", 0)){
-            var tixt;tixt="";
+            //TODO marker point for cohesion mechanics
+            var tixt="";
 
             if (ran>33){// Give all marines +3d6 corruption and reduce loyalty by 20*/
                 var co,me;co=-1;me=0;
@@ -364,6 +365,9 @@ function scr_enemy_ai_d() {
                 scr_event_log("red","Mission Failed: Any Fallen within the "+string(name)+" system have been given time to escape.");          	
           }
         }
+         if (has_problem_planet_and_time(i,"request_garrison", 0)){
+
+         }
         
     
 	    if ((p_tyranids[i]=3) or (p_tyranids[i]=4)) and (p_population[i]>0){
