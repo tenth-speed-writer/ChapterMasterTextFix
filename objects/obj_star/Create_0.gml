@@ -103,7 +103,7 @@ global.star_name_colors = [
 	#009500, // waagh
 	#FECB01, // the greater good
 	#AD5272,// bug boys
-	c_purple, // chaos
+	c_black, // chaos
 	38144, //nothing for heretics either
 	#AD5272, //why 12 is skipped in general, we will never know
 	#80FF00 // Sleepy robots
