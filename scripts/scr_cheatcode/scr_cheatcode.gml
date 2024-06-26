@@ -77,9 +77,8 @@ function scr_cheatcode(argument0) {
                     var existing_problem = false;//has_any_problem_planet(i);
                     if (!existing_problem){
                         if (p_owner[i]==eFACTION.Imperium){
-                            if (p_owner[i] == eFACTION.Imperium){
-                                scr_new_governor_mission();
-                            }
+                            show_debug_message("mission")
+                            scr_new_governor_mission(i);
                         }
                     }
                 }

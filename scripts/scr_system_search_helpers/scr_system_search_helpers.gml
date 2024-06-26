@@ -267,6 +267,15 @@ function scr_faction_string_name(faction){
 	}
 	return name;
 }
+
+function scr_planet_image_numbers(p_type){
+	var image =0;
+	image_map = ["lava","lava", "Desert","Forge","Hive","Death","Agri","Feudal","Temperate","Ice","Dead","Daemon","Craftworld","","Space Hulk", "", "Shrine"];
+	for (var i=0;i<array_length(image_map);i++){
+		if (image_map[i] == p_type) return i;
+	}
+	return image;
+}
 //function scr_get_player_fleets() {
 //	var player_fleets = [];
 //	with(obj_p_fleet){

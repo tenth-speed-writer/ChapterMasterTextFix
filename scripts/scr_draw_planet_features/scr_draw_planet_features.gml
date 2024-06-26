@@ -143,14 +143,14 @@ function feature_selected(Feature) constructor{
 				break;
 			case P_features.Mission:
 				var mission_description="";
-				var planet_name = planet_numeral_name(obj_controller.selecting_planet, target);
+				var planet_name = planet_numeral_name(obj_controller.selecting_planet, obj_star_select.target);
 				switch(feature.problem){
 					case "provide_garrison":
 						var reason;
 						if (feature.reason == "importance"){
 
 						}
-						mission_description="The governor of {planet_name} has requested a force of arines might stay behind following your departure.";
+						mission_description="The governor of {planet_name} has requested a force of marines might stay behind following your departure.";
 						break;
 					case "join_communion":
 						mission_description="The governor of {planet_name} has Invited a delegate of your forces to take part in ceremony.";

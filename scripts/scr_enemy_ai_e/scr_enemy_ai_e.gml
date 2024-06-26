@@ -903,7 +903,7 @@ function scr_enemy_ai_e() {
         if (!existing_problem){
             if (!irandom(50) && p_owner[i]==eFACTION.Imperium){
                 if (p_owner[i] == eFACTION.Imperium){
-                    scr_new_governor_mission();
+                    scr_new_governor_mission(i);
                 }
             }
         }

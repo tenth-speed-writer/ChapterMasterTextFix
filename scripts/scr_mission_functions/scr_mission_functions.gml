@@ -2,29 +2,34 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_new_governor_mission(planet){
 	problem = "";
-	if (p_type=="Death"){
+	var planet_type= p_type[planet];
+	if (planet_type=="Death"){
 		problem = choose("hunt_beast", "provide_garrison");
 		accept_time = 6+irandom(30);
-	} else if (p_type == "Hive"){
+	} else if (planet_type == "Hive"){
 		problem = choose("Show_of_power", "provide_garrison", "purge_enemies", "raid_black_market");
-	} else if (p_type == "Temperate"){
+	} else if (planet_type == "Temperate"){
 		problem = choose("provide_garrison", "train_forces", "join_parade");
-	}else if (p_type == "Shrine"){
+	}else if (planet_type == "Shrine"){
 		problem = choose("provide_garrison", "join_communion");
-	}else if (p_type == "Ice"){
+	}else if (planet_type == "Ice"){
 		problem = choose("provide_garrison", "hunt_beast");
-	}else if (p_type == "Lava"){
+	}else if (planet_type == "Lava"){
 		problem = choose("provide_garrison", "protect_raiders");
-	}else if (p_type == "Agri"){
+	}else if (planet_type == "Agri"){
 		problem = choose("provide_garrison", "protect_raiders", "recover_artifacts");
+	}else if (planet_type == "Desert"){
+		problem = choose("provide_garrison", "protect_raiders", "recover_artifacts");
+	}else if (planet_type == "Feudal"){
+		problem = choose("hunt_beast", "protect_raiders");
 	}
 	var mission_data = {
-			stage : "preliminary",
-			applicant : "Governor"
-		};
+		stage : "preliminary",
+		applicant : "Governor"
+	};
 	if (problem != ""){
 		if (problem == "provide_garrison"){
-			if (system_garrison[i-1].garrison_force) then exit;
+			if (system_garrison[planet-1].garrison_force) then exit;
 			mission_data.reason = choose("stability", "importance");
 		} else if (problem=="purge_enemies"){
 			var enemy = 0;
@@ -40,7 +45,7 @@ function scr_new_governor_mission(planet){
 			mission_data.target=enemy;
 			if (!enemy) then exit;
 		}
-		add_new_problem(planet,problem, 20+irandom(20), mission_data);
+		add_new_problem(planet,problem, 20+irandom(20), ,mission_data);
 	}
 }
 

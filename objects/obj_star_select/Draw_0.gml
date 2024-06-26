@@ -243,7 +243,7 @@ if (obj_controller.selecting_planet!=0){
         var xx=__view_get( e__VW.XView, 0 )+15;
         var yy=__view_get( e__VW.YView, 0 )+25;
         var current_planet=obj_controller.selecting_planet;
-        var nm, temp1;temp1=0;nm=scr_roman(current_planet);
+        var nm=scr_roman(current_planet), temp1=0;
         draw_set_halign(fa_center);
         draw_set_font(fnt_40k_14);
         
@@ -255,9 +255,9 @@ if (obj_controller.selecting_planet!=0){
         }
         
         // Draw disposition here
-        var succession,yyy;succession=0;yyy=0;
+        var succession=0,yyy=0;
 
-        if (has_problem_planet(current_planet, "succession",target)) then succession=1;
+        succession =  (has_problem_planet(current_planet, "succession",target));
 
         if ((target.dispo[current_planet]>=0) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0)) and (succession=0){
             var wack=0;
@@ -310,48 +310,34 @@ if (obj_controller.selecting_planet!=0){
         // if (target.craftworld=1) then draw_text(xx+594,yy+214,"Craftworld");
         if (target.space_hulk=1) then draw_text(xx+480,yy+196,string_hash_to_newline("Space Hulk"));
         
-        if (target.p_type[current_planet]="Lava") and (target.p_population[current_planet]>0) then temp1=1;
-        if (target.p_type[current_planet]="Lava") and (target.p_population[current_planet]=0) then temp1=0;
-        if (target.p_type[current_planet]="Desert")  {temp1=2;}
-        else if (target.p_type[current_planet]="Dead")  {temp1=10;}
-        else if (target.p_type[current_planet]="Hive")  {temp1=4;}
-        else if (target.p_type[current_planet]="Temperate")  {temp1=8;}
-        else if (target.p_type[current_planet]="Feudal")  {temp1=7;}
-        else if (target.p_type[current_planet]="Agri")  {temp1=6;}
-        else if (target.p_type[current_planet]="Death")  {temp1=5;}
-    	else if (target.p_type[current_planet]="Ice")  {temp1=9;}
-        else if (target.p_type[current_planet]="Forge")  {temp1=3;}  
-        else if (target.p_type[current_planet]="Daemon")  {temp1=11;}
-    	else if (target.p_type[current_planet]="Craftworld")  {temp1=12;}
-        else if (target.p_type[current_planet]="Space Hulk")  {temp1=14;}
-        else if (target.p_type[current_planet]="Shrine")  {temp1=16;}
-        
+        var planet_type = target.p_type[current_planet];
         // draw_sprite(spr_planet_splash,temp1,xx+349,yy+194);
-        scr_image("planet",temp1,xx+349,yy+194,128,128);
+        scr_image("planet",scr_planet_image_numbers(planet_type),xx+349,yy+194,128,128);
         draw_rectangle(xx+349,yy+194,xx+477,yy+322,1);
         draw_set_font(fnt_40k_14);
         
         
         if (target.p_large[current_planet]=0){
             var temp2=string(scr_display_number(target.p_population[current_planet]));
-            draw_text(xx+480,yy+220,"Population: "+string(temp2));
+            draw_text(xx+480,yy+220,$"Population: {temp2}");
         }
         if (target.p_large[current_planet]=1){
-            draw_text(xx+480,yy+220,"Population: "+string(target.p_population[current_planet])+" billion");
+            draw_text(xx+480,yy+220,"Population: billion");
         }
         
         if (target.craftworld=0) and (target.space_hulk=0){
             var y7=240,temp3=string(scr_display_number(target.p_guardsmen[current_planet]));
             if (target.p_guardsmen[current_planet]>0){
-                draw_text(xx+480,yy+y7,"Imperial Guard: "+string(temp3));y7+=20;
+                draw_text(xx+480,yy+y7,$"Imperial Guard: {temp3}");
+                y7+=20;
             }
             if (target.p_owner[current_planet]!=8){
                 var temp4=string(scr_display_number(target.p_pdf[current_planet]));
-                draw_text(xx+480,yy+y7,string_hash_to_newline("Defense Force: "+string(temp4)));
+                draw_text(xx+480,yy+y7,$"Defense Force: {temp4}");
             }
             if (target.p_owner[current_planet]=8){
                 var temp4=string(scr_display_number(target.p_pdf[current_planet]));
-                draw_text(xx+480,yy+y7,string_hash_to_newline("Gue'Vesa Force: "+string(temp4)));
+                draw_text(xx+480,yy+y7,$"Gue'Vesa Force:  {temp4}");
             }
         }
         
