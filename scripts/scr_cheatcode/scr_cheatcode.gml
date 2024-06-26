@@ -71,6 +71,20 @@ function scr_cheatcode(argument0) {
             scr_quest(0,"artifact_loan",4,10);
             var last_artifact =scr_add_artifact("good","inquisition",0,obj_ini.ship[1],501);
          }
+        if (cheatcode_string=="govmission"){
+            with (obj_star){
+                for (i=1;i<=planets;i++){
+                    var existing_problem = false;//has_any_problem_planet(i);
+                    if (!existing_problem){
+                        if (p_owner[i]==eFACTION.Imperium){
+                            if (p_owner[i] == eFACTION.Imperium){
+                                scr_new_governor_mission();
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if (string_count("event", cheatcode_string) >0) {
             if (string_count("crusade", cheatcode_string) >0) {
                 show_debug_message("crusading");

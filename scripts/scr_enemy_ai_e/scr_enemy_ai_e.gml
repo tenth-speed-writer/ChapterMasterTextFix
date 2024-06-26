@@ -877,20 +877,21 @@ function scr_enemy_ai_e() {
         }
 
         // title / text / image / speshul
+        var popup_text = "A cloaked, ragged figure approaches your forces and hails you. ";
         if (master_present = 1) and(otm <= 21) {
             var effect;
             effect = "meeting_1t";
             if (chaos_meeting == floor(chaos_meeting)) then effect = "meeting_1";
-            scr_popup("Chaos Meeting", "A cloaked, ragged figure approaches your forces and hails you.  He is to bring you to meet with their master and you have few enough forces to be permitted.  What is thy will?", "chaos_messenger", effect);
+            scr_popup("Chaos Meeting", $"{popup_text}He is to bring you to meet with their master and you have few enough forces to be permitted.  What is thy will?", "chaos_messenger", effect);
         }
         if (master_present = 1) and(otm > 21) {
-            scr_popup("Chaos Meeting", "A cloaked, ragged figure approaches your forces and hails you.  He is to bring you to their master, but before the meeting proceeds, you must bring fewer forces.  Only yourself and up to two squads will be allowed in the presence of " + string(obj_controller.faction_title[10]) + " " + string(obj_controller.faction_leader[10]) + ".", "chaos_messenger", "meeting_2");
+            scr_popup("Chaos Meeting", $"{popup_text}He is to bring you to their master, but before the meeting proceeds, you must bring fewer forces.  Only yourself and up to two squads will be allowed in the presence of {obj_controller.faction_title[10]} {obj_controller.faction_leader[10]}.", "chaos_messenger", "meeting_2");
             with(obj_temp_meeting) {
                 instance_destroy();
             }
         }
         if (master_present = 0) and(otm > 21) {
-            scr_popup("Chaos Meeting", "A cloaked, ragged figure approaches your forces and hails them.  The meeting was supposed to be with the Chaos Lord, and yourself, but you are not planet-side.  Land on the planet with up to two squads and the meeting will proceed.", "chaos_messenger", "meeting_3");
+            scr_popup("Chaos Meeting",  $"{popup_text}The meeting was supposed to be with the Chaos Lord, and yourself, but you are not planet-side.  Land on the planet with up to two squads and the meeting will proceed.", "chaos_messenger", "meeting_3");
             with(obj_temp_meeting) {
                 instance_destroy();
             }
@@ -900,7 +901,7 @@ function scr_enemy_ai_e() {
     for (i=1;i<=planets;i++){
         var existing_problem = has_any_problem_planet(i);
         if (!existing_problem){
-            if (!irandom(50) && p_owner[i]==eFaction.Imperium){
+            if (!irandom(50) && p_owner[i]==eFACTION.Imperium){
                 if (p_owner[i] == eFACTION.Imperium){
                     scr_new_governor_mission();
                 }
