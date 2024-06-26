@@ -182,7 +182,7 @@ function garrison_force(planet_operatives, turn_end=false, type="garrison")const
 						dispo_change = "none";
 					}else {
 						if (planet_disposition<obj_controller.disposition[star.p_owner[planet]]){
-							dispo_change = -charisma_test[1]/10;
+							dispo_change = charisma_test[1]/10;
 						} else {
 							dispo_change=0;
 						}

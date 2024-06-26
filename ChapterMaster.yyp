@@ -452,6 +452,7 @@
     {"id":{"name":"spr_ingame_menu","path":"sprites/spr_ingame_menu/spr_ingame_menu.yy",},},
     {"id":{"name":"spr_sal_mk5_helm","path":"sprites/spr_sal_mk5_helm/spr_sal_mk5_helm.yy",},},
     {"id":{"name":"spr_loadbar","path":"sprites/spr_loadbar/spr_loadbar.yy",},},
+    {"id":{"name":"scr_mission_functions","path":"scripts/scr_mission_functions/scr_mission_functions.yy",},},
     {"id":{"name":"spr_loadbar_empty","path":"sprites/spr_loadbar_empty/spr_loadbar_empty.yy",},},
     {"id":{"name":"spr_loadbar_cover","path":"sprites/spr_loadbar_cover/spr_loadbar_cover.yy",},},
     {"id":{"name":"scr_ground_ai_helpers","path":"scripts/scr_ground_ai_helpers/scr_ground_ai_helpers.yy",},},

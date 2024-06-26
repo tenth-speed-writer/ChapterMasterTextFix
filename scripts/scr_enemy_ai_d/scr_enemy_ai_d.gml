@@ -346,28 +346,49 @@ function scr_enemy_ai_d() {
          if (has_problem_planet_and_time(i,"fallen", 0)){
             //TODO marker point for cohesion mechanics
             var tixt="";
-
+            var unit;
             if (ran>33){// Give all marines +3d6 corruption and reduce loyalty by 20*/
-                var co,me;co=-1;me=0;
-                repeat(obj_ini.companies+1){co+=1;me=0;
-                    repeat(500){me+=1;
-                        if (obj_ini.race[co,me]=1) and (obj_ini.role[co,me]!="") then obj_ini.TTRPG[co][me].corruption+=choose(1,2,3,4,5,6)+choose(1,2,3,4,5,6)+choose(1,2,3,4,5,6);
+                var co=-1,me=0;
+                repeat(obj_ini.companies+1){
+                    co+=1;
+                    me=0;
+                    for (me=0;me<array_length(obj_ini.role[co]);me++){
+                        if (obj_ini.race[co,me]=1) and (obj_ini.role[co,me]!=""){
+                            unit = fetch_unit([co,me]);
+                            unit.add_corruption(irandom_range(3, 18));
+                        }
                     }
                 }
-                tixt="Any Fallen that may have been on "+string(name)+" ";
-                if (i=1) then tixt+="I ";if (i=2) then tixt+="II ";
-                if (i=3) then tixt+="III ";if (i=4) then tixt+="IV ";
+                tixt=$"Any Fallen that may have been on {planet_numeral_name(i)} ";
                 tixt+="have been given sufficient time to escape.  Morale within your chapter has plummeted; some of your battle brothers have become restless and speak among eachother in hushed tones.";
                 scr_popup("Hunt the Fallen Failed",tixt,"fallen","");
                 obj_controller.loyalty-=30;
                 obj_controller.loyalty_hidden-=30;
                 remove_planet_problem(i,"fallen"); 
-                scr_event_log("red","Mission Failed: Any Fallen within the "+string(name)+" system have been given time to escape.");          	
+                scr_event_log("red",$"Mission Failed: Any Fallen within the {name} system have been given time to escape.");          	
           }
         }
-         if (has_problem_planet_and_time(i,"request_garrison", 0)){
-
-         }
+        var garrison_mission = has_problem_planet_and_time(i,"request_garrison", 0);
+        if (garrison_mission){
+            if (p_problem_other_data[i][garrison_mission].stage=="underway"){
+                if (p_owner[i] == eFACTION.Imperium && system_garrison[i-1].garrison_force){
+                    var mission_string = = "The garrison on {planet_numeral_name(i)} has finished the period of garrison support agreed with the planetary governor.";
+                    var p_garrison = system_garrison[i-1];
+                    var  result = p_garrison.garrison_disposition_change(id, i);
+                    if (result == "none"){
+                       
+                    } else if (!result){
+                        var effect = result*irandom_range(5-20);
+                        dispo[planet] += effect;
+                        mission_string += $"A nunmber of incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition {effect})";
+                    } else {
+                        var effect = result*irandom_range(5-20);
+                        dispo[planet] += result*effect;
+                        mission_string += $"As a diplomatic mission the duration of the stay was a success with our political position with the planet being enhanced greatly (effect)";
+                    }
+                }
+            }
+        }
         
     
 	    if ((p_tyranids[i]=3) or (p_tyranids[i]=4)) and (p_population[i]>0){
