@@ -37,7 +37,6 @@ function colour_item() constructor{
     }
 }
 
-function (leg_colour)
 function unit_image(unit_surface) constructor{
     u_surface = unit_surface;
     static draw = function (xx, yy, _background=false){

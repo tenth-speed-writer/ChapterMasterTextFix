@@ -2637,6 +2637,7 @@ function pen_and_paper_sim() constructor{
                 }
 			}
 		}
+		return total_mod;
 	}
 
 	static standard_test = function(unit, stat, difficulty_mod=0, tags = []){
