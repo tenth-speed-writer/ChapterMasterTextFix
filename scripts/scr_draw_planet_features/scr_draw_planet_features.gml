@@ -142,7 +142,7 @@ function feature_selected(Feature) constructor{
 				}
 				break;
 			case P_features.Mission:
-				var mission_description="";
+				var mission_description=$"";
 				var planet_name = planet_numeral_name(obj_controller.selecting_planet, obj_star_select.target);
 				switch(feature.problem){
 					case "provide_garrison":
@@ -150,24 +150,29 @@ function feature_selected(Feature) constructor{
 						if (feature.reason == "importance"){
 
 						}
-						mission_description="The governor of {planet_name} has requested a force of marines might stay behind following your departure.";
+						mission_description=$"The governor of {planet_name} has requested a force of marines might stay behind following your departure.";
 						break;
 					case "join_communion":
-						mission_description="The governor of {planet_name} has Invited a delegate of your forces to take part in ceremony.";
+						mission_description=$"The governor of {planet_name} has Invited a delegate of your forces to take part in ceremony.";
 						break;
 					case "hunt_beast":
-						mission_description="The governor of {planet_name} has bemoaned the raiding of huge beasts on the fringes of the planets largest city, the numbers have swelled recently and are causing huge damage to the planets small economy. You could send a force to intervene, it would provide a fine test of metal for any that partake.";
+						mission_description=$"The governor of {planet_name} has bemoaned the raiding of huge beasts on the fringes of the planets largest city, the numbers have swelled recently and are causing huge damage to the planets small economy. You could send a force to intervene, it would provide a fine test of metal for any that partake.";
 						break;
 					case "protect_raiders":
-						mission_description="The governor of {planet_name} has sent many requests to the sector commander for help with defending against xenos raids on the populace of the planet, the reports seem to suggest the xenos in question are in fact dark elder.";
+						mission_description=$"The governor of {planet_name} has sent many requests to the sector commander for help with defending against xenos raids on the populace of the planet, the reports seem to suggest the xenos in question are in fact dark elder.";
 						break;
 					case "train_forces":
-						mission_description="The governor of {planet_name} fears the planet will not hold in the case of major incursion, it has not seen war in some time and he fears the ineptitude of the commanders available, he asks for aid in planning a thorough plan for defense and schedule of works.";
+						mission_description=$"The governor of {planet_name} fears the planet will not hold in the case of major incursion, it has not seen war in some time and he fears the ineptitude of the commanders available, he asks for aid in planning a thorough plan for defense and schedule of works.";
 						break;																				
 					case "Purge_enemies":
-						mission_description="The governor of {planet_name} has expressed his distaste of the neighboring governance of {target.name} {feature.target} he has expressed his views that they engage in heretical ways and harbor xenos enemies though in truth it is more likely that he simply wishes his political enemies disposed of, whatever the case his planet has great economic means and he has made bare his plans to compensate the emperors angels for their aid";
+						mission_description=$"The governor of {planet_name} has expressed his distaste of the neighboring governance of {target.name} {feature.target} he has expressed his views that they engage in heretical ways and harbor xenos enemies though in truth it is more likely that he simply wishes his political enemies disposed of, whatever the case his planet has great economic means and he has made bare his plans to compensate the emperors angels for their aid";
 						break;	
 				}
+				draw_text_transformed(xx+(area_width/2), yy +5, mission_name_key(feature.problem), 2, 2, 0);
+				draw_set_halign(fa_left);
+				draw_set_color(c_gray);
+				draw_text_ext(xx+10, yy+40,mission_description,-1,area_width-20);				
+				break;
 		}
 		if (generic){
 			draw_text_transformed(xx+(area_width/2), yy +5, title, 2, 2, 0);

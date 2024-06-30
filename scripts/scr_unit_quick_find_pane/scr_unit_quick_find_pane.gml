@@ -111,6 +111,7 @@ function scr_unit_quick_find_pane() constructor{
 				problems = p_problem[i];
 				for (p = 0;p<array_length(problems);p++){
 					if (problems[p] != ""){
+						if (problem_has_key_and_value(i,p,"stage","preliminary")) then continue;
 						var mission_explain =  mission_name_key(problems[p]);
 						if (mission_explain!="none"){
 							array_push(temp_log,
@@ -759,7 +760,8 @@ function planet_selection_action(){
 		                    target.garrison = true;
 		                    var garrison_request = find_problem_planet(obj_controller.selecting_planet, "provide_garrison", target);
 		                    if (garrison_request){
-		                    	var mission_data = target.p_problem_other_data[obj_controller.selecting_planet][garrison_request];
+		                    	var problems_data = target.p_problem_other_data[obj_controller.selecting_planet]
+		                    	var mission_data = mission_data[garrison_request];
 		                    	if (mission_data.stage == "preliminary"){
 		                    		mission_data.stage = "active";
 		                    		target.p_timer[obj_controller.selecting_planet][garrison_request] = 10+irandom(6);

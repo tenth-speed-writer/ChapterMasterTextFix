@@ -390,7 +390,7 @@ function scr_enemy_ai_d() {
                     var widom_test = tester.standard_test(garrison.garrison_leader, "wisdom",modify, ["siege"]);
                     if (widom_test[0]){
                         p_fortified[i]++;
-                        mission_string+="while stationed {garrison.garrison_leader.name_role()} makes several notable observations and is able to instruct the planets defense core leaving the world better defended (fortifications++).";
+                        mission_string+=$"while stationed {garrison.garrison_leader.name_role()} makes several notable observations and is able to instruct the planets defense core leaving the world better defended (fortifications++).";
                     }
                     //TODO just generall apply this each turn with a garrison to see if a cult is found
                     if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){

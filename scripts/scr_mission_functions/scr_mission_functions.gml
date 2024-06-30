@@ -161,7 +161,7 @@ function remove_planet_problem(planet, problem, star="none"){
 
 function open_problem_slot(planet, star="none"){
 	if (star=="none"){
-		for (i=1;i<array_length(p_problem[planet]);i++){
+		for (var i=1;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] ==""){
 				return i;
 			}
@@ -195,7 +195,7 @@ function problem_count_down(planet, count_change=1){
 function add_new_problem(planet, problem, timer,star="none", other_data={}){
 	var problem_added=false;
 	if (star=="none"){
-		for (i=1;i<array_length(p_problem[planet]);i++){
+		for (var i=1;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] ==""){
 				p_problem[planet][i]= problem;
 				p_problem_other_data[planet][i]=other_data;
@@ -210,4 +210,23 @@ function add_new_problem(planet, problem, timer,star="none", other_data={}){
 		}
 	}
 	return 	problem_added;
+}
+
+function problem_has_key_and_value(planet, problem,key,value="",star="none"){
+	var has_data=false;
+	if (star=="none"){
+		var problem_data = p_problem_other_data[planet][problem];
+		if (struct_exists(problem_data, key)){
+			if (value==""){
+				has_data=true
+			} else if( problem_data[$ key] == value){
+				has_data=true;
+			}
+		}
+	} else {
+		with (star){
+			has_data= problem_has_key_and_value(planet, problem,key,value,star="none");
+		}
+	}
+	return 	has_data;
 }
