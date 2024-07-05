@@ -26,7 +26,8 @@ global.load=0;
 
 skip=false;
 premades=true;
-
+livery_picker = new colour_item(100,200);
+livery_picker.scr_unit_draw_data();
 complex_livery=false;
 complex_selection = "sgt";
 complex_depth_selection = 0;

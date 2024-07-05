@@ -56,7 +56,8 @@ if (slate4>0){
             if (mouse_x>=x2) and (mouse_y>=167) and (mouse_x<x2+48) and (mouse_y<167+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
-                draw_set_alpha(0.1);draw_set_color(c_white);
+                draw_set_alpha(0.1);
+                draw_set_color(c_white);
                 draw_rectangle(x2,167,x2+48,167+48,0);
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
@@ -1172,6 +1173,7 @@ if (slide=4){
         test_sprite--;
         if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
     }
+    livery_picker.draw_base();
     draw_rectangle_color_simple(444,252,444+167,252+232,1,38144);
     if( shader_is_compiled(sReplaceColor)){
         shader_set(sReplaceColor);

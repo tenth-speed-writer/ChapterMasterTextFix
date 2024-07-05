@@ -3,7 +3,11 @@
   "ResourceOrderSettings": [
     {"name":"scr_mission_functions","order":2,"path":"scripts/scr_mission_functions/scr_mission_functions.yy",},
     {"name":"scr_unit_spawn_functions","order":1,"path":"scripts/scr_unit_spawn_functions/scr_unit_spawn_functions.yy",},
+    {"name":"spr_mk7_complex","order":2,"path":"sprites/spr_mk7_complex/spr_mk7_complex.yy",},
+    {"name":"scr_complex_colour_kit","order":4,"path":"scripts/scr_complex_colour_kit/scr_complex_colour_kit.yy",},
+    {"name":"spr_mk7_full_colour","order":1,"path":"sprites/spr_mk7_full_colour/spr_mk7_full_colour.yy",},
     {"name":"scr_recruit_data","order":3,"path":"scripts/scr_recruit_data/scr_recruit_data.yy",},
     {"name":"scr_unit_equip_functions","order":2,"path":"scripts/scr_unit_equip_functions/scr_unit_equip_functions.yy",},
+    {"name":"full_livery_shader","order":1,"path":"shaders/full_livery_shader/full_livery_shader.yy",},
   ],
 }
