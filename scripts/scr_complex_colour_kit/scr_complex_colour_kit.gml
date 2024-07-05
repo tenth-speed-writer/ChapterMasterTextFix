@@ -50,7 +50,7 @@ function colour_item(xx,yy) constructor{
             right_thorax : 0, 
             left_pauldron :[114,31, 150,67],
             right_pauldron: [19,31, 43,71],
-            left_head : [82,15, 81,30],	
+            left_head : [81,15, 94,30],	
             right_head: [68,15, 81,31],	
             left_muzzle: [82,32, 90,42],	
             right_muzzle: [73,32, 82,42],	
@@ -60,10 +60,17 @@ function colour_item(xx,yy) constructor{
             right_arm : 0,
             right_hand : 0,                                
     }
+    static lower_left = ["left_leg_lower","left_leg_upper","left_leg_knee"];
+    static lower_right = ["right_leg_lower","right_leg_upper","right_leg_knee"];
+    static upper_left =  ["left_chest","left_arm","left_hand"]; 
+    static chest =  ["left_chest", "right_chest"];
+    static upper_right = ["right_chest","right_arm","right_hand"];    
     static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
+    static head_set = ["left_head", "right_head","left_muzzle", "right_muzzle"];
+
     static set_pattern = function(col, pattern){
         for (var i=0 ;i<array_length(pattern);i++){
-            map_colour[pattern[i]] = col;
+            map_colour[$ pattern[i]] = col;
         }
     }
     colour_pick=false;
@@ -97,7 +104,11 @@ function colour_item(xx,yy) constructor{
     	var map_names = struct_get_names(image_location_maps);
     	for (var i=0;i<array_length(map_names);i++){
     		if (!is_array(image_location_maps[$map_names[i]])) then continue;
-    		if (point_and_click(coord_relevative_positions(image_location_maps[$map_names[i]], xx, yy))){
+    		var rel_position = coord_relevative_positions(image_location_maps[$map_names[i]],xx, yy);
+    		if (scr_hit(rel_position)){
+    			tooltip_draw(map_names[i]);
+    		}
+    		if (point_and_click(rel_position)){
     			colour_pick = new colour_picker(xx, yy);
     			colour_pick.area = map_names[i];
     			colour_pick.title = map_names[i];
@@ -111,7 +122,9 @@ function colour_picker(xx,yy) constructor{
 	x=xx;
 	x=yy;
 	chosen = -1;
+	count_destroy=false;
 	static draw = function(){
+		if (count_destroy) then return "destroy";
         draw_set_font(fnt_40k_30b);
         draw_text_transformed(144,550,title,0.6,0.6,0);
         rows = 4;
@@ -140,6 +153,9 @@ function colour_picker(xx,yy) constructor{
                         draw_rectangle(x1, y1, x2, y2, 0);
                         draw_set_alpha(1);
                         chosen = current_color;
+			            if (mouse_check_button_pressed(mb_left)) {
+			               count_destroy=true;
+			            }                        
                     }
                     current_color += 1;
                 }

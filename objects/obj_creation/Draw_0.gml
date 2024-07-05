@@ -1323,37 +1323,7 @@ if (slide=4){
                 tooltip:"Secondary",
                 tooltip2:"The secondary color of your Astartes and their vehicles.",
                 cords : [620, 287],
-            },
-            {
-                text : $"Pauldron 1: {col[pauldron2_color]}",
-                tooltip:"First Pauldron",
-                tooltip2:"The color of your Astartes' right Pauldron.  Normally this Pauldron displays their rank and designation.",
-                cords : [620, 322],
-            },
-            {
-                text : $"Pauldron 2: {col[pauldron_color]}",
-                tooltip:"Second Pauldron",
-                tooltip2:"The color of your Astartes' left Pauldron.  Normally this Pauldron contains the Chapter Insignia.",
-                cords : [620, 357],
-            },
-            {
-                text : $"Trim: {col[trim_color]}",
-                tooltip:"Trim",
-                tooltip2:"The trim color that appears on the Pauldrons, armour plating, and any decorations.",
-                cords : [620, 392],                
-            },
-            {
-                text : $"Lens: {col[lens_color]}",
-                tooltip:"Lens",
-                tooltip2:"The color of your Astartes' lenss.  Most of the time this will be the visor color.",
-                cords : [620, 427],                
-            },
-            {
-                text : $"Weapon: {col[weapon_color]}",
-                tooltip:"Weapon",
-                tooltip2:"The primary color of your Astartes' weapons.",
-                cords : [620, 462],                
-            }             
+            },         
         ]
         var button_cords, cur_button;
         for (var i=0;i<array_length(button_data);i++){
@@ -1382,11 +1352,7 @@ if (slide=4){
             {
                 cords : [662,500],   
                 text : $"Quadrant",             
-            },
-            {
-                cords : [770,500],   
-                text : $"Trim",             
-            }                                    
+            },                                  
         ]
         var yar;
         for (var i=0;i<array_length(livery_type_options);i++){
@@ -1404,6 +1370,33 @@ if (slide=4){
                     if (col_special!=i+1) and (onceh=0){col_special=i+1;onceh=1;}
                 } else {
                     trim=!trim;
+                }
+                switch (cur_button.text){
+                    case "Quadrant":
+                        with(livery_picker){
+                            set_pattern(obj_creation.main_color, upper_left);
+                            set_pattern(obj_creation.main_color, lower_right);
+                            set_pattern(obj_creation.secondary_color, upper_right);
+                            set_pattern(obj_creation.secondary_color, lower_left);
+                            set_pattern(obj_creation.main_color, head_set);
+                        };
+                        break;
+                    case "Breastplate":
+                        with(livery_picker){
+                            set_pattern(obj_creation.main_color, chest);
+                            set_pattern(obj_creation.main_color, head_set);
+                            set_pattern(obj_creation.secondary_color, legs);
+                        };
+                        break;
+                    case "Vertical":
+                        with(livery_picker){
+                            set_pattern(obj_creation.secondary_color, upper_left);
+                            set_pattern(obj_creation.main_color, lower_right);
+                            set_pattern(obj_creation.main_color, upper_right);
+                            set_pattern(obj_creation.secondary_color, lower_left);
+                            set_pattern(obj_creation.main_color, head_set);
+                        };
+                        break;                                               
                 }
              }
              draw_text_transformed(cur_button.cords[0]+30,cur_button.cords[1]+4,cur_button.text,0.4,0.4,0);
