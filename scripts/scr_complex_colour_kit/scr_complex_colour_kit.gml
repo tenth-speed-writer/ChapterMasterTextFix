@@ -38,25 +38,32 @@ function colour_item(xx,yy) constructor{
     		left_leg_lower : [103,165, 148,217],
             left_leg_upper : [83,107, 119,134],
             left_leg_knee : [105,138, 126,159],
-            right_leg_lower : [58,165, 79,218],
-            right_leg_upper : [83,107, 119,134],
-            right_leg_knee : [35,107, 58,134],
+            right_leg_lower : [15,165, 57,218],
+            right_leg_upper : [43,107, 73,139],
+            right_leg_knee : [35,138, 58,160],
             metallic_trim : [70,53, 100,70],
-            right_trim :  [70,53, 100,70],
+            right_trim :  0,
             left_trim : 0,
-            left_chest : 0,
-            right_chest : 0,
+            left_chest : [84,72, 108,92],
+            right_chest : [50,73, 82,103],
             left_thorax : 0,
             right_thorax : 0, 
-            left_pauldron : 0,
-            right_pauldron: 0,
-            left_head : 0,
-            right_head: 0,                          	
+            left_pauldron :[114,31, 150,67],
+            right_pauldron: [19,31, 43,71],
+            left_head : [82,15, 81,30],	
+            right_head: [68,15, 81,31],	
+            left_muzzle: [82,32, 90,42],	
+            right_muzzle: [73,32, 82,42],	
+            eye_lense :0,
+            left_arm : 0,
+            left_hand : 0,
+            right_arm : 0,
+            right_hand : 0,                                
     }
-    static set_legs_solid = function(col){
-        var legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
-        for (var i=0 ;i<array_length(legs);i++){
-            map_colour[legs[i]] = col;
+    static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
+    static set_pattern = function(col, pattern){
+        for (var i=0 ;i<array_length(pattern);i++){
+            map_colour[pattern[i]] = col;
         }
     }
     colour_pick=false;
@@ -80,7 +87,10 @@ function colour_item(xx,yy) constructor{
 			shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
 		}		
 		//draw_sprite(sprite_index, 0, x, y);
-		draw_sprite(spr_mk7_complex, 1, xx, yy)  	
+		draw_sprite(spr_mk7_complex, 0, xx, yy);
+		draw_sprite(spr_mk7_complex, 2, xx, yy);  	
+		draw_sprite(spr_mk7_complex, 3, xx, yy); 		
+		draw_sprite(spr_mk7_complex, 1, xx, yy);	
     	//draw_sprite(xx,yy,2,spr_mk7_full_colour);
     	//draw_sprite(xx,yy,3,spr_mk7_full_colour);
     	shader_reset();    

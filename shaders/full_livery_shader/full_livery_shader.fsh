@@ -39,7 +39,7 @@ void main()
      if (col.rgb == vec3(128.0/255.0,64.0/255.0, 1.0).rgb){
          col.rgb = left_muzzle.rgb;
     };
-     if (col.rgb == vec3(128.0/255.0,128.0/255.0, 1.0).rgb){
+     if (col.rgb == vec3(64.0/255.0,128.0/255.0, 1.0).rgb){
          col.rgb = right_muzzle.rgb;
     };
      if (col.rgb == vec3(0.0,1.0, 0.0).rgb){
@@ -66,10 +66,10 @@ void main()
      if (col.rgb == vec3(1.0,1.0, 0.0).rgb){
         col.rgb = left_pauldron.rgb;
     };
-     if (col.rgb == vec3(128.0/255.0,0.0/255.0, 128.0/255.0).rgb){
+     if (col.rgb == vec3(0.0/255.0,128.0/255.0, 0.0/255.0).rgb){
         col.rgb = right_leg_upper.rgb;
     };
-     if (col.rgb == vec3(255.0/255.0,7.0/255.0, 170.0/255.0).rgb){
+     if (col.rgb == vec3(255.0/255.0,112/255.0, 170.0/255.0).rgb){
         col.rgb = left_leg_upper.rgb;
     };
      if (col.rgb == vec3(1.0,0.0, 0.0).rgb){
