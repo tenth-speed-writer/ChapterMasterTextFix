@@ -228,14 +228,16 @@ function scr_enemy_ai_d() {
         if (mars_mech_mission){
             var techs_taken,com,ide,ship_planet, unit;
             techs_taken=0;com=-1;ide=0;ship_planet="";        	
-            repeat(11){com+=1;ide=0;
-                repeat(300){ide+=1;
-                    if (obj_ini.role[com][ide]=obj_ini.role[100][16]){
-                    	unit = fetch_unit([com,ide])
+            for (com =0; com<=10;com++){
+                for (ide =0; ide<=array_length(obj_ini.role[com]);ide++){
+                    unit = fetch_unit([com,ide])
+                    if (unit.role()=obj_ini.role[100][Role.TECHMARINE]){
                         // Case 1: on planet
                         if (obj_ini.loc[com][ide]=name) and (unit.planet_location=i){
                             p_player[i]-=scr_unit_size(obj_ini.armour[com][ide],obj_ini.role[com][ide],true);
-                            obj_ini.loc[com][ide]="Mechanicus Vessel";unit.planet_location=0;unit.ship_location=0;
+                            obj_ini.loc[com][ide]="Mechanicus Vessel";
+                            unit.planet_location=0;
+                            unit.ship_location=0;
                             techs_taken+=1;
                         }
                         if (unit.ship_location>0){
@@ -258,7 +260,7 @@ function scr_enemy_ai_d() {
             }
         
         
-            if (techs_taken>0){
+            else if (techs_taken>0){
                 if (techs_taken>=20) then obj_controller.disposition[3]+=max(techs_taken,4);
                 var taxt="Mechanicus Ship departs for the Mars catacombs.  Onboard are "+string(techs_taken)+" of your "+string(obj_ini.role[100][16])+"s.";
                 scr_alert("","mission",taxt,0,0);
@@ -269,26 +271,27 @@ function scr_enemy_ai_d() {
             flit.owner = eFACTION.Mechanicus;flit.sprite_index=spr_fleet_mechanicus;
             flit.capital_number=1;flit.image_index=0;flit.image_speed=0;
             flit.trade_goods="mars_spelunk1";
-            flit.home_x=x;flit.home_y=y;
+            flit.home_x=x;
+            flit.home_y=y;
             flit.action_x=x+lengthdir_x(3000,obj_controller.terra_direction);
             flit.action_y=y+lengthdir_y(3000,obj_controller.terra_direction);
             flit.action="move";flit.action_eta=48;                    	
         }
         if (has_problem_planet_and_time(i,"mech_tomb1", 0)){
-            var tixt;tixt="Mechanicus Mission Failed: Necron Tomb Study at "+string(name)+" "+scr_roman(i)+".";
+            var tixt="Mechanicus Mission Failed: Necron Tomb Study at "+string(name)+" "+scr_roman(i)+".";
             scr_alert("red","mission_failed",tixt,0,0);
             scr_event_log("red",tixt, name);
             obj_controller.disposition[3]-=15; 
             remove_planet_problem(i,"mech_tomb1");       	
         }
         if (has_problem_planet_and_time(i,"mech_raider", 0)){
-            var tixt;tixt="Mechanicus Mission Failed: Land Raider testing at "+string(name)+" "+scr_roman(i)+".";
+            var tixt="Mechanicus Mission Failed: Land Raider testing at "+string(name)+" "+scr_roman(i)+".";
             scr_alert("red","mission_failed",string(tixt),0,0);scr_event_log("red",tixt);
             obj_controller.disposition[3]-=6;
             remove_planet_problem(i,"mech_raider");      	
         }
         if (has_problem_planet_and_time(i,"mech_bionics", 0)){
-            var tixt;tixt="Mechanicus Mission Failed: Land Raider testing at "+string(name)+" "+scr_roman(i)+".";
+            var tixt="Mechanicus Mission Failed: Land Raider testing at "+string(name)+" "+scr_roman(i)+".";
             scr_alert("red","mission_failed",string(tixt),0,0);scr_event_log("red",tixt);
             obj_controller.disposition[3]-=6; 
             remove_planet_problem(i,"mech_bionics");       	
@@ -307,7 +310,7 @@ function scr_enemy_ai_d() {
             // scr_alert("red","mission_failed",string(tixt),0,0);
             obj_controller.disposition[4]-=8;
         }
-        if (has_problem_planet_and_time(i,"inquisitor1", 6)||has_problem_planet_and_time(i,"inquisitor2", 6)){
+        if (has_problem_planet_and_time(i,"inquisitor1", 6)|| has_problem_planet_and_time(i,"inquisitor2", 6)){
             var flit, x7,y7,drr;
             drr=random(floor(360))+1;
             x7=x+lengthdir_x(384,drr);
@@ -321,18 +324,20 @@ function scr_enemy_ai_d() {
             // show_message("x1:"+string(x)+", y1:"+string(y)+"#x2:"+string(x7)+", y2:"+string(y7));
         
             flit=instance_create(x7,y7,obj_en_fleet);
-            flit.owner  = eFACTION.Inquisition;
-            flit.image_index=0;
-            flit.sprite_index=spr_fleet_inquisition;
             if (has_problem_planet_and_time(i,"inquisitor1", 6)) then flit.trade_goods="male_her";
             if (has_problem_planet_and_time(i,"inquisitor2", 6)) then flit.trade_goods="female_her";
             flit.action_x=x;
             flit.action_y=y;
-            flit.alarm[4]=1;
-            flit.action_spd=128;
+            with (flit){
+                owner  = eFACTION.Inquisition;
+                sprite_index=spr_fleet_inquisition;
+                image_index=0;
+                action_spd=128;
+                escort_number=1;
+                set_fleet_movement()
+            }
            remove_planet_problem(i,"inquisitor1"); 
            remove_planet_problem(i,"inquisitor2"); 
-            flit.escort_number=1;
         }
          if (has_problem_planet_and_time(i,"spyrer", 0)){
             var tixt,text;
