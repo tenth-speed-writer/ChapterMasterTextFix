@@ -37,9 +37,9 @@ if (final_deaths+final_command_deaths>0){
     scr_newtext();
 }
 
-if (instance_exists(obj_temp4)){
+if (instance_exists(obj_ground_mission)){
 	if (apoth < 0){
-		obj_temp4.apothecary_present = apoth;
+		obj_ground_mission.apothecary_present = apoth;
 	}
 };
 
@@ -109,7 +109,7 @@ if (post_equipment_lost[1]!=""){
         }
     }
     part7=string_delete(part7,string_length(part7)-1,2);part7+=".";i=0;
-	if (instance_exists(obj_temp4)){part7 += "Some may be recoverable"}
+	if (instance_exists(obj_ground_mission)){part7 += "Some may be recoverable"}
     newline=part6;
     scr_newtext();
     newline=part7;
@@ -123,9 +123,9 @@ if (total_battle_exp_gain>0){
     newline = $"Marines gained a total of {total_battle_exp_gain} experience";
     scr_newtext();
 }
-if (instance_exists(obj_temp4)){
-	obj_temp4.post_equipment_lost = post_equipment_lost
-	obj_temp4.post_equipments_lost = post_equipments_lost
+if (instance_exists(obj_ground_mission)){
+	obj_ground_mission.post_equipment_lost = post_equipment_lost
+	obj_ground_mission.post_equipments_lost = post_equipments_lost
 }
 if (slime>0){
     var compan_slime;
@@ -617,7 +617,7 @@ if (obj_ini.omophagea){
 
                 with(inquisitor_ship){instance_destroy();}
                 with(obj_temp3){instance_destroy();}
-                with(obj_temp4){instance_destroy();}
+                with(obj_ground_mission){instance_destroy();}
             }
             instance_deactivate_object(obj_star);
             instance_deactivate_object(obj_en_fleet);
@@ -726,8 +726,8 @@ if (endline=0){
 
 if (defeat=1){
 	player_forces=0;
-		if (instance_exists(obj_temp4)){
-		obj_temp4.recoverable_gene_seed = seed_max;
+		if (instance_exists(obj_ground_mission)){
+		obj_ground_mission.recoverable_gene_seed = seed_max;
 	}
 	
 }

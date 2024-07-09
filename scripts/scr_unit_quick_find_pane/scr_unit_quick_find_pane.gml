@@ -640,7 +640,7 @@ function load_selection(){
 }
 
 function unload_selection(){
-	show_debug_message("{0},{1},{2}",obj_controller.selecting_ship,man_size,selecting_location);
+	//show_debug_message("{0},{1},{2}",obj_controller.selecting_ship,man_size,selecting_location);
     if (man_size>0) and (obj_controller.selecting_ship>=1) and (!instance_exists(obj_star_select)) 
     and (selecting_location!="Terra") and (selecting_location!="Mechanicus Vessel") and (selecting_location!="Warp"){
         cooldown=8000;
@@ -788,7 +788,7 @@ function planet_selection_action(){
 					            }
 					        }else if (planet_feature_bool(target.p_feature[sel_plan], P_features.Artifact) == 1) and (recon=0){
 						
-					            var artifact=instance_create(target.x,target.y,obj_temp4);// Unloading / artifact crap
+					            var artifact=instance_create(target.x,target.y,obj_ground_mission);// Unloading / artifact crap
 					            artifact.num=sel_plan;
 					            artifact.alarm[0]=1;
 					            artifact.loc=obj_controller.selecting_location;
@@ -813,7 +813,7 @@ function planet_selection_action(){
 					                }
 					            }
 					            if (tch+mch>0){
-					                var arti=instance_create(target.x,target.y,obj_temp4);// Unloading / artifact crap
+					                var arti=instance_create(target.x,target.y,obj_ground_mission);// Unloading / artifact crap
 					                arti.num=sel_plan;
 					                arti.alarm[0]=1;
 					                arti.loc=obj_controller.selecting_location;
@@ -878,7 +878,7 @@ function planet_selection_action(){
 					                pip.option3="Return your marines to the ship.";
 					                pip.image="ancient_ruins";
 					                
-					                arti=instance_create(target.x,target.y,obj_temp4);
+					                arti=instance_create(target.x,target.y,obj_ground_mission);
 					                arti.num=sel_plan;
 					                arti.alarm[0]=1;
 					                arti.loc=obj_controller.selecting_location;

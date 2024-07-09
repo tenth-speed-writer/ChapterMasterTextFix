@@ -39,7 +39,7 @@ function __global_object_depths() {
 	global.__objectDepths[31] = 0; // obj_temp1
 	global.__objectDepths[32] = 0; // obj_temp2
 	global.__objectDepths[33] = 0; // obj_temp3
-	global.__objectDepths[34] = 0; // obj_temp4
+	global.__objectDepths[34] = 0; // obj_ground_mission
 	global.__objectDepths[35] = -9999999; // obj_temp5
 	global.__objectDepths[36] = 0; // obj_temp6
 	global.__objectDepths[37] = 0; // obj_temp7
@@ -129,7 +129,7 @@ function __global_object_depths() {
 	global.__objectNames[31] = "obj_temp1";
 	global.__objectNames[32] = "obj_temp2";
 	global.__objectNames[33] = "obj_temp3";
-	global.__objectNames[34] = "obj_temp4";
+	global.__objectNames[34] = "obj_ground_mission";
 	global.__objectNames[35] = "obj_temp5";
 	global.__objectNames[36] = "obj_temp6";
 	global.__objectNames[37] = "obj_temp7";

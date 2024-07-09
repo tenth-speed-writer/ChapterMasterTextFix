@@ -464,12 +464,12 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
                 menu=0;
                 force_goodbye=0;
                 cooldown=8;
-                if (trading_artifact==2) and (instance_exists(obj_temp4)){
-                    obj_temp4.alarm[2]=1;
+                if (trading_artifact==2) and (instance_exists(obj_ground_mission)){
+                    obj_ground_mission.alarm[2]=1;
                 }// 135 this might not be needed
                 trading_artifact=0;
                 with(obj_popup){
-                    obj_temp4.alarm[1]=1;
+                    obj_ground_mission.alarm[1]=1;
                     instance_destroy();
                 }
                 exit;
@@ -754,7 +754,7 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
                 }
                 if (diplomacy>0) and (trading_artifact>0) and (menu==20){
                     cooldown=8;
-                    obj_temp4.alarm[1]=2;
+                    obj_ground_mission.alarm[1]=2;
                     trading_artifact=0;
                     menu=0;
                     diplomacy=0;
@@ -809,8 +809,8 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
                 menu=0;
                 force_goodbye=0;
                 with(obj_popup){instance_destroy();}
-                if (trading_artifact!=2) then obj_temp4.alarm[1]=1;
-                if (trading_artifact==2) then obj_temp4.alarm[2]=1;
+                if (trading_artifact!=2) then obj_ground_mission.alarm[1]=1;
+                if (trading_artifact==2) then obj_ground_mission.alarm[2]=1;
                 exit;
             }
         }
@@ -835,7 +835,7 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
                 menu=0;
                 force_goodbye=0;
                 with(obj_popup){instance_destroy();}
-                obj_temp4.alarm[1]=1;
+                obj_ground_mission.alarm[1]=1;
                 exit;
             }
             // Also need to disable the popup OFFER TERMS option

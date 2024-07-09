@@ -324,31 +324,31 @@ function scr_dialogue(diplo_keyphrase) {
 		menu=0;
 	    instance_activate_all();
     
-	    with(obj_temp4){instance_destroy();}
+	    with(obj_ground_mission){instance_destroy();}
 	    with(obj_star){
 			for (var run=1; run<=4; run++) {
     			for (var s=1; s<=4; s++) {
 	                if (p_problem[run,s]=="meeting") or (p_problem[run,s]=="meeting_trap"){
-	                    for (var repeatCount=1; repeatCount<=run; repeatCount++){instance_create(x,y,obj_temp4);}
+	                    for (var repeatCount=1; repeatCount<=run; repeatCount++){instance_create(x,y,obj_ground_mission);}
 	                }
 	            }
 	        }
 	    }
-	    if (instance_number(obj_temp4)==0){
+	    if (instance_number(obj_ground_mission)==0){
 	        with(obj_star){
 	            if (string_count(name,scr_master_loc())>0){
-	                repeat(obj_ini.TTRPG[0,1].planet_location){instance_create(x,y,obj_temp4);}
+	                repeat(obj_ini.TTRPG[0,1].planet_location){instance_create(x,y,obj_ground_mission);}
 	            }
 	        }
 	    }
-	    // show_message(string(instance_number(obj_temp4)));
+	    // show_message(string(instance_number(obj_ground_mission)));
     
 	    instance_create(0,0,obj_ncombat);
 	    obj_ncombat.battle_special=diplo_keyphrase;
-	    obj_ncombat.battle_object=instance_nearest(obj_temp4.x,obj_temp4.y,obj_star);
-	    obj_ncombat.battle_loc=instance_nearest(obj_temp4.x,obj_temp4.y,obj_star).name;
-	    obj_ncombat.battle_id=instance_number(obj_temp4);
-	    with(obj_temp4){instance_destroy();}
+	    obj_ncombat.battle_object=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_star);
+	    obj_ncombat.battle_loc=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_star).name;
+	    obj_ncombat.battle_id=instance_number(obj_ground_mission);
+	    with(obj_ground_mission){instance_destroy();}
 	    obj_ncombat.dropping=0;
 	    obj_ncombat.attacking=1;
 	    obj_ncombat.local_forces=0;

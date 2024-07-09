@@ -339,7 +339,7 @@ function scr_draw_recruit_advisor(){
             if (recruiting = 0) and(marines < 1000) then blurp += "\n\nRecruitment " + recruitment_rates[recruiting] + ".  You must only give me the word and I can begin further increasing our numbers.  ";
 
             if (recruiting>0 && recruiting < 3) then blurp += $"\n\nRecruitment {recruitment_rates[recruiting]}.  With an increase of funding I could vastly increase the rate.  ";
-            else if (recruiting = 3) then blurp += $"\n\nRecruitment {recruitment_rates[recruiting] }  ";
+            else if (recruiting = 3) then blurp += $"\n\nRecruitment {recruitment_rates[recruiting]}  ";
             else if (recruiting>=4){
                 blurp += $"\n\nRecruitment {recruitment_rates[recruiting]}- give me the word when we have enough Neophytes being trained.  ";
             }

@@ -1504,7 +1504,7 @@ if (action="move") and (action_eta<5000){
                 if (trade_goods!="return") and (string_count("_her",trade_goods)=0) and ((target=noone) or ((point_distance(x,y,target.x,target.y)<=40)) and ((target.action="") or (obj_ini.fleet_type=1))){
                     with(obj_temp2){instance_destroy();}
                     with(obj_temp3){instance_destroy();}
-                    with(obj_temp4){instance_destroy();}
+                    with(obj_ground_mission){instance_destroy();}
                     
                     var targ;
                     var cur_star=nearest_star_proper(x, y);

@@ -231,7 +231,7 @@ function scr_trade(argument0) {
 	            // with(obj_star){if (present_fleet[1]>0){x-=10000;y-=10000;}}
 	            with(obj_p_fleet){// Get the nearest star system that is viable for creating the trading fleet
 	                if (capital_number>0) and (action="") then instance_create(instance_nearest(x,y,obj_star).x,instance_nearest(x,y,obj_star).y,obj_temp2);
-	                if (frigate_number>0) and (action="") then instance_create(instance_nearest(x,y,obj_star).x,instance_nearest(x,y,obj_star).y,obj_temp4);
+	                if (frigate_number>0) and (action="") then instance_create(instance_nearest(x,y,obj_star).x,instance_nearest(x,y,obj_star).y,obj_ground_mission);
 	            }
 	        }
         
@@ -269,16 +269,16 @@ function scr_trade(argument0) {
 	        }
         
         
-	        // show_message("TG2:"+string(instance_number(obj_temp2))+", TG3:"+string(instance_number(obj_temp3))+", TG4:"+string(instance_number(obj_temp4)));
+	        // show_message("TG2:"+string(instance_number(obj_temp2))+", TG3:"+string(instance_number(obj_temp3))+", TG4:"+string(instance_number(obj_ground_mission)));
         
         
 	        var targ, flit, i,chasing;chasing=0;targ=0;// Set target, chase
         
 	        // if (obj_ini.fleet_type!=1){
 	            if (instance_exists(obj_temp2)) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
-	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_temp4)) then targ=instance_nearest(obj_temp4.x,obj_temp4.y,obj_temp3);
+	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_ground_mission)) then targ=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_temp3);
             
-	            if ((!instance_exists(obj_temp2)) and (!instance_exists(obj_temp4))) or (instance_number(obj_p_fleet)=1) and ((obj_p_fleet.x<=0) or (obj_p_fleet.x>room_width) or (obj_p_fleet.y<=0) or (obj_p_fleet.y>room_height)){
+	            if ((!instance_exists(obj_temp2)) and (!instance_exists(obj_ground_mission))) or (instance_number(obj_p_fleet)=1) and ((obj_p_fleet.x<=0) or (obj_p_fleet.x>room_width) or (obj_p_fleet.y<=0) or (obj_p_fleet.y>room_height)){
 	                with(obj_star){
 	                    if (x<-3500) and (y<-3500){x+=10000;y+=10000;}
 	                    if (x<-3500) and (y<-3500){x+=10000;y+=10000;}
@@ -303,16 +303,16 @@ function scr_trade(argument0) {
 	            }
             
 	            // If player fleet is flying about then get their target for new target
-	            if (!instance_exists(obj_temp2)) and (!instance_exists(obj_temp4)) and (instance_exists(obj_p_fleet)) and (obj_ini.fleet_type!=1){
+	            if (!instance_exists(obj_temp2)) and (!instance_exists(obj_ground_mission)) and (instance_exists(obj_p_fleet)) and (obj_ini.fleet_type!=1){
 	                // show_message("no T2 or T4: chasing");
 	                chasing=1;
 	                with(obj_p_fleet){var pop;
 	                    if (capital_number>0) and (action!=""){pop=instance_create(action_x,action_y,obj_temp2);pop.action_eta=action_eta;}
-	                    if (frigate_number>0) and (action!=""){pop=instance_create(action_x,action_y,obj_temp4);pop.action_eta=action_eta;}
+	                    if (frigate_number>0) and (action!=""){pop=instance_create(action_x,action_y,obj_ground_mission);pop.action_eta=action_eta;}
 	                }
 	            }
 	            if (instance_exists(obj_temp2)) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
-	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_temp4)) then targ=instance_nearest(obj_temp4.x,obj_temp4.y,obj_temp3);
+	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_ground_mission)) then targ=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_temp3);
 	        // }
         
 	        // if (obj_ini.fleet_type=1) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
@@ -398,7 +398,7 @@ function scr_trade(argument0) {
         
 	        if (obj_ini.fleet_type!=1){
 	            if (instance_exists(obj_temp2)){flit.action_x=obj_temp2.x;flit.action_y=obj_temp2.y;flit.target=instance_nearest(flit.action_x,flit.action_y,obj_p_fleet);}
-	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_temp4)){flit.action_x=obj_temp4.x;flit.action_y=obj_temp4.y;flit.target=instance_nearest(flit.action_x,flit.action_y,obj_p_fleet);}
+	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_ground_mission)){flit.action_x=obj_ground_mission.x;flit.action_y=obj_ground_mission.y;flit.target=instance_nearest(flit.action_x,flit.action_y,obj_p_fleet);}
 	        }
 	        if (obj_ini.fleet_type=1){
 	            targ=instance_nearest(flit.x,flit.y,obj_temp2);
@@ -410,7 +410,7 @@ function scr_trade(argument0) {
         
 	        with(obj_temp2){instance_destroy();}
 	        with(obj_temp3){instance_destroy();}
-	        with(obj_temp4){instance_destroy();}
+	        with(obj_ground_mission){instance_destroy();}
         
         
 	    // show_message("D: "+string(liscensing));
