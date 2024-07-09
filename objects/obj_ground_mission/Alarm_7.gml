@@ -6,7 +6,7 @@ var obj, _ruins;obj=0;_ruins=obj_controller.current_planet_feature
 ruins_race = _ruins.ruins_race;
 ruins_battle = choose(6,7,9,10,11,12);
 loc=obj_controller.current_planet_feature.star.name
-with(obj_star){if (name!=obj_temp4.battle_loc) then instance_deactivate_object(id);}
+with(obj_star){if (name!=obj_ground_mission.battle_loc) then instance_deactivate_object(id);}
 obj=instance_nearest(room_width/2,room_height/2,obj_star);
 instance_activate_object(obj_star)
 

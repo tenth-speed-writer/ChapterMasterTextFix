@@ -130,14 +130,14 @@ if (mechanicus_world_total>0) and (imp_ships<ship_allowance){
                 if (system_fleet_elements==0) {
                     switch(planets){
                         case 4:
-                            array_push(system_4, coords)//instance_create(x,y,obj_temp6);
+                            array_push(system_4, coords);
                             break;
                         case 3:
-                            array_push(system_3, coords)//instance_create(x,y,obj_temp5);
+                            array_push(system_3, coords);
                             break;
 						default:
 							if (p_type[1]!="Dead") {
-								array_push(system_other, coords)//instance_create(x,y,obj_temp4);
+								array_push(system_other, coords);
 							}
                             break;
                     }
@@ -1225,35 +1225,36 @@ for(var i=1; i<=99; i++){
                     tixt+="it is a finely crafted Rhino, conforming to STC standards.  The other "+string(obj_ini.role[100][16])+" are surprised at the rapid pace of his work.";
                 }
                 if (item=="Artifact"){
-                    scr_event_log("",string(obj_ini.role[100][16])+" "+string(marine_name)+" constructs an Artifact.");
-                    if (obj_ini.fleet_type==1) then scr_add_artifact("random_nodemon","",0,obj_ini.home_name,2);
-                    if (obj_ini.fleet_type!=1) then scr_add_artifact("random_nodemon","",0,obj_ini.ship_location[1],501);
                     var last_artifact=0;
-                    for(var k=1; k<=100; k++){
-                        if (last_artifact==0){
-                            if (obj_ini.artifact[k]=="") then last_artifact=k-1;
+                    scr_event_log("",string(obj_ini.role[100][16])+" "+string(marine_name)+" constructs an Artifact.");
+                    if (obj_ini.fleet_type==1){
+                        last_artifact =  scr_add_artifact("random_nodemon","",0,obj_ini.home_name,2);
+                    } else {
+                        if (obj_ini.fleet_type!=1){
+                            last_artifact = scr_add_artifact("random_nodemon","",0,obj_ini.ship_location[1],501);
                         }
                     }
-                    tixt+="some form of divine inspiration has seemed to have taken hold of him.  An artifact "+string(obj_ini.artifact[k])+" has been crafted.";
+
+                    tixt+=$"some form of divine inspiration has seemed to have taken hold of him.  An artifact {obj_ini.artifact[k]} has been crafted.";
                 }
                 if (item=="baby"){
                     unit.edit_corruption(choose(8,12,16,20))
                     tixt+="some form of horrendous statue.  A weird amalgram of limbs and tentacles, the sheer atrocity of it is made worse by the tiny, baby-like form, the once natural shape of a human child twisted nearly beyond recognition.";
                 }
-                if (item=="robot"){
+                else if (item=="robot"){
                     unit.edit_corruption(choose(2,4,6,8,10));
                     tixt+="some form of small, box-like robot.  It seems to teeter around haphazardly, nearly falling over with each step.  "+string(marine_name)+" maintains that it has no AI, though the other "+string(obj_ini.role[100][16])+" express skepticism.";
                     unit.add_trait("tech_heretic");
                 }
-                if (item=="demon"){
+                else if (item=="demon"){
                     unit.edit_corruption(choose(8,12,16,20));
                     tixt+="some form of horrendous statue.  What was meant to be some sort of angel, or primarch, instead has a mishappen face that is hardly human in nature.  Between the fetid, ragged feathers and empty sockets it is truly blasphemous.";
                     unit.add_trait("tech_heretic");
                 }
-                if (item=="fusion"){
+                else if (item=="fusion"){
                     //TODO if tech heretic chosen don't kill the dude
                     // unit.corruption+=choose(70);
-                    tixt+="some kind of ill-mannered ascension.  One of your battle-brothers enters the armamentarium to find "+string(marine_name)+" fused to a vehicle, his flesh twisted and submerged into the frame.  Mechendrites and weapons fire upon the marine without warning, a windy scream eminating from the abomination.  It takes several battle-brothers to take out what was once a "+string(obj_ini.role[100][16])+".";
+                    tixt+=$"some kind of ill-mannered ascension.  One of your battle-brothers enters the armamentarium to find {marine_name} fused to a vehicle, his flesh twisted and submerged into the frame.  Mechendrites and weapons fire upon the marine without warning, a windy scream eminating from the abomination.  It takes several battle-brothers to take out what was once a "+string(obj_ini.role[100][16])+".";
 
                     // This is causing the problem
 
@@ -1281,9 +1282,9 @@ with(obj_turn_end){scr_battle_sort();}
 for(var i=1; i<=10; i++){
     if (turns_ignored[i]>0) and (turns_ignored[i]<500) then turns_ignored[i]-=1;
 }
-if (known[eFACTION.Eldar]>=2) and (faction_gender[6]==2) and (floor(turn/10)==(turn/10)) then turns_ignored[6]+=floor(random_range(0,6));
+if (known[eFACTION.Eldar]>=2) and (faction_gender[6]==2) and (turn%10==0) then turns_ignored[6]+=floor(random_range(0,6));
 
-with(obj_temp4){instance_destroy();}
+with(obj_ground_mission){instance_destroy();}
 scr_random_event(true);
 
 // ** Random events here **

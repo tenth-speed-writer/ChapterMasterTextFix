@@ -131,7 +131,14 @@ if (image="debug_banshee") and (cooldown<=0){
             fleet.orbiting=id;
             instance_destroy();
         }
-        if (press=3){planet=5;cooldown=30;text="Ork, Tau, Cancel?";option1="Ork";option2="Tau";option3="Cancel";press=0;exit;}
+        if (press=3){
+            planet=5;cooldown=30;
+            text="Ork, Tau, Cancel?";
+            option1="Ork";
+            option2="Tau";
+            option3="Cancel";
+            press=0;exit;
+        }
     }
     if (planet=1){
         if (press=1){planet=2;cooldown=30;text="Select a faction";option1="Orks";option2="Chaos";option3="Tyranids";press=0;exit;}
@@ -327,7 +334,7 @@ if (title="Planetary Governor Assassinated") and (option1!="") and (cooldown<=0)
         scr_event_log("","Planetary Governor of "+string(new_target.name)+" "+scr_roman(planet)+" assassinated.  The next in line takes over.", new_target.name);
         text="The next in line for rule of "+string(new_target.name)+" "+scr_roman(planet)+" has taken over their rightful position of Planetary Governor.";
         option1="";option2="";option3="";
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         cooldown=30;exit;
     }
     if (press=2){
@@ -341,7 +348,7 @@ if (title="Planetary Governor Assassinated") and (option1!="") and (cooldown<=0)
         }
         text="Many of the successors for "+string(new_target.name)+" "+scr_roman(planet)+" are removed or otherwise made indisposed.  Your chapter ensures that the new Planetary Governor is sympathetic to your plight and more than willing to heed your advice.  A powerful new ally may be in the making.";
         option1="";option2="";option3="";
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         cooldown=30;exit;
     }
     if (press=3){
@@ -353,10 +360,10 @@ if (title="Planetary Governor Assassinated") and (option1!="") and (cooldown<=0)
             obj_controller.event[ev]="governor_assassination_2|"+string(new_target.name)+"|"+string(planet)+"|";
             obj_controller.event_duration[ev]=(choose(1,2)*6)+choose(-3,-2,-1,0,1,2,3);
         }
-        text="All of the successors for "+string(new_target.name)+" "+scr_roman(planet)+" are removed or otherwise made indisposed.  Paperwork is slightly altered.  Rather than any sort of offical one of your Chapter Serfs is installed as the Planetary Governor.  The planet is effectively under your control.";
+        text=$"All of the successors for {planet_numeral_name(planet,new_target)} are removed or otherwise made indisposed.  Paperwork is slightly altered.  Rather than any sort of offical one of your Chapter Serfs is installed as the Planetary Governor.  The planet is effectively under your control.";
         if (new_target.p_first[planet]!=3) then new_target.p_owner[planet]=1;
         option1="";option2="";option3="";
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         cooldown=30;exit;
     }
 }
@@ -386,21 +393,25 @@ if (image="ruins_fort"){
     if (press=1) and (obj_controller.requisition>=1000){
         obj_controller.requisition-=1000;
         text="Resources have been spent on the planet to restore the fortress.  The planet's defense rating has increased to 5 (";
-        option1="";option2="";option3="";
-        var obj;obj=obj_temp4.obj;
-        text+=string(obj.p_fortified[obj_temp4.num])+"+";
-        text+=string(5-obj.p_fortified[obj_temp4.num])+")";
-        obj.p_fortified[obj_temp4.num]=max(obj.p_fortified[obj_temp4.num],5);
-        with(obj_temp4){instance_destroy();}
-        cooldown=15;exit;
+        option1="";
+        option2="";
+        option3="";
+        text+=string(star_system.p_fortified[planet])+"+";
+        text+=string(5-star_system.p_fortified[planet])+")";
+        star_system.p_fortified[planet]=max(star_system.p_fortified[planet],5);
+        cooldown=15;
+        exit;
     }
     if (press=2){
-        var req;req=floor(random_range(200,500))+1;
-        image="";text="Much of the fortress is demolished in order to salvage adamantium and raw materials.  The opration has yielded "+string(req)+" requisition.";
-        option1="";option2="";option3="";
+        var req=floor(random_range(200,500))+1;
+        image="";
+        text="Much of the fortress is demolished in order to salvage adamantium and raw materials.  The opration has yielded "+string(req)+" requisition.";
+        option1="";
+        option2="";
+        option3="";
         obj_controller.requisition+=req;
-        with(obj_temp4){instance_destroy();}
-        cooldown=15;exit;
+        cooldown=15;
+        exit;
     }
     
     /*
@@ -415,9 +426,12 @@ if (image="ruins_fort"){
 }
 
 if (image="mechanicus") and (title="Mechanicus Mission") or (title="Mechanicus Mission Accepted"){
-    if (option1="")and (title="Mechanicus Mission"){option1="Accept";option2="Refuse";exit;}
+    if (option1="")and (title="Mechanicus Mission"){
+        option1="Accept";
+        option2="Refuse";
+    }
     
-    if (press=1) and (option1!=""){
+    else if (press=1) and (option1!=""){
     
         if (string_count("tomb",mission)>0){
             with(obj_temp5){instance_destroy();}
@@ -462,7 +476,7 @@ if (image="mechanicus") and (title="Mechanicus Mission") or (title="Mechanicus M
                     if (string_count("raider",mission)){
                         add_new_problem(forge_planet, "mech_raider", 49, mission_star, {"completion":0});
                         text=$"The Adeptus Mechanicus await your forces at {mission_loc}.  They are expecting six {obj_ini.role[100][16]}s and a Land Raider.";
-                        scr_event_log("",$"Mechanicus Mission Accepted: Six of your "+string(obj_ini.role[100][16])+"s and a Land Raider are to be stationed at {mission_loc} for 24 months.", mission_star.name);                         
+                        scr_event_log("",$"Mechanicus Mission Accepted: Six of your {obj_ini.role[100][16]}s and a Land Raider are to be stationed at {mission_loc} for 24 months.", mission_star.name);                         
                     } else if (string_count("bionics",mission)){
                         add_new_problem(forge_planet, "mech_bionics", 49, mission_star, {"completion":0});
                         text=$"The Adeptus Mechanicus await your forces at {mission_loc}.  They are expecting ten Astartes with bionics.";
@@ -486,30 +500,44 @@ if (image="mechanicus") and (title="Mechanicus Mission") or (title="Mechanicus M
         }
         // Other missions here
     }
-    if (press=2) and (option2!=""){obj_controller.cooldown=10;if (number!=0) then obj_turn_end.alarm[1]=4;instance_destroy();}    
+    else if (press=2) and (option2!=""){
+        obj_controller.cooldown=10;
+        if (number!=0) then obj_turn_end.alarm[1]=4;
+        instance_destroy();
+    }    
 }
 
 
 if (image="geneseed_lab"){
     if (press=1){
         image="";text=string(estimate)+" gene-seed has been added to the chapter vaults.";
-        option1="";option2="";option3="";
+        option1="";
+        option2="";
+        option3="";
         obj_controller.gene_seed+=estimate;
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         cooldown=15;exit;
     }
     if (press=2){
         var req;req=floor(random_range(200,500))+1;
-        image="";text="Technological components have been salvaged, granting "+string(req)+" requisition.";
-        option1="";option2="";option3="";
+        image="";
+        text="Technological components have been salvaged, granting "+string(req)+" requisition.";
+        option1="";
+        option2="";
+        option3="";
         obj_controller.requisition+=req;
-        with(obj_temp4){instance_destroy();}
-        cooldown=15;exit;
+        with(obj_ground_mission){
+            instance_destroy();
+        }
+        cooldown=15;
+        exit;
     }
     if (press=3){
-        with(obj_temp4){instance_destroy();}
-        obj_controller.cooldown=15;cooldown=15;
-        instance_destroy();exit;
+        with(obj_ground_mission){instance_destroy();}
+        obj_controller.cooldown=15;
+        cooldown=15;
+        instance_destroy();
+        exit;
     }
 }
 
@@ -532,13 +560,15 @@ if (image="ancient_ruins") and (woopwoopwoop=2){
    // instance_activate_object(obj_star);
     scr_battle_roster(_star.name ,_planet,true);
     obj_controller.cooldown=10;
-    obj_ncombat.battle_object=_star;instance_deactivate_object(obj_star);
+    obj_ncombat.battle_object=_star;
+    instance_deactivate_object(obj_star);
     obj_ncombat.battle_loc=_star.name;
     obj_ncombat.battle_id=_planet;
-    obj_ncombat.battle_special="ruins";if (obj_temp4.ruins_race=6) then obj_ncombat.battle_special="ruins_eldar";
+    obj_ncombat.battle_special="ruins";
+    if (obj_ground_mission.ruins_race=6) then obj_ncombat.battle_special="ruins_eldar";
     obj_ncombat.dropping=0;obj_ncombat.attacking=0;
-    obj_ncombat.enemy=obj_temp4.ruins_battle;
-    obj_ncombat.threat=obj_temp4.battle_threat;
+    obj_ncombat.enemy=obj_ground_mission.ruins_battle;
+    obj_ncombat.threat=obj_ground_mission.battle_threat;
     obj_ncombat.formation_set=1;
     
     instance_destroy();exit;
@@ -553,14 +583,15 @@ if (image="ancient_ruins") and (option1!=""){
         _ruins.determine_race()
         
         dice=floor(random(100))+1;
-        if (string_count("Shitty",obj_ini.strin2)=0) and (dice<=50) then ruins_battle=1;
-        if (string_count("Shitty",obj_ini.strin2)>0) and (dice<=66) then ruins_battle=1;
+        var shit_luck = array_contains(obj_ini.dis,"Shitty Luck")
+        var pass_mark = shit_luck ? 66 : 50;
+        ruins_battle = dice<=pass_mark;
         
         // ruins_battle=1;
         
         if (ruins_battle=1){
             dice=floor(random(100))+1;
-            if (string_count("Shitty",obj_ini.strin2)>0) then dice+=10;
+            if shit_luck then dice+=10;
             
             battle_threat=4;
             if (dice>0) and (dice<=60) then battle_threat=1;
@@ -571,11 +602,13 @@ if (image="ancient_ruins") and (option1!=""){
             if (_ruins.ruins_race=5) then ruins_battle=10;
             if (_ruins.ruins_race=6) then ruins_battle=choose(6,6,10,10,10,12);
             
-            obj_temp4.ruins_race=_ruins.ruins_race;
-            obj_temp4.ruins_battle=ruins_battle;
-            obj_temp4.battle_threat=battle_threat;
+            obj_ground_mission.ruins_race=_ruins.ruins_race;
+            obj_ground_mission.ruins_battle=ruins_battle;
+            obj_ground_mission.battle_threat=battle_threat;
             
-            option1="";option2="";option3="";
+            option1="";
+            option2="";
+            option3="";
             text="Your marines descended into the ancient ruins, mapping them out as they go.  They quickly determine the ruins were once ";
             if (_ruins.ruins_race=1) then text+="a Space Marine fortification from earlier times.";
             if (_ruins.ruins_race=2) then text+="golden-age Imperial ruins, lost to time.";
@@ -583,7 +616,7 @@ if (image="ancient_ruins") and (option1!=""){
             if (_ruins.ruins_race=6) then text+="Eldar colonization structures from an unknown time.";
             if (_ruins.ruins_race=10) then text+="golden-age Imperial ruins, since decorated with spikes and bones."; 
 			if (_ruins.failed_exploration == 1){
-				text+= "mission_star see the scarring in the walls and rouns impacts where your brothers died to clense this place of it's foul inhabitants"
+				text+= "mission_star see the scarring in the walls and round impacts where your brothers died to clense this place of it's foul inhabitants";
 			}			
             text+="  Unfortunantly, it's too late before your Battle Brothers discern the ruins are still inhabited.  Shapes begin to descend upon them from all directions, masked in the shadows.";
             
@@ -592,10 +625,11 @@ if (image="ancient_ruins") and (option1!=""){
             exit;
         }
         if (ruins_battle=0){
-            var obj=obj_temp4.obj;
+            var obj=obj_ground_mission.obj;
             instance_activate_object(obj_star);
-            scr_ruins_reward(obj,obj_temp4.num,obj_controller.current_planet_feature);
-            instance_destroy();exit;
+            scr_ruins_reward(obj,obj_ground_mission.num,obj_controller.current_planet_feature);
+            instance_destroy();
+            exit;
         }
     }
     if (press=2){// Nothing
@@ -618,17 +652,23 @@ if (image="ancient_ruins") and (option1!=""){
             alll=0;
             update_general_manage_view();
         }
-        with(obj_temp4){instance_destroy();}
-        instance_destroy();exit;
+        with(obj_ground_mission){
+            instance_destroy();
+        }
+        instance_destroy();
+        exit;
     }
     if (press=3){// Return to ship, exit
-        scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+        scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
         var man_size,ship_id,comp,plan,i;
         i=0;ship_id=0;man_size=0;comp=0;plan=0;
-        repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+        repeat(30){
+            i+=1;
+            if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;
+        }i=0;
         obj_controller.menu=0;obj_controller.managing=0;
         obj_controller.cooldown=10;
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         instance_destroy();exit;
     }
 }
@@ -638,57 +678,57 @@ if (image="ancient_ruins") and (option1!=""){
 if (image="stc"){
     if (ma_co>0) and (ma_id=0){
         if (press=1){
-            obj_temp4.alarm[5]=1;
+            obj_ground_mission.alarm[5]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
         if (press=2){
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
         }
         if (press=3) then exit;
     }
     else if (ma_co>0) and (ma_id>0){
         if (press=1){
-            obj_temp4.alarm[5]=1;
+            obj_ground_mission.alarm[5]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
         if (press=2){
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
         }
         if (press=3){
-            obj_temp4.alarm[6]=1;
+            obj_ground_mission.alarm[6]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
     }
     else if (ma_co=0) and (ma_id>0) and (target_comp!=3){
         if (press=1){
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
         }
         if (press=2){
-            obj_temp4.alarm[6]=1;
+            obj_ground_mission.alarm[6]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
@@ -696,13 +736,13 @@ if (image="stc"){
     }
     if (ma_id>0) and (target_comp=3){
         if (press=1){
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
         }
         if (press=2) then exit;
@@ -1081,7 +1121,7 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
     
     if (image="artifact"){
         if (target_comp=2){
-            obj_temp4.alarm[3]=1;
+            obj_ground_mission.alarm[3]=1;
         }
         if (target_comp>2) and (target_comp!=7) and (target_comp<9){
             obj_controller.menu=20;
@@ -1094,14 +1134,14 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
             instance_destroy();
         }
         if (target_comp=7) or (target_comp>=9){
-            obj_temp4.alarm[4]=1;
+            obj_ground_mission.alarm[4]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
     }
     
     if (image="artifact2"){
-        obj_temp4.alarm[4]=1;
+        obj_ground_mission.alarm[4]=1;
         obj_controller.cooldown=10;
         instance_destroy();
     }
@@ -1209,30 +1249,30 @@ if (press=2) and (option2!=""){
     
     if (image="artifact"){
         if (target_comp!=7) and (target_comp<9){
-            obj_temp4.alarm[4]=1;
+            obj_ground_mission.alarm[4]=1;
             obj_controller.cooldown=10;
             instance_destroy();
         }
         if (target_comp>=9) or (target_comp=7){// NOPE
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
         }
     }
     
     if (image="artifact2"){
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();exit;
     }
     
@@ -1294,27 +1334,27 @@ if (press=3) and (option3!=""){
         exit;
     }else if (image="artifact"){
         if (target_comp<9) and (target_comp!=7){// This returns the marines to the ship
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
             repeat(30){
                 i+=1;
-                if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;
+                if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;
             }i=0;
         }
         
         if (target_comp!=3) and (target_comp!=4){
             // Here, have this gift
-            var plan=instance_nearest(obj_temp4.x,obj_temp4.y,obj_star);
-			var planet_arti = search_planet_features(plan.p_feature[obj_temp4.num], P_features.Artifact)
+            var plan=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_star);
+			var planet_arti = search_planet_features(plan.p_feature[obj_ground_mission.num], P_features.Artifact)
 			if (array_length(planet_arti) >0){
-				array_delete(plan.p_feature[obj_temp4.num], planet_arti[0], 1)
+				array_delete(plan.p_feature[obj_ground_mission.num], planet_arti[0], 1)
 			}
             
-            scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
+            scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
             var man_size,ship_id,comp,plan,i;
             i=0;ship_id=0;man_size=0;comp=0;plan=0;
-            repeat(30){i+=1;if (obj_ini.ship[i]=obj_temp4.loc) then ship_id=i;}i=0;
+            repeat(30){i+=1;if (obj_ini.ship[i]=obj_ground_mission.loc) then ship_id=i;}i=0;
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
             
@@ -1338,7 +1378,7 @@ if (press=3) and (option3!=""){
             Eldar: if daemonic they get really pissed at mission_star?
             Tau: if daemonic all their worlds get big corruption boosts?*/
             
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();
             exit;
         }
@@ -1346,7 +1386,7 @@ if (press=3) and (option3!=""){
         if (target_comp=3) or (target_comp=4){// Not worth it, mang
             obj_controller.menu=0;obj_controller.managing=0;
             obj_controller.cooldown=10;
-            with(obj_temp4){instance_destroy();}
+            with(obj_ground_mission){instance_destroy();}
             instance_destroy();
         }
     }

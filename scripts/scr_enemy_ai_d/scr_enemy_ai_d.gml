@@ -527,7 +527,7 @@ function scr_enemy_ai_d() {
 
 	with(obj_temp2){instance_destroy();}
 	with(obj_temp3){instance_destroy();}
-	with(obj_temp4){instance_destroy();}
+	with(obj_ground_mission){instance_destroy();}
 	with(obj_temp5){instance_destroy();}
 	with(obj_temp6){instance_destroy();}
 	with(obj_en_fleet){
@@ -559,7 +559,7 @@ function scr_enemy_ai_d() {
 	var r,yep;r=0;yep=0;
 	repeat(4){r+=1;// temp5: new hive, temp4: new planet
 	    if (planets>=r) and (space_hulk=0) and (craftworld=0){
-	        if ((p_owner[r]=2) or (p_owner[r]=5)) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate") and (p_population[r]=0) then instance_create(x,y,obj_temp4);
+	        if ((p_owner[r]=2) or (p_owner[r]=5)) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate") and (p_population[r]=0) then instance_create(x,y,obj_ground_mission);
 	        if (p_owner[r]=2) and (p_type[r]!="Dead") and (p_type[r]!="") and ((p_type[r]="Hive") or (p_type[r]="Temperate") or (p_type[r]="Shrine")) and (p_population[r]=0) then instance_create(x,y,obj_temp5);
 	        if (p_owner[r]=3) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_type[r]="Forge") and (p_population[r]=0) then instance_create(x,y,obj_temp5);
 	        // Count player planets as HIVE PLANETS so that they are prioritized
@@ -589,10 +589,10 @@ function scr_enemy_ai_d() {
 	        }     
 	        flit.action_x=you2.x;flit.action_y=you2.y;flit.alarm[4]=1;onceh=1;
 	    }
-	    if (instance_exists(obj_temp4)) and (onceh=0) and (rind<=3){// Some other world is requesting repopulation
+	    if (instance_exists(obj_ground_mission)) and (onceh=0) and (rind<=3){// Some other world is requesting repopulation
 	        var you1,you2,you3,flit;// this was triggering
-	        you1=instance_nearest(obj_temp4.x,obj_temp4.y,obj_temp6);// Origin temp
-	        you2=instance_nearest(obj_temp4.x,obj_temp4.y,obj_star);// Destination star
+	        you1=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_temp6);// Origin temp
+	        you2=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_star);// Destination star
 	        you3=instance_nearest(obj_temp6.x,obj_temp6.y,obj_star);// Origin star
 	        flit=instance_create(you1.x,you1.y,obj_en_fleet);
 	        flit.owner = eFACTION.Imperium;flit.sprite_index=spr_fleet_civilian;flit.image_index=choose(1,2);
@@ -612,7 +612,7 @@ function scr_enemy_ai_d() {
 	        flit.action_x=you2.x;flit.action_y=you2.y;flit.alarm[4]=1;onceh=1;
 	    }
 	}
-	with(obj_temp3){instance_destroy();}with(obj_temp4){instance_destroy();}with(obj_temp5){instance_destroy();}with(obj_temp6){instance_destroy();}
+	with(obj_temp3){instance_destroy();}with(obj_ground_mission){instance_destroy();}with(obj_temp5){instance_destroy();}with(obj_temp6){instance_destroy();}
 
 	instance_activate_all();
 	with(obj_star){

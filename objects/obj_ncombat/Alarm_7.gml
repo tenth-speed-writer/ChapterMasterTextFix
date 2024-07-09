@@ -102,9 +102,9 @@ repeat(50){if (that=0){i+=1;if (post_equipment_lost[i]="Company Standard") then 
 if (that!=0){repeat(post_equipments_lost[that]){scr_loyalty("Lost Standard","+");}}
 
 if (battle_special="ruins") or (battle_special="ruins_eldar"){
-    instance_activate_object(obj_temp4);
-    obj_temp4.defeat=defeat;
-    obj_temp4.alarm[7]=1;
+    instance_activate_object(obj_ground_mission);
+    obj_ground_mission.defeat=defeat;
+    obj_ground_mission.alarm[7]=1;
 }
 
 
@@ -233,11 +233,11 @@ if (exterminatus>0) and (dropping!=0) and (string_count("mech",battle_special)=0
     scr_destroy_planet(1);
 }
 
-if (string_count("mech",battle_special)>0) and (defeat=0) then with(obj_temp4){
+if (string_count("mech",battle_special)>0) and (defeat=0) then with(obj_ground_mission){
     var comp,plan,i;i=0;comp=0;plan=0;
     plan=instance_nearest(x,y,obj_star);
-    scr_return_ship(obj_temp4.loc,obj_temp4,obj_temp4.num);
-    with(obj_temp4){instance_destroy();}
+    scr_return_ship(obj_ground_mission.loc,obj_ground_mission,obj_ground_mission.num);
+    with(obj_ground_mission){instance_destroy();}
 }
 
 i=-1;
@@ -533,20 +533,20 @@ if (enemy=10){
     if ((battle_special="cs_meeting_battle5") or (battle_special="cs_meeting_battle6")) and (defeat=0){
         var mos;mos=false;
         
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
         with(obj_pnunit){
             var j;j=0;
             repeat(300){j+=1;
-                if (marine_type[j]="Master of Sanctity") then instance_create(0,0,obj_temp4);
+                if (marine_type[j]="Master of Sanctity") then instance_create(0,0,obj_ground_mission);
             }
         }
         // Master of Sanctity present, wishes to take in the player
-        if (instance_exists(obj_temp4)) and (string_count("CRMOS|",obj_controller.useful_info)=0){
+        if (instance_exists(obj_ground_mission)) and (string_count("CRMOS|",obj_controller.useful_info)=0){
             obj_controller.menu=20;with(obj_controller){scr_dialogue("cs_meeting_m5");}
         }
         
         // Master of Sanctity not present, just get told that you have defeated the Chaos Lord
-        if (!instance_exists(obj_temp4)) or (string_count("CRMOS|",obj_controller.useful_info)>0){
+        if (!instance_exists(obj_ground_mission)) or (string_count("CRMOS|",obj_controller.useful_info)>0){
             // Some kind of popup based on what you were going after
             
             obj_controller.complex_event=false;obj_controller.diplomacy=0;obj_controller.menu=0;
@@ -559,7 +559,7 @@ if (enemy=10){
             var pip;pip=instance_create(0,0,obj_popup);
             pip.title="Chaos Lord Killed";pip.text="(Not completed yet- variable reward based on what chosen)";
         }
-        with(obj_temp4){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
     }
 }
 

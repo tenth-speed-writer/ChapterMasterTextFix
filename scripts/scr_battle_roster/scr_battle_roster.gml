@@ -42,20 +42,17 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
     obj_controller.bat_landraider_column = obj_controller.bat_land_for[new_combat.formation_set];
     obj_controller.bat_scout_column = obj_controller.bat_scou_for[new_combat.formation_set];
 
-    var company = -1;
     var v = 0;
     var meeting = false;
 
     instance_activate_object(obj_pnunit);
 
     //For each company and the HQ
-    repeat(11) {
+    for (var company=0;company<=10;company++){
         if (man_limit_reached) {
             break;
         }
-        company++;
-        v = 0;
-		for (v=1;v<array_length(obj_ini.TTRPG[company]);v++){
+		for (v=0;v<array_length(obj_ini.TTRPG[company]);v++){
             column_decided=false;
             okay = 0;
 			unit = obj_ini.TTRPG[company][v];
@@ -78,7 +75,7 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
 
                 //Normal and other battle cases checks go here
                 else if (okay >= 0) {
-                    if (instance_exists(obj_temp4)) { //Exploring ruins ambush case
+                    if (instance_exists(obj_ground_mission)) { //Exploring ruins ambush case
                         if (deploying_unit.loc[company][v] == required_location) and(unit.planet_location == _target_location) and(deploying_unit.hp[company][v] > 0) {
                             okay = 1;
                         } else {

@@ -107,7 +107,8 @@ if (mouse_x>=xx+1465) and (mouse_y>=yy+499) and (mouse_x<xx+1576) and (mouse_y<y
         company=manag
     }
     if (type=5.1) and (cooldown<=0) and (company!=target_comp) and (target_comp!=-1){
-        cooldown=999;obj_controller.cooldown=8000;
+        cooldown=999;
+        obj_controller.cooldown=8000;
 
         var mahreens=0,w=0,god=0,vehi=0,god2=0;
 
@@ -599,23 +600,20 @@ if ((type=9.1)) and (mouse_x>=xx+240+420) and (mouse_x<xx+387+420){
             if (r2=3) then cn.stc_ships_un-=1;
 
             // Modify disposition here
-            if (giveto = eFACTION.Imperium)
-				obj_controller.disposition[giveto]+=3;
-            else if (giveto = eFACTION.Mechanicus)
-				obj_controller.disposition[giveto]+=choose(5,6,7,8);
-            else if (giveto = eFACTION.Inquisition)
-				obj_controller.disposition[giveto]+=3;
+            if (giveto = eFACTION.Imperium){
+                obj_controller.disposition[giveto]+=3;
+            }
+            else if (giveto = eFACTION.Mechanicus){
+                obj_controller.disposition[giveto]+=choose(5,6,7,8);
+            }
+            else if (giveto = eFACTION.Inquisition){
+                obj_controller.disposition[giveto]+=3;
+            }
             else if (giveto = eFACTION.Ecclesiarchy) {
                 obj_controller.disposition[giveto]+=3;
-                var o;
-				o=0;
-				repeat(4) {
-					o+=1;
-					if (obj_ini.adv[o]="Reverent Guardians") {
-						obj_controller.disposition[giveto]+=2;
-						break;
-					}
-				}
+                if (scr_has_adv("Reverent Guardians")){
+                    obj_controller.disposition[giveto]+=2;
+                }
             }
 			
             if (giveto=eFACTION.Eldar)

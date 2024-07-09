@@ -37,7 +37,6 @@ function build_new_ork_ships_to_fleet(star, planet){
     ii+=round((frigate_number/2));
     ii+=round((escort_number/4));
     if (ii<=1) then ii=1;
-    show_debug_message("{0},{1}",capital_number,escort_number)
     image_index=ii;	
 	//if big enough flee bugger off to new star
     if (image_index>=5){
@@ -60,5 +59,4 @@ function build_new_ork_ships_to_fleet(star, planet){
     
     }
 	instance_activate_object(obj_star);
-    show_debug_message("{0},{1}",capital_number,escort_number)
 }
