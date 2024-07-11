@@ -198,10 +198,14 @@ function collect_role_group(group="standard", location="", opposite=false, searc
 	    	add=false;
 			unit=fetch_unit([com,i]);
 			if (unit.name()=="") then continue;
-			if (is_array(group)){
-				is_special_group = unit.IsSpecialist(group[0], group[1]);
+			if (group!="all"){
+				if (is_array(group)){
+					is_special_group = unit.IsSpecialist(group[0], group[1]);
+				} else {
+					is_special_group = unit.IsSpecialist(group);
+				}
 			} else {
-				is_special_group = unit.IsSpecialist(group);
+				is_special_group = true;
 			}
 	        if ((is_special_group && !opposite) || (!is_special_group && opposite)){
 	        	if (location==""){

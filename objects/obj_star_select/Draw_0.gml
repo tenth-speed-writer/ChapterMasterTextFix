@@ -255,9 +255,9 @@ if (obj_controller.selecting_planet!=0){
         }
         
         // Draw disposition here
-        var succession=0,yyy=0;
+        var yyy=0;
 
-        succession =  (has_problem_planet(current_planet, "succession",target));
+        var succession = (has_problem_planet(current_planet, "succession",target));
 
         if ((target.dispo[current_planet]>=0) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0)) and (succession=0){
             var wack=0;
@@ -543,6 +543,7 @@ if (obj_controller.selecting_planet!=0){
             if (feature.remove){
                 feature="";
             }else if (feature.destroy){
+                feature = "";
                 instance_destroy();
                 exit;
             }
@@ -584,7 +585,9 @@ if (obj_controller.selecting_planet!=0){
 
         }
     }    
-    main_data_slate.draw(xx+344,yy+160, slate_draw_scale, slate_draw_scale+0.1);
+    if (obj_controller.selecting_planet>0){
+        main_data_slate.draw(xx+344,yy+160, slate_draw_scale, slate_draw_scale+0.1);
+    }
     var current_button="";
     if (shutter_1.draw_shutter(main_data_slate.XX-165, yy+296+165, button1, 0.5, true)) then current_button=button1;
     if (shutter_2.draw_shutter(main_data_slate.XX-165, yy+296+165+47, button2,0.5, true))then current_button=button2;

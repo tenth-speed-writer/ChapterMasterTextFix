@@ -169,7 +169,7 @@ function scr_ui_manage() {
 	    if (managing<=10 && managing>0){
 	        var bar_wid=0,click_check, string_h;
 	        draw_set_alpha(0.25);
-	        if (obj_ini.company_title[managing]!="") then bar_wid=max(400,string_width(string_hash_to_newline(obj_ini.company_title[managing])));
+	        if (obj_ini.company_title[managing]!="") then bar_wid=max(400,string_width(obj_ini.company_title[managing]));
 	        if (obj_ini.company_title[managing]="") then bar_wid=400;
         	string_h = string_height(string_hash_to_newline("LOL"));
 	        draw_rectangle(xx+800-(bar_wid/2),yy+108,xx+800+(bar_wid/2),yy+100+string_h,1);
@@ -191,8 +191,7 @@ function scr_ui_manage() {
         
 	        if (obj_ini.company_title[managing]!="") or (text_bar>0){
 	        	draw_set_font(fnt_fancy);
-	            if (text_bar=0) or (text_bar>31) then draw_text(xx+800,yy+110,string_hash_to_newline("''"+string(obj_ini.company_title[managing])+"'' "));
-	            if (text_bar>0) and (text_bar<=31) then draw_text(xx+800,yy+110,string_hash_to_newline("''"+string(obj_ini.company_title[managing])+"|''"));
+	            if (text_bar=0) or (text_bar>31) then draw_text(xx+800,yy+110,$"''{obj_ini.company_title[managing]} {(text_bar>0 && text_bar<=31)?"|":"";}'' ");
 	        }
 	    }
     
@@ -230,7 +229,11 @@ function scr_ui_manage() {
 			                			forge.techs_working++;
 			                			unit = display_unit[i];
 			                			unit.unload(selection_data.planet, selection_data.system);
-			                			unit.job = {type:"forge", planet:selection_data.planet, location:selection_data.system.name};
+			                			unit.job = {
+			                				type:"forge", 
+			                				planet:selection_data.planet, 
+			                				location:selection_data.system.name
+			                			};
 		                				break;
 									case "captain_promote":
 			                			unit = display_unit[i];

@@ -939,12 +939,12 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
             obj_ncombat.threat=1;
             obj_ncombat.formation_set=1;
             
-            if (battle=1) then obj_ncombat.battle_special="wraith_attack";
-            if (battle=2) then obj_ncombat.battle_special="spyder_attack";
-            if (battle=3) then obj_ncombat.battle_special="stalker_attack";
-            if (battle=4) then obj_ncombat.battle_special="wake1_attack";
-            if (battle=5) then obj_ncombat.battle_special="wake2_attack";
-            if (battle=6) then obj_ncombat.battle_special="wake2_attack";
+            if (battle=1)  {obj_ncombat.battle_special="wraith_attack";}
+            else if (battle=2)  {obj_ncombat.battle_special="spyder_attack";}
+            else if (battle=3)  {obj_ncombat.battle_special="stalker_attack";}
+            else if (battle=4)  {obj_ncombat.battle_special="wake1_attack";}
+            else if (battle=5)  {obj_ncombat.battle_special="wake2_attack";}
+            else if (battle=6)  {obj_ncombat.battle_special="wake2_attack";}
             
             instance_destroy();
         }

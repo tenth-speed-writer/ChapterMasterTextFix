@@ -214,7 +214,7 @@ function scr_save(save_slot,save_id) {
 
 	    ini_write_string("Controller","recruiting_worlds",obj_controller.recruiting_worlds);
 	    ini_write_real("Controller","recruiting",obj_controller.recruiting);
-	    ini_write_string("Controller","trial",obj_controller.recruit_trial);
+	    ini_write_real("Controller","trial",obj_controller.recruit_trial);
 	    ini_write_real("Controller","recruits",obj_controller.recruits);
 	    ini_write_real("Controller","recruit_last",obj_controller.recruit_last);
 	    //

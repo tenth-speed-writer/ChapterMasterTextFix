@@ -87,13 +87,15 @@ function has_problem_planet(planet, problem, star="none"){
 	if (star=="none"){
 		return array_contains(p_problem[planet], problem);
 	} else {
-		return array_contains(star.p_problem[planet], problem);
+		with (star){
+			return has_problem_planet(planet, problem);
+		}
 	}
 }
 function has_problem_planet_and_time(planet, problem, time,star="none"){
 	var had_problem = false;
 	if (star=="none"){
-		for (var i =1;i<array_length(p_problem[planet]);i++){
+		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
 				if (p_timer[planet][i] == time){
 					had_problem=i;
@@ -110,7 +112,7 @@ function has_problem_planet_and_time(planet, problem, time,star="none"){
  function has_problem_planet_with_time(planet, problem,star="none"){
 	var had_problem = false;
 	if (star=="none"){
-		for (var i =1;i<array_length(p_problem[planet]);i++){
+		for (var i =0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
 				if (p_timer[planet][i] >0){
 					had_problem=i;
@@ -161,8 +163,8 @@ function remove_planet_problem(planet, problem, star="none"){
 
 function open_problem_slot(planet, star="none"){
 	if (star=="none"){
-		for (var i=1;i<array_length(p_problem[planet]);i++){
-			if (p_problem[planet][i] ==""){
+		for (var i=0;i<array_length(p_problem[planet]);i++){
+			if (p_problem[planet][i] == ""){
 				return i;
 			}
 		}
@@ -174,9 +176,15 @@ function open_problem_slot(planet, star="none"){
 	return -1;
 }
 
-function remove_star_problem(problem){
-	for (var i=1;i<=planets;i++){
-		remove_planet_problem(i, problem);
+function remove_star_problem(problem, star="none"){
+	if (star=="none"){
+		for (var i=1;i<=planets;i++){
+			remove_planet_problem(i, problem);
+		}
+	} else {
+		with (star){
+			remove_remove_star_problem(problem);
+		}
 	}
 }
 
@@ -195,7 +203,7 @@ function problem_count_down(planet, count_change=1){
 function add_new_problem(planet, problem, timer,star="none", other_data={}){
 	var problem_added=false;
 	if (star=="none"){
-		for (var i=1;i<array_length(p_problem[planet]);i++){
+		for (var i=0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] ==""){
 				p_problem[planet][i]= problem;
 				p_problem_other_data[planet][i]=other_data;
