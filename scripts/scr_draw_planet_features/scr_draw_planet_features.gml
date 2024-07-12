@@ -166,7 +166,7 @@ function feature_selected(Feature) constructor{
 							var dudes = collect_role_group("all", obj_star_select.target.name);
 							group_selection(dudes,{
 								purpose:"Beast Hunt",
-								purpose_code : "mission_assignment",
+								purpose_code : feature.problem,
 								number:3,
 								system:obj_controller.selected.id,
 								feature:obj_star_select.feature,
@@ -181,13 +181,14 @@ function feature_selected(Feature) constructor{
 						help = "Set a squad to ambush ";
 						break;
 					case "train_forces":
-						mission_description=$"The governor of {planet_name} fears the planet will not hold in the case of major incursion, it has not seen war in some time and he fears the ineptitude of the commanders available, he asks for aid in planning a thorough plan for defense and schedule of works.";
+						mission_description=$"The governor of {planet_name} fears the planet will not hold in the case of major incursion, it has not seen war in some time and he fears the ineptitude of the commanders available, he asks for aid in planning a thorough plan for defense and schedule of works for a period of at least 6 months.";
+						help = $"A task best suited to the more knowledgable or wise of your Commanders"
 						button_text = "Assign Officer";
 						button_function = function(){
 							var dudes = collect_role_group("captain_candidates", obj_star_select.target.name);
 							group_selection(dudes,{
-								purpose:"Officer",
-								purpose_code : "mission_assignment",
+								purpose:"Select Officer",
+								purpose_code : feature.problem,
 								number:1,
 								system:obj_controller.selected.id,
 								feature:obj_star_select.feature,
@@ -206,6 +207,11 @@ function feature_selected(Feature) constructor{
 				draw_set_color(c_gray);
 				draw_text_ext(xx+10, yy+40,mission_description,-1,area_width-20);
 				var text_body_height = string_height_ext(string_hash_to_newline(mission_description),-1,area_width-20);
+				if (help!="none"){
+					draw_text_ext(xx+10, yy+40+text_body_height+10,help,-1,area_width-20);
+					text_body_height+=string_height_ext(string_hash_to_newline(mission_description),-1,area_width-20)+10;
+				}
+				
 				if (button_text!="none"){
 					if (point_and_click(draw_unit_buttons([xx+((area_width/2)-(string_width(button_text)/2)), yy+40+text_body_height+10], button_text))){
 						if (is_method(button_function)){

@@ -179,7 +179,7 @@ function scr_ui_manage() {
 	         text_bar=0;
 	        }else if(click_check){
 	            obj_cursor.image_index=2;
-            
+
 	            if (cooldown<=0) and (mouse_left==1) and (text_bar=0){
 	                cooldown=8000;
 	                text_bar=1;
@@ -191,7 +191,7 @@ function scr_ui_manage() {
         
 	        if (obj_ini.company_title[managing]!="") or (text_bar>0){
 	        	draw_set_font(fnt_fancy);
-	            if (text_bar=0) or (text_bar>31) then draw_text(xx+800,yy+110,$"''{obj_ini.company_title[managing]} {(text_bar>0 && text_bar<=31)?"|":"";}'' ");
+	            if (text_bar=0) or (text_bar>31) then draw_text(xx+800,yy+110,$"''{obj_ini.company_title[managing]} {(text_bar>0 && text_bar<=31)?"|":""}'' ");
 	        }
 	    }
     
@@ -305,7 +305,8 @@ function scr_ui_manage() {
 		                		break;
 	
 		                }
-		                exit_adhoc_manage();				
+		                exit_adhoc_manage();
+		                exit;			
 					}
 				}
 			}

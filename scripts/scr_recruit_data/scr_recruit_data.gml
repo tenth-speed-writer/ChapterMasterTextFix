@@ -59,7 +59,7 @@ function scr_trial_data(wanted=-1){
 				base : [72, 80],
 			},
 			recruit_count_modifier : {
-				base : 0.0,
+				base : 1.0,
 				planets : {
 					Ice :3,
 					Desert : 3,

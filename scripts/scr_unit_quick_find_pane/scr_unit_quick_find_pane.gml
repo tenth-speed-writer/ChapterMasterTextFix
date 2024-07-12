@@ -238,10 +238,11 @@ function scr_unit_quick_find_pane() constructor{
 			    if (!hover_entered){
     			    if (point_and_click([xx+10, yy+90+(20*i)-2,xx+main_panel.width,yy+90+(20*i)+18])){
     			    	var star = star_by_name(system_names[i]);
-    			    	if (star!="none")
-    			    	travel_target = [star.x, star.y];
-    			    	travel_increments = [(travel_target[0]-obj_controller.x)/15,(travel_target[1]-obj_controller.y)/15];
-    			    	travel_time = 0;
+    			    	if (star!="none"){
+	    			    	travel_target = [star.x, star.y];
+	    			    	travel_increments = [(travel_target[0]-obj_controller.x)/15,(travel_target[1]-obj_controller.y)/15];
+	    			    	travel_time = 0;
+	    			    }
     			    }
     			}
 			    if (registered_hover){
@@ -394,7 +395,7 @@ function exit_adhoc_manage(){
     click=1;
     hide_banner=0;
     if (instance_exists(selection_data.system)){
-   		selection_data.system.alarm[3]=4;
+   		selection_data.system.alarm[3]=2;
     }		
 };
  function update_garrison_manage(){

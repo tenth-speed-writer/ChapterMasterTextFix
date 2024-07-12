@@ -537,6 +537,9 @@ while (i<array_length(recruit_name)){
     }
     i++;
 }
+with(ob_ini){
+    scr_company_order(10);
+}
 if (recruits_finished==1){
     scr_alert("green","recruitment",$"{obj_ini.role[100][12]} {recruit_first} has joined X Company.",0,0);
 }else if  (recruits_finished>1){
