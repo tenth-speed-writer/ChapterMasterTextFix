@@ -32,6 +32,17 @@ function reset_manage_arrays(){
 	}
 }
 
+function find_company_open_slot(target_company){
+	good = -1;
+	for (var i = 0;i<array_length(obj_ini.name[target_company]);i++){
+        if (obj_ini.name[target_company][i]=="") or (obj_ini.role[target_company][i]==""){
+        	good=i;
+        	break;
+        }
+	}
+	return good;
+}
+
 function add_man_to_manage_arrays(unit){
 	with (obj_controller){
        	var unit_location = unit.marine_location();

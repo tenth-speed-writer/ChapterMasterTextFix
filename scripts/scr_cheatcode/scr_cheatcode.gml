@@ -50,7 +50,7 @@ function scr_cheatcode(argument0) {
             new_inquisitor_inspection();
         }        
         if (cheatcode_string=="sisterhospitaler"){
-            scr_add_man("Sister Hospitaler",0,"","","","","",0,true,"default","");
+            scr_add_man("Sister Hospitaler",0,"","",0,true,"default");
         }
         if (cheatcode_string=="chaosfleetspawn"){
             spawn_chaos_warlord();
@@ -198,6 +198,7 @@ function scr_cheatcode(argument0) {
             array_insert(obj_controller.recruit_distance , i, 0);
             array_insert(obj_controller.recruit_training, i, 1);
             array_insert(obj_controller.recruit_exp, i, 20); 
+             array_insert(obj_controller.recruit_data, i, {}); 
             array_insert(obj_controller.recruit_name, i, global.name_generator.generate_space_marine_name());
         }
         scr_alert("green", "recruitment", (string(cheatcode_m_digits) + "has started training."), 0, 0)

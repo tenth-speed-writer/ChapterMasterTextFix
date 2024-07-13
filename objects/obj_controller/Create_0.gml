@@ -803,6 +803,7 @@ recruit_corruption[0]=0;
 recruit_distance[0]=0;
 recruit_training[0]=0;
 recruit_exp[0]=0;
+recruit_data[0]={};
 
 for(var i=0; i<501; i++){
     

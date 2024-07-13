@@ -269,18 +269,24 @@ function scr_load(argument0, argument1) {
 
 
 	    ini_read_real("Controller","blandify",0);
-	    var recruit_data = return_json_from_ini("Recruit", "data", {
+	    var _recruit_data = return_json_from_ini("Recruit", "data", {
 	    	names:[""],
 	    	corruption :[0],
 	    	distance :[0],
 	    	experience :[0],
-	    	training :[0],	    	
+	    	training :[0],
+	    	recruit_data : [{}]	    	
 	    })
-    	obj_controller.recruit_name = recruit_data.names;
-    	obj_controller.recruit_corruption= recruit_data.corruption;
-    	obj_controller.recruit_distance= recruit_data.distance;
-    	obj_controller.recruit_exp= recruit_data.experience;
-    	obj_controller.recruit_training = recruit_data.training;    
+    	obj_controller.recruit_name = _recruit_data.names;
+    	obj_controller.recruit_corruption= _recruit_data.corruption;
+    	obj_controller.recruit_distance= _recruit_data.distance;
+    	obj_controller.recruit_exp= _recruit_data.experience;
+    	obj_controller.recruit_training = _recruit_data.training;
+    	if (struct_exists(_recruit_data,"recruit_data")){
+    		obj_controller.recruit_data = _recruit_data.recruit_data;
+    	} else {
+    		obj_controller.recruit_data =  array_create(array_length(obj_controller.recruit_name), {});
+    	}
 
 	    var g=-1;repeat(30){g+=1;
 	        obj_controller.loyal[g]=ini_read_string("Controller","lyl"+string(g),"Error");

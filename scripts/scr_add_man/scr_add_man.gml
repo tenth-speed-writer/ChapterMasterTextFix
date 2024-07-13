@@ -1,5 +1,5 @@
 
-function scr_add_man(man_role, target_company, choice_armour, choice_weapons, choice_gear, spawn_exp, spawn_name, corruption, other_gear, home_spot, mobility_items) {
+function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption, other_gear, home_spot, other_data={}) {
 
 	//all of this will in time be irrelevant as calling new TTRPG_stats() and then calling the correct methods within the new itme will replace this but for
 	//now its easy enough to use this as the structs continue to be built.
@@ -10,22 +10,13 @@ function scr_add_man(man_role, target_company, choice_armour, choice_weapons, ch
 
 	// That should be sufficient to add stuff in a highly modifiable fashion
 
-	var non_marine_roles = ["Skitarii","Techpriest","Ranger","Crusader","Sister of Battle","Sister Hospitaler", "Ork Sniper", "Flash Git"]
-	var i,good, wep1, wep2, gear, mobi, arm, e, missing, unit;
-	i=0;e=0;good=0;wep1="";wep2="";gear="";mobi="";arm="";missing=0;
+	var non_marine_roles = ["Skitarii","Techpriest","Ranger","Crusader","Sister of Battle","Sister Hospitaler", "Ork Sniper", "Flash Git"];
+	var i=0,e=0,good=0,wep1="",wep2="",gear="",mobi="",arm="",missing=0;
 
-	repeat(500){
-	    i+=1;
-	    if (good=0){
-	        if (obj_ini.name[target_company,i]="") or (obj_ini.role[target_company,i]=""){
-	        	good=i;
-	        	break;
-	        }
-	    }
-	}
+	good = find_company_open_slot(target_company);
 
 
-	if (good!=0){
+	if (good!=-1){
 	    obj_ini.race[target_company][good]=1;
 	    obj_ini.role[target_company][good]=man_role;
 	    obj_ini.wep1[target_company][good]="";
@@ -123,7 +114,13 @@ function scr_add_man(man_role, target_company, choice_armour, choice_weapons, ch
     	//TODO bring this inline with the rest of the code base
     
 	    // Weapons
-	    if (choice_weapons=obj_ini.role[100][12]){wep2=obj_ini.wep2[100,12];wep1=obj_ini.wep1[100,12];arm=obj_ini.armour[100,12];}
+	    if (man_role=obj_ini.role[100][12]){
+	    	wep2=obj_ini.wep2[100,12];
+	    	wep1=obj_ini.wep1[100,12];
+	    	arm=obj_ini.armour[100,12];
+	    	choice_gear = obj_ini.gear[100,12];
+	    	mobility_items= obj_ini.mobi[100,12];
+	    }
     
 	    var good1,good2,good3,good4;
 	    good1=0;good2=0;good3=0;good4=0;
@@ -197,24 +194,17 @@ function scr_add_man(man_role, target_company, choice_armour, choice_weapons, ch
 	        if (obj_ini.gear[target_company][good]!=choice_gear) and (choice_gear!="") then missing=1;
 	        if (obj_ini.mobi[target_company][good]!=mobility_items) and (mobility_items!="") then missing=1;
         
-	        if (choice_weapons=obj_ini.role[100][12]) and (corruption>=13) then obj_ini.god[target_company][good]=2;// Khorne!!!1 XDDDDDDD
+	        //if (man_role=obj_ini.role[100][12]) and (corruption>=13) then obj_ini.god[target_company][good]=2;// Khorne!!!1 XDDDDDDD
         
-	        if (missing=1) and (argument0="Scout"){
-	            if (string_count("has joined the X Company",obj_turn_end.alert_text[obj_turn_end.alerts])=1){
-
-	               scr_alert("red","recruiting","Not enough "+string(obj_ini.role[100][12])+" equipment in the armoury!",0,0);
+	        if (missing=1) and (man_role==obj_ini.role[100][12]){
+	            if (string_count("has joined the X Company",obj_turn_end.alert_text[obj_turn_end.alerts])){
+	               scr_alert("red",$"recruiting","Not enough {obj_ini.role[100][12]} equipment in the armoury!",0,0);
 	            }
 	        }
 	    }
     
 	    if (!array_contains(non_marine_roles,man_role)){
-			unit= new TTRPG_stats("chapter", target_company, good, {
-					recruit_data : {
-						recruit_world : obj_ini.recruiting_type,
-						aspirant_trial : obj_ini.recruit_trial			
-					}
-				}
-			);
+			unit = new TTRPG_stats("chapter", target_company, good, "scout",other_data);
 			unit.corruption=corruption
 			unit.roll_age(); // Age here
 			marines+=1;

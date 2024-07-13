@@ -523,7 +523,7 @@ while (i<array_length(recruit_name)){
     };
     if  (recruit_distance[i]<=0) then recruit_training[i]-=1;
     if (recruit_training[i]<=0){
-        scr_add_man(obj_ini.role[100][12],10,"Scout Armour",obj_ini.role[100][12],"",recruit_exp[i],recruit_name[i],recruit_corruption[i],false,"default","");
+        scr_add_man(obj_ini.role[100][12],10,recruit_exp[i],recruit_name[i],recruit_corruption[i],false,"default",recruit_data[i]);
         if (recruit_first=="") then recruit_first=recruit_name[i];
         recruits_finished+=1;
         array_delete(recruit_name,i,1);
@@ -531,13 +531,14 @@ while (i<array_length(recruit_name)){
         array_delete(recruit_distance,i,1);
         array_delete(recruit_training,i,1);
         array_delete(recruit_exp,i,1);
+        array_delete(recruit_data,i,1);
         continue;
     } else {
         total_recruits++;
     }
     i++;
 }
-with(ob_ini){
+with(obj_ini){
     scr_company_order(10);
 }
 if (recruits_finished==1){
@@ -1238,7 +1239,7 @@ for(var i=1; i<=99; i++){
                         }
                     }
 
-                    tixt+=$"some form of divine inspiration has seemed to have taken hold of him.  An artifact {obj_ini.artifact[k]} has been crafted.";
+                    tixt+=$"some form of divine inspiration has seemed to have taken hold of him.  An artifact {obj_ini.artifact[last_artifact]} has been crafted.";
                 }
                 if (item=="baby"){
                     unit.edit_corruption(choose(8,12,16,20))
@@ -1246,7 +1247,7 @@ for(var i=1; i<=99; i++){
                 }
                 else if (item=="robot"){
                     unit.edit_corruption(choose(2,4,6,8,10));
-                    tixt+="some form of small, box-like robot.  It seems to teeter around haphazardly, nearly falling over with each step.  "+string(marine_name)+" maintains that it has no AI, though the other "+string(obj_ini.role[100][16])+" express skepticism.";
+                    tixt+=$"some form of small, box-like robot.  It seems to teeter around haphazardly, nearly falling over with each step. {unit.name()} maintains that it has no AI, though the other "+string(obj_ini.role[100][16])+" express skepticism.";
                     unit.add_trait("tech_heretic");
                 }
                 else if (item=="demon"){

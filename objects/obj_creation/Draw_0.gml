@@ -1833,14 +1833,11 @@ if (slide=5){
     draw_text_transformed(580,118,string_hash_to_newline("Successor Chapters: "+string(successors)),0.6,0.6,0);
     draw_set_font(fnt_40k_14b);
     
-    
-    draw_line(445,200,1125,200);
-    draw_line(445,201,1125,201);
-    draw_line(445,202,1125,202);
+    draw_rectangle(445, 200, 1125, 202, true);
     
     draw_set_font(fnt_40k_30b);
     draw_text_transformed(503,210,string_hash_to_newline("Gene-Seed Mutations"),0.6,0.6,0);
-    if (mutations>mutations_selected) then draw_text_transformed(585,230,string_hash_to_newline("Select "+string(mutations-mutations_selected)+" More"),0.5,0.5,0);
+    if (mutations>mutations_selected) then draw_text_transformed(585,230,$"Select {mutations-mutations_selected} More",0.5,0.5,0);
     
     var x1,y1,spac=34;
     
@@ -1941,7 +1938,7 @@ if (slide=5){
             if (mutation_data.data){
                 mutation_data.data=0;
                 mutations_selected-=mutation_data.mutation_points;
-                if (struct_exists(mutation_data, disposition)){
+                if (struct_exists(mutation_data, "disposition")){
                    for (var s=0;s<array_length(mutation_data.disposition);s++){
                         disposition[mutation_data.disposition[s][0]] -= mutation_data.disposition[s][1];
                    }
@@ -1950,7 +1947,7 @@ if (slide=5){
             else if (!mutation_data.data) and (mutations>mutations_selected){
                 mutation_data.data=1;
                 mutations_selected+=mutation_data.mutation_points;
-                if (struct_exists(mutation_data, disposition)){
+                if (struct_exists(mutation_data, "disposition")){
                    for (var s=0;s<array_length(mutation_data.disposition);s++){
                         disposition[mutation_data.disposition[s][0]] += mutation_data.disposition[s][1];
                    }

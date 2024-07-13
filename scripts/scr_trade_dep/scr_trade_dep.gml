@@ -155,7 +155,7 @@ function scr_trade_dep() {
 	    if (g[i]="Ork Sniper") or (g[i]="Flash Git") then temp1=1;
 	    if (temp1=1){
 	        repeat(n[i]){
-	            scr_add_man(string(g[i]),0,"","","","","",0,true,"default","");
+	            scr_add_man(string(g[i]),0,"","",0,true,"default");
 	        }
 	    }
 	    if (temp1=0) and (g[i]!="Requisition") and (g[i]!="Minor Artifact") then scr_add_item(string(g[i]),n[i]);

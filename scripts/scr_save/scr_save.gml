@@ -229,6 +229,7 @@ function scr_save(save_slot,save_id) {
 	    	distance :obj_controller.recruit_distance,
 	    	experience :obj_controller.recruit_exp,
 	    	training :obj_controller.recruit_training,
+	    	data : obj_controller.recruit_data
 
 	    });
 	    g=-1;repeat(30){g+=1;

@@ -623,7 +623,7 @@ function scr_enemy_ai_e() {
                     var months_to_neo = 72;
                     var dista = 0;
                     var onceh = 0;
-                    var recruit_chance_array = [0, 250, 200, 150, 125, 100];
+                    var recruit_chance_array = [0, 250, 200, 150, 125, 100, 75];
                     if (obj_controller.recruiting>0){
                         recruit_chance = irandom(recruit_chance_array[obj_controller.recruiting]) + 1;
                     }
@@ -743,7 +743,11 @@ function scr_enemy_ai_e() {
                                 array_insert(obj_controller.recruit_distance , i, 0);
                                 array_insert(obj_controller.recruit_training, i, months_to_neo);
                                 array_insert(obj_controller.recruit_exp, i, new_recruit_exp); 
-                                array_insert(obj_controller.recruit_name, i, global.name_generator.generate_space_marine_name());                                                                                           
+                                array_insert(obj_controller.recruit_name, i, global.name_generator.generate_space_marine_name());    
+                                array_insert(obj_controller.recruit_data, i, {"recruit_data":{
+                                    recruit_world :planet_type ,
+                                    aspirant_trial :obj_controller.recruit_trial ,
+                                }});                                                                                                   
                                 break;
                             }
                         }
