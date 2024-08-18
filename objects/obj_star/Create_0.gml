@@ -43,7 +43,7 @@ for(run=1; run<=8; run++){
     p_pdf[run]=0;
     p_fortified[run]=0;
     p_station[run]=0;
-	warlord=0;
+	//warlord=0; uneeded i think
     // Whether or not player forces are on the planet
     p_player[run]=0;
     p_lasers[run]=0;

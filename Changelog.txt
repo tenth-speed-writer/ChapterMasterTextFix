@@ -1,3 +1,9 @@
+Version  0.9.1.12
+
+Fixed:
+	- recruit trial being wrong on game start occasionally
+	- updating garrison log creating crashes due to vehicle arrays
+
 -----------------------
 
 Version  0.9.1.0

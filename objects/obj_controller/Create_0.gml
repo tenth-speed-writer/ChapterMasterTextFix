@@ -1327,7 +1327,7 @@ if (instance_exists(obj_ini)){
         weapon_color=obj_ini.weapon_color;
         col_special=obj_ini.col_special;
         trim=obj_ini.trim;
-        recruit_trial=obj_ini.aspirant_trial;
+        recruit_trial=obj_ini.recruit_trial;
         homeworld_rule=obj_ini.homeworld_rule;
         
         scr_colors_initialize();

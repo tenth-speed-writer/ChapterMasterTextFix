@@ -597,12 +597,19 @@ function scr_enemy_ai_e() {
         halfpop = p_max_population[run] / 2;
 
         if (array_length(p_feature[run]) != 0) {
-            if (planet_feature_bool(p_feature[run], P_features.Recruiting_World) == 1) and(obj_controller.gene_seed = 0) and (obj_controller.recruiting > 0) {
-                obj_controller.recruiting = 0;
-                obj_controller.income_recruiting = 0;
-                scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
+             planet_data = new PlanetData(run, self);
+            //initiate training logics rest to be found in scr_recruit_data
+            if (planet_feature_bool(p_feature[run], P_features.Recruiting_World)){
+                if (obj_controller.gene_seed == 0) and (obj_controller.recruiting > 0) {
+                    obj_controller.recruiting = 0;
+                    obj_controller.income_recruiting = 0;
+                    scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
+                } else if (obj_controller.recruiting > 0){
+                    with (planet_data){
+                         planet_training_sequence(run);
+                    }
+                }
             }
-
             // Transforming billions pop number to a real number so the code can handle it
             // Otherwise, 3 and a half billions get translated as 3,50 instead of 3500000000
             var _planet_population = p_population[run];
@@ -610,151 +617,6 @@ function scr_enemy_ai_e() {
                 _planet_population = _planet_population * 1000000000;
             }
 
-            if (planet_feature_bool(p_feature[run], P_features.Recruiting_World) == 1) and(obj_controller.gene_seed > 0) and(p_owner[run] <= 5) and(obj_controller.faction_status[p_owner[run]] != "War") {
-                if (_planet_population >= 50 && obj_controller.recruiting) {
-                    // Commenting this for now, looks like debug code
-                    //scr_alert("green","owner", "Recruitment is slowed due to lack of population on our recruitment worlds",0,0);
-                    var recruit_type = scr_trial_data(obj_controller.recruit_trial);
-                    if (p_large[run] = 0) then p_population[run] -= 1;
-
-                    var recruit_chance = 999;
-                    var aspirant = 0;
-                    var new_recruit_corruption = 10;
-                    var months_to_neo = 72;
-                    var dista = 0;
-                    var onceh = 0;
-                    var recruit_chance_array = [0, 250, 200, 150, 125, 100, 75];
-                    if (obj_controller.recruiting>0){
-                        recruit_chance = irandom(recruit_chance_array[obj_controller.recruiting]) + 1;
-                    }
-
-                    // 135; recruiting
-                    // new_recruit_corruption isn't really relevant as corruption in marines doesn't matter
-                    // by default it takes 72 turns (6 years) to train
-
-                    var planet_type_recruit_chance = {
-                        "Hive" : 40,
-                        "Temperate" : 20,
-                        "Feudal" : 20,
-                        "Forge" : 15,
-                        "Shrine" : 15,
-                        "Desert" : 15,
-                        "Ice" : 15,
-                        "Agri" : 10,
-                        "Death" : 10,
-                        "Lava" : 7,
-                    }
-
-                    var recruit_chance_total = 0;
-                    var planet_type = p_type[run];
-                    if (struct_exists(planet_type_recruit_chance, planet_type)){
-                        recruit_chance_total = planet_type_recruit_chance[$ planet_type];
-                        if (struct_exists(recruit_type, "recruit_count_modifier")){
-                            var modded=false;
-                            var count_mod = recruit_type.recruit_count_modifier;
-                            if (struct_exists(count_mod, "planets")){
-                                if (struct_exists(count_mod.planets, planet_type)){
-                                    recruit_chance_total*=(count_mod.planets[$planet_type]);
-                                    modded=true;
-                                }
-                            }
-                            if (!modded){
-                                recruit_chance_total*=count_mod.base;
-                            }
-                        }
-                    }
-
-                    var planet_type = p_type[run];
-                    if (recruit_chance<=recruit_chance_total){
-                        aspirant = true;
-                    }
-
-                    // if a planet type has less than half it's max pop, you get 20% less spacey marines
-                    if (_planet_population <= halfpop) {
-                        recruit_chance += 1.2;
-                       // scr_alert("red", "owner", "The populations you attain aspirants from are less populant than required, chances of recruiting aspirants is 20% lower", 0, 0);
-                    }
-
-                    // This is the area has trial types that don't care about planet type 
-                    // xp is given in a latter if loop
-                    if (struct_exists(recruit_type, "seed_waste")){
-                        if (obj_controller.recruiting > 0) {
-                            if (random(1)<recruit_type.seed_waste){
-                                obj_controller.gene_seed--;
-                                //TODO make more informative
-                                scr_alert("red", "owner", "Blood Duels are efficient in time, but costly in risk with gene material. Gene-seed has been lost.", 0, 0);
-                            }
-                        }
-                    }
-                    if (struct_exists(recruit_type, "train_time")){
-                        var train_time_data =  recruit_type.train_time;
-                        var chosen_time = false;
-                        if (struct_exists(train_time_data, "planets")){
-                            if (struct_exists(train_time_data.planets, planet_type)){
-                                months_to_neo = irandom_range(train_time_data.planets[$planet_type][0], train_time_data.planets[$planet_type][1]);
-                                chosen_time=true;
-                            }
-                        }
-                        if (!chosen_time){
-                            if (train_time_data.base[0]!=0 && train_time_data.base[1]!=0){
-                                months_to_neo = irandom_range(train_time_data.base[0], train_time_data.base[1]);
-                            }
-                        }
-                    }
-                    var new_recruit_exp = irandom(5);
-                    if (struct_exists(recruit_type, "exp_bonus")){
-                        var chosen_exp = false;
-                        var exp_bonus_data =  recruit_type.exp_bonus;
-                        if (struct_exists(exp_bonus_data, "planets")){
-                            if (struct_exists(train_time_data.planets, planet_type)){
-                                new_recruit_exp += irandom_range(exp_bonus_data.planets[$planet_type][0], exp_bonus_data.planets[$planet_type][1]);
-                                chosen_exp = true;
-                            }
-                        }
-                        if (!chosen_exp){
-                            if (exp_bonus_data.base[0]!=0 && exp_bonus_data.base[1]!=0){
-                                if (array_length(exp_bonus_data.base)>2){
-                                    if (random(1)<exp_bonus_data.base[3]){
-                                         new_recruit_exp += irandom_range(exp_bonus_data.base[0], exp_bonus_data.base[1]);
-                                    }
-                                } else {
-                                    new_recruit_exp = irandom_range(exp_bonus_data.base[0], exp_bonus_data.base[1]);
-                                }
-                            }                            
-                        }
-                    }
-                    //new_recruit_corruption
-
-                    // xp gain for the recruit is here
-                    // as well as planet type buffs or nerfs
-                    if (aspirant != 0) {
-                        var i, new_recruit;
-                        i = 0;
-                        new_recruit = 0;
-
-                        // gets the next empty recruit space on the array
-                        var new_recruit_exp = irandom(5);
-                        if (new_recruit_exp >= 40) then new_recruit_exp = 38;// we don't want immediate battle bros
-
-                        for (var i=0;i<array_length(obj_controller.recruit_training);i++) {
-                            if (obj_controller.recruit_training[i]<1 || months_to_neo<obj_controller.recruit_training[i]){
-                                obj_controller.gene_seed -= 1;
-                                array_insert(obj_controller.recruit_corruption, i, new_recruit_corruption);
-                                array_insert(obj_controller.recruit_distance , i, 0);
-                                array_insert(obj_controller.recruit_training, i, months_to_neo);
-                                array_insert(obj_controller.recruit_exp, i, new_recruit_exp); 
-                                array_insert(obj_controller.recruit_name, i, global.name_generator.generate_space_marine_name());    
-                                array_insert(obj_controller.recruit_data, i, {"recruit_data":{
-                                    recruit_world :planet_type ,
-                                    aspirant_trial :obj_controller.recruit_trial ,
-                                }});                                                                                                   
-                                break;
-                            }
-                        }
-                    }
-                    // End aspirant!=0
-                } // End pop>50
-            } // End recruiting possible
             //fortress monestary
             if (p_owner[run] == 1) {
                 var monestary = search_planet_features(p_feature[run], P_features.Monastery);

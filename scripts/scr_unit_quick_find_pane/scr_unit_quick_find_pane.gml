@@ -77,27 +77,32 @@ function scr_unit_quick_find_pane() constructor{
 	    			obj_ini.ship_carrying[unit.ship_location]+=unit.get_unit_size();
 	    		}
 	    	}
-	    	for (var u=1;u<100;u++){
-	    		if (obj_ini.veh_race[co][u]==0) then continue;
-	    		if (obj_ini.veh_wid[co][u]>0){
-	    			unit_location = obj_ini.veh_loc[co][u];
-	    			unit = [co, u];
-	    			if (!struct_exists(garrison_log, unit_location)){
-	    				garrison_log[$ unit_location] = {
-	    					units:[unit],
-	    					vehicles:1, 
-	    					garrison:false, 
-	    					healers:0, 
-	    					techies:0
-	    				}
-	    			} else {
-	    				array_push(garrison_log[$ unit_location].units, unit);
-	    				garrison_log[$ unit_location].vehicles++;
-	    			}
-	    		} else if (obj_ini.veh_lid[co][u]>0){
-	    			obj_ini.ship_carrying[obj_ini.veh_lid[co][u]]+=scr_unit_size("",obj_ini.veh_role[co][u],true);
-	    		}
-	    	}
+	    	try{
+
+		    	for (var u=1;u<array_length(obj_ini.veh_race);u++){
+		    		if (obj_ini.veh_race[co][u]==0) then continue;
+		    		if (obj_ini.veh_wid[co][u]>0){
+		    			unit_location = obj_ini.veh_loc[co][u];
+		    			unit = [co, u];
+		    			if (!struct_exists(garrison_log, unit_location)){
+		    				garrison_log[$ unit_location] = {
+		    					units:[unit],
+		    					vehicles:1, 
+		    					garrison:false, 
+		    					healers:0, 
+		    					techies:0
+		    				}
+		    			} else {
+		    				array_push(garrison_log[$ unit_location].units, unit);
+		    				garrison_log[$ unit_location].vehicles++;
+		    			}
+		    		} else if (obj_ini.veh_lid[co][u]>0){
+		    			obj_ini.ship_carrying[obj_ini.veh_lid[co][u]]+=scr_unit_size("",obj_ini.veh_role[co][u],true);
+		    		}
+		    	}
+		    }catch(_exception){
+				show_debug_message(_exception.message);
+			}
 	    }
 	    update_mission_log();	
 	}
