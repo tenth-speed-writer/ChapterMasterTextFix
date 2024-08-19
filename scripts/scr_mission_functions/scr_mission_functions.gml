@@ -49,6 +49,29 @@ function scr_new_governor_mission(planet){
 	}
 }
 
+
+function init_garrison_mission(planet, star, mission_slot){
+	show_debug_message("start");
+	var problems_data = star.p_problem_other_data[planet]
+	var mission_data = problems_data[mission_slot];
+	show_debug_message("{0}", mission_data);
+	if (mission_data.stage == "preliminary"){
+		show_debug_message("prelim");
+		var numeral_name = planet_numeral_name(planet, star);
+		mission_data.stage = "active";
+		var garrison_length=(10+irandom(6));
+		star.p_timer[planet][mission_slot] = garrison_length;
+	    var garrison_pop=instance_create(0,0,obj_popup);
+	    //pop.image="ancient_ruins";
+	    var pip=instance_create(0,0,obj_popup);
+	    pip.title=$"Requested Garrison Provided to {numeral_name}";
+	    pip.text=$"The govornor of {numeral_name} Thanks you for considering his request for a garrison, you agree that the garrison will remain for at least {garrison_length} months.";
+	    pip.image="event_march"
+	    scr_event_log("",$"Garrison commited to {numeral_name} for {garrison_length} months.", target.name);
+	}	
+}
+
+
 function has_any_problem_planet(planet, star="none"){
 	if (star=="none"){
 		for (var i=0;i<array_length(p_problem[planet]);i++){
@@ -68,7 +91,7 @@ function has_any_problem_planet(planet, star="none"){
 function has_problem_star(problem, star="none"){
 	var has_problem = false;
 	if (star=="none"){
-		for (var i=1;i<planets;i++){
+		for (var i=1;i<=planets;i++){
 			has_problem = has_problem_planet(i, problem);
 			if (has_problem){
 				has_problem=i;
@@ -112,7 +135,7 @@ function has_problem_planet_and_time(planet, problem, time,star="none"){
  function has_problem_planet_with_time(planet, problem,star="none"){
 	var had_problem = false;
 	if (star=="none"){
-		for (var i =0;i<array_length(p_problem[planet]);i++){
+		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
 				if (p_timer[planet][i] >0){
 					had_problem=i;
@@ -129,7 +152,7 @@ function has_problem_planet_and_time(planet, problem, time,star="none"){
 
 function find_problem_planet(planet, problem, star="none"){
 	if (star=="none"){
-		for (var i =1;i<array_length(p_problem[planet]);i++){
+		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
 				return i;
 			}
@@ -145,7 +168,7 @@ function find_problem_planet(planet, problem, star="none"){
 function remove_planet_problem(planet, problem, star="none"){
 	var had_problem = false;
 	if (star=="none"){
-		for (var i =1;i<array_length(p_problem[planet]);i++){
+		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
 				p_problem[planet][i]="";
 				p_timer[planet][i]=-1;
@@ -189,7 +212,7 @@ function remove_star_problem(problem, star="none"){
 }
 
 function problem_count_down(planet, count_change=1){
-	for (var i=1;i<array_length(p_problem[planet]);i++){
+	for (var i=0;i<array_length(p_problem[planet]);i++){
 		if (p_problem[planet][i]!=""){
 			p_timer[planet][i]-=count_change;
 			if (p_timer[planet][i]==-5){

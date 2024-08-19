@@ -13,8 +13,12 @@ if (type=99){
     draw_set_halign(fa_center);
     draw_set_color(38144);
     
-    if (obj_controller.zoomed=0){draw_text_transformed(__view_get( e__VW.XView, 0 )+320,__view_get( e__VW.YView, 0 )+60,string_hash_to_newline("SELECT DESTINATION"),0.5,0.5,0);}
-    if (obj_controller.zoomed=1){draw_text_transformed(room_width/2,60*3,string_hash_to_newline("SELECT DESTINATION"),1.5,1.5,0);}
+    if (!obj_controller.zoomed){
+        draw_text_transformed(__view_get( e__VW.XView, 0 )+320,__view_get( e__VW.YView, 0 )+60,"SELECT DESTINATION",0.5,0.5,0);
+    }
+    else {
+        draw_text_transformed(room_width/2,60*3,"SELECT DESTINATION",1.5,1.5,0);
+    }
     
     draw_set_halign(fa_left);
 }else if (type=10){
@@ -178,17 +182,23 @@ if ((zoom=0) and (type<=4)) or (type=98){
     image_bot=0;
 
     if (size=0) or (size=2){
-        sprite_index=spr_popup_medium;image_alpha=0;widd=sprite_width-50;
-        draw_sprite_ext(spr_popup_medium,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
+        sprite_index=spr_popup_medium;
+        image_alpha=0;
+        widd=sprite_width-50;
+        draw_sprite_ext(spr_popup_medium,type,x_popup_align,yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
         if (image!=""){image_wid=100;image_hei=100;}
     }
     if (size=1){
-        sprite_index=spr_popup_small;image_alpha=0;widd=sprite_width-10;
+        sprite_index=spr_popup_small;
+        image_alpha=0;
+        widd=sprite_width-10;
         draw_sprite_ext(spr_popup_small,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
         if (image!=""){image_wid=150;image_hei=150;}
     }
     if (size=3){
-        sprite_index=spr_popup_large;image_alpha=0;widd=sprite_width-50;
+        sprite_index=spr_popup_large;
+        image_alpha=0;
+        widd=sprite_width-50;
         draw_sprite_ext(spr_popup_large,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
         if (image!=""){image_wid=200;image_hei=200;}
     }
@@ -489,10 +499,7 @@ if (type=8) and (instance_exists(obj_controller)){
                 temp1=unit.name_role();
                 temp2=obj_controller.ma_loc[sel];
                 if (obj_controller.ma_wid[sel]!=0){
-                    if (obj_controller.ma_wid[sel]=1) then temp2+=" I";
-                    if (obj_controller.ma_wid[sel]=2) then temp2+=" II";
-                    if (obj_controller.ma_wid[sel]=3) then temp2+=" III";
-                    if (obj_controller.ma_wid[sel]=4) then temp2+=" IV";
+                    temp2 += scr_roman_numerals()[obj_controller.ma_wid[sel]-1];
                 }
                 if (obj_controller.ma_health[sel]>=100) then temp3="Unwounded";
                 if (obj_controller.ma_health[sel]>=70) and (obj_controller.ma_health[sel]<100) then temp3="Lightly Wounded";
@@ -515,10 +522,7 @@ if (type=8) and (instance_exists(obj_controller)){
                 temp1=string(obj_controller.ma_role[sel]);
                 temp2=string(obj_controller.ma_loc[sel]);
                 if (obj_controller.ma_wid[sel]!=0){
-                    if (obj_controller.ma_wid[sel]=1) then temp2+=" I";
-                    if (obj_controller.ma_wid[sel]=2) then temp2+=" II";
-                    if (obj_controller.ma_wid[sel]=3) then temp2+=" III";
-                    if (obj_controller.ma_wid[sel]=4) then temp2+=" IV";
+                     temp2 += scr_roman_numerals()[obj_controller.ma_wid[sel]-1];
                 }
                 temp3="Undamaged";
                 temp4="";
@@ -666,8 +670,8 @@ if (type=8) and (instance_exists(obj_controller)){
     }
     if (all_good!=1){
         draw_set_alpha(0.25);
-        draw_text(x2+464,y2+397,string_hash_to_newline("Equip!"));
-        draw_text(x2+464.5,y2+397.5,string_hash_to_newline("Equip!"));
+        draw_text(x2+464,y2+397,"Equip!");
+        draw_text(x2+464.5,y2+397.5,"Equip!");
     }
     draw_set_alpha(1);
     
@@ -685,7 +689,7 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
     draw_set_halign(fa_center);
     draw_set_color(c_gray);
     
-    draw_text(xx+1292,yy+145,string_hash_to_newline("Change Equipment"));
+    draw_text(xx+1292,yy+145,"Change Equipment");
     
     draw_set_font(fnt_40k_12);
     var comp="";
@@ -694,8 +698,8 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
     }
     else if (company>10) then comp="HQ";
 
-    if (vehicle_equipment=0) then draw_text(xx+1292,yy+170,string_hash_to_newline(string(comp)+" Company, "+string(units)+" Marines"));
-    if (vehicle_equipment=1) then draw_text(xx+1292,yy+170,string_hash_to_newline(string(comp)+" Company, "+string(units)+" Vehicles"));
+    if (vehicle_equipment=0) then draw_text(xx+1292,yy+170,$"{comp} Company, {units} Marines");
+    if (vehicle_equipment=1) then draw_text(xx+1292,yy+170,$"{comp} Company, {units} Vehicles");
     
     draw_set_halign(fa_left);
     draw_set_color(c_gray);
@@ -707,8 +711,8 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
     var show_name="";
     // Need to not show the artifact tags here somehow
     
-    draw_text(xx+1010,yy+195,string_hash_to_newline("Before"));
-    draw_text(xx+1010.5,yy+195.5,string_hash_to_newline("Before"));
+    draw_text(xx+1010,yy+195,"Before");
+    draw_text(xx+1010.5,yy+195.5,"Before");
     
     show_name=o_wep1;
     if (a_wep1!="") then show_name=a_wep1;
@@ -775,11 +779,12 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
     
     draw_set_color(c_gray);
     
-    if (target_comp=1) then draw_text(xx+1292,yy+215,string_hash_to_newline("->"));
-    if (target_comp=2) then draw_text(xx+1292,yy+235,string_hash_to_newline("->"));
-    if (target_comp=3) then draw_text(xx+1292,yy+255,string_hash_to_newline("->"));
-    if (target_comp=4) then draw_text(xx+1292,yy+275,string_hash_to_newline("->"));
-    if (target_comp=5) then draw_text(xx+1292,yy+295,string_hash_to_newline("->"));
+    for (var i=1;i<=5;i++){
+        if (target_comp==i){
+            draw_text(xx+1292,yy+195+(20*i),"->");
+            break;
+        }
+    }
     
     
     if (mouse_x>=xx+1296) and (mouse_x<xx+1574){
@@ -1336,13 +1341,13 @@ if (zoom=0) and (type=5.1) and (instance_exists(obj_controller)){
     draw_text(xx+1061.5,yy+501.5,string_hash_to_newline("Cancel"));
     
     if (company!=target_comp) and (target_comp>=0){
-        draw_text(xx+1521,yy+501,string_hash_to_newline("Transfer!"));
-        draw_text(xx+1521.5,yy+501.5,string_hash_to_newline("Transfer!"));
+        draw_text(xx+1521,yy+501,"Transfer!")) ˙;
+        draw_text(xx+1521.5,yy+501.5,"Transfer!")) ˙;
     }
     if (company==target_comp) or (target_comp<0){
         draw_set_alpha(0.25);
-        draw_text(xx+1521,yy+501,string_hash_to_newline("Transfer!"));
-        draw_text(xx+1521.5,yy+501.5,string_hash_to_newline("Transfer!"));
+        draw_text(xx+1521,yy+501,"Transfer!"));
+        draw_text(xx+1521.5,yy+501.5,"Transfer!")) ˙;
     }
     draw_set_alpha(1);
 }

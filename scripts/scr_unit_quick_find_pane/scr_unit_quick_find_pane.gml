@@ -769,20 +769,8 @@ function planet_selection_action(){
 		                    //if there was an outstanding mission to provide the given garrison
 		                    var sel_plan = obj_controller.selecting_planet;
 		                    var garrison_request = find_problem_planet(sel_plan, "provide_garrison", target);
-		                    if (garrison_request){
-		                    	var problems_data = target.p_problem_other_data[sel_plan]
-		                    	var mission_data = mission_data[garrison_request];
-		                    	if (mission_data.stage == "preliminary"){
-		                    		var numeral_name = planet_numeral_name(sel_plan, target);
-		                    		mission_data.stage = "active";
-		                    		var garrison_length(10+irandom(6));
-		                    		target.p_timer[sel_plan][garrison_request] = garrison_length;
-								    var garrison_pop=instance_create(0,0,obj_popup);
-								    //pop.image="ancient_ruins";
-								    pop.title=$"Requested Garrison Provided to {numeral_name}";
-								    pop.text=$"The govornor of {numeral_name} Thanks you for considering his request for a garrison, you agree that the garrison will remain for at least {garrison_length} months.";
-								    scr_event_log("",$"Garrison commited to {numeral_name} for {garrison_length} months.", target.name);
-		                    	}
+		                    if (garrison_request>-1){
+		                    	init_garrison_mission(sel_plan, target, garrison_request);
 		                    }
 		                    instance_destroy();
 		                }
@@ -878,7 +866,7 @@ function planet_selection_action(){
 					                var arti;
 					                var pip=instance_create(0,0,obj_popup);
 					                pip.title="Ancient Ruins";
-					    			var ruins_size =obj_controller.current_planet_feature.ruins_size
+					    			var ruins_size = obj_controller.current_planet_feature.ruins_size
 					                
 					                var nu=planet_numeral_name(sel_plan,target);
 

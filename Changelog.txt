@@ -5,6 +5,9 @@ Fixed:
 	- updating garrison log creating crashes due to vehicle arrays
 	- some recruit trials used to produced no recruits
 
+Changed:
+	- player will now get alerts when ship production ceases due to a lack of active forge worlds
+
 -----------------------
 
 Version  0.9.1.0

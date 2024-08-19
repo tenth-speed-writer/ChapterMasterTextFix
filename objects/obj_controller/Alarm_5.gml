@@ -1125,24 +1125,25 @@ for(var i=1; i<=99; i++){
             // Ships construction
             if (string_count("new_",event[i])>0){
                 var new_ship_event=event[i];
-                with(obj_temp5){instance_destroy();}
+                var active_forges = [];
+                var chosen_star = false;
                 with(obj_star){
                     if (owner==eFACTION.Mechanicus){
-                        if (p_type[1]=="Forge") and (p_owner[1]==eFACTION.Mechanicus) then instance_create(x,y,obj_temp5);
-                        if (p_type[2]=="Forge") and (p_owner[2]==eFACTION.Mechanicus) then instance_create(x,y,obj_temp5);
-                        if (p_type[3]=="Forge") and (p_owner[3]==eFACTION.Mechanicus) then instance_create(x,y,obj_temp5);
-                        if (p_type[4]=="Forge") and (p_owner[4]==eFACTION.Mechanicus) then instance_create(x,y,obj_temp5);
+                        for (i=1;i<=planets;i++){
+                            if (p_type[i]=="Forge") and (p_owner[i]==eFACTION.Mechanicus){
+                                array_push(active_forges,new PlanetData(i, self));
+                            }
+                        }
                     }
                 }
-                if (instance_number(obj_temp5)>0){
-                    var that,that2,new_defense_fleet;
-                    that=instance_nearest(random(room_width),random(room_height),obj_temp5);
-                    that2=instance_nearest(that.x,that.y,obj_star);
-                    new_defense_fleet=instance_create(that2.x+24,that2.y-24,obj_p_fleet);
+                if (array_length(active_forges)>0){
+                    var ship_spawn = active_forges[irandom(array_length(active_forges)-1)];
+                    var new_defense_fleet=instance_create(ship_spawn.system.x+24,ship_spawn.system.y-24,obj_p_fleet);
 
                     // Creates the ship
 
-                    last_ship = new_player_ship(new_ship_event, that2.name);
+                    var last_ship = new_player_ship(new_ship_event, ship_spawn.system.name);
+
                     if (obj_ini.ship_class[last_ship] =="Battle Barge"){
                         new_defense_fleet.capital[1]=obj_ini.ship[last_ship];
                         new_defense_fleet.capital_number=1;
@@ -1170,17 +1171,18 @@ for(var i=1; i<=99; i++){
 
                     // show_message(string(obj_ini.ship_class[last_ship])+":"+string(obj_ini.ship[last_ship]));
 
-                    if (instance_exists(that2)){
-                        if (obj_ini.ship_size[last_ship]!=1) then scr_popup("Ship Constructed","Your new "+string(obj_ini.ship_class[last_ship])+" '"+string(obj_ini.ship[last_ship])+"' has finished being constructed.  It is orbiting "+string(that2.name)+" and awaits its maiden voyage.","shipyard","");
-                        if (obj_ini.ship_size[last_ship]==1) then scr_popup("Ship Constructed","Your new "+string(obj_ini.ship_class[last_ship])+" Escort '"+string(obj_ini.ship[last_ship])+"' has finished being constructed.  It is orbiting "+string(that2.name)+" and awaits its maiden voyage.","shipyard","");
-                        var bob=instance_create(that2.x+16,that2.y-24,obj_star_event);
-                        bob.image_alpha=1;
-                        bob.image_speed=1;
-                    }
+                    if (obj_ini.ship_size[last_ship]!=1) then scr_popup("Ship Constructed",$"Your new {obj_ini.ship_class[last_ship]} '{obj_ini.ship[last_ship]}' has finished being constructed.  It is orbiting {ship_spawn.system.name} and awaits its maiden voyage.","shipyard","");
+                    if (obj_ini.ship_size[last_ship]==1) then scr_popup("Ship Constructed",$"Your new {obj_ini.ship_class[last_ship]} Escort '{obj_ini.ship[last_ship]}' has finished being constructed.  It is orbiting {ship_spawn.system.name} and awaits its maiden voyage.","shipyard","");
+                    var bob=instance_create(that2.x+16,that2.y-24,obj_star_event);
+                    bob.image_alpha=1;
+                    bob.image_speed=1;
                 }
-                if (instance_number(obj_temp5)==0) then event_duration[i]=2;
-                with(obj_temp5){instance_destroy();}
-                event[i]="";event_duration[i]-=1;
+                if (array_length(active_forges)==0){
+                    event_duration[i]=2;
+                    scr_popup("Ship Construction halted",$"A lack of suitable forge worlds in the system has halted construction of your requested ship","shipyard","");
+                }
+                event[i]="";
+                event_duration[i]-=1;
             }
             // Spare the inquisitor
             if (string_count("inquisitor_spared",event[i])>0){
@@ -1197,7 +1199,9 @@ for(var i=1; i<=99; i++){
                 if (diceh>85) and (event[i]="inquisitor_spared2"){
                     scr_popup("Anonymous Message","You recieve an anonymous letter of thanks.  It mentions that motions are underway to destroy any local forces of Chaos.","","");
                     with(obj_star){
-                        for(var o=1; o<=4; o++){p_heresy[o]=max(0,p_heresy[o]-10);}
+                        for(var o=1; o<=planets; o++){
+                            p_heresy[o]=max(0,p_heresy[o]-10);
+                        }
                     }
                 }
             }
