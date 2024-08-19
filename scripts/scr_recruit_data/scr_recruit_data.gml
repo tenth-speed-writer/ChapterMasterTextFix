@@ -11,7 +11,15 @@ enum eTrials{
 
 // to be run in teh scope of the PlanetData struct
 function planet_training_sequence(){
+
+    var thirdpop = max_population / 3;
+    var halfpop = max_population / 2;	
+
 	if (planet_feature_bool(features, P_features.Recruiting_World) == 1) and(obj_controller.gene_seed > 0) and(current_owner <= 5) and(obj_controller.faction_status[current_owner] != "War") {
+        var _planet_population = population;
+        if (large_population) {
+            _planet_population *= 1000000000;
+        }		
 	    if (_planet_population >= 50 && obj_controller.recruiting) {
 	        // Commenting this for now, looks like debug code
 	        //scr_alert("green","owner", "Recruitment is slowed due to lack of population on our recruitment worlds",0,0);
@@ -64,6 +72,7 @@ function planet_training_sequence(){
 	            }
 	        }
 
+	        show_debug_message("{0},{1}", recruit_chance, recruit_chance_total);
 	        if (recruit_chance<=recruit_chance_total){
 	            aspirant = true;
 	        }
@@ -113,7 +122,7 @@ function planet_training_sequence(){
 	            if (!chosen_exp && struct_exists(exp_bonus_data, "base")){
 	                if (exp_bonus_data.base[0]!=0 && exp_bonus_data.base[1]!=0){
 	                    if (array_length(exp_bonus_data.base)>2){
-	                        if (random(1)<exp_bonus_data.base[3]){
+	                        if (random(1)<exp_bonus_data.base[2]){
 	                             new_recruit_exp += irandom_range(exp_bonus_data.base[0], exp_bonus_data.base[1]);
 	                        }
 	                    } else {
@@ -126,13 +135,12 @@ function planet_training_sequence(){
 
 	        // xp gain for the recruit is here
 	        // as well as planet type buffs or nerfs
-	        if (aspirant != 0) {
-	            var i, new_recruit;
-	            i = 0;
-	            new_recruit = 0;
+	        if (aspirant) {
+
+	            var i = 0;
+	            var new_recruit = 0;
 
 	            // gets the next empty recruit space on the array
-	            var new_recruit_exp = irandom(5);
 	            if (new_recruit_exp >= 40) then new_recruit_exp = 38;// we don't want immediate battle bros
 
 	            for (var i=0;i<array_length(obj_controller.recruit_training);i++) {
@@ -239,6 +247,9 @@ function scr_trial_data(wanted=-1){
 					Death : [2,4],
 				}
 			},
+			recruit_count_modifier : {
+				base : 1.0,
+			},
 			long_description :$"Few worlds of the Imperium are free from the adversity of pollution or toxic waste.  Still others are bequeathed with flows of lava and choking atmosphere.  The glory of rising to astartes is only granted to those that can tackle and overcome these dangerous environments.  Aspirants are placed upon the most hellish of planet in the sector, and then expected to traverse the continent with only himself to rely upon.  Those who face the impossible without faltering and survive past the point they should have perished are recovered by {role_data[Role.APOTHECARY]}s, judged worthy of becoming a Neophyte.",						
 		},
 		{
@@ -255,6 +266,9 @@ function scr_trial_data(wanted=-1){
 					Temperate : [20,35],
 				}
 			},
+			recruit_count_modifier : {
+				base : 1.0,
+			},		
 			long_description :$"An Aspirant’s spiritual and mental capability is every bit as important as his physical characteristics.  It is wise to impose Trials not upon their body, but on the mind.  Either through psychic powers, chemical agents, or endurance trials, the Aspirant’s willpower is tested.  Those unworthy do not survive the stress and trauma placed upon their hearts- only those whose minds are proven to be unbreakable are welcomed into our ranks.",							
 		},
 		{
@@ -285,7 +299,7 @@ function scr_trial_data(wanted=-1){
 				base : 1,
 				planets : {
 					Lava :2,
-				}			
+				},			
 			},
 			corruption :{
 				base : [0,-10],

@@ -252,11 +252,18 @@ function scr_update_unit_mobility_item(new_mobility_item, from_armoury = true, t
 			if (arm_data.has_tag("terminator")){
 				return "incompatible with terminator";
 			}
+
+			//can probably condense the next 10 lines at some point
 			var core_type = arti ? obj_ini.artifact[new_mobility_item] : new_mobility_item;
 			//TODO move to tag system
 			if (core_type=="Jump Pack" && !arm_data.has_tag("power_armour")){
 				return "requires power armour";
 			}
+		} else {
+			var core_type = arti ? obj_ini.artifact[new_mobility_item] : new_mobility_item;
+			if (core_type=="Jump Pack"){
+				return "requires power armour";
+			}			
 		}
 	}
 	var same_quality = quality == "any" || quality == mobility_item_quality;

@@ -170,6 +170,15 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	}
 	// show_message(string(t3));
 
+	if (artifact_location = ""){
+		if (obj_ini.fleet_type=1){
+			artifact_location = obj_ini.home_name;
+			ship_id = 2;
+		} else {
+			artifact_location = obj_ini.ship[1];
+			ship_id = 501;
+		}
+	}
 	obj_ini.artifact[last_artifact]=base_type_detail;
 	obj_ini.artifact_tags[last_artifact]=tags;
 

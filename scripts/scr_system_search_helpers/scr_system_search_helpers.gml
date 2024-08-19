@@ -271,8 +271,9 @@ function scr_planet_image_numbers(p_type){
 
 function PlanetData(planet, system) constructor{
 	self.planet=planet;
+	self.system = system;
 	player_disposition = system.dispo[planet];
-	planet_type = system.p_type;
+	planet_type = system.p_type[planet];
     operatives = system.p_operatives[planet];
     features =system. p_feature[planet];
     current_owner = system.p_owner[planet];
@@ -291,10 +292,10 @@ function PlanetData(planet, system) constructor{
     defence_lasers = system.p_lasers[planet];
     defence_silos = system.p_silo[planet];
     ground_defences = system.p_defenses[planet];
-    upgrades = system.p_upgrades[planet]=[];
+    upgrades = system.p_upgrades[planet];
     // v how much of a problem they are from 1-5
     planet_forces = [
-    	0
+    	0,
     	player_forces,
     	guardsmen,
     	0,
@@ -316,9 +317,10 @@ function PlanetData(planet, system) constructor{
     // current planet heresy
     corruption = system.p_heresy[planet];
 
-    is_heretic = p_hurssy[planet];
+    is_heretic = system.p_hurssy[planet];
 
-    heretic_timer = system.p_hurssy_time;
+    heretic_timer = system.p_hurssy_time[planet];
+
     secret_corruption = system.p_heresy_secret[planet];
 
     population_influences = system.p_influence[planet];
@@ -330,6 +332,8 @@ function PlanetData(planet, system) constructor{
     problems = system.p_problem[planet];
     problem_data = system.p_problem[planet];
     problem_timers = system.p_timer[planet];
+
+    static marine_training = planet_training_sequence;
 
 }
 //function scr_get_player_fleets() {

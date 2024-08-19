@@ -3,7 +3,10 @@ scr_return_ship(loc,self,num);
 
 var man_size,ship_id,comp,planet,i;
 i=0;ship_id=0;man_size=0;comp=0;planet=0;
-repeat(30){i+=1;if (obj_ini.ship[i]=loc) then ship_id=i;}i=0;
+repeat(30){
+    i+=1;
+    if (obj_ini.ship[i]=loc) then ship_id=i;
+}i=0;
 planet=instance_nearest(x,y,obj_star);
 scr_add_artifact("random","random",4,loc,ship_id+500);
 

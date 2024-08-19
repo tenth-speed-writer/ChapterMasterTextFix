@@ -597,7 +597,7 @@ function scr_enemy_ai_e() {
         halfpop = p_max_population[run] / 2;
 
         if (array_length(p_feature[run]) != 0) {
-             planet_data = new PlanetData(run, self);
+            var planet_data = new PlanetData(run, self);
             //initiate training logics rest to be found in scr_recruit_data
             if (planet_feature_bool(p_feature[run], P_features.Recruiting_World)){
                 if (obj_controller.gene_seed == 0) and (obj_controller.recruiting > 0) {
@@ -605,17 +605,11 @@ function scr_enemy_ai_e() {
                     obj_controller.income_recruiting = 0;
                     scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
                 } else if (obj_controller.recruiting > 0){
-                    with (planet_data){
-                         planet_training_sequence(run);
-                    }
+                    planet_data.marine_training();
                 }
             }
             // Transforming billions pop number to a real number so the code can handle it
             // Otherwise, 3 and a half billions get translated as 3,50 instead of 3500000000
-            var _planet_population = p_population[run];
-            if (p_large[run] == 1) {
-                _planet_population = _planet_population * 1000000000;
-            }
 
             //fortress monestary
             if (p_owner[run] == 1) {
