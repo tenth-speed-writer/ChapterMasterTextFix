@@ -923,21 +923,11 @@ function planet_selection_action(){
 	        xxx=159+(i*41);
 	        if (target.craftworld=0) and (target.space_hulk=0){
 	        	var sel_plan = i+1;
-	        	var temp1=0;
+	        	var planet_frame=0;
 	            with (target){
-	                if (p_type[sel_plan]="Lava") then temp1=0;
-	                if (p_type[sel_plan]="Desert") then temp1=2;
-	                if (p_type[sel_plan]="Dead") then temp1=12;
-	                if (p_type[sel_plan]="Hive") then temp1=4;
-	                if (p_type[sel_plan]="Temperate") or (p_type[sel_plan]="Feudal") then temp1=8;
-	                if (p_type[sel_plan]="Agri") then temp1=6;
-	                if (p_type[sel_plan]="Death") then temp1=5;
-	                if (p_type[sel_plan]="Ice") then temp1=10;
-	                if (p_type[sel_plan]="Forge") then temp1=3;
-	                if (p_type[sel_plan]="Daemon") then temp1=14;
-	                if (p_type[sel_plan]="Shrine") then temp1=15;
+	            	planet_frame = scr_planet_image_numbers(p_type[sel_plan]);
 	            }
-	            draw_sprite_ext(spr_planets,temp1,xx+xxx, yy+287, 1, 1, 0, planet_draw, 0.9)
+	            draw_sprite_ext(spr_planets,planet_frame,xx+xxx, yy+287, 1, 1, 0, planet_draw, 0.9)
 	            
 	            draw_set_color(global.star_name_colors[target.p_owner[sel_plan]]);
 

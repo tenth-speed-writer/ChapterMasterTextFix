@@ -1337,8 +1337,8 @@ if (zoom=0) and (type=5.1) and (instance_exists(obj_controller)){
     
     draw_set_alpha(1);
     draw_set_halign(fa_center);
-    draw_text(xx+1061,yy+501,string_hash_to_newline("Cancel"));
-    draw_text(xx+1061.5,yy+501.5,string_hash_to_newline("Cancel"));
+    draw_text(xx+1061,yy+501,"Cancel");
+    draw_text(xx+1061.5,yy+501.5,"Cancel");
     
     if (company!=target_comp) and (target_comp>=0){
         draw_text(xx+1521,yy+501,"Transfer!")) ˙;

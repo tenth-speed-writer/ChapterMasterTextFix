@@ -270,7 +270,7 @@ function scr_planet_image_numbers(p_type){
 }
 
 function PlanetData(planet, system) constructor{
-	self.planet=planet;
+	self.planet = planet;
 	self.system = system;
 	player_disposition = system.dispo[planet];
 	planet_type = system.p_type[planet];
