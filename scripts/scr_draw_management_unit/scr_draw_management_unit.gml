@@ -216,7 +216,7 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 			if (ma_promote[selected] >= 10){
 				hpColor = c_red;
 				array_push(health_tooltip, ["Critical Health State! Bionic augmentation is required!", [xx+250, yy+64, xx+300, yy+85]]);
-			}else if (ma_promote[selected] > 0 && !unit_specialist){
+			}else if (ma_promote[selected] > 0 && !unit_specialist && obj_controller.command_set[2] != 0){
 				xpColor = c_yellow;
 				array_push(promotion_tooltip, ["Promotion Recommended", [xx+335, yy+64, xx+385, yy+85]]);
 			}

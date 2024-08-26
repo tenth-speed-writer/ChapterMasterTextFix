@@ -1070,7 +1070,7 @@ if (zoom=0) and (type==5) and (instance_exists(obj_controller)){
    // if (obj_controller.command_set[1]!=0 && !is_specialist(unit_role, "libs")){
     for (i=1;i<=10;i++){
         var comp_data = company_promote_data[i-1];
-        if (obj_controller.command_set[2]==0){//cecks if exp requirements are activated
+        if (obj_controller.command_set[2]==1){//cecks if exp requirements are activated
             if (min_exp<comp_data[2]){
                 draw_set_alpha(0.6);
             }

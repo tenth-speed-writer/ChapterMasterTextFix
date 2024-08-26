@@ -301,26 +301,31 @@ function other_manage_data(){
 	        squad[v]=squads;
 	        squad_loc=unit_loc;
 	    }
-	    //requirements to be promoted through companies index 0 = command comapny requirement
-	    var company_promotion_limits = [0,150,120,110,100,80,70,60,50,40,0];
+        // TODO: connect this logic with the get_unit_promotion_options() to reduce verboseness;
+	    //requirements to be promoted through companies index 0 = command company requirement
+	    var company_promotion_limits = [0,100,65,65,65,65,45,45,35,25,0];
 	    // Right here is where the promotion check will go
 	    // If EXP is enough for that company then ma_promote[i]=1
 	    if (ma_role[v]==obj_ini.role[100][3]) or (ma_role[v]==obj_ini.role[100][4]){
-	        if (unit.company==1) and (ma_exp[v]>=300) then ma_promote[v]=1;
+	        if (unit.company==1) and (ma_exp[v]>=140) then ma_promote[v]=1;
 	        if (ma_health[v]<=10) then ma_promote[v]=10;
 	    }
 	    if (unit.role()=obj_ini.role[100][6]) and (ma_exp[v]>=400) then ma_promote[v]=1;
 	    if (unit.role()=obj_ini.role[100][15]) or (ma_role[v]=obj_ini.role[100][14]) then ma_promote[v]=1;
 	    if (unit.role()=obj_ini.role[100][16]) then ma_promote[v]=1;
 
+		var target_company = 0;
 	    if (unit.IsSpecialist("rank_and_file")){
-	    	var promotion_limit = company_promotion_limits[unit.company-1]
+			if (unit.company >= 8) then target_company = unit.company - 1;
+			else if (unit.company >= 6) then target_company = 5;
+			else if (unit.company >= 2) then target_company = 1;
+	    	var promotion_limit = company_promotion_limits[target_company]
 			if (unit.experience()>=promotion_limit && promotion_limit>0){
 	    		ma_promote[v]=1;
 	    	}
 	    	if (ma_health[v]<=10) then ma_promote[v]=10;	                	
 	    } else if  (ma_role[v]=obj_ini.role[100][5]){
-	    	var promotion_limit = company_promotion_limits[unit.company-1]
+	    	var promotion_limit = company_promotion_limits[unit.company - 1]
 	    	if (unit.experience()>=promotion_limit+25 && promotion_limit>0){
 
 	    	}
@@ -337,7 +342,7 @@ function other_manage_data(){
 	        if (company=4) and (ma_exp[v]>=65) then ma_promote[v]=1;
 	        if (company=3) and (ma_exp[v]>=75) then ma_promote[v]=1;
 	    }*/
-	    if (obj_controller.command_set[2]==1) and (ma_promote[v]==0) then ma_promote[v]=1;
+	    if (obj_controller.command_set[2]==0) and (ma_promote[v]==0) then ma_promote[v]=1;
 	}
 }
 
