@@ -425,3 +425,98 @@ function filter_and_sort_company(type, specific){
 		}
 	}
 }
+
+
+function company_manage_actions(){
+	var onceh=0;
+	var xx=__view_get( e__VW.XView, 0 );
+	var yy=__view_get( e__VW.YView, 0 );
+
+    // Back out from company
+    if (mouse_x>=xx+23) and (mouse_y>=yy+80) and (mouse_x<xx+95) and (mouse_y<yy+128){
+        managing=0;
+        cooldown=8000;
+        scr_ui_refresh();
+        scr_management(1);
+        cooldown=8000;
+        click=1;
+        popup=0;
+        selected=0;
+        hide_banner=1;
+        view_squad=false;
+        unit_profile=false;
+    }
+    // Previous company
+    if (point_and_click([xx+424, yy+80,xx+496,yy+128])){
+        onceh=0;
+        text_bar=0;
+        if (onceh==0){
+            cooldown=8000;
+            onceh=1;
+            if (managing<10){
+            	company_data.reset_squad_surface();
+            }
+            if ((managing>1) and (managing<=11)){
+                scr_ui_refresh();
+                managing-=1;
+                scr_company_view(managing);
+                company_data = new scr_company_struct(managing);
+            }else if (managing>11){
+                scr_ui_refresh();
+                managing-=1;
+                scr_special_view(managing);
+                company_data={};
+                view_squad=false;
+            }else if (managing==1){
+                scr_ui_refresh();
+                managing=15;
+                scr_special_view(managing);
+                company_data={};
+                view_squad=false;
+            }
+        }
+    }
+    // Next company
+    if (point_and_click([xx+1105, yy+80,xx+1178,yy+128])){
+        onceh=0;
+        text_bar=0;
+        if (onceh==0){
+            cooldown=8000;
+            onceh=1;
+            scr_ui_refresh();
+            if (managing<10){
+                scr_ui_refresh();
+                managing+=1;
+                scr_company_view(managing);
+                company_data = new scr_company_struct(managing);
+            } else if (managing>=10) and (managing<15){
+                scr_ui_refresh();
+                managing+=1;
+                scr_special_view(managing);
+                company_data={};
+                view_squad=false;
+            } else if (managing==15){
+                scr_ui_refresh();
+                managing=1;
+                scr_company_view(managing);
+                company_data = new scr_company_struct(managing);
+            }
+        }
+    }
+
+    for (var i=1;i<=15;i++){
+    	if (keyboard_check_pressed(ord(string(i)))){
+    		scr_ui_refresh();
+    		if (i>10){
+    			scr_special_view(i);
+                company_data={};
+                view_squad=false;    			
+    		} else {
+    			company_data.reset_squad_surface();
+                scr_company_view(i);
+                company_data = new scr_company_struct(i);
+    		}
+    		managing=i;
+    	}
+    }
+}
