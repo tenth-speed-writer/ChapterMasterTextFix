@@ -99,6 +99,10 @@ function scr_ui_manage() {
 	if (combat!=0) then exit;
 	// This is the draw script for showing the main management screen or individual company screens
 
+    if (zoomed==0) and (menu==1) and (managing>0) and (cooldown<=0){
+        company_manage_actions();
+    }
+    
 	if (menu==1) and (managing>0 || managing <0){
 		if (!mouse_check_button(mb_left)){
 			drag_square=[];

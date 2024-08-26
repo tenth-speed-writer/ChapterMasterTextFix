@@ -426,14 +426,30 @@ function filter_and_sort_company(type, specific){
 	}
 }
 
+function switch_view_company(new_view){
+	if (new_view<1) then exit;
+	text_bar=0;
+	if (managing<=10 && managing>0){
+		company_data.reset_squad_surface();
+	}
+	scr_ui_refresh();
 
+	managing = new_view;
+	if (new_view>10){
+		view_squad=false;
+		company_data={};
+		scr_special_view(new_view);
+	} else {
+		scr_company_view(new_view);
+	}
+}
 function company_manage_actions(){
 	var onceh=0;
 	var xx=__view_get( e__VW.XView, 0 );
 	var yy=__view_get( e__VW.YView, 0 );
 
     // Back out from company
-    if (mouse_x>=xx+23) and (mouse_y>=yy+80) and (mouse_x<xx+95) and (mouse_y<yy+128){
+    if (point_and_click([xx+23,yy+80,xx+95,yy+128])){
         managing=0;
         cooldown=8000;
         scr_ui_refresh();
@@ -448,75 +464,19 @@ function company_manage_actions(){
     }
     // Previous company
     if (point_and_click([xx+424, yy+80,xx+496,yy+128])){
-        onceh=0;
-        text_bar=0;
-        if (onceh==0){
-            cooldown=8000;
-            onceh=1;
-            if (managing<10){
-            	company_data.reset_squad_surface();
-            }
-            if ((managing>1) and (managing<=11)){
-                scr_ui_refresh();
-                managing-=1;
-                scr_company_view(managing);
-                company_data = new scr_company_struct(managing);
-            }else if (managing>11){
-                scr_ui_refresh();
-                managing-=1;
-                scr_special_view(managing);
-                company_data={};
-                view_squad=false;
-            }else if (managing==1){
-                scr_ui_refresh();
-                managing=15;
-                scr_special_view(managing);
-                company_data={};
-                view_squad=false;
-            }
-        }
-    }
-    // Next company
-    if (point_and_click([xx+1105, yy+80,xx+1178,yy+128])){
-        onceh=0;
-        text_bar=0;
-        if (onceh==0){
-            cooldown=8000;
-            onceh=1;
-            scr_ui_refresh();
-            if (managing<10){
-                scr_ui_refresh();
-                managing+=1;
-                scr_company_view(managing);
-                company_data = new scr_company_struct(managing);
-            } else if (managing>=10) and (managing<15){
-                scr_ui_refresh();
-                managing+=1;
-                scr_special_view(managing);
-                company_data={};
-                view_squad=false;
-            } else if (managing==15){
-                scr_ui_refresh();
-                managing=1;
-                scr_company_view(managing);
-                company_data = new scr_company_struct(managing);
-            }
-        }
+    	var new_view = managing == 1 ? 15 : managing-1;
+    	switch_view_company(new_view)
     }
 
-    for (var i=1;i<=15;i++){
+    // Next company
+    if (point_and_click([xx+1105, yy+80,xx+1178,yy+128])){
+    	var new_view = managing == 15 ? 1 : managing+1;
+    	switch_view_company(new_view)
+    }
+
+    for (var i=1;i<=10;i++){ 
     	if (keyboard_check_pressed(ord(string(i)))){
-    		scr_ui_refresh();
-    		if (i>10){
-    			scr_special_view(i);
-                company_data={};
-                view_squad=false;    			
-    		} else {
-    			company_data.reset_squad_surface();
-                scr_company_view(i);
-                company_data = new scr_company_struct(i);
-    		}
-    		managing=i;
+    		switch_view_company(i);
     	}
     }
 }

@@ -744,7 +744,7 @@ function planet_selection_action(){
 	            var garrison_issue = (!planet_is_allies || target.p_pdf[sel_plan]<1);
 	            if (garrison_assignment && (garrison_issue && mission=="garrison")){
                 	planet_draw = c_red;
-                	tooltip_draw("Can't garrison on non-friendly planet with no PDF", 150);	            	
+                	tooltip_draw("Can't garrison on non-friendly or planet with no friendly PDF", 150);	            	
 	            }
 	            if (mouse_check_button_pressed(mb_left)){
 	                if (garrison_assignment){

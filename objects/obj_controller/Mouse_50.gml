@@ -1589,9 +1589,6 @@ if (action_if_number(obj_saveload, 0, 0) &&
         }
     }
 
-    if (zoomed==0) and (menu==1) and (managing>0) and (cooldown<=0){
-        company_manage_actions();
-    }
     // This is the back button at LOADING TO SHIPS
     if (zoomed==0) and (menu==30) and (managing>0||managing==-1) and (cooldown<=0){
         xx=xx+0;
