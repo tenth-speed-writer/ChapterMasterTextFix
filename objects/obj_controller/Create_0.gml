@@ -522,14 +522,14 @@ for(var i=0; i<40; i++){
 }
 // TODO command_set is used for equipement. We should re do this and have an array for all available equipement
 command_set[1]=0;
-command_set[2]=0;
+command_set[2]=1;
 command_set[3]=1;
 command_set[4]=1;
 command_set[5]=1;
 command_set[6]=1;
 command_set[7]=1;
-command_set[8]=0;
-command_set[9]=0;
+command_set[8]=1;
+command_set[9]=1;
 command_set[20]=1;
 command_set[24]=1;
 blandify=0;
