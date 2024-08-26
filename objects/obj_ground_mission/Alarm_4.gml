@@ -3,16 +3,12 @@ scr_return_ship(loc,self,num);
 
 var man_size,ship_id,comp,planet,i;
 i=0;ship_id=0;man_size=0;comp=0;planet=0;
-repeat(30){
-    i+=1;
-    if (obj_ini.ship[i]=loc) then ship_id=i;
-}i=0;
+ship_id = get_valid_player_ship("", loc);
 planet=instance_nearest(x,y,obj_star);
-scr_add_artifact("random","random",4,loc,ship_id+500);
+var last_artifact = scr_add_artifact("random","random",4,loc,ship_id+500);
 
-var i,last_artifact;
-i=0;last_artifact=0;
-repeat(100){if (last_artifact=0){i+=1;if (obj_ini.artifact[i]="") then last_artifact=i-1;}}
+var i=0;
+
 
 
 
@@ -44,7 +40,7 @@ if (mission="good"){
 }
 if (mission="bad"){
     pop.text="Your marines converge upon the Artifact; resistance is light and easily dealt with.  After a brief firefight the Artifact is retrieved.##";
-    pop.text+="It has been stowed away upon "+string(loc)+".  It appears to be a "+string(obj_ini.artifact[last_artifact])+" but should be brought home and identified posthaste.";
+    pop.text+=$"It has been stowed away upon {loc}.  It appears to be a "+string(obj_ini.artifact[last_artifact])+" but should be brought home and identified posthaste.";
     scr_event_log("red","Artifact forcibly recovered.  Collateral damage is caused.");
     
     if (planet.p_owner[num]=2) then obj_controller.disposition[2]-=2;
@@ -54,11 +50,15 @@ if (mission="bad"){
     if (planet.p_owner[num]=6) then obj_controller.disposition[6]-=15;
     if (planet.p_owner[num]=8) then obj_controller.disposition[8]-=8;
     
-    if (planet.p_owner[num]>=3) and (planet.p_owner[num]<=6){obj_controller.audiences+=1;obj_controller.audien[obj_controller.audiences]=planet.p_owner[num];obj_controller.audien_topic[obj_controller.audiences]="artifact_angry";}
+    if (planet.p_owner[num]>=3) and (planet.p_owner[num]<=6){
+        obj_controller.audiences+=1;
+        obj_controller.audien[obj_controller.audiences]=planet.p_owner[num];
+        obj_controller.audien_topic[obj_controller.audiences]="artifact_angry";
+    }
 }
 
 
-if (obj_ini.adv[1]="Scavengers") or (obj_ini.adv[2]="Scavengers") or (obj_ini.adv[3]="Scavengers") or (obj_ini.adv[4]="Scavengers"){
+if (scr_has_adv("Scavengers")){
     var ex1,ex1_num,ex2,ex2_num,ex3,ex3_num;
     ex1="";ex1_num=0;ex2="";ex2_num=0;ex3="";ex3_num=0;
     

@@ -7,14 +7,13 @@ function scr_enemy_ai_d() {
 
 	// Planetary problems here
 
-	var i=0;
-	repeat(planets){i+=1;
+	for (var i=1;i<=planets;i++){
 		var numeral_name = planet_numeral_name(i);
 	    if (p_necrons[i]>0) and (p_necrons[i]<6) then p_necrons[i]+=1;
     	problem_count_down(i);
     
 	    var wob=0;
-	    var fallen= find_problem_planet(i, "fallen");
+	    var fallen = find_problem_planet(i, "fallen");
 	    if (fallen>-1 and storm-1>0){
 	    	p_timer[i][fallen]++;
 	    }
@@ -42,7 +41,7 @@ function scr_enemy_ai_d() {
         
 	        if (enemies=1){
 	        	p_halp[i]=1;
-	        	tx=$"The Planetary Governor of {planet_numeral_name(i)} requests help against "+string(enemy1)+" forces!";
+	        	tx=$"The Planetary Governor of {planet_numeral_name(i)} requests help against {enemy1} forces!";
 	            scr_alert("green","halp",string(tx),x,y);
 	            scr_event_log("",string(tx), name);
 	        }
@@ -373,8 +372,8 @@ function scr_enemy_ai_d() {
                 scr_event_log("red",$"Mission Failed: Any Fallen within the {name} system have been given time to escape.");          	
           }
         }
-        var garrison_mission = has_problem_planet_and_time(i,"request_garrison", 0);
-        if (garrison_mission){
+        var garrison_mission = has_problem_planet_and_time(i,"provide_garrison", 0);
+        if (garrison_mission>-1){
             if (p_problem_other_data[i][garrison_mission].stage=="active"){
                 if (p_owner[i] == eFACTION.Imperium && system_garrison[i-1].garrison_force){
                     var mission_string = $"The garrison on {planet_numeral_name(i)} has finished the period of garrison support agreed with the planetary governor.";
@@ -383,25 +382,25 @@ function scr_enemy_ai_d() {
                     if (result == "none"){
                     //TODO make a dedicated plus minus string function if there isn't one already
                     } else if (!result){
-                        var effect = result*irandom_range(5,20);
+                        var effect = result * irandom_range(5,20);
                         dispo[i] += effect;
                         mission_string += $"A number of diplomatic incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition +{effect})";
                     } else {
-                        var effect = result*irandom_range(5,20);
-                        dispo[i] += result*effect;
+                        var effect = result * irandom_range(5,20);
+                        dispo[i] += result * effect;
                         mission_string += $"As a diplomatic mission the duration of the stay was a success with our political position with the planet being enhanced greatly (disposition +{effect})";
                     }
                     var tester = global.character_tester;
-                    var widom_test = tester.standard_test(garrison.garrison_leader, "wisdom",modify, ["siege"]);
+                    var widom_test = tester.standard_test(p_garrison.garrison_leader, "wisdom",0, ["siege"]);
                     if (widom_test[0]){
                         p_fortified[i]++;
-                        mission_string+=$"while stationed {garrison.garrison_leader.name_role()} makes several notable observations and is able to instruct the planets defense core leaving the world better defended (fortifications++).";
+                        mission_string+=$"while stationed {p_garrison.garrison_leader.name_role()} makes several notable observations and is able to instruct the planets defense core leaving the world better defended (fortifications++).";
                     }
                     //TODO just generall apply this each turn with a garrison to see if a cult is found
                     if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){
                         var cult = return_planet_features(p_feature[current_planet],P_features.Gene_Stealer_Cult)[0];
                         if (cult.hiding){
-                            widom_test = tester.standard_test(garrison.garrison_leader, "wisdom",modify, ["tyranids"]);
+                            widom_test = tester.standard_test(p_garrison.garrison_leader, "wisdom",0, ["tyranids"]);
                             if (widom_test[0]){
                                 cult.hiding = false;
                                 mission_string+="Most alarmingly signs of a genestealer cult are noted by the garrison. how far the rot has gone will now need to be investigated and the xenos taint purged.";
@@ -410,6 +409,8 @@ function scr_enemy_ai_d() {
                     }
                 }
                 scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete",mission_string,"","");
+            } else {
+                remove_planet_problem(i, "provide_garrison")
             }
         }
         

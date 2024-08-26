@@ -48,14 +48,18 @@ function scr_company_order(company) {
 				} else{
 					create_squad(new_squad_type, company, false);
 				}
+				var sorted_units = 0;
 				for (i=0;i<role_number;i++){
 					unit = TTRPG[company,squadless[$ role][i]];
 					if (unit.squad != "none"){
 						array_delete(squadless[$ role], i ,1);
+						sorted_units++;
 						i--;
 						role_number--;
 					}
 				}
+				//this is to catch any potential infinite loops where by squads dont get formed and the role number dosnt derease
+				if (sorted_units==0) then break;
 			}
 
 		}

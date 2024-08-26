@@ -77,10 +77,17 @@ function scr_cheatcode(argument0) {
                     var existing_problem = false;//has_any_problem_planet(i);
                     if (!existing_problem){
                         if (p_owner[i]==eFACTION.Imperium){
-                            show_debug_message("mission")
+                            show_debug_message("mission");
                             scr_new_governor_mission(i);
                         }
                     }
+                }
+            }
+        }
+        if (cheatcode_string=="artifactpopulate"){
+            with (obj_star){
+                for (i=1;i<=planets;i++){
+                    array_push(p_feature[i], new new_planet_feature( P_features.Artifact));
                 }
             }
         }

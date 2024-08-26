@@ -63,15 +63,22 @@ function init_garrison_mission(planet, star, mission_slot){
 		star.p_timer[planet][mission_slot] = garrison_length;
 	    var garrison_pop=instance_create(0,0,obj_popup);
 	    //pop.image="ancient_ruins";
-	    var pip=instance_create(0,0,obj_popup);
-	    pip.title=$"Requested Garrison Provided to {numeral_name}";
-	    pip.text=$"The govornor of {numeral_name} Thanks you for considering his request for a garrison, you agree that the garrison will remain for at least {garrison_length} months.";
-	    pip.image="event_march"
+	    var gar_pop=instance_create(0,0,obj_popup);
+	    //TODO some new universal methods for popups
+	    gar_pop.title=$"Requested Garrison Provided to {numeral_name}";
+	    gar_pop.text=$"The govornor of {numeral_name} Thanks you for considering his request for a garrison, you agree that the garrison will remain for at least {garrison_length} months.";
+	    //pip.image="event_march"
+        gar_pop.image="";
+        gar_pop.cooldown=8;
+        obj_controller.cooldown=8;	    
 	    scr_event_log("",$"Garrison commited to {numeral_name} for {garrison_length} months.", target.name);
 	}	
 }
 
 
+
+//TODO allow most of these functions to be condensed and allow arrays of problems or planets and maybe increase filtering options
+//filtering options could be done via universal methods that all the filters to be passed to many other game systems
 function has_any_problem_planet(planet, star="none"){
 	if (star=="none"){
 		for (var i=0;i<array_length(p_problem[planet]);i++){
@@ -88,6 +95,7 @@ function has_any_problem_planet(planet, star="none"){
 }
 
 
+// returns a bool for if any planet on a given star has the given problem
 function has_problem_star(problem, star="none"){
 	var has_problem = false;
 	if (star=="none"){
@@ -106,6 +114,8 @@ function has_problem_star(problem, star="none"){
 	return has_problem;
 }
 
+
+//returns a bool for if a planet has a given problem
 function has_problem_planet(planet, problem, star="none"){
 	if (star=="none"){
 		return array_contains(p_problem[planet], problem);
@@ -115,8 +125,10 @@ function has_problem_planet(planet, problem, star="none"){
 		}
 	}
 }
+
+//returns the array position of a given problem on a given planet if the specfied time is given
 function has_problem_planet_and_time(planet, problem, time,star="none"){
-	var had_problem = false;
+	var had_problem = -1;
 	if (star=="none"){
 		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
@@ -127,13 +139,15 @@ function has_problem_planet_and_time(planet, problem, time,star="none"){
 		}
 	} else {
 		with (star){
-			had_problem=remove_planet_problem(planet, problem)
+			had_problem=has_problem_planet_and_time(planet, problem, time);
 		}
 	}
 	return had_problem;	
 }
+
+//returns the array position of a given problem on a given planet if the specfied time is above 0
  function has_problem_planet_with_time(planet, problem,star="none"){
-	var had_problem = false;
+	var had_problem = -1;
 	if (star=="none"){
 		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
@@ -144,12 +158,14 @@ function has_problem_planet_and_time(planet, problem, time,star="none"){
 		}
 	} else {
 		with (star){
-			had_problem=remove_planet_problem(planet, problem)
+			had_problem=has_problem_planet_with_time(planet, problem)
 		}
 	}
 	return had_problem;	
 }
 
+
+//returns the array position of a gien problem on a given planet 
 function find_problem_planet(planet, problem, star="none"){
 	if (star=="none"){
 		for (var i = 0;i<array_length(p_problem[planet]);i++){
@@ -165,8 +181,10 @@ function find_problem_planet(planet, problem, star="none"){
 	return -1;
 }
 
+
+///removie all of a given problem from a planet
 function remove_planet_problem(planet, problem, star="none"){
-	var had_problem = false;
+	var had_problem = -1;
 	if (star=="none"){
 		for (var i = 0;i<array_length(p_problem[planet]);i++){
 			if (p_problem[planet][i] == problem){
@@ -181,9 +199,10 @@ function remove_planet_problem(planet, problem, star="none"){
 			had_problem=remove_planet_problem(planet, problem);
 		}
 	}
-	return had_problem;	
+	return -1;	
 }
 
+//find an open problem slot on a given planet
 function open_problem_slot(planet, star="none"){
 	if (star=="none"){
 		for (var i=0;i<array_length(p_problem[planet]);i++){
@@ -199,6 +218,7 @@ function open_problem_slot(planet, star="none"){
 	return -1;
 }
 
+//remove all of a given problem types from a star
 function remove_star_problem(problem, star="none"){
 	if (star=="none"){
 		for (var i=1;i<=planets;i++){
@@ -211,6 +231,8 @@ function remove_star_problem(problem, star="none"){
 	}
 }
 
+
+//count donw the p_timer on a given planet
 function problem_count_down(planet, count_change=1){
 	for (var i=0;i<array_length(p_problem[planet]);i++){
 		if (p_problem[planet][i]!=""){
@@ -223,6 +245,7 @@ function problem_count_down(planet, count_change=1){
 	}
 }
 
+//add a new problem
 function add_new_problem(planet, problem, timer,star="none", other_data={}){
 	var problem_added=false;
 	if (star=="none"){
@@ -243,6 +266,8 @@ function add_new_problem(planet, problem, timer,star="none", other_data={}){
 	return 	problem_added;
 }
 
+//search problem data for a given and key and iff applicable value on that key
+//TODO increase filtering and search options
 function problem_has_key_and_value(planet, problem,key,value="",star="none"){
 	var has_data=false;
 	if (star=="none"){
@@ -260,4 +285,9 @@ function problem_has_key_and_value(planet, problem,key,value="",star="none"){
 		}
 	}
 	return 	has_data;
+}
+
+
+function mission_rewards(){
+
 }

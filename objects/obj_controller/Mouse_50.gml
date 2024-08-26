@@ -1647,6 +1647,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
                     scr_ui_refresh();
                     managing+=1;
                     scr_company_view(managing);
+                    company_data.reset_squad_surface();
                     company_data = new scr_company_struct(managing);
                 }else if (managing>=10) and (managing<15){
                     scr_ui_refresh();
@@ -1658,6 +1659,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
                     scr_ui_refresh();
                     managing=1;
                     scr_company_view(managing);
+                    company_data.reset_squad_surface();
                     company_data = new scr_company_struct(managing);
                 }
             }

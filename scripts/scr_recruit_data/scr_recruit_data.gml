@@ -114,7 +114,7 @@ function planet_training_sequence(){
 	            var chosen_exp = false;
 	            var exp_bonus_data =  recruit_type.exp_bonus;
 	            if (struct_exists(exp_bonus_data, "planets")){
-	                if (struct_exists(train_time_data.planets, planet_type)){
+	                if (struct_exists(exp_bonus_data.planets, planet_type)){
 	                    new_recruit_exp += irandom_range(exp_bonus_data.planets[$planet_type][0], exp_bonus_data.planets[$planet_type][1]);
 	                    chosen_exp = true;
 	                }

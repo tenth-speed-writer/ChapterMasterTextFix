@@ -593,7 +593,12 @@ if (menu==1 && (managing>0 || managing<0)){
             // Ranged Attack
             temp[117]=unit.ranged_attack();
             // Damage Resistance
-            temp[118]=string(damage_res)+"%";
+            temp[118] = string(damage_res)+"%";
+            if (is_struct(temp[121])){
+                try{
+                    temp[121].destroy_image();
+                }
+            }
             temp[121] = unit.draw_unit_image();
         /*if (man[sel]="vehicle"){
             // TODO

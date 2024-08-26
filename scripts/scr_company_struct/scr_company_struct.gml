@@ -24,11 +24,21 @@ function scr_company_struct(comp) constructor{
 	champion = "none";
 	ancient = "none";
 	static reset_squad_surface = function(){
-		squad_draw_surfaces = array_create(15, []);
+		if (is_array(squad_draw_surfaces)){
+			for (var i=0;i<array_length(squad_draw_surfaces);i++){
+				if (is_array(squad_draw_surfaces[i])){
+					if (is_struct(squad_draw_surfaces[i][1])){
+						squad_draw_surfaces[i][1].destroy_image();
+					}
+				}
+			}
+		}
+		squad_draw_surfaces = array_create(15, []);		
 		for (var i=0;i<15;i++){
 			squad_draw_surfaces[i]=[[-1,-1],false];
 		}
 	}
+	squad_draw_surfaces=[];
 	reset_squad_surface();
 
 	if (company>0 && company<11){

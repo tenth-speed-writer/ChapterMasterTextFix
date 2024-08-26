@@ -4,31 +4,31 @@ function scr_turn_first() {
 
 	var identifiable=0;
 	var unload=0;
+	var cur_arti;
 	for (var i=0;i<array_length(obj_ini.artifact);i++){
+		identifiable=0;
 		unload=i;
 		if (obj_ini.artifact[unload]=="") then continue;
-		if (obj_ini.artifact_loc[unload]==""){
+		cur_arti = obj_ini.artifact_struct[unload];
+		if (cur_arti.loc()==""){
 			var valid_ship = get_valid_player_ship();
 			if (valid_ship >-1){
 				obj_ini.artifact_loc[unload] = obj_ini.ship[valid_ship];
 				obj_ini.artifact_sid[unload] = 500+valid_ship;
 			}
 		}
-	    if (obj_ini.artifact_identified[unload]>0){
-	        if (obj_ini.artifact_loc[unload]==obj_ini.home_name) then identifiable=1;
-	        if (obj_ini.artifact_sid[unload]>=500){
-	            if (obj_ini.ship_location[obj_ini.artifact_sid[unload]-500]=obj_ini.home_name) then identifiable=1;
-	        }
+	    if (cur_arti.identified()>0){
+	    	identifiable = cur_arti.is_identifiable()
         
 	        if (instance_exists(obj_p_fleet)) and (identifiable=0){
 	            with(obj_p_fleet){
 	                var good=0;
 	               for (var s=0;s<=20;s++){
 	                    if (s<=9){
-	                    	if (capital_num[s]=obj_ini.artifact_sid[other.unload]-500) then good=1;
+	                    	if (capital_num[s]=cur_arti.ship_id()) then good=1;
 	                    }
-	                    if (frigate_num[s]=obj_ini.artifact_sid[other.unload]-500) then good=1;
-	                    if (escort_num[s]=obj_ini.artifact_sid[other.unload]-500) then good=1;
+	                    if (frigate_num[s]=cur_arti.ship_id()) then good=1;
+	                    if (escort_num[s]=cur_arti.ship_id()) then good=1;
 	                }
 	                if (good=1) and (capital_number>0) then good=2;
 	                if (good=2) then obj_controller.identifiable=1;
@@ -40,7 +40,8 @@ function scr_turn_first() {
 	    }
 	    identifiable=0;
 	}
-	identifiable=0;unload=0;
+	identifiable=0;
+	unload=0;
 
 
 	var peace_check,host_p,ox,oy,x5,y5,fdir;

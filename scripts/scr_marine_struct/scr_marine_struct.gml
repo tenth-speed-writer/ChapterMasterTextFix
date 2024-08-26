@@ -2507,7 +2507,7 @@ function pen_and_paper_sim() constructor{
                 if (scr_has_adv("Siege Masters")){
                     total_mod+=10
                 }
-                if (unit.has_tag("siege_master")){
+                if (unit.has_trait("siege_master")){
                 	total_mod+=10;
                 }			
 			}
@@ -2515,7 +2515,7 @@ function pen_and_paper_sim() constructor{
 				if (unit.scr_has_adv("Enemy: Tyranids")){
 					total_mod+=10
 				}
-				if (unit.has_tag("tyrannic_vet")){
+				if (unit.has_trait("tyrannic_vet")){
                 	total_mod+=10;
                 }
 			}

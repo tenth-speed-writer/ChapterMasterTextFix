@@ -38,7 +38,7 @@ if (type=99){
     if (type==9){
         if (array_contains(obj_ini.artifact_tags[obj_controller.menu_artifact], "inq")){
             if (array_contains(obj_controller.quest, "artifact_loan")) then inq_hide=1;
-            if (array_contains(obj_controller.quest, "artifact_loan")) then inq_hide=2;
+            if (array_contains(obj_controller.quest, "artifact_return")) then inq_hide=2;
         }
     }
     var iter=0, spacer=0;;
@@ -185,7 +185,7 @@ if ((zoom=0) and (type<=4)) or (type=98){
         sprite_index=spr_popup_medium;
         image_alpha=0;
         widd=sprite_width-50;
-        draw_sprite_ext(spr_popup_medium,type,x_popup_align,yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
+        draw_sprite_ext(spr_popup_medium,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height)/2),1,y_scale,0,c_white,1);
         if (image!=""){image_wid=100;image_hei=100;}
     }
     if (size=1){
@@ -409,56 +409,24 @@ if (type=8) and (instance_exists(obj_controller)){
     draw_set_halign(fa_center);
     draw_set_color(c_gray);
     
-    draw_text(x2+312,y2+26,string_hash_to_newline("Equip Artifact ("+string(obj_ini.artifact[obj_controller.menu_artifact])+")"));
+    draw_text(x2+312,y2+26,"Equip Artifact ({obj_ini.artifact[obj_controller.menu_artifact]})");
     // draw_text(xx+320.5,yy+123.5,"Equip Artifact ("+string(obj_ini.artifact[obj_controller.menu_artifact])+")");
     
     draw_set_font(fnt_40k_12);draw_set_halign(fa_left);
-    draw_text(x2+31,y2+55,string_hash_to_newline("View Company:"));
+    draw_text(x2+31,y2+55,"View Company:");
     var check=" ";
-    // HQ Company
-    if (target_comp=0) then check="x";
-    draw_text(x2+73,y2+71,string_hash_to_newline(" HQ ["+string(check)+"]"));
-    check=" ";
-    // I Company
-    if (target_comp=1) then check="x";
-    draw_text(x2+77,y2+87,string_hash_to_newline(romanNumerals[0]+" ["+string(check)+"]"));
-    check=" ";
-    // II Company
-    if (target_comp=2) then check="x";
-    draw_text(x2+158,y2+87,string_hash_to_newline(romanNumerals[1]+" ["+string(check)+"]"));
-    check=" ";
-    // III Company
-    if (target_comp=3) then check="x";
-    draw_text(x2+275,y2+87,string_hash_to_newline(romanNumerals[2]+" ["+string(check)+"]"));
-    check=" ";
-    // IV Company
-    if (target_comp=4) then check="x";
-    draw_text(x2+386,y2+87,string_hash_to_newline(romanNumerals[3]+" ["+string(check)+"]"));
-    check=" ";
-    // V Company
-    if (target_comp=5) then check="x";
-    draw_text(x2+497,y2+87,string_hash_to_newline(romanNumerals[4]+" ["+string(check)+"]"));
-    check=" ";
-    // VI Company
-    if (target_comp=6) then check="x";
-    draw_text(x2+73,y2+103,string_hash_to_newline(romanNumerals[5]+" ["+string(check)+"]"));
-    check=" ";
-    // VII Company
-    if (target_comp=7) then check="x";
-    draw_text(x2+160,y2+103,string_hash_to_newline(romanNumerals[6]+" ["+string(check)+"]"));
-    check=" ";
-    // VIII Company
-    if (target_comp=8) then check="x";
-    draw_text(x2+275,y2+103,string_hash_to_newline(romanNumerals[7]+" ["+string(check)+"]"));
-    check=" ";
-    // IX Company
-    if (target_comp=9) then check="x";
-    draw_text(x2+386,y2+103,string_hash_to_newline(romanNumerals[8]+" ["+string(check)+"]"));
-    check=" ";
-    // X Company
-    if (target_comp=10) then check="x";
-    draw_text(x2+497,y2+103,string_hash_to_newline(romanNumerals[9]+" ["+string(check)+"]"));
-    check=" ";
+
+    for (var i=0;i<10;i++){
+        check=" ";
+        if (target_comp==i){
+            check="x";
+        }
+        if (i>0){
+            draw_text(x2+77+(81*(i-(i<5?1:6))),y2+(i<5?87:103),$"{romanNumerals[i-1]} [{check}]");
+        } else { // HQ Company
+            draw_text(x2+31,y2+55,$"HQ [{check}]");
+        }
+    }
     
     if (target_role>2) then draw_set_alpha(0.25);
     check=" ";
@@ -1341,13 +1309,13 @@ if (zoom=0) and (type=5.1) and (instance_exists(obj_controller)){
     draw_text(xx+1061.5,yy+501.5,"Cancel");
     
     if (company!=target_comp) and (target_comp>=0){
-        draw_text(xx+1521,yy+501,"Transfer!")) ˙;
-        draw_text(xx+1521.5,yy+501.5,"Transfer!")) ˙;
+        draw_text(xx+1521,yy+501,"Transfer!");
+        draw_text(xx+1521.5,yy+501.5,"Transfer!");
     }
     if (company==target_comp) or (target_comp<0){
         draw_set_alpha(0.25);
-        draw_text(xx+1521,yy+501,"Transfer!"));
-        draw_text(xx+1521.5,yy+501.5,"Transfer!")) ˙;
+        draw_text(xx+1521,yy+501,"Transfer!");
+        draw_text(xx+1521.5,yy+501.5,"Transfer!");
     }
     draw_set_alpha(1);
 }

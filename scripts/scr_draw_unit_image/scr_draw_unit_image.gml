@@ -62,6 +62,12 @@ function unit_image(unit_surface) constructor{
             draw_surface_part(u_surface, left+200, top+90, width,height, xx,yy);
         }       
     }
+
+    static destroy_image = function(){
+        if (surface_exists(u_surface)){
+            surface_free(u_surface);
+        }
+    }
 }
 
 //TODO this is a laxy fix and can be written better

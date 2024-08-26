@@ -170,7 +170,7 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	}
 	// show_message(string(t3));
 
-	if (artifact_location = ""){
+	if (artifact_location == ""){
 		if (obj_ini.fleet_type=1){
 			artifact_location = obj_ini.home_name;
 			ship_id = 2;
@@ -215,8 +215,40 @@ function arti_struct(Index)constructor{
 	static loc = function(){
 		return obj_ini.artifact_loc[index];
 	}
+
+	//combination of what is normally lid and wid
 	static sid = function(){
 		return obj_ini.artifact_sid[index];
+	}
+
+	static can_equip = function(){
+		_can_equip = true;
+		var none_equips = ["Statue", "Casket",  "Chalice", "Robot"]
+		if (array_contains(none_equips, type())){
+			_can_equip = false;
+		}
+		return _can_equip;
+	}
+
+	static ship_id =  function (){
+		return obj_ini.artifact_sid[index]-500;
+	}
+	static location_string = function(){
+		if (sid()>=500){
+			return obj_ini.ship[ship_id()];
+		} else {
+			return $"{loc()} {sid()}";
+		}
+	}
+
+	static is_identifiable = function(){
+		var identifiable = false;
+        if (loc() == obj_ini.home_name) then identifiable = 1;
+        if (sid() >= 500) {
+            if (obj_ini.ship_location[ship_id()] = obj_ini.home_name) then identifiable = 1;
+            if (obj_ini.ship_class[ship_id()]=="Battle Barge") then identifiable = 1;
+        }
+        return identifiable;		
 	}
 	static quality = function(){
 		return obj_ini.artifact_quality[index];
@@ -255,6 +287,24 @@ function arti_struct(Index)constructor{
 		}
 
 	}
+
+	static destroy_arti = function(){
+        if (has_tag("daemonic")){
+            if (ship_id()){
+                var demonSummonChance=irandom(100)+1;
+
+                if (demonSummonChance<=60) and (obj_ini.ship_carrying[ship_id]>0){
+                    instance_create(0,0,obj_ncombat);
+                    obj_ncombat.battle_special="ship_demon";
+                    obj_ncombat.formation_set=1;
+                    obj_ncombat.enemy=10;
+                    obj_ncombat.battle_id=obj_ini.artifact_sid[i]-500;
+                    scr_ship_battle(obj_ini.artifact_sid[i]-500,999);
+                }
+            }
+        }
+	}
+
 	static load_json_data = function(data){
 		 var names = variable_struct_get_names(data);
 		 for (var i = 0; i < array_length(names); i++) {

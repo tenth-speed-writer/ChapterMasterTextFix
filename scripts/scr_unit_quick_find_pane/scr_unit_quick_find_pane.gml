@@ -502,6 +502,7 @@ function add_bionics_selection(){
     			var comp = unit.company;
     			var mar_id = unit.marine_number;
                 if (obj_ini.loc[comp][mar_id]!="Terra") and (obj_ini.loc[comp][mar_id]!="Mechanicus Vessel"){
+                	//TODO swap for tag method
                     if (string_count("Dread",ma_armour[p])=0){
 			        	unit.add_bionics();
                         if (ma_promote[p]==10) then ma_promote[p]=0;
@@ -773,6 +774,7 @@ function planet_selection_action(){
 		                    	init_garrison_mission(sel_plan, target, garrison_request);
 		                    }
 		                    instance_destroy();
+		                    exit;
 		                }
 	                } else if (!loading){
 	                    garrison = new garrison_force(target.p_operatives[sel_plan]);
@@ -935,8 +937,7 @@ function planet_selection_action(){
 	            
 	        }	                   
 	    }
-	    if (target.craftworld=1) then obj_controller.selecting_planet=1;
-	    if (target.space_hulk=1) then obj_controller.selecting_planet=1;
+	    if (target.craftworld || target.space_hulk) then obj_controller.selecting_planet=1;
 	    x=target.x;
 	    y=target.y;	    
 	}	

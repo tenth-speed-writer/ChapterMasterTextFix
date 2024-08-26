@@ -397,10 +397,16 @@ function get_nearest_player_fleet(nearest_x, nearest_y, is_static=false, is_movi
 	return chosen_fleet;	
 }
 
-function get_valid_player_ship(){
+function get_valid_player_ship(location="", name=""){
 	for (var i = 0;i<array_length(obj_ini.ship);i++){
 		if (obj_ini.ship[i] != ""){
-			return i;
+			if (location == ""){
+				return i;
+			} else {
+				if (obj_ini.ship_location[i] == location){
+					return i;
+				}
+			}
 		}
 	}
 	return -1;
