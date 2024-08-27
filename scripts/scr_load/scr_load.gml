@@ -133,7 +133,8 @@ function scr_load(argument0, argument1) {
 	        obj_controller.stc_vehicles_un=ini_read_real("Controller","stc_vehicles_un",0);
 	        obj_controller.stc_ships_un=ini_read_real("Controller","stc_ships_un",0);
 	    var j;j=0;repeat(6){j+=1;obj_controller.stc_bonus[j]=ini_read_real("Controller","stc_bonus_"+string(j),0);}
-	    j=-1;repeat(5){
+	    j=-1;
+	    repeat(5){
 	    	j+=1;obj_ini.adv[j]=ini_read_string("Controller","adv"+string(j),"");
 	    	obj_ini.dis[j]=ini_read_string("Controller","dis"+string(j),"");
 		} //
@@ -288,16 +289,17 @@ function scr_load(argument0, argument1) {
     		obj_controller.recruit_data =  array_create(array_length(obj_controller.recruit_name), {});
     	}
 
-	    var g=-1;repeat(30){g+=1;
-	        obj_controller.loyal[g]=ini_read_string("Controller","lyl"+string(g),"Error");
-	        obj_controller.loyal_num[g]=ini_read_real("Controller","lyl_nm"+string(g),0);
-	        obj_controller.loyal_tm[g]=ini_read_real("Controller","lyl_tm"+string(g),0);
-	    }
-	    var g;g=-1;repeat(30){g+=1;
-	        obj_controller.inquisitor[g]=ini_read_string("Controller","inq"+string(g),"Error");
-	        obj_controller.inquisitor_gender[g]=ini_read_real("Controller","inq_ge"+string(g),1);
-	        obj_controller.inquisitor_type[g]=ini_read_string("Controller","inq_ty"+string(g),"Error");
-	    }
+    	var dummyArray = array_create(30, "");
+    	obj_controller.loyal = return_json_from_ini("Controller","lyl",dummyArray);
+    	dummyArray = array_create(30, 0);
+    	obj_controller.loyal_num = return_json_from_ini("Controller","lyl_nm",dummyArray);
+    	obj_controller.loyal_time = return_json_from_ini("Controller","lyl_tm",dummyArray);
+
+    	var dummyArray = array_create(30, "");
+    	obj_controller.inquisitor = return_json_from_ini("Controller","inq",dummyArray);
+    	obj_controller.inquisitor_type = return_json_from_ini("Controller","inq_ty",dummyArray);
+    	dummyArray = array_create(30, 0);
+    	obj_controller.inquisitor_gender = return_json_from_ini("Controller","inq_ge",dummyArray);
 
 	    var g;g=-1;repeat(14){g+=1;
 	        obj_controller.faction[g]=ini_read_string("Factions","fac"+string(g),"Error");

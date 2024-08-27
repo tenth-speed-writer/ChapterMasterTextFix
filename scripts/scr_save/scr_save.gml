@@ -149,7 +149,8 @@ function scr_save(save_slot,save_id) {
 
 	    ini_write_real("Formation","last_attack",obj_controller.last_attack_form);
 	    ini_write_real("Formation","last_raid",obj_controller.last_raid_form);
-	    j=0;repeat(14){j+=1;
+	    j=0;
+	    repeat(14){j+=1;
 	        if (obj_controller.bat_formation[j]!=""){
 	            ini_write_string("Formation","form"+string(j),obj_controller.bat_formation[j]);
 	            ini_write_real("Formation","form_type"+string(j),obj_controller.bat_formation_type[j]);
@@ -218,7 +219,8 @@ function scr_save(save_slot,save_id) {
 	    ini_write_real("Controller","recruits",obj_controller.recruits);
 	    ini_write_real("Controller","recruit_last",obj_controller.recruit_last);
 	    //
-	    var g=-1;repeat(30){g+=1;
+	    var g=-1;
+	    repeat(30){g+=1;
 	        ini_write_real("Controller","command"+string(g),obj_controller.command_set[g]);
 	    }
 	    ini_write_real("Controller","blandify",obj_controller.blandify);
@@ -232,16 +234,15 @@ function scr_save(save_slot,save_id) {
 	    	data : obj_controller.recruit_data
 
 	    });
-	    g=-1;repeat(30){g+=1;
-	        ini_write_string("Controller","lyl"+string(g),obj_controller.loyal[g]);
-	        ini_write_real("Controller","lyl_nm"+string(g),obj_controller.loyal_num[g]);
-	        ini_write_real("Controller","lyl_tm"+string(g),obj_controller.loyal_time[g]);
-	    }
-	    g=-1;repeat(11){g+=1;
-	        ini_write_string("Controller","inq"+string(g),obj_controller.inquisitor[g]);
-	        ini_write_real("Controller","inq_ge"+string(g),obj_controller.inquisitor_gender[g]);
-	        ini_write_string("Controller","inq_ty"+string(g),obj_controller.inquisitor_type[g]);
-	    }
+	   	ini_encode_and_json("Controller","lyl",obj_controller.loyal);
+	    ini_encode_and_json("Controller","lyl_nm",obj_controller.loyal_num);
+	    ini_encode_and_json("Controller","lyl_tm",obj_controller.loyal_time);
+
+
+	   	ini_encode_and_json("Controller","inq",obj_controller.inquisitor);
+	    ini_encode_and_json("Controller","inq_ge",obj_controller.inquisitor_gender);
+	    ini_encode_and_json("Controller","inq_ty",obj_controller.inquisitor_type);
+
 	    //
 	    g=-1;repeat(14){g+=1;
 	        ini_write_string("Factions","fac"+string(g),obj_controller.faction[g]);
@@ -850,7 +851,8 @@ function scr_save(save_slot,save_id) {
 	    ini_close();
 	}
 
-	if (save_slot=4) or (save_slot=0){debugl("Saving to slot "+string(save_id)+" part 4");
+	if (save_slot=4) or (save_slot=0){
+		debugl("Saving to slot "+string(save_id)+" part 4");
 	    ini_open("save"+string(save_id)+".ini");
 	    var coh,mah,good;
 	    good=0;coh=100;mah=0;

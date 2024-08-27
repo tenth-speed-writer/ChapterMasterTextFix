@@ -1,4 +1,4 @@
-Version  0.9.1.12
+Version  0.9.2.0
 
 Fixed:
 	- recruit trial being wrong on game start occasionally
@@ -9,7 +9,15 @@ Fixed:
 Changed:
 	- player will now get alerts when ship production ceases due to a lack of active forge worlds
 	- new cheat "artifactpopulate" adds a artifact to every planet
+	- promotion thresholds modified and reworked to be inline with equipment exp limits 
+	- general promotion improvements
 
+added:
+	- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
+
+
+-----------------------
+versions  0.9.1.1 - 0.9.1.2 bug fix and stability versions
 -----------------------
 
 Version  0.9.1.0
