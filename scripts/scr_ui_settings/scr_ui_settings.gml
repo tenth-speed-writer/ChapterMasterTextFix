@@ -408,7 +408,7 @@ function scr_ui_settings() {
 	    draw_sprite(spr_creation_check,che+2,cx,cy);
 	    if (scr_hit(cx+31,cy,cx+300,cy+20)=true){
 			tool1="Codex Compliant Organization";
-			tool2="When unchecked, you can promote marines without regard of their Experience and Company." + "\n" + "Experience requirements for Terminators remain, as their armour requires it, as well as for Dreadnoughts and Company Command.";
+			tool2="When enabled, marine promotions are limited based on their current company and EXP, overall following the Codex Astartes promotion sequence." + "\n\n" + "When disabled, you can promote marines to any company, from any company, disregarding any EXP requirements." + "\n" + "Terminators, Dreadnoughts and Company Command roles retain EXP requirements however.";
 		}
 	    if (scr_hit(cx,cy,cx+32,cy+32)=true) and (mouse_left=1) and (cooldown<=0){
 			var onceh=0;
