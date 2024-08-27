@@ -4,8 +4,8 @@ function tooltip_draw(_tooltip="", _width=350, _coords=[mouse_x+20,mouse_y+20], 
 	draw_set_halign(fa_left);
 	draw_set_alpha(1)
 	// Calculate padding and rectangle size
-	static _text_padding_x = 12;
-	static _text_padding_y = 12;
+	var _text_padding_x = 12;
+	var _text_padding_y = 12;
 	// Convert hash to newline in strings
 	_header = string_hash_to_newline(string(_header));
 	_tooltip = string_hash_to_newline(string(_tooltip));
@@ -60,6 +60,7 @@ function tooltip_draw(_tooltip="", _width=350, _coords=[mouse_x+20,mouse_y+20], 
 		draw_set_font(_header_font);
 		draw_text_ext_colour(_rect_x + _text_padding_x, _rect_y + _text_padding_y, _header, DEFAULT_LINE_GAP, _header_w, _text_color, _text_color, _text_color, _text_color, 1);
 		_rect_y += header_h + DEFAULT_LINE_GAP; // Adjust y-coordinate for tooltip text
+		_text_padding_y *= 1.6;
 	}
 	// Draw tooltip text
 	draw_set_font(_font);
