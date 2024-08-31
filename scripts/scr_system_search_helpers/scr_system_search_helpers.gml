@@ -275,7 +275,7 @@ function PlanetData(planet, system) constructor{
 	player_disposition = system.dispo[planet];
 	planet_type = system.p_type[planet];
     operatives = system.p_operatives[planet];
-    features =system. p_feature[planet];
+    features =system.p_feature[planet];
     current_owner = system.p_owner[planet];
     origional_owner = system.p_first[planet];
     population = system.p_population[planet];
@@ -330,7 +330,7 @@ function PlanetData(planet, system) constructor{
     governor = system.p_governor[planet];
 
     problems = system.p_problem[planet];
-    problem_data = system.p_problem[planet];
+    problem_data = system.p_problem_other_data[planet];
     problem_timers = system.p_timer[planet];
 
     static marine_training = planet_training_sequence;

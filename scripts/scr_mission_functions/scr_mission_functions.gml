@@ -2,6 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_new_governor_mission(planet){
 	problem = "";
+	if p_owner[i]!=eFACTION.Imperium then exit;
 	var planet_type= p_type[planet];
 	if (planet_type=="Death"){
 		problem = choose("hunt_beast", "provide_garrison");
@@ -51,12 +52,9 @@ function scr_new_governor_mission(planet){
 
 
 function init_garrison_mission(planet, star, mission_slot){
-	show_debug_message("start");
 	var problems_data = star.p_problem_other_data[planet]
 	var mission_data = problems_data[mission_slot];
-	show_debug_message("{0}", mission_data);
 	if (mission_data.stage == "preliminary"){
-		show_debug_message("prelim");
 		var numeral_name = planet_numeral_name(planet, star);
 		mission_data.stage = "active";
 		var garrison_length=(10+irandom(6));
@@ -68,6 +66,7 @@ function init_garrison_mission(planet, star, mission_slot){
 	    gar_pop.title=$"Requested Garrison Provided to {numeral_name}";
 	    gar_pop.text=$"The govornor of {numeral_name} Thanks you for considering his request for a garrison, you agree that the garrison will remain for at least {garrison_length} months.";
 	    //pip.image="event_march"
+	    gar_pop.option1="Commence Garrison";
         gar_pop.image="";
         gar_pop.cooldown=8;
         obj_controller.cooldown=8;	    

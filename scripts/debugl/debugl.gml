@@ -12,7 +12,7 @@ function debugl(argument0) {
 	    if (obj_controller.debug_lines>=1000) and (obj_controller.debug_lines<10000) then numeral="0"+string(obj_controller.debug_lines);
 	    if (obj_controller.debug_lines>=10000) and (obj_controller.debug_lines<100000) then numeral=string(obj_controller.debug_lines);
     
-	    ini_open("debug_log.ini");
+ 	    ini_open("debug_log.ini");
 	    ini_write_real("Main","lines",obj_controller.debug_lines);
 	    // ini_write_string("Main",string(obj_controller.debug_lines),string(argument0));
 	    ini_write_string("Main",string(numeral),string(argument0));

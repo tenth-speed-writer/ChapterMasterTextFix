@@ -687,6 +687,19 @@ function reset_selection_equipment(){
     }
 }
 
+function add_tag_to_selection(new_tag){
+	var unit;
+    for(var f=0; f<array_length(display_unit); f++){
+        // If come across a man, set vih to 1
+        if (man[f]="man") and (man_sel[f]=1){
+        	if (is_struct(display_unit[f])){
+        		unit = display_unit[f];
+        		unit[$ new_tag] = !unit[$ new_tag];
+        	}
+        }
+    }	
+}
+
 function promote_selection(){
         if (sel_promoting==1) and (instance_number(obj_popup)==0){
         var pip=instance_create(0,0,obj_popup);
@@ -744,7 +757,7 @@ function planet_selection_action(){
 	            var garrison_issue = (!planet_is_allies || target.p_pdf[sel_plan]<1);
 	            if (garrison_assignment && (garrison_issue && mission=="garrison")){
                 	planet_draw = c_red;
-                	tooltip_draw("Can't garrison on non-friendly or planet with no friendly PDF", 150);	            	
+                	tooltip_draw("Can't garrison on non-friendly planet or planet with no friendly PDF", 150);	            	
 	            }
 	            if (mouse_check_button_pressed(mb_left)){
 	                if (garrison_assignment){

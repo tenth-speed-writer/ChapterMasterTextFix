@@ -153,7 +153,7 @@ function feature_selected(Feature) constructor{
 						if (feature.reason == "importance"){
 
 						}
-						mission_description=$"The governor of {planet_name} has requested a force of marines might stay behind following your departure.\n\n\n assign a squad to garrison to initiate mission";
+						mission_description=$"The governor of {planet_name} has requested a force of marines might stay behind following your departure.\n\n\n assign a squad to garrison to initiate mission, The garrison leeader will need to be capable of conducting himself in a diplomatic manor in order for the garrison duration to be a success";
 
 						break;
 					case "join_communion":

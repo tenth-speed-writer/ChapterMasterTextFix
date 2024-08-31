@@ -187,13 +187,15 @@ if (refresh=true) and (obj_controller.settings>0){
                 }
                 
                 if (req_gear!=""){
-                    if (string_count("&",obj_ini.gear[co][i])=0){if (obj_ini.gear[co][i]=req_gear) then have_gear_num+=1;}
-                    if (string_count("&",obj_ini.gear[co][i])>0) then have_gear_num+=1;
+                    if (string_count("&",obj_ini.gear[co][i])=0){
+                    	if (obj_ini.gear[co][i]=req_gear) then have_gear_num+=1;
+                    }
                 }
                 
                 if (req_mobi!=""){
-                    if (string_count("&",obj_ini.mobi[co][i])=0){if (obj_ini.mobi[co][i]=req_mobi) then have_mobi_num+=1;}
-                    if (string_count("&",obj_ini.mobi[co][i])>0) then have_mobi_num+=1;
+                    if (string_count("&",obj_ini.mobi[co][i])=0){
+                    	if (obj_ini.mobi[co][i]=req_mobi) then have_mobi_num+=1;
+                    }
                 }
             }
             if (obj_ini.role[co][i]=obj_ini.role[100,role]){

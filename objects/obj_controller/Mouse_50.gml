@@ -1202,7 +1202,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
         }*/
 
         // Management
-        if (menu_buttons.chapter_manage.clicked){
+        if (menu_buttons.chapter_manage.clicked || press_with_held(vk_control, ord("M")) ){
             if (menu!=1)and (onceh==0){
                 scr_management(1);
                 menu=1;
@@ -1259,7 +1259,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             }
         }
         // Apothecarium
-        if (menu_buttons.apoth.clicked){
+        if (menu_buttons.apoth.clicked  || press_with_held(vk_control, ord("A"))){
             menu_adept=0;
             hide_banner=1;
             if (scr_role_count("Master of the Apothecarion","0")==0) then menu_adept=1;
@@ -1344,7 +1344,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             managing=0;
         }
         // Armamentarium
-        if (menu_buttons.arm.clicked){
+        if (menu_buttons.arm.clicked || press_with_held(vk_control, ord("S"))){
             menu_adept=0;
             hide_banner=1;
             if (scr_role_count("Forge Master","0")==0) then menu_adept=1;
@@ -1383,7 +1383,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             managing=0;
         }
         // Master of the Fleet
-        if (menu_buttons.fleet.clicked){
+        if (menu_buttons.fleet.clicked || press_with_held(vk_control, ord("F"))){
             menu_adept=0;
             hide_banner=1;
             var geh=0,good=0;

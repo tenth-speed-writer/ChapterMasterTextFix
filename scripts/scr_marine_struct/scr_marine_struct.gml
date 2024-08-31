@@ -657,6 +657,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	squad = "none";
 	stat_point_exp_marker = 0;
 	bionics=0;
+	favorite=false;
 	spawn_data = other_spawn_data;
 	if (faction=="chapter" && !struct_exists(spawn_data, "recruit_data")){
 		spawn_data.recruit_data = {

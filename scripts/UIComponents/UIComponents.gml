@@ -392,7 +392,7 @@ function star_ui_name_node(){
 		.finalize()	
 }
 
-function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0) constructor{
+function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0, hot_key=-1) constructor{
 	mouse_enter=0;
 	base_sprite = sprite;
 	hover_sprite = sprite_hover;
@@ -401,6 +401,7 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 	hover_alpha=0;
 	XX=xx;
 	YY=yy;
+	self.hot_key = hot_key;
 	clicked=false;
 	static draw = function(xx=XX,yy=YY,text="", x_scale=1, y_scale=1, width=108, height=42){
 		clicked=false;
@@ -415,9 +416,7 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 			draw_sprite(hover_sprite,0,xx,yy);
 			draw_set_blend_mode(bm_normal);
 			ossilate_down = true;
-			 if (mouse_check_button_pressed(mb_left)){
-			 	clicked=true;
-			 }
+			clicked = mouse_check_button_pressed(mb_left) || press_with_held(hot_key,vk_control);
 		} else {
 			if (ossilate_down){
 				if (ossilate<24)then ossilate+=0.2;

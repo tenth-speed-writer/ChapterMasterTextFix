@@ -374,8 +374,9 @@ function scr_enemy_ai_d() {
         }
         var garrison_mission = has_problem_planet_and_time(i,"provide_garrison", 0);
         if (garrison_mission>-1){
-            if (p_problem_other_data[i][garrison_mission].stage=="active"){
-                if (p_owner[i] == eFACTION.Imperium && system_garrison[i-1].garrison_force){
+            var planet = new PlanetData(i, self);
+            if (planet.problem_data[garrison_mission].stage=="active"){
+                if (planet.current_owner == eFACTION.Imperium && system_garrison[i-1].garrison_force){
                     var mission_string = $"The garrison on {planet_numeral_name(i)} has finished the period of garrison support agreed with the planetary governor.";
                     var p_garrison = system_garrison[i-1];
                     var  result = p_garrison.garrison_disposition_change(id, i);
@@ -398,7 +399,7 @@ function scr_enemy_ai_d() {
                     }
                     //TODO just generall apply this each turn with a garrison to see if a cult is found
                     if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){
-                        var cult = return_planet_features(p_feature[current_planet],P_features.Gene_Stealer_Cult)[0];
+                        var cult = return_planet_features(planet.features,P_features.Gene_Stealer_Cult)[0];
                         if (cult.hiding){
                             widom_test = tester.standard_test(p_garrison.garrison_leader, "wisdom",0, ["tyranids"]);
                             if (widom_test[0]){
@@ -407,8 +408,8 @@ function scr_enemy_ai_d() {
                             }
                         }
                     }
+                    scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete",mission_string,"","");
                 }
-                scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete",mission_string,"","");
             } else {
                 remove_planet_problem(i, "provide_garrison")
             }

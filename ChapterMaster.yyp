@@ -1061,6 +1061,7 @@
     {"id":{"name":"spr_slate_2","path":"sprites/spr_slate_2/spr_slate_2.yy",},},
     {"id":{"name":"obj_en_round","path":"objects/obj_en_round/obj_en_round.yy",},},
     {"id":{"name":"obj_al_round","path":"objects/obj_al_round/obj_al_round.yy",},},
+    {"id":{"name":"scr_keyboard_helpers","path":"scripts/scr_keyboard_helpers/scr_keyboard_helpers.yy",},},
     {"id":{"name":"obj_en_pulse","path":"objects/obj_en_pulse/obj_en_pulse.yy",},},
     {"id":{"name":"obj_explosion","path":"objects/obj_explosion/obj_explosion.yy",},},
     {"id":{"name":"scr_has_disadv","path":"scripts/scr_has_disadv/scr_has_disadv.yy",},},

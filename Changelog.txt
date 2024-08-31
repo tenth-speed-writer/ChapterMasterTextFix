@@ -14,6 +14,15 @@ Changed:
 
 added:
 	- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
+	- M to go to next company
+	- N to previous
+	- Q,E,R,T,Y, to travel between the specialist manage areas
+	- from map area
+	- ALT F for fleet
+	- ALT M for manage
+	- ALT A for apothcarium
+	- ALT F for fleet
+	- ALT S for armentarium
 
 
 -----------------------

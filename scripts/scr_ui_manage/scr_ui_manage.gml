@@ -44,6 +44,33 @@ function draw_unit_buttons(position, text,size_mod=[1.5,1.5],colour=c_gray,_hali
 	return [position[0],position[1], x2,y2];
 }
 
+function unit_button_object() constructor{
+	x1 = 0;
+	y1 = 0;
+	w = 102;
+	h = 30;
+	h_gap= 4;
+	v_gap= 4;
+	label= "";
+	alpha= 1;
+	color= #50a076;
+	keystroke = false;
+	tooltip = "";
+	x2 = x1 + w;
+	y2 = y1 + h;
+	static draw = function(allow_click = true){
+		if (scr_hit(x1, y1, x2, y2) && tooltip!=""){
+			tooltip_draw(tooltip);
+		}
+		if (allow_click){
+			return (point_and_click(draw_unit_buttons([x1, y1, x2, y2], label, [1,1],color,,,alpha)) || keystroke);
+		} else {
+			draw_unit_buttons([x1, y1, x2, y2], label, [1,1],color,,,alpha);
+			return false;
+		}
+	}
+}
+
 function text_bar_area(XX,YY,Max_width = 400) constructor{
 	allow_input=false;
 	xx=XX;
@@ -986,39 +1013,33 @@ function scr_ui_manage() {
 				yy-=8;
 				draw_set_font(fnt_40k_14b);
 				draw_set_color(#50a076);
-				var button = {
-					x1: right_ui_block.x1+26,
-					y1: right_ui_block.y2-6-30,
-					w: 102,
-					h: 30,
-					h_gap: 4,
-					v_gap: 4,
-					label: "",
-					alpha: 1,
-					color: #50a076,
-				}
+				var button = new unit_button_object();
+				
+				button.x1 = right_ui_block.x1+26;
+				button.y1 = right_ui_block.y2-6-30;
 				button.x2 = button.x1 + button.w;
 				button.y2 = button.y1 + button.h;
-				
 				// Load/Unload to ship button
 				button.label = "Load";
 				var load_unload_possible = man_size>0;
 				
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("L"))));
+				button.tooltip = "Press Shift L";
 				if (load_unload_possible){
 					button.alpha = 1;
 					if (sel_loading==0){
-						if (point_and_click(draw_unit_buttons([button.x1, button.y1, button.x2, button.y2], button.label, [1,1],button.color,,,button.alpha))){
+						if (button.draw()){
 							load_selection();						
 						}
 					} else if (sel_loading!=0){
 						button.label = "Unload";
-						if (point_and_click(draw_unit_buttons([button.x1, button.y1, button.x2, button.y2], button.label, [1,1],button.color,,,button.alpha))){
-							 unload_selection();   // Unload - ask for planet confirmation					
+						if (button.draw()){
+							unload_selection();   // Unload - ask for planet confirmation					
 						}				
 					}
 				} else {
 					button.alpha = 0.5;
-					draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha);
+					button.draw(false);
 				}
 
 				button.x1 += button.w + button.h_gap;
@@ -1030,7 +1051,10 @@ function scr_ui_manage() {
 								man_size>0;
 
 				button.alpha = equip_possible? 1 : 0.5;
-				if (point_and_click(draw_unit_buttons([button.x1, button.y1, button.x2, button.y2], button.label, [1,1],button.color,,,button.alpha)) && equip_possible){
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("E"))));
+				button.tooltip = "Press Shift E";
+
+				if (button.draw() && equip_possible){
 					equip_selection();
 				}
 				
@@ -1039,9 +1063,13 @@ function scr_ui_manage() {
 
 				// // Promote button
 				button.label = "Promote";
+
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("P"))));
+				button.tooltip = "Press Shift P";
+
 				var promote_possible = sel_promoting > 0 && !array_contains(invalid_locations, selecting_location) && man_size>0;
 				button.alpha = promote_possible? 1 : 0.5;
-				if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+				if (button.draw()){
 					if (promote_possible){
 		                if (sel_promoting==1) and (instance_number(obj_popup)==0){
 		                    var pip=instance_create(0,0,obj_popup);
@@ -1070,18 +1098,23 @@ function scr_ui_manage() {
 
 				// // Put in jail button
 				button.label = "Jail";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("J"))));
+				button.tooltip = "Press Shift J";	
+
 				var jail_possible = man_size>0;
 				button.alpha =  jail_possible ? 1 : 0.5;
-				if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+				if (button.draw()){
 					if (jail_possible) then jail_selection();
 				}
 				button.x1 += button.w + button.h_gap;
 				button.x2 += button.w + button.h_gap;
 				// // Add bionics button
 				button.label = "Add Bionics";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("B"))));
+				button.tooltip = "Press Shift B";				
 				var bionics_possible = man_size>0;
 				button.alpha = bionics_possible ? 1 : 0.5;
-				if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+				if (button.draw()){
 					if (bionics_possible) then add_bionics_selection();
 				}
 
@@ -1092,9 +1125,11 @@ function scr_ui_manage() {
 
 				// // Designate as boarder unit
 				button.label = "Set Boarder";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("Q"))));
+				button.tooltip = "Press Shift Q";					
 				var boarder_possible = sel_loading!=0  && man_size>0;
 				button.alpha = boarder_possible ? 1 : 0.5;
-				if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha)) && boarder_possible){
+				if (button.draw() && boarder_possible){
 					if (boarder_possible) then toggle_selection_borders();
 				}
 				button.x1 += button.w + button.h_gap;
@@ -1102,15 +1137,17 @@ function scr_ui_manage() {
 
 				// // Reset changes button
 				button.label = "Reset";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("R"))));
+				button.tooltip = "Press Shift R";					
 				var reset_possible = !array_contains(invalid_locations, selecting_location) && man_size>0;
 				if reset_possible{
 					button.alpha = 1;
-					if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+					if (button.draw()){
 						reset_selection_equipment();
 					}
 				} else {
 					button.alpha = 0.5;
-					draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha);
+					button.draw(false);
 				}
 
 				button.x1 += button.w + button.h_gap;
@@ -1118,30 +1155,52 @@ function scr_ui_manage() {
 
 				// // Transfer to another company button
 				button.label = "Transfer";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("T"))));
+				button.tooltip = "Press Shift T";				
 				var transfer_possible = !array_contains(invalid_locations, selecting_location) && man_size>0;
 				if (transfer_possible){
 					button.alpha = 1;
-					if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+					if (button.draw()){
 						transfer_selection();
 					}
 				} else {
 					button.alpha = 0.5;
-					draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha);
+					button.draw(false);
 				}
 
 				button.x1 += button.w + button.h_gap;
 				button.x2 += button.w + button.h_gap;
 				button.label = "Move Ship";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("M"))));
+				button.tooltip = "Press Shift M";					
 				var moveship_possible = !array_contains(invalid_locations, selecting_location) && man_size>0 && selecting_ship>0;	
 				if (moveship_possible){
 					button.alpha = 1;
-					if (point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha))){
+					if (button.draw()){
 						load_selection();
 					}
 				} else {
 					button.alpha = 0.5;
-					draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha);
+					button.draw(false);
 				}
+
+
+				button.x1 += button.w + button.h_gap;
+				button.x2 += button.w + button.h_gap;
+				button.label = "Add Tag";
+				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("F"))));
+				button.tooltip = "Press Shift F";					
+				tag_possible = man_size>0;
+				if (tag_possible){
+					button.alpha = 1;
+					if (button.draw()){
+						load_selection();
+					}
+				} else {
+					button.alpha = 0.5;
+					button.draw(false);
+				}
+
 				if (sel_uni[1] != "") {
 					// How much space the selected unit takes
 					draw_set_font(fnt_40k_30b);
