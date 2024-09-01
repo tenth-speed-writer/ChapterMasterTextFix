@@ -130,7 +130,7 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
   		}
 	}
 
-	if (draw && !impossible){
+	if (draw && !impossible && ma_view[selected]){
 		draw_set_alpha(1);
 	    draw_set_color(c_black);
 		draw_rectangle(xx+25,yy+64,xx+974,yy+85,0);
@@ -361,8 +361,41 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 
     if (!unclickable){
     	var changed = false;
+    	
+    	if (sel_all!="") {
+    		if (sel_all=="vehicle" || sel_all=="man" || sel_all == "Command"){
+	    		if (sel_all=="vehicle" && !is_man){
+	    			changed = true;
+	    		} else if(sel_all=="man" && is_man){
+	    			changed = true;    			
+	    		}else if (sel_all=="Command" && is_man){
+
+                    if (unit.IsSpecialist("command")){
+                        changed=true
+                    }else if (unit.squad!="none"){
+                        if (obj_ini.squads[unit.squad].type=="command_squad"){
+                            changed=true
+                        }
+                    }
+                }
+	    	}else if (ma_role[selected] == sel_all){
+				man_sel[selected] = !man_sel[selected];
+	    		changed = true;  
+    		}
+    	}
+    	if (filter_mode && changed){
+    		ma_view[selected] = !ma_view[selected];
+    		changed = false;
+    	} else if (changed){
+    		man_sel[selected] = !man_sel[selected];
+    	}
+    	if (!ma_view[selected]){
+    		changed = false;
+    		man_sel[selected]=false;
+    	}
+
     	// individual click
-    	if (draw && scrollbar_engaged==0){
+    	if (draw && scrollbar_engaged==0 && ma_view[selected]){
 	    	if (mouse_check_button(mb_left) && point_in_rectangle(mouse_x, mouse_y,xx+25+8,yy+64,xx+974,yy+85) && rectangle_action==-1 /*squad[selected]=squad_sel*/){
 				if (double_click<1){
 					double_was=selected;
@@ -388,31 +421,6 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 	    		}
 	    	}
     	}
-    	if (sel_all!="") {
-    		if (sel_all=="vehicle" || sel_all=="man" || sel_all == "Command"){
-	    		if (sel_all=="vehicle" && !is_man){
-	    			man_sel[selected] = !man_sel[selected];
-	    			changed = true;
-	    		} else if(sel_all=="man" && is_man){
-	    			man_sel[selected] = !man_sel[selected];
-	    			changed = true;    			
-	    		}else if (sel_all=="Command" && is_man){
-
-                    if (unit.IsSpecialist("command")){
-                    	man_sel[selected] = !man_sel[selected];
-                        changed=true
-                    }else if (unit.squad!="none"){
-                        if (obj_ini.squads[unit.squad].type=="command_squad"){
-                        	man_sel[selected] = !man_sel[selected];
-                            changed=true
-                        }
-                    }
-                }
-	    	}else if (ma_role[selected] == sel_all){
-				man_sel[selected] = !man_sel[selected];
-	    		changed = true;  
-    		}
-    	}   	
     	if (changed){
 			if(no_location){
                 selecting_location=ma_loc[selected];
@@ -450,4 +458,5 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
         	man_count++;
         }
     }
+    if (!ma_view[selected]) return "continue";
 }

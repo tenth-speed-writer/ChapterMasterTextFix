@@ -1202,7 +1202,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
         }*/
 
         // Management
-        if (menu_buttons.chapter_manage.clicked || press_with_held(vk_control, ord("M")) ){
+        if (menu_buttons.chapter_manage.clicked ){
             if (menu!=1)and (onceh==0){
                 scr_management(1);
                 menu=1;

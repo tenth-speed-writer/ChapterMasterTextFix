@@ -58,6 +58,27 @@ function unit_button_object() constructor{
 	tooltip = "";
 	x2 = x1 + w;
 	y2 = y1 + h;
+
+	static move = function(m_direction, with_gap=false, multiplier=1){
+		switch(m_direction){
+			case "right":
+				x1 +=( w+(with_gap*v_gap))*multiplier;
+				x2 += (w+(with_gap*v_gap))*multiplier;
+				break;
+			case "left":
+				x1 -= (w+(with_gap*v_gap))*multiplier;
+				x2 -= (w+(with_gap*v_gap))*multiplier;
+				break;
+			case "down":
+				y1 += (h+(with_gap*h_gap))*multiplier;
+				y2 += (h+(with_gap*h_gap))*multiplier;
+				break;
+			case "up":
+				y1 -= (h+(with_gap*h_gap))*multiplier;
+				y2 -= (h+(with_gap*h_gap))*multiplier;
+				break;								
+		}
+	}
 	static draw = function(allow_click = true){
 		if (scr_hit(x1, y1, x2, y2) && tooltip!=""){
 			tooltip_draw(tooltip);
@@ -126,8 +147,36 @@ function scr_ui_manage() {
 	if (combat!=0) then exit;
 	// This is the draw script for showing the main management screen or individual company screens
 
-    if (zoomed==0) and (menu==1) and (managing>0) and (cooldown<=0){
-        company_manage_actions();
+
+    if (zoomed==0) and (menu==1) and (managing>=0) and (cooldown<=0){
+    	if((managing>0)){
+    		company_manage_actions();
+    	}
+    	if (managing >=0){
+		    for (var i=1;i<10;i++){ 
+		    	if (press_exclusive(ord(string(i)))){
+		    		switch_view_company(i);
+		    	}
+		    }
+			if (press_exclusive(ord("0"))){
+				switch_view_company(10);
+			}
+			else if (press_exclusive(ord("Q"))){
+				switch_view_company(11);
+			} 
+			else if (press_exclusive(ord("E"))){
+				switch_view_company(12);
+			}
+			else if (press_exclusive(ord("R"))){
+				switch_view_company(13);
+			}
+			else if (press_exclusive(ord("T"))){
+				switch_view_company(14);
+			}
+			else if (press_exclusive(ord("Y"))){
+				switch_view_company(15);
+			}    		
+    	}
     }
     
 	if (menu==1) and (managing>0 || managing <0){
@@ -365,14 +414,15 @@ function scr_ui_manage() {
 		draw_rectangle_color_simple(actions_block.x1 + 1, actions_block.y1 + 1, actions_block.x2 - 1, actions_block.y2 - 1, 1, c_black);
 		draw_rectangle_color_simple(actions_block.x1 + 2, actions_block.y1 + 2, actions_block.x2 - 2, actions_block.y2 - 2, 1, c_gray);
 
-		var unit_view_block = {
+		//TODO remove if no longer needed
+		/*var unit_view_block = {
 			x1: right_ui_block.x1,
 			y1: yy + 140,
 			w: 571,
 			h: 380,
 		};
 		unit_view_block.x2 = unit_view_block.x1 + unit_view_block.w;
-		unit_view_block.y2 = unit_view_block.y1 + unit_view_block.h;
+		unit_view_block.y2 = unit_view_block.y1 + unit_view_block.h;*/
 
 		draw_set_color(c_white);
 		draw_sprite_stretched(spr_data_slate_back, 0, xx+1007-1, yy+140, 572, 378);
@@ -1042,8 +1092,7 @@ function scr_ui_manage() {
 					button.draw(false);
 				}
 
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
 
 				// // Re equip button
 				button.label = "Re-equip";
@@ -1058,8 +1107,7 @@ function scr_ui_manage() {
 					equip_selection();
 				}
 				
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right");
 
 				// // Promote button
 				button.label = "Promote";
@@ -1093,8 +1141,7 @@ function scr_ui_manage() {
 		                }						
 					}
 				}
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
 
 				// // Put in jail button
 				button.label = "Jail";
@@ -1118,10 +1165,10 @@ function scr_ui_manage() {
 					if (bionics_possible) then add_bionics_selection();
 				}
 
-				button.y1 -= button.h + button.v_gap;
-				button.y2 -= button.h + button.v_gap;
-				button.x1 -= (button.w + button.h_gap) * 4;
-				button.x2 -= (button.w + button.h_gap) * 4;
+				button.move("up", true);
+
+				button.move("left", true, 4)
+
 
 				// // Designate as boarder unit
 				button.label = "Set Boarder";
@@ -1132,8 +1179,7 @@ function scr_ui_manage() {
 				if (button.draw() && boarder_possible){
 					if (boarder_possible) then toggle_selection_borders();
 				}
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
 
 				// // Reset changes button
 				button.label = "Reset";
@@ -1150,8 +1196,7 @@ function scr_ui_manage() {
 					button.draw(false);
 				}
 
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
 
 				// // Transfer to another company button
 				button.label = "Transfer";
@@ -1168,8 +1213,7 @@ function scr_ui_manage() {
 					button.draw(false);
 				}
 
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
 				button.label = "Move Ship";
 				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("M"))));
 				button.tooltip = "Press Shift M";					
@@ -1185,12 +1229,14 @@ function scr_ui_manage() {
 				}
 
 
-				button.x1 += button.w + button.h_gap;
-				button.x2 += button.w + button.h_gap;
+				button.move("right", true);
+
 				button.label = "Add Tag";
 				button.keystroke = (keyboard_check(vk_shift) && (keyboard_check_pressed(ord("F"))));
-				button.tooltip = "Press Shift F";					
+				button.tooltip = "Coming soon"//Press Shift F";					
 				tag_possible = man_size>0;
+				tag_possible = false;
+				button.alpha = 0.5;
 				if (tag_possible){
 					button.alpha = 1;
 					if (button.draw()){
@@ -1213,23 +1259,29 @@ function scr_ui_manage() {
 					// draw_text_transformed(actions_block.x1 + 4, actions_block.x1 + 64,"Options:",0.5,0.5,0);
 
 					// Select all units button
-					button.x1 -= (button.w + button.h_gap) * 3;
-					button.x2 -= (button.w + button.h_gap) * 3;
-					button.y1 -= (button.h + button.v_gap) * 4.15;
-					button.y2 -= (button.h + button.v_gap) * 4.15;
+
+					button.move("up", true, 4.15);
+
+					button.move("left", true, 4);
+
 					button.label = "Select All";
+					button.tooltip = "";
+					button.keystroke = false;
 					button.alpha = 1;
-					if point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,,button.alpha)){
+					if (button.draw()){
 						cooldown=8;
-						if (alll==0){
-							scr_load_all(true);
-							selecting_types="%!@";
-						} else if (alll==1){
-							scr_load_all(false);
-							selecting_types="";
-						}
+						scr_load_all(!alll);
+						selecting_types = alll ? "" :"%!@";
 					}
 
+					button.move("right", true, 1);
+					button.label = "Filter Mode";
+					button.alpha = filter_mode ? 1 : 0.5;
+					if (button.draw()){
+						filter_mode = !filter_mode;
+					}
+
+					button.move("left", true, 1);
 					// Select all infantry button
 					button.y1 += button.h + button.v_gap + 4;
 					button.h /= 1.4;
@@ -1241,23 +1293,20 @@ function scr_ui_manage() {
 					button.alpha = 1;
 					button.font = fnt_40k_12;
 					draw_set_font(fnt_40k_12);
-					if point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,button.font,button.alpha)) {
+					if (button.draw()) {
 						sel_all = "man";
 					}
 					// Select infantry type buttons
 					for (var i = 1; i <= 8; i++) {
 						if (sel_uni[i] != "") {
-							button.x1 += button.w + button.h_gap;
-							button.x2 += button.w + button.h_gap;
-							if i == 4{
-								button.x1 -= (button.w + button.h_gap) * 4;
-								button.x2 -= (button.w + button.h_gap) * 4;
-								button.y1 += button.h + button.v_gap;
-								button.y2 += button.h + button.v_gap;
+							button.move("right", true);
+							if (i == 4){
+								button.move("left", true, 4);
+								button.move("down", true);
 							}
 							button.label = string_truncate(sel_uni[i], 126);
 							button.alpha = 1;
-							if point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,button.font,button.alpha)) {
+							if (button.draw()){
 								sel_all = sel_uni[i];
 							}
 						}
@@ -1272,23 +1321,20 @@ function scr_ui_manage() {
 					button.y2 = button.y1 + button.h;
 					button.label = "All Vehicles";
 					button.alpha = 1;
-					if point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,button.font,button.alpha)) {
+					if (button.draw()){
 						sel_all="vehicle";
 					}
 					// Select vehicle type buttons
 					for (var i = 1; i <= 8; i++) {
 						if (sel_veh[i] != "") {
-							button.x1 += button.w + button.h_gap;
-							button.x2 += button.w + button.h_gap;
+							button.move("right", true);
 							if i == 4{
-								button.x1 -= (button.w + button.h_gap) * 4;
-								button.x2 -= (button.w + button.h_gap) * 4;
-								button.y1 += button.h + button.v_gap;
-								button.y2 += button.h + button.v_gap;
+								button.move("left", true, 4);
+								button.move("down", true);
 							}
 							button.label = string_truncate(sel_veh[i], 126);
 							button.alpha = 1;
-							if point_and_click(draw_unit_buttons([button.x1,button.y1, button.x2, button.y2],button.label,[1,1],button.color,,button.font,button.alpha)) {
+							if (button.draw()) {
 								sel_all = sel_veh[i];
 							}
 						}
@@ -1299,7 +1345,7 @@ function scr_ui_manage() {
 			draw_set_color(#3f7e5d);
 			scr_scrollbar(974,172,1005,790,34,man_max,man_current);
 		}	
-		if instance_exists(cn)and (is_struct(cn.temp[120])){
+		if (is_struct(cn.temp[120])){
 			if (cn.temp[120].name()!="") and (cn.temp[120].race()!=0){
 				draw_set_alpha(1);
 				var xx=__view_get( e__VW.XView, 0 )+0, yy=__view_get( e__VW.YView, 0 )+0
@@ -1350,29 +1396,32 @@ function scr_ui_manage() {
 	    if (managing>20) then c=managing-10;
     
 		// Draw companies
-	    if (managing >= 1) and (managing <=10) {
-			fx= scr_roman_numerals()[managing - 1] + " Company";
+		if (managing>0){
+		    if (managing >= 1) and (managing <=10) {
+				fx= scr_roman_numerals()[managing - 1] + " Company";
+			} else if (managing>10){
+				    
+			    switch (managing) {
+				    case 11:
+				        fx = "Headquarters";
+				        break;
+				    case 12:
+				        fx = "Apothecarion";
+				        break;
+				    case 13:
+				        fx = "Librarium";
+				        break;
+				    case 14:
+				        fx = "Reclusium";
+				        break;
+				    case 15:
+				        fx = "Armamentarium";
+				        break;
+				}
+			}
 		}
     
-	    switch (managing) {
-		    case 11:
-		        fx = "Headquarters";
-		        break;
-		    case 12:
-		        fx = "Apothecarion";
-		        break;
-		    case 13:
-		        fx = "Librarium";
-		        break;
-		    case 14:
-		        fx = "Reclusium";
-		        break;
-		    case 15:
-		        fx = "Armamentarium";
-		        break;
-		}
-    
-	    draw_text(xx+800,yy+74,string_hash_to_newline(string(global.chapter_name)+" "+string(fx)));
+	    draw_text(xx+800,yy+74,$"{global.chapter_name} {fx}");
 	    if (managing>=0){
     	    if (obj_ini.company_title[managing]!=""){
     			draw_set_font(fnt_fancy);
@@ -1381,6 +1430,7 @@ function scr_ui_manage() {
     	}
 	    // Back
 	    draw_sprite_ext(spr_arrow,0,xx+25,yy+70,2,2,0,c_white,1);
+
 	    if (point_and_click([xx+25, yy+70, xx+70, yy+140])){
             man_size=0;
             man_current=0;
@@ -1396,7 +1446,7 @@ function scr_ui_manage() {
 	    yy+=77;
     	var main_rect;
 		var repetitions=min(ship_max,ship_see)
-	    for(var i=0; i<repetitions; i++){
+	    for (var i=0; i<repetitions; i++){
 	        if (sh_name[sel]!=""){
 	            temp1=string(sh_name[sel])+" ("+string(sh_class[sel])+")";
 	            temp2=string(sh_loc[sel]);

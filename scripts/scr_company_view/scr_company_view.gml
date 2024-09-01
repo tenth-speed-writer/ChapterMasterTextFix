@@ -20,6 +20,7 @@ function reset_manage_arrays(){
 		ma_exp=[];
 		ma_promote=[];
 		ma_god=[];
+		ma_view = [];
         for (var i=0;i<=500;i++){
             sh_ide[i]=0;
             sh_name[i]="";
@@ -66,6 +67,7 @@ function add_man_to_manage_arrays(unit){
         array_push(ma_promote,0);
         array_push(display_unit,unit);
         array_push(ma_god,0);
+        array_push(ma_view,true);
 	}
 }
 
@@ -109,7 +111,8 @@ function add_vehicle_to_manage_arrays(unit){
 		array_push(ma_chaos,0);
 		array_push(ma_exp,0);
 		array_push(ma_promote,0);
-		 array_push(ma_god,0);
+		array_push(ma_god,0);
+		array_push(ma_view,true);
 	}
 }
 
@@ -366,6 +369,7 @@ function filter_and_sort_company(type, specific){
         var tempexp =ma_exp[a];
         var tempprom =ma_promote[a];
         var tempdis =display_unit[a];
+        var tempview = ma_view[a];
 
         man[a]=man[b];
         ide[a]=ide[b];
@@ -384,6 +388,7 @@ function filter_and_sort_company(type, specific){
         ma_exp[a]=ma_exp[b];
         ma_promote[a]=ma_promote[b];
         display_unit[a] =display_unit[b];
+        ma_view[a] =ma_view[b];
 
         man[b]=tempman;
         ide[b]=tempide;
@@ -396,12 +401,13 @@ function filter_and_sort_company(type, specific){
         ma_role[b]=temprole;
         ma_wep1[b]= tempwep;
         ma_wep2[b]= tempwep2;
-        ma_armour[b]=temparm;
-        ma_health[b]=temphealth;
-        ma_chaos[b]=tempcha;
-        ma_exp[b]=tempexp;
-        ma_promote[b]=tempprom;
-        display_unit[b] =tempdis;             
+        ma_armour[b]= temparm;
+        ma_health[b]= temphealth;
+        ma_chaos[b]= tempcha;
+        ma_exp[b]= tempexp;
+        ma_promote[b]= tempprom;
+        display_unit[b] = tempdis;  
+        ma_view[b] = tempview;      
 	}
 	if (type=="stat"){
 		var swapped;
@@ -433,13 +439,19 @@ function filter_and_sort_company(type, specific){
 
 function switch_view_company(new_view){
 	if (new_view<1) then exit;
+	filter_mode = false;
 	text_bar=0;
-	if (managing<=10 && managing>0){
-		company_data.reset_squad_surface();
+	if (managing<=10 && managing>=0){
+		if (struct_exists(company_data, "reset_squad_surface")){
+			company_data.reset_squad_surface();
+		}
 	}
 	scr_ui_refresh();
 
 	managing = new_view;
+	if (new_view != 0 ){
+		with(obj_managment_panel){instance_destroy();}
+	}
 	if (new_view>10){
 		view_squad=false;
 		company_data={};
@@ -478,29 +490,5 @@ function company_manage_actions(){
     if (point_and_click([xx+1105, yy+80,xx+1178,yy+128]) || keyboard_check_pressed(ord(string("M")))){
     	var new_view = managing == 15 ? 1 : managing+1;
     	switch_view_company(new_view)
-    }
-
-    for (var i=1;i<10;i++){ 
-    	if (press_exclusive(ord(string(i)))){
-    		switch_view_company(i);
-    	}
-    }
-	if (press_exclusive(ord("0"))){
-		switch_view_company(10);
-	}
-	else if (press_exclusive(ord("Q"))){
-		switch_view_company(11);
-	} 
-	else if (press_exclusive(ord("E"))){
-		switch_view_company(12);
-	}
-	else if (press_exclusive(ord("R"))){
-		switch_view_company(13);
-	}
-	else if (press_exclusive(ord("T"))){
-		switch_view_company(14);
-	}
-	else if (press_exclusive(ord("Y"))){
-		switch_view_company(15);
-	} 	 	 
+    } 	 	 
 }

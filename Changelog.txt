@@ -5,6 +5,7 @@ Fixed:
 	- updating garrison log creating crashes due to vehicle arrays
 	- some recruit trials used to produced no recruits
 	- data leak from sprites causing game to randomly crash when doing lots of troop movement
+	- general reliability improvements with game memory usage
 
 Changed:
 	- player will now get alerts when ship production ceases due to a lack of active forge worlds
@@ -18,15 +19,16 @@ added:
 	- N to previous
 	- Q,E,R,T,Y, to travel between the specialist manage areas
 	- from map area
-	- ALT F for fleet
-	- ALT M for manage
-	- ALT A for apothcarium
-	- ALT F for fleet
-	- ALT S for armentarium
+	- Control F for fleet
+	- Control M for manage
+	- Control A for apothcarium
+	- Control F for fleet
+	- Control S for armentarium
+	- new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
 
 
 -----------------------
-versions  0.9.1.1 - 0.9.1.2 bug fix and stability versions
+versions  0.9.1.1 - 0.9.1.12 bug fix and stability versions
 -----------------------
 
 Version  0.9.1.0

@@ -2,7 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_new_governor_mission(planet){
 	problem = "";
-	if p_owner[i]!=eFACTION.Imperium then exit;
+	if p_owner[planet]!=eFACTION.Imperium then exit;
 	var planet_type= p_type[planet];
 	if (planet_type=="Death"){
 		problem = choose("hunt_beast", "provide_garrison");

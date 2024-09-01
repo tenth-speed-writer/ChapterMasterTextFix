@@ -397,17 +397,17 @@ hide_banner=0;
 var xx=__view_get( e__VW.XView, 0 );
 var yy=__view_get( e__VW.YView, 0 );
 menu_buttons = {
-    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,"M"),
-    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,"S"),
-    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,"A"),
-    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,"R"),
-    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,"L"),
-    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,"A"),
-    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,"T"),
-    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,"F"),
-    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,"D"),
-    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,"O"),
-    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,"E"),
+    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("M")),
+    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("S")),
+    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("A")),
+    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("R")),
+    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,ord("L")),
+    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,ord("A")),
+    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("T")),
+    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("F")),
+    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D")),
+    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O")),
+    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E")),
 
 }
 new_button_highlight="";
