@@ -534,43 +534,66 @@ function scr_enemy_ai_d() {
 	with(obj_temp6){instance_destroy();}
 	with(obj_en_fleet){
 	    if (owner = eFACTION.Imperium) and ((trade_goods="colonize") or (trade_goods="colonizeL")){
-	        var tirg;tirg=instance_nearest(action_x,action_y,obj_star);
+	        var tirg=instance_nearest(action_x,action_y,obj_star);
 	        instance_create(tirg.x,tirg.y,obj_temp2);
 	    }
 	}
 	with(obj_star){
 	    if (instance_exists(obj_temp2)){
-	        var tirg;tirg=instance_nearest(x,y,obj_temp2);
+	        var tirg=instance_nearest(x,y,obj_temp2);
 	        if (point_distance(x,y,tirg.x,tirg.y)<5){x-=20000;y-=20000;}
 	    }
 	    if (planets<=0){x-=20000;y-=20000;}
 	}
 	with(obj_temp2){instance_destroy();}
 
-	with(obj_star){
-	    var r;r=0;
-	    repeat(4){r+=1;// temp6: origin hive, temp5: new hive, temp4: new planet
-	        // if (p_owner[r]=2) and (p_type[r]!="Dead") and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate") and (p_population[r]=0) then instance_create(x,y,obj_temp4);
-	        // if (p_owner[r]=2) and (p_type[r]!="Dead") and ((p_type[r]="Hive") or (p_type[r]="Temperate")) and (p_population[r]=0) then instance_create(x,y,obj_temp5);
-	        // if (p_owner[r]=3) and (p_type[r]!="Dead") and (p_type[r]="Forge") and (p_population[r]=0) then instance_create(x,y,obj_temp5);
-        
-	        if (p_owner[r]=2) and (p_type[r]="Hive") and (p_population[r]>0) and (p_large[r]=1) then instance_create(x,y,obj_temp6);
-	    }
-	}
+    var pop_doner_options = [];
+    //this stops needless repeats of searches
+    if (!struct_exists(end_turn_insights, "population_doners")){
+    	with(obj_star){
+    	   for (r=1;r<=planets;r++){// temp6: origin hive, temp5: new hive, temp4: new planet
+    	        if ((p_owner[r]=2) and (p_type[r]="Hive") and (p_population[r]>0) and (p_large[r]=1)){
+                    array_push(pop_doner_options, [id, r]);
+                };
+    	    }
+    	}
+        end_turn_insights.population_doners = pop_doner_options;
+    }
+
+    pop_doner_options = end_turn_insights.population_doners;
+
+    var priority_requests = [];
+    var non_priority_requests = [];
 
 	var r,yep;r=0;yep=0;
-	repeat(4){r+=1;// temp5: new hive, temp4: new planet
-	    if (planets>=r) and (space_hulk=0) and (craftworld=0){
-	        if ((p_owner[r]=2) or (p_owner[r]=5)) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate") and (p_population[r]=0) then instance_create(x,y,obj_ground_mission);
-	        if (p_owner[r]=2) and (p_type[r]!="Dead") and (p_type[r]!="") and ((p_type[r]="Hive") or (p_type[r]="Temperate") or (p_type[r]="Shrine")) and (p_population[r]=0) then instance_create(x,y,obj_temp5);
-	        if (p_owner[r]=3) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_type[r]="Forge") and (p_population[r]=0) then instance_create(x,y,obj_temp5);
+	for (r=1;r<=planets;r++){// temp5: new hive, temp4: new planet
+        if (!scr_planet_owned_by_group(r,fetch_faction_group())) then continue;
+        if ((p_population[r]>0) || (p_type[r]=="")) then continue;
+	    if (!space_hulk) and (!craftworld) and (p_type[r]!="Dead"){
+
+            var priority_imperium = ["Hive", "Temperate","Shrine"];
+	        if (p_owner[r]=eFACTION.Imperium) && (array_contains(priority_imperium, p_type[r]) ) {
+                array_push(priority_requests, r);
+                break;
+            }
+
+	        if (p_owner[r]=eFACTION.Mechanicus) && (p_type[r]="Forge"){
+                array_push(priority_requests, r);
+                break;
+            }
 	        // Count player planets as HIVE PLANETS so that they are prioritized
-	        if (p_owner[r]=1) and (p_type[r]!="Dead") and (p_type[r]!="") and (p_population[r]=0) and (obj_controller.faction_status[eFACTION.Imperium]!="War") then instance_create(x,y,obj_temp5);
+	        if (p_owner[r]=eFaction.Player) and (p_type[r]!="Dead") and (p_type[r]!=""){
+                array_push(priority_requests, r);
+                break;
+            }
+
+            if ((p_owner[r]=eFACTION.Imperium) or (p_owner[r]=eFaction.Ecclesiarchy))   and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate")  then instarray_push(non_priority_requests, r);
 	    }
 	}
 
-	if (instance_exists(obj_temp6)){
-	    var onceh,rind;onceh=0;rind=floor(random(100))+1;
+	if (array_length(pop_doner_options)>0){
+	    var onceh=0;
+        var rind=floor(random(100))+1;
     
 	    if (instance_exists(obj_temp5)) and (onceh=0) and (rind<=3){// A hive is requesting repopulation
 	        var you1,you2,you3,flit;
@@ -578,10 +601,12 @@ function scr_enemy_ai_d() {
 	        you2=instance_nearest(obj_temp5.x,obj_temp5.y,obj_star);
 	        you3=instance_nearest(obj_temp6.x,obj_temp6.y,obj_star);
 	        flit=instance_create(you1.x,you1.y,obj_en_fleet);
-	        flit.owner = eFACTION.Imperium;flit.sprite_index=spr_fleet_civilian;flit.image_index=3;
+	        flit.owner = eFACTION.Imperium;
+            flit.sprite_index=spr_fleet_civilian;
+            flit.image_index=3;
         
-	        var l;l=0;
-	        repeat(4){l+=1;
+	        var l=0;
+	        for (var l=1;l<=planets;l++){
 	            if (you3.p_large[l]=1) and (you3.p_type[l]="Hive") and ((flit.trade_goods="") or (flit.trade_goods="colonizeL")){
 	                flit.guardsmen+=(you3.p_population[l]*0.01);
 	                you3.p_population[l]=you3.p_population[l]*0.99;
@@ -597,7 +622,9 @@ function scr_enemy_ai_d() {
 	        you2=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_star);// Destination star
 	        you3=instance_nearest(obj_temp6.x,obj_temp6.y,obj_star);// Origin star
 	        flit=instance_create(you1.x,you1.y,obj_en_fleet);
-	        flit.owner = eFACTION.Imperium;flit.sprite_index=spr_fleet_civilian;flit.image_index=choose(1,2);
+	        flit.owner = eFACTION.Imperium;
+            flit.sprite_index=spr_fleet_civilian;
+            flit.image_index=choose(1,2);
         
 	        /*show_message("Colonist fleet created at "+string(flit.x)+","+string(flit.y));
 	        obj_controller.x=flit.x;
@@ -611,7 +638,10 @@ function scr_enemy_ai_d() {
 	                flit.trade_goods="colonize";
 	            }
 	        }
-	        flit.action_x=you2.x;flit.action_y=you2.y;flit.alarm[4]=1;onceh=1;
+	        flit.action_x=you2.x;
+            flit.action_y=you2.y;
+            flit.alarm[4]=1;
+            onceh=1;
 	    }
 	}
 	with(obj_temp3){instance_destroy();}with(obj_ground_mission){instance_destroy();}with(obj_temp5){instance_destroy();}with(obj_temp6){instance_destroy();}

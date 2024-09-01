@@ -1378,6 +1378,7 @@ tech_points=0;
 tech_aspirant=0;
 recruiting=0;
 penitorium=0;
+end_turn_insights = {};
 // Redefines training based on chapter
 if (instance_exists(obj_ini)){
     if (string_count("Intolerant",obj_ini.strin2)>0) then training_psyker=0;
