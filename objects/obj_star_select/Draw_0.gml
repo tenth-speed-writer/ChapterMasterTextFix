@@ -159,7 +159,7 @@ if (obj_controller.selecting_planet!=0){
         if (obj_controller.selecting_planet>0){
             if (target.present_fleet[1]=0)/* and (target.p_type[obj_controller.selecting_planet]!="Dead")*/{
                 if (target.p_owner[obj_controller.selecting_planet]>5) then is_enemy=true;
-                if (obj_controller.faction_status[target.p_owner[obj_controller.selecting_planet]]="War") then enma=true;
+                if (obj_controller.faction_status[target.p_owner[obj_controller.selecting_planet]]="War") then is_enemy=true;
                 
                 if (target.p_player[obj_controller.selecting_planet]>0){
                     if (is_enemy){
@@ -170,7 +170,7 @@ if (obj_controller.selecting_planet!=0){
             }
             if (target.present_fleet[1]>0)/* and (target.p_type[obj_controller.selecting_planet]!="Dead")*/{
                 if (target.p_owner[obj_controller.selecting_planet]>5) then is_enemy=true;
-                if (obj_controller.faction_status[target.p_owner[obj_controller.selecting_planet]]="War") then enma=true;
+                if (obj_controller.faction_status[target.p_owner[obj_controller.selecting_planet]]="War") then is_enemy=true;
                 
                 if (is_enemy){
                     button1="Attack";
@@ -243,14 +243,16 @@ if (obj_controller.selecting_planet!=0){
         var xx=__view_get( e__VW.XView, 0 )+15;
         var yy=__view_get( e__VW.YView, 0 )+25;
         var current_planet=obj_controller.selecting_planet;
+        var planet_data = new PlanetData(current_planet, target);
         var nm=scr_roman(current_planet), temp1=0;
         draw_set_halign(fa_center);
         draw_set_font(fnt_40k_14);
         
-        
-        if (target.p_owner[current_planet]<=5) and (target.p_orks[current_planet]+target.p_eldar[current_planet]+target.p_traitors[current_planet]+target.p_chaos[current_planet]+target.p_tyranids[current_planet]+target.p_necrons[current_planet]+target.p_demons[current_planet]+target.p_tau[current_planet]=0){
-            if (target.p_player[current_planet]>0) or (target.present_fleet[1]>0){
-                if (target.p_fortified[current_planet]<5) then improve=1;
+        var xenos_and_heretics = planet_data.xenos_and_heretics();
+        var planet_forces = planet_data.planet_forces;
+        if (planet_data.current_owner<=5) and (!xenos_and_heretics){
+            if (planet_forces[eFaction.Player]>0) or (target.present_fleet[1]>0){
+                if (planet_data.fortification_level<5) then improve=1;
             }
         }
         
@@ -268,12 +270,18 @@ if (obj_controller.selecting_planet!=0){
         draw_rectangle(xx+349,yy+175,xx+717,yy+192,1);
         draw_set_color(c_white);
         
+        var player_dispo = planet_data.player_disposition;
         if (!succession){
-            if (target.dispo[current_planet]>=0) and (target.p_first[current_planet]<=5) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0) then draw_text(xx+534,yy+176,string_hash_to_newline("Disposition: "+string(min(100,target.dispo[current_planet]))+"/100"));
-            if (target.dispo[current_planet]>-30) and (target.dispo[current_planet]<0) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0) then draw_text(xx+534,yy+176,string_hash_to_newline("Disposition: ???/100"));
-            if ((target.dispo[current_planet]>=0) and (target.p_first[current_planet]<=5) and (target.p_owner[current_planet]>5)) or (target.p_population[current_planet]<=0) then draw_text(xx+534,yy+176,string_hash_to_newline("-------------"));
-            if (target.dispo[current_planet]<=-3000) then draw_text(xx+534,yy+176,"Disposition: N/A");
-        }else  if (succession=1) then draw_text(xx+534,yy+176,"War of Succession");
+            if (player_dispo>=0) and (target.p_first[current_planet]<=5) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0) then draw_text(xx+534,yy+176,string_hash_to_newline("Disposition: "+string(min(100,player_dispo))+"/100"));
+            if (player_dispo>-30) and (player_dispo<0) and (planet_data.current_owner<=5) and (planet_data.population>0){
+                draw_text(xx+534,yy+176,"Disposition: ???/100");
+            }
+            if ((player_dispo>=0) and (planet_data.origional_owner<=5) and (target.p_owner[current_planet]>5)) or (target.p_population[current_planet]<=0){
+                draw_text(xx+534,yy+176,"-------------");
+            }
+
+            if (player_dispo<=-3000) then draw_text(xx+534,yy+176,"Disposition: N/A");
+        } else  if (succession=1) then draw_text(xx+534,yy+176,"War of Succession");
         draw_set_color(c_gray);
         // End draw disposition
         draw_set_color(c_gray);
@@ -304,8 +312,8 @@ if (obj_controller.selecting_planet!=0){
         draw_text(xx+534,yy+194,"Population Influence");
         yy+=20;
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
-        if (target.craftworld=0) and (target.space_hulk=0) then draw_text(xx+480,yy+196,string_hash_to_newline(string(target.name)+" "+string(nm)+"  ("+string(target.p_type[current_planet])+")"));
-        if (target.craftworld=1) then draw_text(xx+480,yy+196,string_hash_to_newline(string(target.name)+" (Craftworld)"));
+        if (target.craftworld=0) and (target.space_hulk=0) then draw_text(xx+480,yy+196,$"{target.name} {nm}  ({target.p_type[current_planet]})");
+        if (target.craftworld=1) then draw_text(xx+480,yy+196,string(target.name)+" (Craftworld)");
         // if (target.craftworld=0) and (target.space_hulk=0) then draw_text(xx+534,yy+214,string(target.p_type[current_planet])+" World");
         // if (target.craftworld=1) then draw_text(xx+594,yy+214,"Craftworld");
         if (target.space_hulk=1) then draw_text(xx+480,yy+196,string_hash_to_newline("Space Hulk"));
@@ -322,7 +330,7 @@ if (obj_controller.selecting_planet!=0){
             draw_text(xx+480,yy+220,$"Population: {temp2}");
         }
         if (target.p_large[current_planet]=1){
-            draw_text(xx+480,yy+220,"Population: billion");
+            draw_text(xx+480,yy+220,$"Population: {target.p_population[current_planet]} billion");
         }
         
         if (target.craftworld=0) and (target.space_hulk=0){
@@ -501,7 +509,7 @@ if (obj_controller.selecting_planet!=0){
             if (planet_displays[i][0] == "????") then button_colour = c_red;
             button_size = draw_unit_buttons([xx+535,yy+346+y_move], planet_displays[i][0],[1,1], button_colour,, fnt_40k_14b, 1);
             y_move += button_size[3]-button_size[1];
-            if (point_in_rectangle(mouse_x, mouse_y, button_size[0], button_size[1],button_size[2],button_size[3]) && (mouse_check_button_pressed(mb_left))){
+            if (point_and_click(button_size)){
                 if (planet_displays[i][0] != "????"){
                     feature = new feature_selected(planet_displays[i][1]);
                 } else {

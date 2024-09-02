@@ -50,7 +50,7 @@ for(run=1; run<=8; run++){
     p_silo[run]=0;
     p_defenses[run]=0;
     p_upgrades[run]=[];
-    // v how much of a problem they are from 1-5
+    // v how much of a problem they are from 1-6
     p_orks[run]=0;
     p_tau[run]=0;
     p_eldar[run]=0;

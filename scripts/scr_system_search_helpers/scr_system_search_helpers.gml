@@ -158,7 +158,9 @@ function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3
     instance_activate_object(obj_star);
     return from;     
 }
-
+function star_distace_calc(star1,star2){
+	return point_distance(star1.x, star1.y, star2.x, star2.y);
+}
 function nearest_star_proper(xx,yy) {
 	var i=0;
 	var cur_star;
@@ -339,6 +341,13 @@ function PlanetData(planet, system) constructor{
     	0,
     	system.p_necrons[planet]
     ]
+    static xenos_and_heretics = function(){
+    	var xh_force = 0;
+    	for (var i=5;i<array_length(planet_forces)i++){
+    		xh_force += planet_forces[i];
+    	} 
+    	return xh_force;
+    }
     deamons = system.p_demons[planet];
     chaos_forces = system.p_chaos[planet];
 

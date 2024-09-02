@@ -970,6 +970,7 @@
     {"id":{"name":"spr_weapon_crozarc","path":"sprites/spr_weapon_crozarc/spr_weapon_crozarc.yy",},},
     {"id":{"name":"scr_check_equip","path":"scripts/scr_check_equip/scr_check_equip.yy",},},
     {"id":{"name":"scr_add_corruption","path":"scripts/scr_add_corruption/scr_add_corruption.yy",},},
+    {"id":{"name":"scr_controller_helpers","path":"scripts/scr_controller_helpers/scr_controller_helpers.yy",},},
     {"id":{"name":"scr_add_item","path":"scripts/scr_add_item/scr_add_item.yy",},},
     {"id":{"name":"spr_azreal","path":"sprites/spr_azreal/spr_azreal.yy",},},
     {"id":{"name":"scr_add_man","path":"scripts/scr_add_man/scr_add_man.yy",},},

@@ -1202,7 +1202,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
         }*/
 
         // Management
-        if (menu_buttons.chapter_manage.clicked ){
+        if (menu_buttons.chapter_manage.clicked){
             if (menu!=1)and (onceh==0){
                 scr_management(1);
                 menu=1;
@@ -1216,7 +1216,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
                 with(obj_fleet_select){instance_destroy();}
                 view_squad=false;
             }
-            if (menu==1) and (onceh==0){
+            else if (menu==1) and (onceh==0){
                 menu=0;
                 onceh=1;
                 cooldown=8000;
@@ -1259,7 +1259,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             }
         }
         // Apothecarium
-        if (menu_buttons.apoth.clicked  || press_with_held(vk_control, ord("A"))){
+        if (menu_buttons.apoth.clicked){
             menu_adept=0;
             hide_banner=1;
             if (scr_role_count("Master of the Apothecarion","0")==0) then menu_adept=1;
@@ -1344,7 +1344,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             managing=0;
         }
         // Armamentarium
-        if (menu_buttons.arm.clicked || press_with_held(vk_control, ord("S"))){
+        if (menu_buttons.arm.clicked){
             menu_adept=0;
             hide_banner=1;
             if (scr_role_count("Forge Master","0")==0) then menu_adept=1;
@@ -1383,7 +1383,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
             managing=0;
         }
         // Master of the Fleet
-        if (menu_buttons.fleet.clicked || press_with_held(vk_control, ord("F"))){
+        if (menu_buttons.fleet.clicked){
             menu_adept=0;
             hide_banner=1;
             var geh=0,good=0;
@@ -1504,6 +1504,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
                 if (instance_exists(obj_turn_end)){if (obj_turn_end.popups_end==1) then ok=1;}
 
                 if (ok==1){
+                    end_turn_insights = {};
                     with(obj_turn_end){instance_destroy();}
                     with(obj_star_event){instance_destroy();}
                     cooldown=8;

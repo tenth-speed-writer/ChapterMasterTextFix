@@ -403,6 +403,7 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 	YY=yy;
 	hot_key = Hot_key;
 	clicked=false;
+	click_function = false;
 	static draw = function(xx=XX,yy=YY,text="", x_scale=1, y_scale=1, width=108, height=42){
 		clicked=false;
 		height *=y_scale
@@ -441,7 +442,7 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 		draw_set_color(c_white);
 	    draw_set_halign(fa_center);
 	    draw_set_font(fnt_cul_14);
-	    draw_text_ext(xx+(width/2),yy+4, text, 18*y_scale, width-(15*x_scale))
+	    draw_text_ext(xx+(width/2),yy+4, text, 18*y_scale, width-(15*x_scale));
 	    return clicked;
 	}
 }
