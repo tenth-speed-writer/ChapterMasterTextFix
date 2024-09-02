@@ -45,7 +45,7 @@ function scr_star_has_planet_with_feature(star, feature){
 
 function scr_planet_owned_by_group(planet_id, group, star = "none"){
 	if (star == "none"){
-		return array_contains(group, p_owner[planet_idx]);
+		return array_contains(group, p_owner[planet_id]);
 	} else {
 		var is_in_group = false;
 		with(star){
@@ -56,11 +56,11 @@ function scr_planet_owned_by_group(planet_id, group, star = "none"){
 	return false;
 }
 
-function scr_is_planet_owned_by_allies(star, planet_idx) {
-	if( planet_idx < 1 ){//1 because weird indexing starting at 1 in this game
+function scr_is_planet_owned_by_allies(star, planet_id) {
+	if( planet_id < 1 ){//1 because weird indexing starting at 1 in this game
 		return false;
 	}
-	return array_contains(global.SystemHelps.default_allies, star.p_owner[planet_idx]);
+	return array_contains(global.SystemHelps.default_allies, star.p_owner[planet_id]);
 }
 
 function scr_is_star_owned_by_allies(star) {

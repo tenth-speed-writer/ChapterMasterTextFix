@@ -15,17 +15,26 @@ Changed:
 	- general promotion improvements
 
 added:
-	- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
-	- M to go to next company
-	- N to previous
-	- Q,E,R,T,Y, to travel between the specialist manage areas
+	- from company manage
+		- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
+		- M to go to next company
+		- N to previous
+		- Q,E,R,T,Y, to travel between the specialist manage areas from manage
+		- new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
+
 	- from map area
-	- Control F for fleet
-	- Control M for manage
-	- Control A for apothcarium
-	- Control F for fleet
-	- Control S for armentarium
-	- new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
+		- alt F for fleet
+		- alt M for manage
+		- alt A for apothcarium
+		- alt F for fleet
+		- alt S for settings
+		- alt R for reclusiam
+		- alt L for librarium
+		- alt N for armamentarium
+		- alt T for recruiting
+		- alt D for diplomacy
+		- alt O for event log
+		- alt E for end turn
 
 
 -----------------------

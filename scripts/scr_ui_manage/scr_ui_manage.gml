@@ -148,7 +148,7 @@ function scr_ui_manage() {
 	// This is the draw script for showing the main management screen or individual company screens
 
 
-    if (zoomed==0) and (menu==1) and (managing>=0) and (cooldown<=0){
+    if (zoomed==0) and (menu==1) and (managing>=0) {
     	if((managing>0)){
     		company_manage_actions();
     	}

@@ -251,7 +251,7 @@ if (obj_controller.selecting_planet!=0){
         var xenos_and_heretics = planet_data.xenos_and_heretics();
         var planet_forces = planet_data.planet_forces;
         if (planet_data.current_owner<=5) and (!xenos_and_heretics){
-            if (planet_forces[eFaction.Player]>0) or (target.present_fleet[1]>0){
+            if (planet_forces[eFACTION.Player]>0) or (target.present_fleet[1]>0){
                 if (planet_data.fortification_level<5) then improve=1;
             }
         }

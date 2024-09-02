@@ -47,7 +47,7 @@ try{
 var xx =__view_get( e__VW.XView, 0 );
 var yy =__view_get( e__VW.YView, 0 );
 // Main UI
-if (zoomed==0) and (zui==0){
+if (!zoomed && !zui){
     draw_sprite(spr_new_ui,0,xx+0,yy+0);
     draw_set_color(c_white);
     // Buttons here

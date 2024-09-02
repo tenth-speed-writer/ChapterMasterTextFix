@@ -539,7 +539,7 @@ function scr_enemy_ai_d() {
     if (!struct_exists(obj_controller.end_turn_insights, "population_doners")){
     	with(obj_star){
     	   for (r=1;r<=planets;r++){// temp6: origin hive, temp5: new hive, temp4: new planet
-    	        if ((p_owner[r]=eFaction.Imperium) and (p_type[r]=="Hive") and (p_population[r]>0) and (p_large[r])){
+    	        if ((p_owner[r]=eFACTION.Imperium) and (p_type[r]=="Hive") and (p_population[r]>0) and (p_large[r])){
                     array_push(pop_doner_options, [id, r]);
                 };
     	    }
@@ -569,20 +569,20 @@ function scr_enemy_ai_d() {
                 break;
             }
 	        // Count player planets as HIVE PLANETS so that they are prioritized
-	        if (p_owner[r]=eFaction.Player) {
+	        if (p_owner[r]=eFACTION.Player) {
                 array_push(priority_requests, r);
                 break;
             }
 
-            if ((p_owner[r]==eFACTION.Imperium) or (p_owner[r]==eFaction.Ecclesiarchy))   and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate")  then array_push(non_priority_requests, r);
+            if ((p_owner[r]==eFACTION.Imperium) or (p_owner[r]==eFACTION.Ecclesiarchy))   and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate")  then array_push(non_priority_requests, r);
 	    }
 	}
 
-	if (array_length(pop_doner_options)>0){
+	if (array_length(pop_doner_options)>0 && array_length(non_priority_requests) && array_length(priority_requests)){
 	    var onceh=0;
         var random_chance=floor(random(100))+1;
         var doner_index = 0;
-        for(var i=1;i<arraylength(pop_doner_options)i++){
+        for(var i=1;i<array_length(pop_doner_options)i++){
             if (star_distace_calc(pop_doner_options[i]) < star_distace_calc(pop_doner_options[doner_index])){
                 doner_index = i;
             }

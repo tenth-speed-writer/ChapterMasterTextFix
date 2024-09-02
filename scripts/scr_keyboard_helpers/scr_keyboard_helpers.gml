@@ -25,12 +25,12 @@ function press_with_held(press_choice, hold_choice){
 	var cur_vert_key;
 	for (var i=0;i<array_length(global.virtual_keys);i++){
 		cur_vert_key =  global.virtual_keys[i];
+		if (cur_vert_key==press_choice || cur_vert_key==hold_choice) then continue;
 		if (keyboard_check(cur_vert_key)){
-			if (cur_vert_key != press_choice && cur_vert_key != hold_choice){
-				show_debug_message($"non viable click {keyboard_check_pressed(press_choice)},{keyboard_check(hold_choice)}");
-				return false;
-			}
+			show_debug_message($"non viable click {keyboard_check_pressed(press_choice)},{keyboard_check(hold_choice)}");
+			return false;
 		}
+
 	}
 	return true;
 }

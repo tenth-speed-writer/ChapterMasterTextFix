@@ -397,17 +397,17 @@ hide_banner=0;
 var xx=__view_get( e__VW.XView, 0 );
 var yy=__view_get( e__VW.YView, 0 );
 menu_buttons = {
-    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("M")),
-    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("S")),
-    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("A")),
-    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("R")),
-    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,ord("L")),
-    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,ord("A")),
-    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("T")),
-    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("F")),
-    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D")),
-    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O")),
-    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E")),
+    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("M"),scr_toggle_manage),
+    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("S"),scr_toggle_setting),
+    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("A"),scr_toggle_apothecarion),
+    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("R"),scr_toggle_reclu),
+    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("L"),scr_toggle_lib),
+    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("N"),scr_toggle_armamentarium),
+    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("T"),scr_toggle_recruiting),
+    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("F"),scr_toggle_fleet_area),
+    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D"),scr_toggle_diplomacy),
+    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O"),scr_toggle_event_log),
+    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
 
 }
 new_button_highlight="";

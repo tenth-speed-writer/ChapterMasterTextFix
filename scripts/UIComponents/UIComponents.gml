@@ -392,7 +392,7 @@ function star_ui_name_node(){
 		.finalize()	
 }
 
-function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0, Hot_key=-1) constructor{
+function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0, Hot_key=-1, Click_function=false) constructor{
 	mouse_enter=0;
 	base_sprite = sprite;
 	hover_sprite = sprite_hover;
@@ -403,7 +403,7 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 	YY=yy;
 	hot_key = Hot_key;
 	clicked=false;
-	click_function = false;
+	click_function = Click_function;
 	static draw = function(xx=XX,yy=YY,text="", x_scale=1, y_scale=1, width=108, height=42){
 		clicked=false;
 		height *=y_scale
@@ -435,7 +435,8 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 			}
 		}
 		if (hot_key!=-1 && !clicked){
-			clicked = press_with_held(hot_key,vk_control);
+			clicked = press_with_held(hot_key,vk_alt);
+			//show_debug_message($"{clicked}");
 		}
 		draw_set_alpha(1);
 		draw_sprite(base_sprite,floor(ossilate),xx,yy);
@@ -443,6 +444,12 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 	    draw_set_halign(fa_center);
 	    draw_set_font(fnt_cul_14);
 	    draw_text_ext(xx+(width/2),yy+4, text, 18*y_scale, width-(15*x_scale));
+	    if (clicked){
+	    	show_debug_message($"{text}, {click_function}");
+	    	if (click_function){
+	    		click_function();
+	    	}
+	    }
 	    return clicked;
 	}
 }
