@@ -585,7 +585,7 @@ advantage_tooltip[i]="Eldar are particularly hated by your chapter.  When fighti
 advantage[i]="Enemy: Fallen";
 advantage_tooltip[i]="Chaos Marines are particularly hated by your chapter.  When fighting the traitors damage is increased.";i+=1;
 advantage[i]="Enemy: Necrons";
-advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+advantage_tooltip[i]="Necrons are particularly hated by your chapter.  When fighting Necrons damage is increased.";i+=1;
 advantage[i]="Enemy: Orks";
 advantage_tooltip[i]="Orks are particularly hated by your chapter.  When fighting Orks damage is increased.";i+=1;
 advantage[i]="Enemy: Tau";
@@ -612,6 +612,8 @@ advantage[i]="Slow and Purposeful";
 advantage_tooltip[i]="Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.";i+=1;
 advantage[i]="Melee Enthusiasts";
 advantage_tooltip[i]="Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.";i+=1;
+advantage[i]="Venerable Ancients";
+advantage_tooltip[i]="Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service ";i+=1;
 i+=1;
 advantage[i]="Cancel";advantage_tooltip[i]="";
 

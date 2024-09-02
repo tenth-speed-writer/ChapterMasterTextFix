@@ -884,6 +884,18 @@ function scr_initialize_custom() {
 		siege = 0;
 		devastator = 10;
 	}
+    if	(array_contains(obj_creation.adv, "Venerable Ancients")) {
+		veteran -= 10;
+		second -= 10;
+		third -= 10;
+		fourth -= 10;
+		fifth -= 10;
+		sixth -= 10;
+		seventh -= 10;
+		eighth -= 10;
+		ninth -= 10;
+		tenth -= 10;
+	}
 
 	if (array_contains(obj_creation.dis, "Tech-Heresy")) {
 		techs -= 4;
@@ -2975,6 +2987,7 @@ function scr_initialize_custom() {
 
 	for (i = 0; i < 2; i++) {
 		k += 1;
+		if (array_contains(obj_creation.adv, "Venerable Ancients")) then k += 1;
 		commands += 1;
 		TTRPG[company][k] = new TTRPG_stats("chapter", company, k, "dreadnought");
 		race[company][k] = 1;
@@ -2982,7 +2995,7 @@ function scr_initialize_custom() {
 		role[company][k] = "Venerable " + string(roles.dreadnought);
 		wep1[company][k] = wep1[101, 6];
 		man_size += 8;
-		wep2[company][k] = wep2[101, 6];
+		wep2[company][k] = "Plasma Cannon";
 		armour[company][k] = "Dreadnought";
 		name[company][k] = global.name_generator.generate_space_marine_name();
 		spawn_unit = TTRPG[company][k]
@@ -3160,7 +3173,8 @@ function scr_initialize_custom() {
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
 				dready = 1;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1; 
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3171,8 +3185,9 @@ function scr_initialize_custom() {
 				temp1 = (third - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				 dready = 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready +=1; 
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3183,8 +3198,9 @@ function scr_initialize_custom() {
 				temp1 = (fourth - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				dready = 1;
+				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1; 
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3195,8 +3211,9 @@ function scr_initialize_custom() {
 				temp1 = (fifth - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
+				dready = 1;
 				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3207,8 +3224,9 @@ function scr_initialize_custom() {
 				temp1 = sixth;
 				company_unit2 = "";
 				company_unit3 = "";
-				// dready=2;
+				dready = 1;
 				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 0;
@@ -3219,7 +3237,9 @@ function scr_initialize_custom() {
 				temp1 = seventh;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
 				if (obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1;
 				rhinoy = 8;
 				whirly = 0;
 				speedy = 8;
@@ -3230,7 +3250,9 @@ function scr_initialize_custom() {
 				temp1 = eighth;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
 				if (obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 1;
 				rhinoy = 2;
 				whirly = 0;
 				speedy = 2;
@@ -3241,7 +3263,9 @@ function scr_initialize_custom() {
 				temp1 = ninth;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
 				if (obj_creation.custom = 0) then dready = 2;
+				if (array_contains(obj_creation.adv, "Venerable Ancients")) then dready += 2;
 				rhinoy = 2;
 				whirly = 0;
 				speedy = 0;
@@ -3866,6 +3890,10 @@ function scr_initialize_custom() {
 	if (string_count("Sieged", strin2) = 0) {
 		scr_add_item("Dreadnought", 6);
 		scr_add_item("Close Combat Weapon", 6);
+	}
+	if (array_contains(obj_creation.adv, "Venerable Ancients")) {
+		scr_add_item("Dreadnought", 4);
+		scr_add_item("Close Combat Weapon", 4);
 	}
 
 	// man_size+=80;// bikes
