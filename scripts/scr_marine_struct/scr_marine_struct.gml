@@ -1573,7 +1573,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					qual_string = "exp_low";
 				}  			
 	   		quality=scr_add_item(new_weapon,-1,quality);
-	   		if (quality == "no_item") then return "no_items";
+	   		if (quality == "no_item") then return [false, "no_items"]
 	   		qual_string = quality!=undefined? quality:"standard";
 	    } else {
 	    	viable = false;
@@ -2017,7 +2017,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					return obj_ini.squads[squad].assignment.type;
 				}
 			}
-			if (job!= "none"){
+			if (job != "none"){
 				return job.type;
 			} else {
 				return "none"

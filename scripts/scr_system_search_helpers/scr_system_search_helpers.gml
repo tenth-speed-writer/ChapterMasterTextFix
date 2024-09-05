@@ -197,6 +197,19 @@ function nearest_star_with_ownership(xx,yy, ownership){
 	return nearest;
 }
 
+function find_population_doners(doner_to){
+    var pop_doner_options = [];
+	with(obj_star){
+		if (obj_star.id == doner_to) then continue;
+	   for (r=1;r<=planets;r++){
+	        if ((p_owner[r]=eFACTION.Imperium) and (p_type[r]=="Hive") and (p_population[r]>0) and (p_large[r])){
+                array_push(pop_doner_options, [id, r]);
+            };
+	    }
+	}
+    return pop_doner_options
+}
+
 function adjust_influence(faction, value, planet){
 	p_influence[planet][faction]+=value;
 	var total_influence =  array_reduce(p_influence[planet], array_sum,1);

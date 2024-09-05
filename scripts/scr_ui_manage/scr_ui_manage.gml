@@ -56,9 +56,20 @@ function unit_button_object() constructor{
 	color= #50a076;
 	keystroke = false;
 	tooltip = "";
-	x2 = x1 + w;
-	y2 = y1 + h;
 
+	static update = function(data){
+		updaters = struct_get_names(data);
+		for (var i=0;i<array_length(updaters);i++){
+			self[$ updaters[i]] = data[$ updaters[i]];
+		}
+	}
+
+	static update_loc = function(){
+		x2 = x1 + w;
+		y2 = y1 + h;		
+	}
+
+	update_loc();
 	static move = function(m_direction, with_gap=false, multiplier=1){
 		switch(m_direction){
 			case "right":
@@ -360,8 +371,16 @@ function scr_ui_manage() {
 			                			managing = unit.company;
 			                			update_general_manage_view();
 			                			exit;
-		                				break;	                						                				
-		                		}
+		                				break;
+		                			case "hunt_beast":
+		                			case "train_forces":
+		                				unit.job = {
+		                					type:purpose_code, 
+		                					planet:selection_data.planet, 
+		                					location:selection_data.system.name
+		                				};
+	                					break;										
+		                		}		                		
 		                	} else {
 		                		switch(selection_data.purpose_code){
 		                			case "forge_assignment":

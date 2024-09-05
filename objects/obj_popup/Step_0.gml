@@ -817,7 +817,8 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
     }
     if (title="He Built It"){
         scr_kill_unit(ma_co,ma_id);
-        with(obj_ini){scr_company_order(ma_co);}
+        var company_to_order = ma_co;
+        with(obj_ini){scr_company_order(company_to_order);};
     }
     
     if (title="Necron Tomb Excursion"){
@@ -1185,7 +1186,9 @@ if (press=2) and (option2!=""){
     
     if (title="He Built It"){
         obj_ini.god[ma_co,ma_id]+=10;
-        option1="";option2="";option3="";
+        option1="";
+        option2="";
+        option3="";
     }
     
     

@@ -62,7 +62,7 @@ if (mouse_check_button(mb_left)){
                     yy+165 + main_data_slate.height,
                 )){
                     closes=false
-                    if (garrison==""){
+                    if (garrison=="" || population){
                         closes=false
                     } else if (!garrison.garrison_force){
                         closes=false
@@ -325,12 +325,28 @@ if (obj_controller.selecting_planet!=0){
         draw_set_font(fnt_40k_14);
         
         
-        if (target.p_large[current_planet]=0){
+        if (!target.p_large[current_planet]){
             var temp2=string(scr_display_number(target.p_population[current_planet]));
-            draw_text(xx+480,yy+220,$"Population: {temp2}");
+            var pop_string = $"Population: {temp2}";
         }
-        if (target.p_large[current_planet]=1){
-            draw_text(xx+480,yy+220,$"Population: {target.p_population[current_planet]} billion");
+        else if (target.p_large[current_planet]){
+            var pop_string = $"Population: {target.p_population[current_planet]} billion"
+        }
+
+        button_manager.update({
+            label:pop_string,
+            tooltip : "population data toggle with 'P'",
+            keystroke : press_exclusive(ord("P")),
+            x1 : xx+480,
+            y1 : yy+220,
+            w : 200,
+        })
+        button_manager.update_loc();
+        if (button_manager.draw()){
+            population = !population;
+            if (population){
+                potential_doners = find_population_doners(target.id);
+            }
         }
         
         if (target.craftworld=0) and (target.space_hulk=0){
@@ -445,7 +461,8 @@ if (obj_controller.selecting_planet!=0){
         
         
         var fit,to_show,temp9;t=-1;to_show=0;temp9="";
-        repeat(11){t+=1;fit[t]="";}
+
+        fit =  array_create(11, "");
     	var planet_displays = [], i;
     	var feat_count, _cur_feature;
     	var feat_count = array_length(target.p_feature[current_planet]);
@@ -556,8 +573,8 @@ if (obj_controller.selecting_planet!=0){
                 exit;
             }
         }
-    }else if (garrison!=""){
-        if (garrison.garrison_force){
+    }else if (garrison!="" && !population){
+        if (garrison.garrison_force ){
             draw_set_font(fnt_40k_14);
             if (!garrison.garrison_leader){
                 garrison.find_leader()
@@ -566,6 +583,7 @@ if (obj_controller.selecting_planet!=0){
                 garrison_data_slate.body_text = garrison.garrison_report();
             }
             garrison_data_slate.inside_method=function(){
+                garrison_data_slate.title = "Garrison Report"
                 draw_set_color(c_gray);
                 var xx = garrison_data_slate.XX;
                 var yy = garrison_data_slate.YY;
@@ -591,16 +609,34 @@ if (obj_controller.selecting_planet!=0){
             }
             garrison_data_slate.draw(xx+344+main_data_slate.width-4, yy+160, 0.6, 0.6);
 
+        } 
+    } else if (population){
+        garrison_data_slate.title = "Population Report";
+        garrison_data_slate.inside_method = function(){
+            var xx = garrison_data_slate.XX;
+            var yy = garrison_data_slate.YY;                
+            var cur_planet = obj_controller.selecting_planet;
+            var half_way =  garrison_data_slate.height/2;
+            draw_set_halign(fa_left);
+            if (array_length(potential_doners)){
+                if point_and_click(draw_unit_buttons([xx+20, yy+half_way], "Request Colonists")){
+                    new_colony_fleet(potential_doners[0][0],potential_doners[0][1],target.id,cur_planet,"bolster_population");
+                }
+            }
+            //draw_text(xx+20, yy+half_way, defence_string);
         }
-    }    
+        garrison_data_slate.draw(xx+344+main_data_slate.width-4, yy+160, 0.6, 0.6);          
+    }   
     if (obj_controller.selecting_planet>0){
         main_data_slate.draw(xx+344,yy+160, slate_draw_scale, slate_draw_scale+0.1);
     }
     var current_button="";
-    if (shutter_1.draw_shutter(main_data_slate.XX-165, yy+296+165, button1, 0.5, true)) then current_button=button1;
-    if (shutter_2.draw_shutter(main_data_slate.XX-165, yy+296+165+47, button2,0.5, true))then current_button=button2;
-    if (shutter_3.draw_shutter(main_data_slate.XX-165, yy+296+165+(47*2), button3,0.5, true))then current_button=button3;
-    if (shutter_4.draw_shutter(main_data_slate.XX-165, yy+296+165+(47*3), button4,0.5, true))then current_button=button4;
+    var shutter_x = main_data_slate.XX-165;
+    var shutter_y = yy+296+165;
+    if (shutter_1.draw_shutter(shutter_x, shutter_y, button1, 0.5, true)) then current_button=button1;
+    if (shutter_2.draw_shutter(shutter_x, shutter_y+47, button2,0.5, true))then current_button=button2;
+    if (shutter_3.draw_shutter(shutter_x, shutter_y+(47*2), button3,0.5, true))then current_button=button3;
+    if (shutter_4.draw_shutter(shutter_x, shutter_y+(47*3), button4,0.5, true))then current_button=button4;
     if (current_button!=""){
         if (array_contains(["Build","Base","Arsenal","Gene-Vault"],current_button)){
             var building=instance_create(x,y,obj_temp_build);
@@ -690,11 +726,12 @@ if (target!=0){
         draw_set_halign(fa_left);
         
         
-        draw_set_color(0);draw_set_font(fnt_40k_14b);
-        draw_text(xx+37,yy+413,string_hash_to_newline("Select Fleet Combat"));
+        draw_set_color(0);
+        draw_set_font(fnt_40k_14b);
+        draw_text(xx+37,yy+413,"Select Fleet Combat");
         
         draw_set_color(38144);draw_set_font(fnt_40k_14b);
-        draw_text(xx+37.5,yy+413.5,string_hash_to_newline("Select Fleet Combat"));
+        draw_text(xx+37.5,yy+413.5,"Select Fleet Combat");
         
         var i,x3,y3;i=0;
         // x3=xx+46;y3=yy+252;

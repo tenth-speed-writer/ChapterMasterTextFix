@@ -383,11 +383,11 @@ function scr_enemy_ai_d() {
                     if (result == "none"){
                     //TODO make a dedicated plus minus string function if there isn't one already
                     } else if (!result){
-                        var effect = result * irandom_range(5,20);
+                        var effect = result * irandom_range(1,5);
                         dispo[i] += effect;
-                        mission_string += $"A number of diplomatic incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition +{effect})";
+                        mission_string += $"A number of diplomatic incidents occured over the period which had considerable negative effects on our disposition with the planetary governor (disposition -{effect})";
                     } else {
-                        var effect = result * irandom_range(5,20);
+                        var effect = result * irandom_range(1,5);
                         dispo[i] += result * effect;
                         mission_string += $"As a diplomatic mission the duration of the stay was a success with our political position with the planet being enhanced greatly (disposition +{effect})";
                     }
@@ -409,7 +409,11 @@ function scr_enemy_ai_d() {
                         }
                     }
                     scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete",mission_string,"","");
+                } else {
+                    dispo[i] -= 20;
+                    scr_popup($"Agreed Garrison of {planet_numeral_name(i)}",$"your agreed garrison of  {planet_numeral_name(i)} was cut short by your chapter the planetary governor has expressed his displeasure (disposition -20)","","");
                 }
+                remove_planet_problem(i, "provide_garrison")
             } else {
                 remove_planet_problem(i, "provide_garrison")
             }
@@ -529,7 +533,7 @@ function scr_enemy_ai_d() {
     var already_enroute = false;
     var cur_star = id;
 	with(obj_en_fleet){
-	    if (owner = eFACTION.Imperium) and ((trade_goods=="colonize") or (trade_goods=="colonizeL")){
+	    if (owner = eFACTION.Imperium) and (fleet_has_cargo("colonize")){
 	        already_enroute = (action_x == cur_star.x && action_y == cur_star.y);
 	    }
 	};
@@ -537,16 +541,9 @@ function scr_enemy_ai_d() {
     var pop_doner_options = [];
     //this stops needless repeats of searches
     if (!struct_exists(obj_controller.end_turn_insights, "population_doners")){
-    	with(obj_star){
-    	   for (r=1;r<=planets;r++){// temp6: origin hive, temp5: new hive, temp4: new planet
-    	        if ((p_owner[r]=eFACTION.Imperium) and (p_type[r]=="Hive") and (p_population[r]>0) and (p_large[r])){
-                    array_push(pop_doner_options, [id, r]);
-                };
-    	    }
-    	}
-        obj_controller.end_turn_insights.population_doners = pop_doner_options;
+        pop_doner_options = find_population_doners(cur_star);
     }
-
+    obj_controller.end_turn_insights.population_doners = pop_doner_options;
     pop_doner_options = obj_controller.end_turn_insights.population_doners;
 
     var priority_requests = [];
@@ -592,11 +589,11 @@ function scr_enemy_ai_d() {
 
 	    if (array_length(priority_requests))  and (random_chance<=2){// A hive is requesting repopulation
 
-	        new_colony_fleet(doner_star.id, doner_planet, self.id, true);
+	        new_colony_fleet(doner_star.id, doner_planet, self.id, priority_requests[0]);
 	    }
 	    else if (array_length(non_priority_requests))  and (random_chance<=2){// Some other world is requesting repopulation
 
-	        new_colony_fleet(doner_star.id, doner_planet, self.id, false);
+	        new_colony_fleet(doner_star.id, doner_planet, self.id, non_priority_requests[0]);
 	    }
 	}
 

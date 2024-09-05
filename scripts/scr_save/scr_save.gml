@@ -532,6 +532,7 @@ function scr_save(save_slot,save_id) {
 	        ini_write_real("Fleet","ef"+string(i)+"connected",instance_array[i].connected);
 	        ini_write_real("Fleet","ef"+string(i)+"loaded",instance_array[i].loaded);
 	        ini_write_string("Fleet","ef"+string(i)+"trade",instance_array[i].trade_goods);
+	        ini_encode_and_json("Fleet",$"ef{i}cargo", instance_array[i].cargo_data);
 	        ini_write_real("Fleet","ef"+string(i)+"guardsmen",instance_array[i].guardsmen);
 	        ini_write_real("Fleet","ef"+string(i)+"orb",instance_array[i].orbiting);
 	        ini_write_real("Fleet","ef"+string(i)+"navy",instance_array[i].navy);

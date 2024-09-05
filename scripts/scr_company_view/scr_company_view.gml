@@ -118,6 +118,7 @@ function add_vehicle_to_manage_arrays(unit){
 
 
 function scr_company_view(company) {
+	if (company < 0) then exit;
 	var v, mans, bad, squads, squad_type, squad_loc, squad_members, unit, unit_loc, last_man, last_vehicle;
 	v=0;
 	mans=0;
@@ -128,15 +129,12 @@ function scr_company_view(company) {
 	squad_members=0;
 	last_man=0;
 	last_vehicle=0;
-	var role_list = ds_list_create();
 	// v: check number
 	// mans: number of mans that a hit has gotten
 	// Calculates the temporary variables to be displayed as marines in the individual company screens
 	reset_manage_arrays();
-	for (var i = 0; i < 20; i++){
-		sel_uni[i]="";
-		sel_veh[i]="";
-	}
+	sel_uni = array_create(20, "");
+	sel_veh = array_create(20, "");
 	
 	sel_uni[1]="Command";
 
@@ -180,7 +178,7 @@ function scr_company_view(company) {
 
 	v=last_man;
 	last_vehicle=0;
-	for (var i=1;i<=100;i++){
+	for (var i=0;i<array_length(obj_ini.veh_race[company]);i++){
 	// if (!instance_exists(obj_popup)) then repeat(100){// 100
 		bad=0;
 
@@ -334,18 +332,7 @@ function other_manage_data(){
 	    	}
 	    }
 
-	    // Need something to verify there is no standard bearer in the previous company
-	    /*if (ma_role[v]="Standard Bearer"){
-	        if (company=10) and (ma_exp[v]>=25) then ma_promote[v]=1;
-	        if (company=9) and (ma_exp[v]>=30) then ma_promote[v]=1;
-	        if (company=8) and (ma_exp[v]>=35) then ma_promote[v]=1;
-	        if (company=7) and (ma_exp[v]>=40) then ma_promote[v]=1;
-	        if (company=6) and (ma_exp[v]>=45) then ma_promote[v]=1;
-	        if (company=5) and (ma_exp[v]>=55) then ma_promote[v]=1;
-	        if (company=4) and (ma_exp[v]>=65) then ma_promote[v]=1;
-	        if (company=3) and (ma_exp[v]>=75) then ma_promote[v]=1;
-	    }*/
-	    if (obj_controller.command_set[2]==0) and (ma_promote[v]==0) then ma_promote[v]=1;
+	    if (!obj_controller.command_set[2]) and (!ma_promote[v]) then ma_promote[v]=1;
 	}
 }
 

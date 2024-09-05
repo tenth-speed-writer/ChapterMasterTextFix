@@ -462,6 +462,7 @@ if (type=8) and (instance_exists(obj_controller)){
         ma_ar="";ma_we1="";ma_we2="";ma_ge="";ma_mb="";ttt=0;
         
         repeat(min(obj_controller.man_max,23)){
+            if (sel >= array_length(obj_controller.man)) then break;
             if (obj_controller.man[sel]=="man"){
                 var unit=obj_controller.display_unit[sel];
                 temp1=unit.name_role();
@@ -593,9 +594,14 @@ if (type=8) and (instance_exists(obj_controller)){
                         replace="mobility";
                     }
                 }
-                if (replace="armour") and (obj_controller.ma_race[i]>5){cooldown=8;obj_controller.cooldown=8;exit;}
+                if (replace="armour") and (obj_controller.ma_race[i]>5){
+                    cooldown=8;
+                    obj_controller.cooldown=8;
+                    exit;
+                }
 
                 if (target_comp>10) then target_comp=0;
+
                 unit=obj_ini.TTRPG[target_comp][obj_controller.ide[i]];
                 if (arti.has_tag("Daemonic") || arti.has_tag("Chaos")){
                     unit.corruption+=irandom(10+2);

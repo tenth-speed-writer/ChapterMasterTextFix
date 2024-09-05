@@ -6,13 +6,15 @@ Fixed:
 	- some recruit trials used to produced no recruits
 	- data leak from sprites causing game to randomly crash when doing lots of troop movement
 	- general reliability improvements with game memory usage
-	- hopefully fixed problem where faction sprites could occaisionally corrupt making th emain map a cluster fuck
+	- hopefully fixed problem where faction sprites could occaisionally corrupt making the main map a cluster fuck
 
 Changed:
 	- player will now get alerts when ship production ceases due to a lack of active forge worlds
 	- new cheat "artifactpopulate" adds a artifact to every planet
 	- promotion thresholds modified and reworked to be inline with equipment exp limits 
 	- general promotion improvements
+
+	- decentralised much of company code so theoretically able to now have chapters with more than 10 companies (full implementation a long way off)
 
 added:
 	- from company manage
@@ -21,6 +23,7 @@ added:
 		- N to previous
 		- Q,E,R,T,Y, to travel between the specialist manage areas from manage
 		- new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
+		- shift + keys in order to utilize load, set to boarders and other functions (tooltips provide keys)
 
 	- from map area
 		- alt F for fleet
@@ -35,6 +38,15 @@ added:
 		- alt D for diplomacy
 		- alt O for event log
 		- alt E for end turn
+
+	- new govornor missions, complete missions for planetary governors to increase disposition or gain other rewards.
+	- added new chapter advantages:
+
+	- added new chapter disadvantages:
+
+	- ability to have a more indepth view of population and it's influences (needs much extension and work)
+	- ability to spend req in order to fund colonisation attempts to increase populations or repopulate worlds from 0
+		- new colonists may bring with them genestealer cults, heretics or have greater good thinkings...
 
 
 -----------------------

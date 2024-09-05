@@ -1369,32 +1369,8 @@ if (action="move") and (action_eta<5000){
         }
         
         
-        if (trade_goods="colonize") or (trade_goods="colonizeL"){
-            var onceh,lag,r;onceh=0;lag=1;r=0;
-            if (trade_goods="colonizeL") then lag=2;
-            
-            repeat(4){
-                r+=1;
-                
-                if (onceh=0) and (sta.p_population[r]=0) and (sta.p_type[r]!="") and (sta.p_type[r]!="Dead") and (sta.planets>=r){onceh=1;
-                    if (lag=1){sta.p_population[r]+=guardsmen;sta.p_large[r]=0;guardsmen=0;}
-                    if (lag=2){sta.p_population[r]+=guardsmen;sta.p_large[r]=1;guardsmen=0;}
-                    
-                    if (r=1) then scr_alert("green","duhuhuhu","Imperial citizens recolonize "+string(sta.name)+" I.",sta.x,sta.y);
-                    if (r=2) then scr_alert("green","duhuhuhu","Imperial citizens recolonize "+string(sta.name)+" II.",sta.x,sta.y);
-                    if (r=3) then scr_alert("green","duhuhuhu","Imperial citizens recolonize "+string(sta.name)+" III.",sta.x,sta.y);
-                    if (r=4) then scr_alert("green","duhuhuhu","Imperial citizens recolonize "+string(sta.name)+" IV.",sta.x,sta.y);
-                    
-                    sta.dispo[r]=min(obj_ini.imperium_disposition,obj_controller.disposition[2])+choose(-1,-2,-3,-4,0,1,2,3,4);
-                    if (sta.name=obj_ini.home_name) and (sta.p_type[r]=obj_ini.home_type) and (obj_controller.homeworld_rule!=1) then sta.dispo[r]=-5000;
-                    
-                    // sta.present_fleet[owner]-=1;
-                    instance_destroy();
-                    exit;exit;
-                }
-                
-            }
-            
+        if (fleet_has_cargo("colonize")){
+			deploy_colonisers(sta);
         }
         
         

@@ -20,9 +20,12 @@ etah=0;safe=0;
 //TODO set up special save method for faction specific fleet variables
 inquisitor=-1;
 
-image_xscale=1.25;image_yscale=1.25;
+cargo_data = {};
 
-var i;i=-1;
+image_xscale=1.25;
+image_yscale=1.25;
+
+var i=-1;
 repeat(21){i+=1;
     capital[i]="";capital_num[i]=0;capital_sel[i]=1;capital_imp[i]=0;capital_max_imp[i]=0;
 }

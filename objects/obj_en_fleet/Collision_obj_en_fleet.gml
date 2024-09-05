@@ -1,6 +1,6 @@
 
 if (other.owner=self.owner){
-    if (trade_goods!="") and (other.trade_goods!="") and (trade_goods!="colonizeL") and (other.trade_goods!="colonizeL"){
+    if ((trade_goods!="") && (other.trade_goods!="") && !fleet_has_cargo("colonize") && !fleet_has_cargo("colonize", other)){
         if (action_x=other.action_x) and (action_y=other.action_y) and (trade_goods!="WL7") and (other.trade_goods!="WL7"){
             if (string_count("!",trade_goods)>0) and (string_count("!",other.trade_goods)>0){
                 if (id>other.id){

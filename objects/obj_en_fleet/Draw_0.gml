@@ -69,11 +69,16 @@ if (within=1) or (selected>0){
         if (navy=1) then ppp="Imperial Navy";
     }
     if (navy=0){
-        if (owner = eFACTION.Imperium) and ((trade_goods="colonize") or (trade_goods="colonizeL")) then ppp="Imperial Colonists";
-        if (owner = eFACTION.Imperium) and (trade_goods!="colonize") and (trade_goods!="colonizeL") and (trade_goods!="") and (trade_goods!="merge") then ppp="Trade Fleet";
+        if (owner = eFACTION.Imperium){
+            if (fleet_has_cargo("colonize")){
+                ppp="Imperial Colonists"
+            } else if ((trade_goods!="") and (trade_goods!="merge")){
+                ppp="Trade Fleet";
+            }
+        }
     }
     // if (navy=1) then ppp=string(trade_goods)+" ("+string(guardsmen_unloaded)+"/"+string(guardsmen_ratio)+")";
-    // if (owner = eFACTION.Imperium) and ((trade_goods="colonize") or (trade_goods="colonizeL")) then ppp=string(trade_goods)+": "+string(guardsmen);
+
     if (owner = eFACTION.Mechanicus) then ppp="Mechanicus Fleet";
     if (owner  = eFACTION.Inquisition) then ppp="Inquisitor Ship";
     if (owner = eFACTION.Eldar) then ppp="Eldar Fleet";

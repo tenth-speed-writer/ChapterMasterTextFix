@@ -40,7 +40,7 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 			};
 			assignment=unit.assignment();
 			if (assignment!="none"){
-				unit_location_string+= $"({assignment})";
+				unit_location_string += $"({assignment})";
 			}else if (fest_planet==0) and (fest_sid>0) and (fest_repeats>0) and (ma_lid[selected]==fest_sid){
 				unit_location_string="=Event=";
 				eventing=true;

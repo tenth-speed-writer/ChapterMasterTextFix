@@ -1034,6 +1034,7 @@ function scr_load(argument0, argument1) {
 	        fla.connected=ini_read_real("Fleet",$"ef{i}connected",0);
 	        fla.loaded=ini_read_real("Fleet",$"ef{i}loaded",0);
 	        fla.trade_goods=ini_read_string("Fleet",$"ef{i}trade","");
+	        fla.cargo_data = return_json_from_ini("Fleet",$"ef{i}cargo",{});
 	        fla.guardsmen=ini_read_real("Fleet",$"guardsmen{i}guardsmen",0);
 	        fla.orbiting=ini_read_real("Fleet",$"ef{i}orb",0);
 	        fla.navy=ini_read_real("Fleet",$"ef{i}navy",0);
