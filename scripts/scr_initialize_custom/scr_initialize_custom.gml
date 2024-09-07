@@ -2354,6 +2354,7 @@ function scr_initialize_custom() {
 			var
 			let = "";
 			letmax = 5;
+			chapter_master.add_trait("warp_touched");
 			chapter_master.psionic = choose(15, 16);
 			switch (obj_creation.discipline) {
 				case "default":
