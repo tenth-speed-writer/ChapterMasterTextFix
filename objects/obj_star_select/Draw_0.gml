@@ -39,9 +39,9 @@ if (loading=1){
         if (target.space_hulk=1) then exit;
     }
 }
-
+var click_accepted = (!obj_controller.menu) and (!obj_controller.zoomed) and (!instance_exists(obj_bomb_select)) and (!instance_exists(obj_drop_select)) and (!obj_controller.cooldown);
 if (mouse_check_button(mb_left)){
-    if (obj_controller.menu=0) and (obj_controller.zoomed=0) and (!instance_exists(obj_bomb_select)) and (!instance_exists(obj_drop_select)) and (obj_controller.cooldown<=0){
+    if (!obj_controller.menu) and (click_accepted){
         var closes=0,sta1=0,sta2=0;
         sta1=instance_nearest(mouse_x,mouse_y,obj_star);
         sta2=point_distance(mouse_x,mouse_y,sta1.x,sta1.y);
@@ -54,20 +54,28 @@ if (mouse_check_button(mb_left)){
                 yy+165+294)
             ){
                 closes=false
-            }else if (obj_controller.selecting_planet>0){
+            } else if (obj_controller.selecting_planet>0){
                 if (scr_hit(
                     main_data_slate.XX-4,
                     yy+165,
                     main_data_slate.XX+main_data_slate.width,
                     yy+165 + main_data_slate.height,
                 )){
+                    closes=false;
+                }
+                if (scr_hit(
+                    garrison_data_slate.XX-4,
+                    yy+165,
+                    garrison_data_slate.XX+garrison_data_slate.width,
+                    yy+165 + garrison_data_slate.height,
+                )){
                     closes=false
-                    if (garrison=="" || population){
+                    if (is_struct(garrison)){
                         closes=false
-                    } else if (!garrison.garrison_force){
+                    }  
+                    if (population){
                         closes=false
                     }
-                    
                 }
 
                 if (!is_string(feature)){
@@ -618,8 +626,10 @@ if (obj_controller.selecting_planet!=0){
             var cur_planet = obj_controller.selecting_planet;
             var half_way =  garrison_data_slate.height/2;
             draw_set_halign(fa_left);
-            if (array_length(potential_doners)){
+            var doner_length = array_length(potential_doners);
+            if (doner_length){
                 if point_and_click(draw_unit_buttons([xx+20, yy+half_way], "Request Colonists")){
+                    var doners = potential_doners[irandom(doner_length-1)];
                     new_colony_fleet(potential_doners[0][0],potential_doners[0][1],target.id,cur_planet,"bolster_population");
                 }
             }
@@ -716,7 +726,8 @@ if (obj_controller.selecting_planet!=0){
 
 if (target!=0){
     if (player_fleet>0) and (imperial_fleet+mechanicus_fleet+inquisitor_fleet+eldar_fleet+ork_fleet+tau_fleet+heretic_fleet>0){
-        draw_set_color(0);draw_set_alpha(0.75);
+        draw_set_color(0);
+        draw_set_alpha(0.75);
         draw_rectangle(xx+37,yy+413,xx+270,yy+452,0);
         draw_set_alpha(1);
         
@@ -730,7 +741,8 @@ if (target!=0){
         draw_set_font(fnt_40k_14b);
         draw_text(xx+37,yy+413,"Select Fleet Combat");
         
-        draw_set_color(38144);draw_set_font(fnt_40k_14b);
+        draw_set_color(38144);
+        draw_set_font(fnt_40k_14b);
         draw_text(xx+37.5,yy+413.5,"Select Fleet Combat");
         
         var i,x3,y3;i=0;

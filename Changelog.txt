@@ -16,6 +16,8 @@ Changed:
 
 	- decentralised much of company code so theoretically able to now have chapters with more than 10 companies (full implementation a long way off)
 
+	- lots of under the hood restructuring of fleets
+
 added:
 	- from company manage
 		- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
@@ -41,8 +43,7 @@ added:
 
 	- new govornor missions, complete missions for planetary governors to increase disposition or gain other rewards.
 	- added new chapter advantages:
-
-	- added new chapter disadvantages:
+		- venerable ancients : increases start dreadnoughts but reduced chapter strength
 
 	- ability to have a more indepth view of population and it's influences (needs much extension and work)
 	- ability to spend req in order to fund colonisation attempts to increase populations or repopulate worlds from 0

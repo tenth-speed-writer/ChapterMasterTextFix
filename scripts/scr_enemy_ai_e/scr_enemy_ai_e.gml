@@ -32,28 +32,34 @@ function scr_enemy_ai_e() {
     }
 
     if (present_fleet[1] > 0) { // Battle1 is reserved for player battles
-        if (present_fleet[2] > 0) and (obj_controller.faction_status[2] = "War") then battle = 1;
-        if (present_fleet[3] > 0) and (obj_controller.faction_status[3] = "War") then battle = 1;
-        if (present_fleet[6] > 0) and (obj_controller.faction_status[6] = "War") then battle = 1;
-        if (present_fleet[7] > 0) then battle = 1;
-        if (present_fleet[8] > 0) and(obj_controller.faction_status[8] = "War") then battle = 1;
-        if (present_fleet[9] > 0) then battle = 1;
+        var battle_if_war = [8,eFACTION.Mechanicus,eFACTION.Imperium];
+        
+        var always_battle = [7,9];
+
+        for (var i=0;i<array_length(battle_if_war);i++){
+            var cur_targ = battle_if_war[i];
+            if (present_fleet[cur_targ] > 0) and (obj_controller.faction_status[cur_targ] == "War"){
+                battle = 1;
+                break;
+            }
+        }
+        if (!battle){
+           for (var i=0;i<array_length(always_battle);i++){
+                var cur_targ = always_battle[i];
+                if (present_fleet[cur_targ] > 0) and (obj_controller.faction_status[cur_targ] == "War"){
+                    battle = 1;
+                    break;
+                }            
+           }
+        }
+
         if (present_fleet[10] > 0) and(obj_controller.faction_status[10] = "War") {
             
-            var special_stop, run, s;
-            special_stop = false;
-            run = 0;
-            s = 0;
-            repeat(planets) {
-                run += 1;
-                s = 0;
-                var problems = p_problem[run];
-                if (array_contains(problems, "meeting") || array_contains(problems, "meeting_trap")){
-                    special_stop = true;
-                    break;
+            if (!battle){
+                if (!has_problem_star( "meeting") && !has_problem_star( "meeting_trap")){
+                    battle = 1;
                 }
             }
-            if (special_stop = false) then battle = 1;
         }
         if (present_fleet[13] > 0) then battle = 1;
     }

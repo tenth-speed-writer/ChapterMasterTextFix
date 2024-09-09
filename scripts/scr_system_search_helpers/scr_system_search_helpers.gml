@@ -197,7 +197,7 @@ function nearest_star_with_ownership(xx,yy, ownership){
 	return nearest;
 }
 
-function find_population_doners(doner_to){
+function find_population_doners(doner_to=0){
     var pop_doner_options = [];
 	with(obj_star){
 		if (obj_star.id == doner_to) then continue;

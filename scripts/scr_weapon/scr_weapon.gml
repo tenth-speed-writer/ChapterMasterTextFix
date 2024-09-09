@@ -1059,7 +1059,11 @@ global.weapons = {
 		"range": 20,
 		"spli": 2,
 		"arp": 1,
-		"tags": ["las", "heavy_ranged", "vehicle", "dreadnought"]
+		"tags": {
+			"standard": ["las", "heavy_ranged", "vehicle", "dreadnought"],
+			"master_crafted": ["las", "heavy_ranged", "vehicle", "dreadnought"],
+			"artifact": ["las", "heavy_ranged", "vehicle", "dreadnought"]
+		},
 	},
 	"Heavy Bolter": {
 		"abbreviation": "HvyBltr",

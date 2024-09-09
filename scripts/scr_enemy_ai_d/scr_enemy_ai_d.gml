@@ -541,10 +541,21 @@ function scr_enemy_ai_d() {
     var pop_doner_options = [];
     //this stops needless repeats of searches
     if (!struct_exists(obj_controller.end_turn_insights, "population_doners")){
-        pop_doner_options = find_population_doners(cur_star);
+        pop_doner_options = find_population_doners();
     }
     obj_controller.end_turn_insights.population_doners = pop_doner_options;
     pop_doner_options = obj_controller.end_turn_insights.population_doners;
+
+    var deletion=-1;
+    for (var i=0;i<array_length(pop_doner_options);i++){
+        if (pop_doner_options[i][0]==id){
+            deletion = i;
+            break;
+        }
+    }
+    if (deletion > -1){
+        array_delete(pop_doner_options, deletion, 1);
+    }
 
     var priority_requests = [];
     var non_priority_requests = [];

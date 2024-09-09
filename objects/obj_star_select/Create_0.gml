@@ -13,7 +13,7 @@ corruption=0;
 ork=0;
 tau=0;
 chaos=0;
-torpedo=scr_item_count("Cyclonic Torpedo");
+torpedo = scr_item_count("Cyclonic Torpedo");
 
 feature= "";
 garrison= "";

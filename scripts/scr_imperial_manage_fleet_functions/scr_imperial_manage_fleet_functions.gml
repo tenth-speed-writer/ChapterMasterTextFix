@@ -1,5 +1,4 @@
 function new_colony_fleet (doner_star, doner_planet, target, target_planet, mission="new_colony"){
-    show_debug_message($"{doner_star.name}")
     var new_colonise_fleet=instance_create(doner_star.x,doner_star.y,obj_en_fleet);
     new_colonise_fleet.owner = eFACTION.Imperium;
     new_colonise_fleet.sprite_index=spr_fleet_civilian;
@@ -16,7 +15,8 @@ function new_colony_fleet (doner_star, doner_planet, target, target_planet, miss
     var new_cargo = {
         colonists : doner_volume,
         mission : mission,
-        target_planet : target_planet
+        target_planet : target_planet,
+        colonist_influence : doner_star.p_influence[doner_planet]
     }
 
     //TODO flesh out colonisation efforts
@@ -59,7 +59,7 @@ function deploy_colonisers(star){
         var targ_planet = data.target_planet;
         star.p_large[targ_planet]=0;
         star.p_population[targ_planet] += data.colonists;
-        var colony_purpose = mission=="new_colony"? "recolonise" : "bolster population" ;
+        var colony_purpose = data.mission=="new_colony"? "recolonise" : "bolster population" ;
         scr_alert("green","duhuhuhu",$"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.",star.x,star.y);
     } else {
         for (r=1;r<=star.planets;r++){
