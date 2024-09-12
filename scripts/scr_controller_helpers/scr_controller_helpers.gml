@@ -311,7 +311,8 @@ function scr_toggle_fleet_area(){
 	            if (obj_ini.role[4,geh]=obj_ini.role[100][5]) and (obj_ini.name[10,geh]=obj_ini.lord_admiral_name) then good=geh;
 	        }
 	    }
-	    if (menu!=16) and (onceh==0){
+	    if (menu!=16){
+	    	//TODO rewrite all this shit when fleets finally become OOP
 	        menu=16;
 	        onceh=1;
 	        cooldown=8000;
@@ -363,7 +364,7 @@ function scr_toggle_fleet_area(){
 	        man_max=m;
 	        man_current=0;
 	    }
-	    if (menu==16) and (onceh==0){
+	    else if (menu==16){
 	        menu=0;
 	        onceh=1;
 	        cooldown=8000;

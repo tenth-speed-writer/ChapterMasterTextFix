@@ -496,7 +496,7 @@ function scr_enemy_ai_d() {
     
 	    }
 
-        if (has_problem_planet_and_time(g,"Hive Fleet", 3)){
+        if (has_problem_planet_and_time(i,"Hive Fleet", 3)){
             var woop=scr_role_count("Chief "+string(obj_ini.role[100,17]),"");
         
             var o,yep,yep2;o=0;yep=true;yep2=false;
@@ -504,10 +504,10 @@ function scr_enemy_ai_d() {
             
             if (obj_controller.known[eFACTION.Tyranids]=0) and (woop!=0) and (yep!=false){
                 scr_popup("Shadow in the Warp",$"Chief {obj_ini.role[100,17]} "+string(obj_ini.name[0,5])+" reports a disturbance in the warp.  He claims it is like a shadow.","shadow","");
-                scr_event_log("red","Chief "+string(obj_ini.role[100,17])+" reports a disturbance in the warp.  He claims it is like a shadow.");
+                scr_event_log("red",$"Chief {obj_ini.role[100,17]} reports a disturbance in the warp.  He claims it is like a shadow.");
             }
             if (obj_controller.known[eFACTION.Tyranids]=0) and (woop=0) and (yep!=false){
-                var q,q2;q=0;q2=0;
+                var q=0,q2=0;
                 repeat(90){
                     if (q2=0){q+=1;
                         if (obj_ini.role[0,q]="Chapter Master"){q2=q;

@@ -93,7 +93,7 @@ function scr_manage_task_selector(){
 	                		switch(selection_data.purpose_code){
 	                			case "forge_assignment":
 					                var forge = selection_data.feature.feature;
-					                forge.techs_working = 0;		                			
+					                forge.techs_working = false;		                			
 			                		unit = display_unit[i];
 			                		var job = unit.job;
 			                		if (job!="none"){

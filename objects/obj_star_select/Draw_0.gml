@@ -346,8 +346,9 @@ if (obj_controller.selecting_planet!=0){
             tooltip : "population data toggle with 'P'",
             keystroke : press_exclusive(ord("P")),
             x1 : xx+480,
-            y1 : yy+220,
+            y1 : yy+217,
             w : 200,
+            h : 22
         })
         button_manager.update_loc();
         if (button_manager.draw()){
