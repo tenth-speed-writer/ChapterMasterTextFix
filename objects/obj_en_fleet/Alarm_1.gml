@@ -1369,6 +1369,7 @@ if (action="move") and (action_eta<5000){
         }
         
         
+        //TODO create oppertunity to purge new colonisers if they have taint and the player has garrisons or control of the planet
         if (fleet_has_cargo("colonize")){
 			deploy_colonisers(sta);
         }

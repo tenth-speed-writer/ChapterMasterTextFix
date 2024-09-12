@@ -348,7 +348,7 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
     	}
     }
 
-    wrong_location = !ma_loc[selected] == "Terra";
+    wrong_location = (ma_loc[selected] == "Terra");
     
     var unclickable = (eventing || jailed || wrong_location || impossible || instance_exists(obj_star_select));
 

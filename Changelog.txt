@@ -7,7 +7,8 @@ Fixed:
 	- data leak from sprites causing game to randomly crash when doing lots of troop movement
 	- general reliability improvements with game memory usage
 	- hopefully fixed problem where faction sprites could occaisionally corrupt making the main map a cluster fuck
-	- no longer able to attempt to zoom to terra to see training texhs causing a crash
+	- no longer able to attempt to zoom to terra to see training techs causing a crash
+	- marines on terra no longer selectable
 
 Changed:
 	- player will now get alerts when ship production ceases due to a lack of active forge worlds

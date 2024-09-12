@@ -128,9 +128,7 @@ function scr_toggle_manage(){
 function scr_toggle_setting(){
 	scr_change_menu(function(){
 		with (obj_controller){
-        onceh=0;
         if (menu!=21){
-            onceh=1;
             menu=21;
             cooldown=8000;
             click=1;
@@ -140,18 +138,16 @@ function scr_toggle_setting(){
             with(obj_star_select){instance_destroy();}
             with(obj_fleet_select){instance_destroy();}
         }
-        if (menu==21){
+        else if (menu==21){
             onceh=0;
             if (!settings) {
                 menu=0;
-                onceh=1;
                 cooldown=8000;
                 click=1;
                 hide_banner=0;
             }
             else if (settings) {
                 menu=21;
-                onceh=1;
                 cooldown=8000;
                 click=1;
                 settings=0;

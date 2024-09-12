@@ -62,8 +62,17 @@ function deploy_colonisers(star){
         } else {
             star.p_population[targ_planet] += data.colonists/power(10,8);
         }
+        var start_influ = star.p_influence[targ_planet][eFACTION.Tyranids];
+        with (star){
+            merge_influences(data.colonist_influence,targ_planet);
+        }
         var colony_purpose = data.mission=="new_colony"? "recolonise" : "bolster population" ;
-        scr_alert("green","duhuhuhu",$"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.",star.x,star.y);
+        var alert_string = $"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.";
+        var player_vision = star.p_player[targ_planet]>0 || star.owner[targ_planet] == eFATION.Player;
+        if (star.p_influence[targ_planet][eFACTION.Tyranids]>start_influ && (player_vision)){
+            alert_string += " They bring with them traces of a Genestelar Cult";
+        }
+        scr_alert("green","duhuhuhu",alert_string,star.x,star.y);
     } else {
         for (r=1;r<=star.planets;r++){
             if (data.mission == "new_colony") && (star.p_population[r]<=0) then continue;

@@ -59,7 +59,6 @@ function init_garrison_mission(planet, star, mission_slot){
 		mission_data.stage = "active";
 		var garrison_length=(10+irandom(6));
 		star.p_timer[planet][mission_slot] = garrison_length;
-	    var garrison_pop=instance_create(0,0,obj_popup);
 	    //pop.image="ancient_ruins";
 	    var gar_pop=instance_create(0,0,obj_popup);
 	    //TODO some new universal methods for popups
@@ -74,7 +73,27 @@ function init_garrison_mission(planet, star, mission_slot){
 	}	
 }
 
-
+function init_beast_hunt_mission(planet, star, mission_slot){
+	var problems_data = star.p_problem_other_data[planet]
+	var mission_data = problems_data[mission_slot];
+	if (mission_data.stage == "preliminary"){
+		var numeral_name = planet_numeral_name(planet, star);
+		mission_data.stage = "active";
+		var mission_length=(irandom_range(2,5));
+		star.p_timer[planet][mission_slot] = mission_length;
+	    //pop.image="ancient_ruins";
+	    var gar_pop=instance_create(0,0,obj_popup);
+	    //TODO some new universal methods for popups
+	    gar_pop.title=$"Marines assigned to hunt beasts around {numeral_name}";
+	    gar_pop.text=$"The govornor of {numeral_name} Thanks you for the participation of your elite warriors in your execution of such a menial task.";
+	    //pip.image="event_march"
+	    gar_pop.option1="Happy Hunting";
+        gar_pop.image="";
+        gar_pop.cooldown=8;
+        obj_controller.cooldown=8;	    
+	    scr_event_log("",$"Beast hunters deployed to {numeral_name} for {mission_length} months.", target.name);
+	}	
+}
 
 //TODO allow most of these functions to be condensed and allow arrays of problems or planets and maybe increase filtering options
 //filtering options could be done via universal methods that all the filters to be passed to many other game systems
@@ -93,6 +112,28 @@ function has_any_problem_planet(planet, star="none"){
 	return false;
 }
 
+function planet_problemless(planet, star="none"){
+	var has_problem = false;
+	if (star=="none"){
+		for (var i=0;i<array_length(p_problem[planet]);i++){
+			if (p_problem[planet][i] != ""){
+				has_problem=true;
+				break;
+			}
+		}
+	} else {
+		with (star){
+			has_problem =  planet_problemless(planet);
+		}
+	}
+	return has_problem;
+}
+
+/*
+//may not be needed but will be a loop of planet_problemless
+function star_problemless(){
+
+}*/
 
 // returns a bool for if any planet on a given star has the given problem
 function has_problem_star(problem, star="none"){
