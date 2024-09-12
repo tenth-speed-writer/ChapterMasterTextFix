@@ -55,6 +55,7 @@ function scr_unit_quick_find_pane() constructor{
 	    		unit = fetch_unit([co, u]);
 	    		if (unit.name() == "") then continue;
 	    		unit_location = unit.marine_location();
+	    		if (unit_location[2]=="Terra") then continue;
 	    		if (unit_location[0]==location_types.planet){
 	    			if (!struct_exists(garrison_log, unit_location[2])){
 	    				garrison_log[$ unit_location[2]] = {

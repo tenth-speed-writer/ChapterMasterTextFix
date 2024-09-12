@@ -6,7 +6,7 @@ function new_colony_fleet (doner_star, doner_planet, target, target_planet, miss
 
     var doner_volume = 0;
     if (doner_star.p_large[doner_planet]=1) {
-        doner_volume = floor(doner_star.p_population[doner_planet]*0.01*power(10,8));
+        doner_volume = floor((doner_star.p_population[doner_planet]*0.01)*power(10,8));
         doner_star.p_population[doner_planet]*=0.99;
     } else {
         doner_volume = doner_star.p_population[doner_planet]*0.1;
@@ -57,8 +57,11 @@ function deploy_colonisers(star){
     var data = cargo_data.colonize;
     if (data.target_planet>0){
         var targ_planet = data.target_planet;
-        star.p_large[targ_planet]=0;
-        star.p_population[targ_planet] += data.colonists;
+        if (!star.p_large[targ_planet]){
+            star.p_population[targ_planet] += data.colonists;
+        } else {
+            star.p_population[targ_planet] += data.colonists/power(10,8);
+        }
         var colony_purpose = data.mission=="new_colony"? "recolonise" : "bolster population" ;
         scr_alert("green","duhuhuhu",$"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.",star.x,star.y);
     } else {
@@ -86,5 +89,6 @@ function deploy_colonisers(star){
                 exit;
             }
         }  
-    }   
+    }
+    struct_remove(cargo_data, "colonize");
 }

@@ -1486,7 +1486,7 @@ if (action="move") and (action_eta<5000){
                     var cur_star=nearest_star_proper(x, y);
                     var bleh="";
                     if (owner!=eFACTION.Inquisition) 
-						bleh="{obj_controller.faction[owner]} Fleet finalizes trade at {cur_star.name}.";
+						bleh=$"{obj_controller.faction[owner]} Fleet finalizes trade at {cur_star.name}.";
                     else{
 						bleh=$"Inquisitor Ship finalizes trade at {cur_star.name}.";
                     }

@@ -340,24 +340,24 @@ function scr_enemy_ai_d() {
         }
          if (has_problem_planet_and_time(i,"spyrer", 0)){
             var tixt,text;
-	            tixt="The Spyrer on "+string(name)+" "+scr_roman(i)+" has been left unchecked.  In the ensuing carnage some high-ranking officials have been killed, along with several Nobles.  Panic is running amock in several parts of the hives and the Inquisition is less than pleased.";
-	            text="Inquisition Mission Failed: The Spyrer on "+string(name)+" "+scr_roman(i)+" was not removed.";
-	            scr_popup("Inquisition Mission Failed",tixt,"spyrer","");
-	            obj_controller.disposition[4]-=3;
-	            scr_event_log("red",text);
-	           remove_planet_problem(i,"spyrer"); 
+            var planet_name = planet_numeral_ name(i, self);
+            tixt=$"The Spyrer on {planet_name} has been left unchecked.  In the ensuing carnage some high-ranking officials have been killed, along with several Nobles.  Panic is running amock in several parts of the hives and the Inquisition is less than pleased.";
+            text="Inquisition Mission Failed: The Spyrer on {planet_name} was not removed.";
+            scr_popup("Inquisition Mission Failed",tixt,"spyrer","");
+            obj_controller.disposition[eFACTION.Inquisition]-=3;
+            scr_event_log("red",text);
+            remove_planet_problem(i,"spyrer"); 
          }
          if (has_problem_planet_and_time(i,"fallen", 0)){
             //TODO marker point for cohesion mechanics
             var tixt="";
             var unit;
             if (ran>33){// Give all marines +3d6 corruption and reduce loyalty by 20*/
-                var co=-1,me=0;
-                repeat(obj_ini.companies+1){
-                    co+=1;
+                var me=0;
+                for (var co=0;co<=obj_ini.companies;co++){
                     me=0;
                     for (me=0;me<array_length(obj_ini.role[co]);me++){
-                        if (obj_ini.race[co,me]=1) and (obj_ini.role[co,me]!=""){
+                        if (obj_ini.race[co][me]=1) and (obj_ini.role[co][me]!=""){
                             unit = fetch_unit([co,me]);
                             unit.add_corruption(irandom_range(3, 18));
                         }
@@ -434,15 +434,19 @@ function scr_enemy_ai_d() {
 	            if (cont=1 && firstest>-1){
 
 	                p_problem[i][firstest]="Hive Fleet";
-	                p_timer[i][firstest]=floor(random_range(60,120))+1;
-	                p_timer[i][firstest]+=floor(random_range(80,120))+1;
+	                p_timer[i][firstest]=irandom_range(60,120)+1;
+	                p_timer[i][firstest]+=irandom_range(80,120)+1;
 	                // p_timer[i][firstest]=floor(random_range(3,6))+1;
 	                // show_message("Hive Fleet Destination: "+string(name)+"#ETA: "+string(p_timer[i][firstest]));
                 
                 
 	                var fleet, xx, yy;
-	                xx=random_range(room_width*1.25,room_width*2);xx=choose(xx*-1,xx);xx=x+xx;
-	                yy=random_range(room_height*1.25,room_height*2);yy=choose(yy*-1,yy);yy=y+yy;
+	                xx=random_range(room_width*1.25,room_width*2);
+                    xx=choose(xx*-1,xx);
+                    xx=x+xx;
+	                yy=random_range(room_height*1.25,room_height*2);
+                    yy=choose(yy*-1,yy);
+                    yy=y+yy;
 	                fleet=instance_create(xx,yy,obj_en_fleet);
 	                fleet.owner = eFACTION.Tyranids;
 	                fleet.sprite_index=spr_fleet_tyranid;
@@ -483,7 +487,7 @@ function scr_enemy_ai_d() {
 	        if (array_contains(obj_ini.dis, "Psyker Intolerant")) then yep=false;
 	        
 	        if (obj_controller.known[eFACTION.Tyranids]=0) and (woop!=0) and (yep!=false){
-	            scr_popup("Shadow in the Warp","Chief "+string(obj_ini.role[100,17])+" "+string(obj_ini.name[0,5])+" reports a disturbance in the warp.  He claims it is like a shadow.","shadow","");
+	            scr_popup("Shadow in the Warp",$"Chief {obj_ini.role[100,17]} "+string(obj_ini.name[0,5])+" reports a disturbance in the warp.  He claims it is like a shadow.","shadow","");
 	            scr_event_log("red","Chief "+string(obj_ini.role[100,17])+" reports a disturbance in the warp.  He claims it is like a shadow.");
 	        }
 	        if (obj_controller.known[eFACTION.Tyranids]=0) and (woop=0) and (yep!=false){

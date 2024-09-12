@@ -306,40 +306,31 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 	        if (ar_we2==2) then draw_set_color(881503);
 	        draw_text(xx+573+xoffset,yy+66,string_hash_to_newline(string(ma_we2)));
 	    }
+	    var cols = [c_gray,c_gray, 881503]
 	    if (man[selected]!="man"){
 			var xoffset=0;
 			//Vehicle Upgrade
-			draw_set_color(c_gray);
-			if (ar_ge==1) then draw_set_color(c_gray);
-			if (ar_ge==2) then draw_set_color(881503);
+			draw_set_color(cols[ar_ge]);
 			draw_text(xx+573,yy+66,string_hash_to_newline(string(ma_ge)));
 		
 			//Vehicle accessory
 			xoffset+=string_width(string_hash_to_newline(ma_ge))+15;
-			draw_set_color(c_gray);
-			if (ar_mb==1) then draw_set_color(c_gray);
-			if (ar_mb==2) then draw_set_color(881503);
+			draw_set_color(cols[ar_mb]);
 			draw_text(xx+573+xoffset,yy+66,string_hash_to_newline(string(ma_mb)));
 		
 			//Vehicle wep 1
 			xoffset+=string_width(string_hash_to_newline(ma_mb))+15;
-			draw_set_color(c_gray);
-			if (ar_we1==1) then draw_set_color(c_gray);
-			if (ar_we1==2) then draw_set_color(881503);
+			draw_set_color(cols[ar_we1]);
 			draw_text(xx+573+xoffset,yy+66,string_hash_to_newline(string(ma_we1)));
 		
 			//Vehicle wep 2
 			xoffset+=string_width(string_hash_to_newline(ma_we1))+15;
-			draw_set_color(c_gray);
-			if (ar_we2==1) then draw_set_color(c_gray);
-			if (ar_we2==2) then draw_set_color(881503);
+			draw_set_color(cols[ar_we2]);
 			draw_text(xx+573+xoffset,yy+66,string_hash_to_newline(string(ma_we2)));
 		
 			//Vehicle wep 3
 			xoffset+=string_width(string_hash_to_newline(ma_we2))+15;
-			draw_set_color(c_gray);
-			if (ar_ar==1) then draw_set_color(c_gray);
-			if (ar_ar==2) then draw_set_color(881503);
+			draw_set_color(cols[ar_ar]);
 			draw_text(xx+573+xoffset,yy+66,string_hash_to_newline(string(ma_ar)));
 	    }
 	}
@@ -356,6 +347,8 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
     		wrong_location = ma_loc[selected]!=selecting_location;
     	}
     }
+
+    wrong_location = !ma_loc[selected] == "Terra";
     
     var unclickable = (eventing || jailed || wrong_location || impossible || instance_exists(obj_star_select));
 

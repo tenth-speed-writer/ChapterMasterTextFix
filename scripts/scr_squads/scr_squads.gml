@@ -17,8 +17,9 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 	squad_unit_types = squad.find_squad_unit_types();
 	var squad_fulfilment = squad.squad_fulfilment;
 
+	var roles = obj_ini.role[100];
 	var sergeant_found = false;
-	var sgt_types = [obj_ini.role[100][18], obj_ini.role[100][19]]
+	var sgt_types = [roles[Role.SERGEANT], roles[Role.VETERAN_SERGEANT]];
 
 	//if squad has sergeants in find out if there are any available sergeants
 	for (var s = 0; s < 2;s++){
@@ -42,11 +43,11 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 		}
 	}
 	for (i = 0; i < array_length( obj_ini.TTRPG[company]);i++){							//fill squad roles
-		if(!is_struct(obj_ini.TTRPG[company][i])){ //checkposition is valid marine struct
+		if(!is_struct(fetch_unit([company,i]))){ //checkposition is valid marine struct
 			obj_ini.TTRPG[company][i]= new TTRPG_stats("chapter", company,i,"blank");
 		}
-		unit = obj_ini.TTRPG[company][i];
-		if ((obj_ini.name[company][i] =="") or (unit.base_group=="none")) then continue;
+		unit = fetch_unit([company,i]);
+		if ((unit.name() == "") or (unit.base_group=="none")) then continue;
 		if (unit.squad== "none") and (array_contains(squad_unit_types, unit.role())){
 			//if no sergeant found add one marine to standard marine selection so that a marine can be promoted
 			if ((struct_exists(squad_fulfilment ,obj_ini.role[100][18])) or (struct_exists(squad_fulfilment ,obj_ini.role[100][19]))) and (sergeant_found == false){

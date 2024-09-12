@@ -9,26 +9,21 @@ function scr_enemy_ai_e() {
     var imperium_fleets = present_fleet[2]+present_fleet[3];
 
 
-    var have_fleets, battle, battle2, strength, attack;
+    var have_fleets, battle, battle2;
     have_fleets = 0;
     battle = 0;
     battle2 = 0;
-    strength = 0;
-    damage = 0;
-    attack = 0;
-    var i;
-    i = -1;
-    repeat(20) {
-        i += 1;
-        attack[i] = 0;
-        strength[i] = 0;
-        damage[i] = 0;
-    }
 
-    i = 0;
+
+    var attack = array_create(20,0);
+    var strength = array_create(20,0);
+    var damage = array_create(20,0);
+
+
+    var i = 0;
     repeat(13) {
         i += 1;
-        if (present_fleet[i] > 0) then have_fleets += 1;
+        if (present_fleet[i]) then have_fleets += 1;
     }
 
     if (present_fleet[1] > 0) { // Battle1 is reserved for player battles
