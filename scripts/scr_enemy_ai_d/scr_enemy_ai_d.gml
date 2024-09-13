@@ -10,10 +10,9 @@ function scr_enemy_ai_d() {
 	for (var i=1;i<=planets;i++){
 
         //this will skip for given planet if no problems associated wiht planet
-        if (planet_problemless(i)) then continue;
+        problem_count_down(i);
 		var numeral_name = planet_numeral_name(i);
 	    if (p_necrons[i]>0) and (p_necrons[i]<6) then p_necrons[i]+=1;
-    	problem_count_down(i);
     
 	    var wob=0;
 	    var fallen = find_problem_planet(i, "fallen");
@@ -55,6 +54,7 @@ function scr_enemy_ai_d() {
 	    }
     }
     for (var i=1;i<=planets;i++){
+        if (planet_problemless(i)) then continue;
         numeral_name = planet_numeral_name(i);
 	    if (has_problem_planet_and_time(i, "succession", 0)){
             var dice1,dice2,result,alert_text;
@@ -562,81 +562,83 @@ function scr_enemy_ai_d() {
 	    }
 	};
 
-    var pop_doner_options = [];
-    //this stops needless repeats of searches
-    if (!struct_exists(obj_controller.end_turn_insights, "population_doners")){
-        pop_doner_options = find_population_doners();
-    }
-    obj_controller.end_turn_insights.population_doners = pop_doner_options;
-    pop_doner_options = obj_controller.end_turn_insights.population_doners;
-
-    var deletion=-1;
-    for (var i=0;i<array_length(pop_doner_options);i++){
-        if (pop_doner_options[i][0]==id){
-            deletion = i;
-            break;
+    if (!already_enroute){
+        var pop_doner_options = [];
+        //this stops needless repeats of searches
+        if (!struct_exists(obj_controller.end_turn_insights, "population_doners")){
+            pop_doner_options = find_population_doners();
         }
-    }
-    if (deletion > -1){
-        array_delete(pop_doner_options, deletion, 1);
-    }
-
-    var priority_requests = [];
-    var non_priority_requests = [];
-
-	var r=0,yep=0;
-	for (r=1;r<=planets;r++){// temp5: new hive, temp4: new planet
-        if (!scr_planet_owned_by_group(r,fetch_faction_group())) then continue;
-        if ((p_population[r]>0) || (p_type[r]=="")) then continue;
-	    if (!space_hulk) and (!craftworld) and (p_type[r]!="Dead"){
-
-            var priority_imperium = ["Hive", "Temperate","Shrine"];
-	        if (p_owner[r]=eFACTION.Imperium) && (array_contains(priority_imperium, p_type[r]) ) {
-                array_push(priority_requests, r);
+        obj_controller.end_turn_insights.population_doners = pop_doner_options;
+        pop_doner_options = obj_controller.end_turn_insights.population_doners;
+    
+        var deletion=-1;
+        for (var i=0;i<array_length(pop_doner_options);i++){
+            if (pop_doner_options[i][0]==id){
+                deletion = i;
                 break;
-            }
-
-	        if (p_owner[r]==eFACTION.Mechanicus) && (p_type[r]=="Forge"){
-                array_push(priority_requests, r);
-                break;
-            }
-	        // Count player planets as HIVE PLANETS so that they are prioritized
-	        if (p_owner[r]=eFACTION.Player) {
-                array_push(priority_requests, r);
-                break;
-            }
-
-            if ((p_owner[r]==eFACTION.Imperium) or (p_owner[r]==eFACTION.Ecclesiarchy))   and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate")  then array_push(non_priority_requests, r);
-	    }
-	}
-
-	if (array_length(pop_doner_options)>0 && array_length(non_priority_requests) && array_length(priority_requests)){
-	    var onceh=0;
-        var random_chance=floor(random(100))+1;
-        var doner_index = 0;
-        for(var i=1;i<array_length(pop_doner_options)i++){
-            if (star_distace_calc(pop_doner_options[i]) < star_distace_calc(pop_doner_options[doner_index])){
-                doner_index = i;
             }
         }
-        var doner_star=pop_doner_options[doner_index][0];
-        var doner_planet = pop_doner_options[doner_index][1];   
-
-	    if (array_length(priority_requests))  and (random_chance<=2){// A hive is requesting repopulation
-
-	        new_colony_fleet(doner_star.id, doner_planet, self.id, priority_requests[0]);
-	    }
-	    else if (array_length(non_priority_requests))  and (random_chance<=2){// Some other world is requesting repopulation
-
-	        new_colony_fleet(doner_star.id, doner_planet, self.id, non_priority_requests[0]);
-	    }
-	}
-
-	instance_activate_all();
-	with(obj_star){
-	    if (x<-10000){x+=20000;y+=20000;}
-	    if (x<-10000){x+=20000;y+=20000;}
-	}
+        if (deletion > -1){
+            array_delete(pop_doner_options, deletion, 1);
+        }
+    
+        var priority_requests = [];
+        var non_priority_requests = [];
+    
+        var r=0,yep=0;
+        for (r=1;r<=planets;r++){// temp5: new hive, temp4: new planet
+            if (!scr_planet_owned_by_group(r,fetch_faction_group())) then continue;
+            if ((p_population[r]>0) || (p_type[r]=="")) then continue;
+            if (!space_hulk) and (!craftworld) and (p_type[r]!="Dead"){
+    
+                var priority_imperium = ["Hive", "Temperate","Shrine"];
+                if (p_owner[r]=eFACTION.Imperium) && (array_contains(priority_imperium, p_type[r]) ) {
+                    array_push(priority_requests, r);
+                    break;
+                }
+    
+                if (p_owner[r]==eFACTION.Mechanicus) && (p_type[r]=="Forge"){
+                    array_push(priority_requests, r);
+                    break;
+                }
+                // Count player planets as HIVE PLANETS so that they are prioritized
+                if (p_owner[r]=eFACTION.Player) {
+                    array_push(priority_requests, r);
+                    break;
+                }
+    
+                if ((p_owner[r]==eFACTION.Imperium) or (p_owner[r]==eFACTION.Ecclesiarchy))   and (p_type[r]!="Lava") and (p_type[r]!="Hive") and (p_type[r]!="Temperate")  then array_push(non_priority_requests, r);
+            }
+        }
+    
+        if (array_length(pop_doner_options)>0 && array_length(non_priority_requests) && array_length(priority_requests)){
+            var onceh=0;
+            var random_chance=floor(random(100))+1;
+            var doner_index = 0;
+            for(var i=1;i<array_length(pop_doner_options)i++){
+                if (star_distace_calc(pop_doner_options[i]) < star_distace_calc(pop_doner_options[doner_index])){
+                    doner_index = i;
+                }
+            }
+            var doner_star=pop_doner_options[doner_index][0];
+            var doner_planet = pop_doner_options[doner_index][1];   
+    
+            if (array_length(priority_requests))  and (random_chance<=2){// A hive is requesting repopulation
+    
+                new_colony_fleet(doner_star.id, doner_planet, self.id, priority_requests[0]);
+            }
+            else if (array_length(non_priority_requests))  and (random_chance<=2){// Some other world is requesting repopulation
+    
+                new_colony_fleet(doner_star.id, doner_planet, self.id, non_priority_requests[0]);
+            }
+        }
+    
+        instance_activate_all();
+        with(obj_star){
+            if (x<-10000){x+=20000;y+=20000;}
+            if (x<-10000){x+=20000;y+=20000;}
+        }
+    }
 
 	// Local problems will go here
 	var planet;
