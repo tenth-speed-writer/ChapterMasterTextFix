@@ -1,7 +1,7 @@
 Version  0.9.2.1
 Fixed:
 	- crash from attempting to build new ship
-	- incrementing not occuring on missions
+	- incrementing not occurring on missions
 	- crash from requesting colonists on colonist arrival
 
 Version  0.9.2.0
@@ -12,7 +12,7 @@ Fixed:
 	- some recruit trials used to produced no recruits
 	- data leak from sprites causing game to randomly crash when doing lots of troop movement
 	- general reliability improvements with game memory usage
-	- hopefully fixed problem where faction sprites could occaisionally corrupt making the main map a cluster fuck
+	- hopefully fixed problem where faction sprites could occasionally corrupt making the main map a cluster fuck
 	- no longer able to attempt to zoom to terra to see training techs causing a crash
 	- marines on terra no longer selectable
 
@@ -49,14 +49,14 @@ added:
 		- alt O for event log
 		- alt E for end turn
 
-	- new govornor missions, complete missions for planetary governors to increase disposition or gain other rewards.
-		- bear in mind these are broad and varied and currently are mostly unimplemented but they are a slow route to giving givernors their own personalities and creating a juxtoposition between population influence and govornor dispositions.
+	- new governor missions, complete missions for planetary governors to increase disposition or gain other rewards.
+		- bear in mind these are broad and varied and currently are mostly unimplemented but they are a slow route to giving governors their own personalities and creating a juxtoposition between population influence and governor dispositions.
 		- in time these will lead into much more politicking and small scale engagements but will require a writing team we currently don't have, if any story people are interested in helping please contact nelsonh on the cm discord.
 
 	- added new chapter advantages:
 		- venerable ancients : increases start dreadnoughts but reduced chapter strength
 
-	- ability to have a more indepth view of population and it's influences (needs much extension and work)
+	- ability to have a more in-depth view of population and it's influences (needs much extension and work)
 	- ability to spend req in order to fund colonisation attempts to increase populations or repopulate worlds from 0
 		- new colonists may bring with them genestealer cults, heretics or have greater good thinkings...
 
@@ -79,7 +79,7 @@ Fixed:
 	- inquisition purging now no longer breaks saves
 	- all loading screen images fixed
 	- tithe alerts now no longer break the rest of
-	- reordering managemnt screen marines by stats so that player can see best marine with a given stat
+	- reordering management screen marines by stats so that player can see best marine with a given stat
 	- various sprite adjustments to fix alignment
 	- armour equip issues
 	- general stability improvements to management screens
@@ -92,24 +92,24 @@ Changed:
 	- Overhaul of managing so that it is not directly linked to companies
 	- removal of lid variable in favour of unit.ship_location
 	- Complete overhaul of unit view in the manage area to be more cohesive
-		- new colour pallete
+		- new colour palette
 		- better ui to be more informative
 		- colours to represent item quality
 	- tooltips improved both visually and in terms of content
-	- Siege Masters triat doubles marine effectiveness at garrisoning
+	- Siege Masters trait doubles marine effectiveness at garrisoning
 	- garrison leader bonus for garrisoning doubled increased by 50%
-	- psker abundance and psker intolerant respectivly increase and decrease psionic spawn levels
+	- psyker abundance and psyker intolerant respectively increase and decrease psionic spawn levels
 	- jailing heretics now stops them corrupting even if in the same location as other marines
 	- remove planet tithe alerts
 	- press shift for 3 times map scroll
 	- complete overhaul of weapon descriptions
 	- biography descriptions tweaked
-	- item wuality display now uses colour system
+	- item quality display now uses colour system
 	- weapons now have distinct hit rates balancing combat
 	- shader options for cloth
 	- colour improvements for many base chapters
 	- improved item sprites like iron halos
-	- optomised draw sequence for sprites
+	- optimised draw sequence for sprites
 	- gui code for fleet combat overhauled
 	- complete overhaul of mission problem text so we can start adding and creating new missions
 	- tech heretics won't now spawn and spread till after turn 70
@@ -120,17 +120,17 @@ added:
 	- fleet viewer to quickly see fleets and zoom to fleet locations
 	- quick view event log locations by pressing view button
 	- quick view garrisons with new troop logger
-	- quick view missions with nesw mission logger
+	- quick view missions with new mission logger
 	- manage marines by planet location instead of being locked to company manage screens
 	- stat boosts and new traits for spawn captains
 	- ability to demote/promote sgts with a loyalty hit to the demoted sgt
-	- genestealer cults acctually exist hidden from player view so mechanic can now be expanded upon
-	- causulty descriptions now added to battle log flavour
+	- genestealer cults actually exist hidden from player view so mechanic can now be expanded upon
+	- casualty descriptions now added to battle log flavour
 	- ability to reshuffle squad loadouts
 	- full set of dark angle and da successor sprites
 		- going forward hopefully all chapters will get the same treatment
-	- factions other than tau can now excert influence on a planet
-	- custom selcetion of sgt, vet_sgt and captain helmet options
+	- factions other than tau can now exert influence on a planet
+	- custom selection of sgt, vet_sgt and captain helmet options
 	- genestealer cults are now viewable planet features
 	- all planets now have an influence bar to show how much of the populace is influenced by various factions (to be expanded)
 	- 
