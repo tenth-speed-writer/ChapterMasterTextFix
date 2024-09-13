@@ -727,16 +727,22 @@ if (navy && action=="") {
 	if (action="") and (trade_goods="goto_recruiting"){
 	    if (instance_exists(orbiting)){
 	        var o,that,te,te_large;o=0;that=0;te=0;te_large=0;
-	        repeat(4){o+=1;
+	        repeat(orbiting.planets){
+	        	o+=1;
 	            if (orbiting.p_owner[o]<=5){
 	                if (orbiting.p_population[o]>te) and (orbiting.p_orks[o]+orbiting.p_chaos[o]+orbiting.p_tyranids[o]+orbiting.p_necrons[o]+orbiting.p_tau[o]+orbiting.p_traitors[o]=0){
-	                    te=orbiting.p_population[o];that=o;
+	                    te=orbiting.p_population[o];
+	                    that=o;
 	                }
 	                if (orbiting.p_large[o]=1) and (orbiting.p_population[o]>0) and (te_large=0) and (orbiting.p_orks[o]+orbiting.p_chaos[o]+orbiting.p_tyranids[o]+orbiting.p_necrons[o]+orbiting.p_tau[o]+orbiting.p_traitors[o]=0){
-	                    te=orbiting.p_population[o];that=o;te_large=1;
+	                    te=orbiting.p_population[o];
+	                    that=o;
+	                    te_large=1;
 	                }
 	                if (te_large=1) and (orbiting.p_population[o]>te) and (orbiting.p_large[o]=1) and (orbiting.p_orks[o]+orbiting.p_chaos[o]+orbiting.p_tyranids[o]+orbiting.p_necrons[o]+orbiting.p_tau[o]+orbiting.p_traitors[o]=0){
-	                    te=orbiting.p_population[o];that=o;te_large=1;
+	                    te=orbiting.p_population[o];
+	                    that=o;
+	                    te_large=1;
 	                }
 	            }
 	        }
@@ -797,9 +803,12 @@ if (navy && action=="") {
     
 	    if (that>0) and (highest>0) and (orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]=0){
 	        if (highest>2) or (orbiting.p_pdf[that]=0){guardsmen_unloaded=1;
-	            i=0;repeat(20){i+=1;if (capital_imp[i]>0) then orbiting.p_guardsmen[that]+=capital_imp[i];capital_imp[i]=0;}
-	            i=0;repeat(30){i+=1;if (frigate_imp[i]>0) then orbiting.p_guardsmen[that]+=frigate_imp[i];frigate_imp[i]=0;}
-	            i=0;repeat(30){i+=1;if (escort_imp[i]>0) then orbiting.p_guardsmen[that]+=escort_imp[i];escort_imp[i]=0;}
+	            i=0;
+	            repeat(20){i+=1;if (capital_imp[i]>0) then orbiting.p_guardsmen[that]+=capital_imp[i];capital_imp[i]=0;}
+	            i=0;
+	            repeat(30){i+=1;if (frigate_imp[i]>0) then orbiting.p_guardsmen[that]+=frigate_imp[i];frigate_imp[i]=0;}
+	            i=0;
+	            repeat(30){i+=1;if (escort_imp[i]>0) then orbiting.p_guardsmen[that]+=escort_imp[i];escort_imp[i]=0;}
 	        }
 	    }
     

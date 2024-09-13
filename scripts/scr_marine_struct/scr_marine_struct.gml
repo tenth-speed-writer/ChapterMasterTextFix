@@ -2513,7 +2513,7 @@ function pen_and_paper_sim() constructor{
                 }			
 			}
 			else if (tag=="tyranids"){
-				if (unit.scr_has_adv("Enemy: Tyranids")){
+				if (scr_has_adv("Enemy: Tyranids")){
 					total_mod+=10
 				}
 				if (unit.has_trait("tyrannic_vet")){
@@ -2528,7 +2528,7 @@ function pen_and_paper_sim() constructor{
 		var passed =false;
 		var margin=0;
 		difficulty_mod+=evaluate_tags(unit, tags);
-		var random_roll = irandom(99)+1;
+		var random_roll = irandom_range(1,100);
 		if (random_roll<unit[$ stat]+difficulty_mod){
 			passed = true;
 			margin = unit[$ stat]+difficulty_mod - random_roll;

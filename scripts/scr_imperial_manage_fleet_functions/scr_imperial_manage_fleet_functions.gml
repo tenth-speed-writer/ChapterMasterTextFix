@@ -5,13 +5,14 @@ function new_colony_fleet (doner_star, doner_planet, target, target_planet, miss
     new_colonise_fleet.image_index=3;
 
     var doner_volume = 0;
-    if (doner_star.p_large[doner_planet]=1) {
-        doner_volume = floor((doner_star.p_population[doner_planet]*0.01)*power(10,8));
+    if (doner_star.p_large[doner_planet]) {
+        doner_volume = (doner_star.p_population[doner_planet]*0.01)*power(10,8);
         doner_star.p_population[doner_planet]*=0.99;
     } else {
         doner_volume = doner_star.p_population[doner_planet]*0.1;
         doner_star.p_population[doner_planet]*=0.90;       
     }
+    
     var new_cargo = {
         colonists : doner_volume,
         mission : mission,

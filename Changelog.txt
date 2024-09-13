@@ -1,3 +1,7 @@
+Version  0.9.2.1
+Fixed:
+	- crash from attempting to build new ship
+
 Version  0.9.2.0
 
 Fixed:
@@ -44,6 +48,9 @@ added:
 		- alt E for end turn
 
 	- new govornor missions, complete missions for planetary governors to increase disposition or gain other rewards.
+		- bear in mind these are broad and varied and currently are mostly unimplemented but they are a slow route to giving givernors their own personalities and creating a juxtoposition between population influence and govornor dispositions.
+		- in time these will lead into much more politicking and small scale engagements but will require a writing team we currently don't have, if any story people are interested in helping please contact nelsonh on the cm discord.
+
 	- added new chapter advantages:
 		- venerable ancients : increases start dreadnoughts but reduced chapter strength
 

@@ -390,6 +390,9 @@ function scr_enemy_ai_d() {
                     var mission_string = $"The garrison on {planet_numeral_name(i)} has finished the period of garrison support agreed with the planetary governor.";
                     var p_garrison = system_garrison[i-1];
                     var  result = p_garrison.garrison_disposition_change(id, i);
+                    if (!p_garrison.garrison_leader){
+                        p_garrison.find_leader();
+                    }
                     if (result == "none"){
                     //TODO make a dedicated plus minus string function if there isn't one already
                     } else if (!result){
