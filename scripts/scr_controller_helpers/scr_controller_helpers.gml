@@ -436,7 +436,7 @@ function scr_end_turn(){
 	        if (instance_exists(obj_turn_end)){if (obj_turn_end.popups_end==1) then ok=1;}
 
 	        if (ok==1){
-	            end_turn_insights = {};
+	            obj_controller.end_turn_insights = {};
 	            with(obj_turn_end){instance_destroy();}
 	            with(obj_star_event){instance_destroy();}
 	            cooldown=8;

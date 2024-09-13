@@ -1,6 +1,8 @@
 Version  0.9.2.1
 Fixed:
 	- crash from attempting to build new ship
+	- incrementing not occuring on missions
+	- crash from requesting colonists on colonist arrival
 
 Version  0.9.2.0
 

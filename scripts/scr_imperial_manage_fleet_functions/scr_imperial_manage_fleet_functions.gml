@@ -12,7 +12,7 @@ function new_colony_fleet (doner_star, doner_planet, target, target_planet, miss
         doner_volume = doner_star.p_population[doner_planet]*0.1;
         doner_star.p_population[doner_planet]*=0.90;       
     }
-    
+
     var new_cargo = {
         colonists : doner_volume,
         mission : mission,
@@ -69,7 +69,7 @@ function deploy_colonisers(star){
         }
         var colony_purpose = data.mission=="new_colony"? "recolonise" : "bolster population" ;
         var alert_string = $"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.";
-        var player_vision = star.p_player[targ_planet]>0 || star.owner[targ_planet] == eFATION.Player;
+        var player_vision = star.p_player[targ_planet]>0 || star.p_owner[targ_planet] == eFATION.Player;
         if (star.p_influence[targ_planet][eFACTION.Tyranids]>start_influ && (player_vision)){
             alert_string += " They bring with them traces of a Genestelar Cult";
         }
@@ -91,14 +91,13 @@ function deploy_colonisers(star){
 
                 scr_alert("green","duhuhuhu",$"Imperial citizens recolonize {planet_numeral_name(r, star)} I.",star.x,star.y);
                 
-                star.dispo[r]=min(obj_ini.imperium_disposition,obj_controller.disposition[2])+choose(-1,-2,-3,-4,0,1,2,3,4);
+                star.dispo[r]=min(obj_ini.imperium_disposition,obj_controller.disposition[2])+irandom_range(-4,4);
                 if (star.name=obj_ini.home_name) and (star.p_type[r]=obj_ini.home_type) and (obj_controller.homeworld_rule!=1) then star.dispo[r]=-5000;
-                
-                // star.present_fleet[owner]-=1;
-                instance_destroy();
-                exit;
+
             }
         }  
     }
-    struct_remove(cargo_data, "colonize");
+    if (struct_exists(cargo_data, "colonize")){
+        struct_remove(cargo_data, "colonize");
+    }
 }
