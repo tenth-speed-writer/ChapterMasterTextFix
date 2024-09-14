@@ -126,7 +126,7 @@ function planet_problemless(planet, star="none"){
 			has_problem =  planet_problemless(planet);
 		}
 	}
-	return has_problem;
+	return !has_problem;
 }
 
 /*

@@ -445,7 +445,6 @@ function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, 
 	    draw_set_font(fnt_cul_14);
 	    draw_text_ext(xx+(width/2),yy+4, text, 18*y_scale, width-(15*x_scale));
 	    if (clicked){
-	    	show_debug_message($"{text}, {click_function}");
 	    	if (click_function){
 	    		click_function();
 	    	}

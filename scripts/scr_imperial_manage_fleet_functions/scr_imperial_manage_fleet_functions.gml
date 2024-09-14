@@ -69,7 +69,7 @@ function deploy_colonisers(star){
         }
         var colony_purpose = data.mission=="new_colony"? "recolonise" : "bolster population" ;
         var alert_string = $"Imperial citizens {colony_purpose} {planet_numeral_name(targ_planet, star)} I.";
-        var player_vision = star.p_player[targ_planet]>0 || star.p_owner[targ_planet] == eFATION.Player;
+        var player_vision = star.p_player[targ_planet]>0 || star.p_owner[targ_planet] == eFACTION.Player;
         if (star.p_influence[targ_planet][eFACTION.Tyranids]>start_influ && (player_vision)){
             alert_string += " They bring with them traces of a Genestelar Cult";
         }

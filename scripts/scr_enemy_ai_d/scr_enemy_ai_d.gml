@@ -10,7 +10,6 @@ function scr_enemy_ai_d() {
 	for (var i=1;i<=planets;i++){
 
         //this will skip for given planet if no problems associated wiht planet
-        problem_count_down(i);
 		var numeral_name = planet_numeral_name(i);
 	    if (p_necrons[i]>0) and (p_necrons[i]<6) then p_necrons[i]+=1;
     
@@ -55,6 +54,7 @@ function scr_enemy_ai_d() {
     }
     for (var i=1;i<=planets;i++){
         if (planet_problemless(i)) then continue;
+        problem_count_down(i);
         numeral_name = planet_numeral_name(i);
 	    if (has_problem_planet_and_time(i, "succession", 0)){
             var dice1,dice2,result,alert_text;

@@ -211,7 +211,6 @@ function khorne_fleet_cargo(){
 }
 function spawn_chaos_warlord(){
 	with (obj_controller){
-		show_debug_message("fleet")
 		with(obj_turn_end){
 			audiences+=1;
 			audien[audiences]=10;
@@ -221,7 +220,6 @@ function spawn_chaos_warlord(){
 		}
 	    fdir=terra_direction+choose(-90,90);
 		fdir+=floor(random_range(-35,35));
-		show_debug_message("fleet")
 	    var len,width,height,t,c,s;
 	    width = room_width;
 	    height = room_height;
@@ -248,7 +246,6 @@ function spawn_chaos_warlord(){
 		    frigate_number=20;
 		    escort_number=40;
 		}
-		show_debug_message("fleet")
 		var rep, filtered_array, candidate_systems;
 		candidate_systems = [];
 	    with(obj_star){
@@ -270,7 +267,6 @@ function spawn_chaos_warlord(){
 				
 				return (prev_dist > curr_dist) ? curr : prev;
 		}),noone)
-		show_debug_message("fleet")
 	    nfleet.action_x=fleet_target.x;
 		nfleet.action_y=fleet_target.y;
 	    nfleet.alarm[4]=1;
@@ -280,7 +276,6 @@ function spawn_chaos_warlord(){
 	    scr_event_log("purple",tix, fleet_target.name);
 	    scr_popup("Black Crusade","A Black Crusade led by the Chaos Lord {faction_leader[eFACTION.Chaos]} has arrived in {obj_ini.sector_name}.  His forces have already carved a bloody path through many sectors and yours is next.  {faction_leader[eFACTION.Chaos]} also seems to be set on killing you.  The Black Crusade's current target is system {fleet_target.name}.","","");
 	    // title / text / image / speshul
-	    show_debug_message("fleet")
 	}
 }
 //TODO make this make sense

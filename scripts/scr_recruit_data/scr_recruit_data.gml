@@ -72,7 +72,6 @@ function planet_training_sequence(){
 	            }
 	        }
 
-	        show_debug_message("{0},{1}", recruit_chance, recruit_chance_total);
 	        if (recruit_chance<=recruit_chance_total){
 	            aspirant = true;
 	        }
