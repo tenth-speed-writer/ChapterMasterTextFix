@@ -1,6 +1,6 @@
 Version  0.9.2.2
 
-	- crash the press t method of ending turn not being updated with modern sewuence
+	- crash the press t method of ending turn not being updated with modern sequence
 	- crash with colonists from spelling error
 	- missions will now trigger their end sequences
 
