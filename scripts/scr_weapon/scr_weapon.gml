@@ -2199,8 +2199,6 @@ global.gear = {
 				"master_crafted": 10,
 				"artifact": 10
 			},
-			"melee_hands": -0.5,
-			"ranged_hands": -0.5,
 		},
 		"Jump Pack": {
 			"abbreviation": "JmpPck",
