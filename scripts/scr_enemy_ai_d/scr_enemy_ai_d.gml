@@ -434,7 +434,7 @@ function scr_enemy_ai_d() {
         var beast_hunt = has_problem_planet_and_time(i,"hunt_beast", 0);
         if (beast_hunt>-1){
             var planet = new PlanetData(i, self);
-            if (planet.problem_data[garrison_mission].stage=="active"){
+            if (planet.problem_data[beast_hunt].stage=="active"){
 
                 scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete story line mission and rewards need work",mission_string,"","");
                
