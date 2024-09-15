@@ -17,7 +17,7 @@ image_speed=0;
 image_alpha=0;
 x2=0;
 y2=0;
-buddy=0;
+warp_lanes=[];
 if (global.load==0) then alarm[0]=1;
 storm=0;
 storm_image=0;

@@ -601,6 +601,7 @@ if (did==1){
     }
 }
 
+
 x=px;
 y=py;
 
@@ -676,6 +677,9 @@ if (!instance_exists(obj_saveload)) and (instance_exists(obj_creation)) and (glo
 
 instance_activate_all();
 with(obj_creation){instance_destroy();}
+
+
+create_complex_star_routes();
 
 /* //135 testing crusade object
 instance_create(x,y,obj_crusade);

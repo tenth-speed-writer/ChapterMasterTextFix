@@ -125,8 +125,8 @@ function set_fleet_movement(){
 	    // mine.present_fleets-=1;
 	    
 	    
-	    if (mine.buddy=sys) then connected=1;
-	    if (sys.buddy=mine) then connected=1;
+	    if (mine.warp_lanes==sys) then connected=1;
+	    if (sys.warp_lanes==mine) then connected=1;
 	    
 	    cont=1;
 	    
@@ -208,7 +208,7 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true){
 	if (star1 && star2){
 		star1 = instance_nearest(xx,yy, obj_star);
 		star2 = instance_nearest(xxx,yyy, obj_star);
-		warp_lane = (star1.buddy==star2 || star2.buddy == star1);
+		warp_lane = (star1.warp_lanes==star2 || star2.warp_lanes == star1);
 	} else if (star1){
 		star1 = instance_nearest(xx,yy, obj_star);
 	}
@@ -329,8 +329,36 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 
 
 
+function create_complex_star_routes(){
+	var north=[], east=[], west=[], south=[];
+	with (obj_star){
+		if (x<300) then array_push(west, id);
+		if (y<300) then array_push(north, id);
+		if (x>room_width-300) then array_push(east, id);
+		if (y>room_height-300) then array_push(south, id);
+	}
+	full_loci = [north, east,west,south];
+	var current_start,set, join_set;
+	for (var i=0;i<array_length(full_loci);i++){
+		if (irandom(1)) then continue;
+		set = full_loci[i];
+		current_start = set[irandom(array_length(set)-1)];
+		for (var s=0;s<array_length(full_loci);s++){
+			if (s==i )then continue;
+			join_set = full_loci[s];
+			/*//if (irandom(1)) then continue;
+			for (var i=0;i<array_length(full_loci[s])i++){
+				//if !(irandom(2)) then
+			}*/
+			join_star = join_set[irandom(array_length(join_set)-1)];
+			array_push(current_start.warp_lanes, [join_star.name, 4]);
+		}
+	}
+}
 
-
+function determine_warp_join(){
+	
+}
 
 
 

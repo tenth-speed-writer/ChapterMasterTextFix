@@ -5,7 +5,7 @@ function ini_encode_and_json(ini_area, ini_code,value){
 }
 function scr_save(save_slot,save_id) {
 
-	var num, tot;
+	var num=0,tot=0;
 	num=0;tot=0;
 
 	num=instance_number(obj_star);
@@ -15,7 +15,8 @@ function scr_save(save_slot,save_id) {
 	// argument 0 = the part of the save to do
 	//save_id = the save ID
 
-	if (save_slot=1) or (save_slot=0){debugl("Saving to slot "+string(save_id));
+	if (save_slot=1) or (save_slot=0){
+		debugl("Saving to slot "+string(save_id));
 	    ini_open("save"+string(save_id)+".ini");
 	    // Global variables
 	    ini_write_string("Save","chapter_name",global.chapter_name);
@@ -342,6 +343,7 @@ function scr_save(save_slot,save_id) {
 	        ini_write_string("Star","sr"+string(i)+"star",instance_array[i].star);
 	        ini_write_real("Star","sr"+string(i)+"planets",instance_array[i].planets);
 	        ini_write_real("Star","sr"+string(i)+"owner",instance_array[i].owner);
+	        ini_encode_and_json("Star",$"sr{i}warp_lanes",instance_array[i].warp_lanes);
 
 	        ini_write_real("Star","sr"+string(i)+"x",instance_array[i].x);
 	        ini_write_real("Star","sr"+string(i)+"y",instance_array[i].y);

@@ -111,7 +111,7 @@ for(var i=1; i<=4; i++){
         p_eldar[i]=6;
         owner = eFACTION.Eldar;
         p_owner[1]=6;
-        buddy=0;
+        warp_lanes=[];
         x2=0;
     }
     // p_guardsmen[i]=0;
@@ -121,7 +121,7 @@ for(var i=1; i<=4; i++){p_guardsmen[i]=0;}
 
 var fleet, system_fleet=0,capital=0,frigate=0,escort=0;
 // Create Imperium Fleet
-if (owner == eFACTION.Imperium) or (owner == eFACTION.Ork) or (owner == eFACTION.Mechanicus){
+if (owner == eFACTION.Imperium || owner == eFACTION.Ork || owner == eFACTION.Mechanicus){
     for(var g=1; g<=4; g++){
         switch (p_type[g]) {
             case "Hive":

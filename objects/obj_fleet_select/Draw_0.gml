@@ -71,8 +71,8 @@ if (owner  = eFACTION.Player) and (instance_nearest(x,y,obj_p_fleet).action=""){
         act_dist=point_distance(x,y,sys.x,sys.y);
         
         var mine=instance_nearest(x,y,obj_star);
-        if (mine.buddy=sys) then connected=1;
-        if (sys.buddy=mine) then connected=1;
+        if (mine.warp_lanes=sys) then connected=1;
+        if (sys.warp_lanes=mine) then connected=1;
         
         var web=0;
         

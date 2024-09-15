@@ -39,7 +39,10 @@ if (action=""){
     fleet=id;
     sys=instance_nearest(action_x,action_y,obj_star);
     sys_dist=point_distance(action_x,action_y,sys.x,sys.y);
-    if (target!=0) and (instance_exists(target)) then target_dist=point_distance(x,y,target.action_x,target.action_y);
+    if (target!=0) and (instance_exists(target)){
+        target_dist=point_distance(x,y,target.action_x,target.action_y);
+    }
+    
     act_dist=point_distance(x,y,sys.x,sys.y);
     mine=instance_nearest(x,y,obj_star);
     
@@ -47,9 +50,7 @@ if (action=""){
     // if (owner = eFACTION.Tau) and (image_index!=1) then mine.tau_fleets-=1;
     // mine.present_fleets-=1;
     
-    
-    if (mine.buddy=sys) then connected=1;
-    if (sys.buddy=mine) then connected=1;
+    if (mine.warp_lanes=sys || sys.warp_lanes=mine) then connected=1;
     
     cont=1;
     
@@ -58,9 +59,8 @@ if (action=""){
         cont=20;
     }
     
-    
     if (cont=20){// Move the entire fleet, don't worry about the other crap
-        var eta;eta=0;
+        var eta=0;
         
         if (trade_goods!="") and (owner != eFACTION.Tyranids) and (owner != eFACTION.Chaos) and (string_count("Inqis",trade_goods)=0) and (string_count("merge",trade_goods)=0)and (string_count("_her",trade_goods)=0) and (trade_goods!="cancel_inspection") and (trade_goods!="return"){
             if (target!=0) and (instance_exists(target)){
@@ -68,7 +68,8 @@ if (action=""){
                     if (target_dist>sys_dist){
                         action_x=target.action_x;
                         action_y=target.action_y;
-                        sys=instance_nearest(action_x,action_y,obj_star);}
+                        sys=instance_nearest(action_x,action_y,obj_star);
+                    }
                 }
             }
         }        
