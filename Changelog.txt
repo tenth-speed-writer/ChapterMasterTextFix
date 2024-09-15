@@ -1,16 +1,25 @@
+Version  0.9.2.3
+
+Fixed:
+	- a crash occurring when ending turn (gml_Script_scr_enemy_ai_d)
+
+-----------------
 Version  0.9.2.2
 
+Fixed:
 	- crash the press t method of ending turn not being updated with modern sequence
 	- crash with colonists from spelling error
 	- missions will now trigger their end sequences
 
-
+-----------------
 Version  0.9.2.1
+
 Fixed:
 	- crash from attempting to build new ship
 	- incrementing not occurring on missions
 	- crash from requesting colonists on colonist arrival
 
+-----------------
 Version  0.9.2.0
 
 Fixed:
