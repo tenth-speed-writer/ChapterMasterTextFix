@@ -72,7 +72,7 @@ function set_new_player_fleet_course(target_array){
 	if (array_length(target_array)>0){
 		var target_planet = star_by_name(target_array[0]);
 		var nearest_planet = instance_nearest(x,y,obj_star);
-		var from_star = point_distance(nearest_planet.x,nearest_planet.y, x, y) <100;
+		var from_star = point_distance(nearest_planet.x,nearest_planet.y, x, y) <75;
 		var valid = target_planet!="none";
 		if (valid){
 			valid = !(target_planet.id == nearest_planet.id && from_star);
@@ -88,8 +88,8 @@ function set_new_player_fleet_course(target_array){
 			array_delete(target_array, 0, 1);
 		}
 		complex_route = target_array;
-		var from_x = from_star ? nearest_planet.x:x;
-		var from_y = from_star ? nearest_planet.y:y;
+		var from_x = from_star ? nearest_planet.x : x;
+		var from_y = from_star ? nearest_planet.y : y;
 		action_eta=calculate_fleet_eta(from_x,from_y,target_planet.x,target_planet.y, action_spd, from_star, true);
 		action_x = target_planet.x;
 		action_y = target_planet.y;
