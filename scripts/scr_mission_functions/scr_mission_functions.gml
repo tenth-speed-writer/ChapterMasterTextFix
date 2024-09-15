@@ -321,7 +321,7 @@ function problem_has_key_and_value(planet, problem,key,value="",star="none"){
 		}
 	} else {
 		with (star){
-			has_data= problem_has_key_and_value(planet, problem,key,value,star="none");
+			has_data = problem_has_key_and_value(planet, problem,key,value);
 		}
 	}
 	return 	has_data;
