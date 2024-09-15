@@ -432,10 +432,11 @@ function scr_enemy_ai_d() {
             }
         }
         var beast_hunt = has_problem_planet_and_time(i,"hunt_beast", 0);
-        if (garrison_mission>-1){
+        if (beast_hunt>-1){
             var planet = new PlanetData(i, self);
-            if (problem_has_key_and_value(i,beast_hunt,"stage","active"){
-
+            if (problem_has_key_and_value(i,beast_hunt,"stage","active")){
+                mission_string = "";
+                
                 scr_popup($"Agreed Garrison of {planet_numeral_name(i)} complete story line mission and rewards need work",mission_string,"","");
                
                 remove_planet_problem(i, "hunt_beast");
@@ -447,7 +448,7 @@ function scr_enemy_ai_d() {
 	    if ((p_tyranids[i]=3) or (p_tyranids[i]=4)) and (p_population[i]>0){
 	        if (!(has_problem_planet(i, "Hive Fleet"))){
 	            var roll, cont;
-	            roll=floor(random(100))+201;
+	            roll=irandom_range(100,300);
 	            cont=0;
         
             
