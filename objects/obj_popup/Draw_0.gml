@@ -46,27 +46,27 @@ if (type=99){
         draw_set_font(fnt_40k_14);
         draw_set_halign(fa_center);
         draw_set_color(c_gray);
-         draw_set_alpha(0.33);
+        draw_set_alpha(0.33);
         if (i==7) then continue;
         if (obj_controller.known[i]) then  draw_set_alpha(1);
         spacer =(iter*40);
         ch = obj_controller.disposition[i] > 0?"+":"-";
         if (obj_controller.known[i]>1){
-            draw_text(xx+740,yy+120+spacer,$"{scr_faction_string_name(i)} ({ch}{obj_controller.disposition[2]})");
-            draw_text(xx+740,yy+140+spacer,$"{obj_controller.faction_title[i]}");
+            draw_text(xx+740,yy+140+spacer,$"{scr_faction_string_name(i)} ({ch}{obj_controller.disposition[2]})");
+            // draw_text(xx+740,yy+140+spacer,$"{obj_controller.faction_title[i]}");
             iter++;
         } else {
             continue;
         }
-        draw_line(xx+239+420,yy+150+spacer,xx+398+420,yy+150+spacer);
+        draw_line(xx+239+420,yy+162+spacer,xx+398+420,yy+162+spacer);
         if (mouse_x>=xx+240+420) and (mouse_x<=xx+387+420){
-            if (mouse_y>=yy+121+spacer) and (mouse_y<=yy+149+spacer) and (obj_controller.known[i]>1){
+            if (mouse_y>=yy+131+spacer) and (mouse_y<=yy+159+spacer) and (obj_controller.known[i]>1){
                 if (i==eFACTION.Inquisition){
                     if ((inq_hide!=2) and (inq_hide==1)) then continue;
                 }
                 draw_set_alpha(0.33);
                 draw_set_color(c_gray);
-                draw_rectangle(xx+340+420,yy+121+spacer,xx+398+420,yy+149+spacer,0);
+                draw_rectangle(xx+240+420,yy+135+spacer,xx+398+420,yy+160+spacer,0);
                 if( mouse_check_button_pressed(mb_left)){
                     giveto=i;
                 }

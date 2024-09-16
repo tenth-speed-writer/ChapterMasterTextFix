@@ -68,6 +68,8 @@ function cancel_fleet_movement(){
     complex_route=[];
     just_left=false;
 }
+
+
 function set_new_player_fleet_course(target_array){
 	if (array_length(target_array)>0){
 		var target_planet = star_by_name(target_array[0]);

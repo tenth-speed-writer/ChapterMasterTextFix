@@ -2103,6 +2103,22 @@ global.gear = {
 				"artifact": 30 // Adjusted
 			}
 		},
+		"Combat Shield": {
+			"description": "A lighter, more maneuverable version of a Storm Shield. Due to its flexibility, Combat Shields leave other hand of a Space Marine free to use other hand-to-hand weaponry.",
+			"abbreviation": "CmbtShld",
+			"armour_value": {
+				"standard": 4,
+				"master_crafted": 6,
+				"artifact": 8
+			},
+			"weight": 3,
+			"tags": ["shield"],
+			"hp_mod": {
+				"standard": 10,
+				"master_crafted": 15,
+				"artifact": 20
+			},
+		},
 		"Plasma Bomb": {
 			"abbreviation": "PlBomb",
 			"special_properties": ["Structure Destroyer"],
@@ -2171,22 +2187,6 @@ global.gear = {
 			},
 			"tags": ["vehicle"],
 		},
-		"Combat Shield": {
-			"description": "A lighter, more maneuverable version of a Storm Shield. Due to its flexibility, Combat Shields leave other hand of a Space Marine free to use other hand-to-hand weaponry.",
-			"abbreviation": "CmbtShld",
-			"armour_value": {
-				"standard": 4,
-				"master_crafted": 6,
-				"artifact": 8
-			},
-			"weight": 3,
-			"tags": ["shield"],
-			"hp_mod": {
-				"standard": 10,
-				"master_crafted": 15,
-				"artifact": 20
-			},
-		},
 	},
 	"mobility": {
 		"Bike": {
@@ -2210,14 +2210,14 @@ global.gear = {
 			"abbreviation": "JmpPck",
 			"description": "A back-mounted device containing jets powerful enough to lift an Astartes in Power Armor over great distances. Utilizing these, Assault Marines bring devastation to the foe.",
 			"hp_mod": {
-				"standard": 5,
-				"master_crafted": 5,
-				"artifact": 5
+				"standard": 10,
+				"master_crafted": 15,
+				"artifact": 20
 			},
 			"damage_resistance_mod": {
-				"standard": 10,
-				"master_crafted": 10,
-				"artifact": 10
+				"standard": 20,
+				"master_crafted": 25,
+				"artifact": 30
 			},
 			"tags": ["jump"],
 		},
