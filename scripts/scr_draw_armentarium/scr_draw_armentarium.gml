@@ -302,7 +302,7 @@ function forge_queue_logic(){
                         quality_string="";
                         normal_count=0;
                         for (var s=0;s<forge_queue[i].count;s++){
-                            if (master_craft_chance && (irandom(100)<master_craft_chance) == 0){
+                            if (master_craft_chance && (irandom(100)<master_craft_chance)){
                                 master_craft_count++;
                             } else {
                                 normal_count++;
