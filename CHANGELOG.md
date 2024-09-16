@@ -1,252 +1,261 @@
-Version  0.9.2.4
-Fixed:
-	- planet sprites numbering fixed (planets will display correctly)
-	- stc gifting fixed
-	- fix and refactor lair construction window
-	- hopefully solved MC chance to work properly
-	- fixed crash when ship with artifact attempts ot join fleet
+# Change Log
+All notable changes to this project will be documented in this file.
 
-Changed:
-	- jump packs hp mod buffed by X2
-	- creation screen small rectangles under black squares remove
+----------------------------------
+## [example_version]
 
+### Added:
+- example list
+    - example nested list
 
-Version  0.9.2.3
+### Changed:
+- example list
+    - example nested list
 
-Fixed:
-	- a crash occurring when ending turn (gml_Script_scr_enemy_ai_d)
+### Fixed:
+- example list
+    - example nested list
+----------------------------------
 
------------------
-Version  0.9.2.2
+## [0.9.2.4]
 
-Fixed:
-	- crash the press t method of ending turn not being updated with modern sequence
-	- crash with colonists from spelling error
-	- missions will now trigger their end sequences
+### Changed:
+- jump packs hp and resistance mods buffed by X2
+- removed a black square from under the chapter icon on the creation screen
+- a brighter dark gray colour for chaos owned systems
 
------------------
-Version  0.9.2.1
+### Fixed:
+- planet sprites numbering fixed (planets will display correctly)
+- stc gifting fixed
+- fix and refactor lair construction window
+- hopefully solved MC chance to work properly
+- fixed crash when ship with artifact attempts ot join fleet
 
-Fixed:
-	- crash from attempting to build new ship
-	- incrementing not occurring on missions
-	- crash from requesting colonists on colonist arrival
+## [0.9.2.3]
 
------------------
-Version  0.9.2.0
+### Fixed:
+- a crash occurring when ending turn (gml_Script_scr_enemy_ai_d)
 
-Fixed:
-	- recruit trial being wrong on game start occasionally
-	- updating garrison log creating crashes due to vehicle arrays
-	- some recruit trials used to produced no recruits
-	- data leak from sprites causing game to randomly crash when doing lots of troop movement
-	- general reliability improvements with game memory usage
-	- hopefully fixed problem where faction sprites could occasionally corrupt making the main map a cluster fuck
-	- no longer able to attempt to zoom to terra to see training techs causing a crash
-	- marines on terra no longer selectable
+## [0.9.2.2]
 
-Changed:
-	- player will now get alerts when ship production ceases due to a lack of active forge worlds
-	- new cheat "artifactpopulate" adds a artifact to every planet
-	- promotion thresholds modified and reworked to be inline with equipment exp limits 
-	- general promotion improvements
+### Fixed:
+- crash the press t method of ending turn not being updated with modern sequence
+- crash with colonists from spelling error
+- missions will now trigger their end sequences
 
-	- decentralised much of company code so theoretically able to now have chapters with more than 10 companies (full implementation a long way off)
+## [0.9.2.1]
 
-	- lots of under the hood restructuring of fleets
+### Fixed:
+- crash from attempting to build new ship
+- incrementing not occurring on missions
+- crash from requesting colonists on colonist arrival
 
-added:
-	- from company manage
-		- tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
-		- M to go to next company
-		- N to previous
-		- Q,E,R,T,Y, to travel between the specialist manage areas from manage
-		- new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
-		- shift + keys in order to utilize load, set to boarders and other functions (tooltips provide keys)
+## [0.9.2.0]
 
-	- from map area
-		- alt F for fleet
-		- alt M for manage
-		- alt A for apothcarium
-		- alt F for fleet
-		- alt S for settings
-		- alt R for reclusiam
-		- alt L for librarium
-		- alt N for armamentarium
-		- alt T for recruiting
-		- alt D for diplomacy
-		- alt O for event log
-		- alt E for end turn
+### Fixed:
+- recruit trial being wrong on game start occasionally
+- updating garrison log creating crashes due to vehicle arrays
+- some recruit trials used to produced no recruits
+- data leak from sprites causing game to randomly crash when doing lots of troop movement
+- general reliability improvements with game memory usage
+- hopefully fixed problem where faction sprites could occasionally corrupt making the main map a cluster fuck
+- no longer able to attempt to zoom to terra to see training techs causing a crash
+- marines on terra no longer selectable
 
-	- new governor missions, complete missions for planetary governors to increase disposition or gain other rewards.
-		- bear in mind these are broad and varied and currently are mostly unimplemented but they are a slow route to giving governors their own personalities and creating a juxtoposition between population influence and governor dispositions.
-		- in time these will lead into much more politicking and small scale engagements but will require a writing team we currently don't have, if any story people are interested in helping please contact nelsonh on the cm discord.
+### Changed:
+- player will now get alerts when ship production ceases due to a lack of active forge worlds
+- new cheat "artifactpopulate" adds a artifact to every planet
+- promotion thresholds modified and reworked to be inline with equipment exp limits 
+- general promotion improvements
 
-	- added new chapter advantages:
-		- venerable ancients : increases start dreadnoughts but reduced chapter strength
+- decentralised much of company code so theoretically able to now have chapters with more than 10 companies (full implementation a long way off)
 
-	- ability to have a more in-depth view of population and it's influences (needs much extension and work)
-	- ability to spend req in order to fund colonisation attempts to increase populations or repopulate worlds from 0
-		- new colonists may bring with them genestealer cults, heretics or have greater good thinkings...
+- lots of under the hood restructuring of fleets
 
+### Added:
+- from company manage
+    - tooltips on numbers 1 through 0(10) to automatically jump to companies in the company view screen
+    - M to go to next company
+    - N to previous
+    - Q,E,R,T,Y, to travel between the specialist manage areas from manage
+    - new filter mode in spreadsheet manage view that allows the select buttons to be used to filter marines 
+    - shift + keys in order to utilize load, set to boarders and other functions (tooltips provide keys)
 
------------------------
-versions  0.9.1.1 - 0.9.1.12 bug fix and stability versions
------------------------
+- from map area
+    - alt F for fleet
+    - alt M for manage
+    - alt A for apothcarium
+    - alt F for fleet
+    - alt S for settings
+    - alt R for reclusiam
+    - alt L for librarium
+    - alt N for armamentarium
+    - alt T for recruiting
+    - alt D for diplomacy
+    - alt O for event log
+    - alt E for end turn
 
-Version  0.9.1.0
+- new governor missions, complete missions for planetary governors to increase disposition or gain other rewards.
+    - bear in mind these are broad and varied and currently are mostly unimplemented but they are a slow route to giving governors their own personalities and creating a juxtoposition between population influence and governor dispositions.
+    - in time these will lead into much more politicking and small scale engagements but will require a writing team we currently don't have, if any story people are interested in helping please contact nelsonh on the cm discord.
 
-Fixed:
-	- Certain Hirelings crashing the game when viewed
-	- STC armour bonus' not displaying
-	- item quality not always displaying
-	- forge worlds not returning to mechanicus if spawned with non mechanicus control
-	- more fixes to unit spawning
-		- techmarines shouls always return from mars
-		- scouts should always spawn in a logical and accessible location
-	- slaughter song now completable without crash
-	- inquisition purging now no longer breaks saves
-	- all loading screen images fixed
-	- tithe alerts now no longer break the rest of
-	- reordering management screen marines by stats so that player can see best marine with a given stat
-	- various sprite adjustments to fix alignment
-	- armour equip issues
-	- general stability improvements to management screens
-	- fixed inquisitor inspection and chase functions
-	- governor serf execution crash fix
-	- vehicle weapons fixed
-	- jump pack hammer of wrath fixed
+- added new chapter advantages:
+    - venerable ancients : increases start dreadnoughts but reduced chapter strength
 
-Changed:
-	- Overhaul of managing so that it is not directly linked to companies
-	- removal of lid variable in favour of unit.ship_location
-	- Complete overhaul of unit view in the manage area to be more cohesive
-		- new colour palette
-		- better ui to be more informative
-		- colours to represent item quality
-	- tooltips improved both visually and in terms of content
-	- Siege Masters trait doubles marine effectiveness at garrisoning
-	- garrison leader bonus for garrisoning doubled increased by 50%
-	- psyker abundance and psyker intolerant respectively increase and decrease psionic spawn levels
-	- jailing heretics now stops them corrupting even if in the same location as other marines
-	- remove planet tithe alerts
-	- press shift for 3 times map scroll
-	- complete overhaul of weapon descriptions
-	- biography descriptions tweaked
-	- item quality display now uses colour system
-	- weapons now have distinct hit rates balancing combat
-	- shader options for cloth
-	- colour improvements for many base chapters
-	- improved item sprites like iron halos
-	- optimised draw sequence for sprites
-	- gui code for fleet combat overhauled
-	- complete overhaul of mission problem text so we can start adding and creating new missions
-	- tech heretics won't now spawn and spread till after turn 70
+- ability to have a more in-depth view of population and it's influences (needs much extension and work)
+- ability to spend req in order to fund colonisation attempts to increase populations or repopulate worlds from 0
+    - new colonists may bring with them genestealer cults, heretics or have greater good thinkings...
 
+## [0.9.1.1-0.9.1.12] Bug fix and stability versions
 
-added:
-	- crozius sprite
-	- fleet viewer to quickly see fleets and zoom to fleet locations
-	- quick view event log locations by pressing view button
-	- quick view garrisons with new troop logger
-	- quick view missions with new mission logger
-	- manage marines by planet location instead of being locked to company manage screens
-	- stat boosts and new traits for spawn captains
-	- ability to demote/promote sgts with a loyalty hit to the demoted sgt
-	- genestealer cults actually exist hidden from player view so mechanic can now be expanded upon
-	- casualty descriptions now added to battle log flavour
-	- ability to reshuffle squad loadouts
-	- full set of dark angle and da successor sprites
-		- going forward hopefully all chapters will get the same treatment
-	- factions other than tau can now exert influence on a planet
-	- custom selection of sgt, vet_sgt and captain helmet options
-	- genestealer cults are now viewable planet features
-	- all planets now have an influence bar to show how much of the populace is influenced by various factions (to be expanded)
-	- 
+## [0.9.1.0]
 
+### Fixed:
+- Certain Hirelings crashing the game when viewed
+- STC armour bonus' not displaying
+- item quality not always displaying
+- forge worlds not returning to mechanicus if spawned with non mechanicus control
+- more fixes to unit spawning
+    - techmarines shouls always return from mars
+    - scouts should always spawn in a logical and accessible location
+- slaughter song now completable without crash
+- inquisition purging now no longer breaks saves
+- all loading screen images fixed
+- tithe alerts now no longer break the rest of
+- reordering management screen marines by stats so that player can see best marine with a given stat
+- various sprite adjustments to fix alignment
+- armour equip issues
+- general stability improvements to management screens
+- fixed inquisitor inspection and chase functions
+- governor serf execution crash fix
+- vehicle weapons fixed
+- jump pack hammer of wrath fixed
 
------------------
-Version 0.9.0.1
-Fixed:
-	- boarding and ship ammo limits fixed
-	- bulk stcs being added upon collection of one fixed
-	- perils of the warp crash resolved
-	- location id sometimes causing crash due to array being deleted
-	- stops the rapidly spiraling tech heresy numbers
-	- specific armour type artifacts now equipping properly
-	- potential crash when gifting chaos artifacts fixed
-	- fixes being able to assign to forge when marines not in location
-	- recruit spawning no longer spawning scouts in impossible locations fixed
-	- stops duplicating forge score from assigning to forge
-	- stops the tech heresy schism occuring when no loyal techs left
-	- hand full of other bug fixes from the bug reports
-	- completely rebuild ship and ground healing scripts so that all healing functions correctly
-	- stop crash from purchasing one of the manufactoring researches in the forge
-	- fixed command/ noraml marine logger so it's always accurate (sometime this means turn 1 changes the numbers this will be sorted later)
-	- reduced crashes from moving vehicles
-	- occaisonal crash when trying to promote sgts in squads with no members left
-	- orks no longer capable of defeating pdf on some planets fixed
-	- power spears causing an error
-	- stops duplicating by having no limit to forge assignment
-	- Fix champions deselecting working properly but not returning back if you select them on the drop screen.
-	- correct artifact saving
+### Changed:
+- Overhaul of managing so that it is not directly linked to companies
+- removal of lid variable in favour of unit.ship_location
+- Complete overhaul of unit view in the manage area to be more cohesive
+    - new colour palette
+    - better ui to be more informative
+    - colours to represent item quality
+- tooltips improved both visually and in terms of content
+- Siege Masters trait doubles marine effectiveness at garrisoning
+- garrison leader bonus for garrisoning doubled increased by 50%
+- psyker abundance and psyker intolerant respectively increase and decrease psionic spawn levels
+- jailing heretics now stops them corrupting even if in the same location as other marines
+- remove planet tithe alerts
+- press shift for 3 times map scroll
+- complete overhaul of weapon descriptions
+- biography descriptions tweaked
+- item quality display now uses colour system
+- weapons now have distinct hit rates balancing combat
+- shader options for cloth
+- colour improvements for many base chapters
+- improved item sprites like iron halos
+- optimised draw sequence for sprites
+- gui code for fleet combat overhauled
+- complete overhaul of mission problem text so we can start adding and creating new missions
+- tech heretics won't now spawn and spread till after turn 70
 
+### Added:
+- crozius sprite
+- fleet viewer to quickly see fleets and zoom to fleet locations
+- quick view event log locations by pressing view button
+- quick view garrisons with new troop logger
+- quick view missions with new mission logger
+- manage marines by planet location instead of being locked to company manage screens
+- stat boosts and new traits for spawn captains
+- ability to demote/promote sgts with a loyalty hit to the demoted sgt
+- genestealer cults actually exist hidden from player view so mechanic can now be expanded upon
+- casualty descriptions now added to battle log flavour
+- ability to reshuffle squad loadouts
+- full set of dark angle and da successor sprites
+    - going forward hopefully all chapters will get the same treatment
+- factions other than tau can now exert influence on a planet
+- custom selection of sgt, vet_sgt and captain helmet options
+- genestealer cults are now viewable planet features
+- all planets now have an influence bar to show how much of the populace is influenced by various factions (to be expanded)
 
-changed:
-	- increased camera move speed 
-	- made ork waagh spawn 100-300 turns in, instead of almost instantly
-	- increased starting planets to 100 (from 70)
-	- gives forgemaster a built in forge point boost
-	- reduces tech heretic spawn numbers
-	- makes tech heresy more slow burn
-	- tech corruption is capped so a tech cannot make another tech more corrupt than he is himself again stopping run away numbers
-	- total corruption capped to 100 as originally intended
-	- moves forge resource marker to the center top of screen so announcements are visible
-	- brings mass equip inline with new artifact system	
-	- intergrate forge points into main rescource bar (etty)
-	- lots more ui tweaks by etty
-	- more tooltip improvements (etty)
-	- new textures for rack and pinion button
-	- chapter management screen overhaul
-	- additions of sgts and vet sgts to chapter manage screen lists
-	- stop spill over on the shop screen
-	- add pages and generally overhaul shop ui
-	- balancing of previous garrison numbers
-	- minor revamp of planet screen
-	- tetures for rack and pinion forge button
-	- crafters trait on marines now improves the forge point output of a marine when assigned to a forge much more
-	- minotaurs and black templar chapters better fleshed out including custom artifacts
-	- all sprites now properly aligned
-	- tooltips majorly improved so that players get a better understanding of backend damage calculations
-	- tooltips get a dataslate like ui skin
-	- improved trial descriptions
-	- the display of special properties of weapons improved
-	- Rework how possible promotion and critical health are displayed. Promotions recolor XP value, critical health recolors HP value.
-	- Added tooltips to these values, when there is an active interaction.	
-	- Rework how potential is displayed
+## [0.9.0.1]
 
-added:
-	- new dreadnought sprites to represent more weapons
-	- new backpack sprites
-	- bionics will now automatically be applied if marine health is below 0 and bionics are in stock and there is an apothecary and the techmarine present
-	- cheat to finish forge queue instantly "finishforge"
-	- cheat to spawn slaughtersong ship "slaughtersong" (location will appear in event log)
-	- cheat to start tech uprising prematurely "techuprising"
-	- cheat to launch crusade event "crusade" (location will appear in event log)
-	- cheat to instantly awaken a necron tomb "tomb"
-	- A new script to replace characters that get beyond a set string width with "...".
-	- new force weapon selection (force axe force sword and force staff) each weapon gives a different bonus to phychic attacks or are more focussed to melee force work
-	- new modifier  to calculate force weapons attack based of psionic rating, intelligence and expereince
-	- improved garrison screen 
-	- having a garrison present allows player to see the relevant defence score of the local pdf
-	- having a garrison present modifies dispostition with the planet based on teh squad leaders charisma (further modifiers to be expanded upon)
-	- power spears added to shop
-	- The crozius now added to game (awaiting sprite asset)
------------------
-Version 0.9000
+### Fixed:
+- boarding and ship ammo limits fixed
+- bulk stcs being added upon collection of one fixed
+- perils of the warp crash resolved
+- location id sometimes causing crash due to array being deleted
+- stops the rapidly spiralling tech heresy numbers
+- specific armour type artifacts now equipping properly
+- potential crash when gifting chaos artifacts fixed
+- fixes being able to assign to forge when marines not in location
+- recruit spawning no longer spawning scouts in impossible locations fixed
+- stops duplicating forge score from assigning to forge
+- stops the tech heresy schism occurring when no loyal techs left
+- hand full of other bug fixes from the bug reports
+- completely rebuild ship and ground healing scripts so that all healing functions correctly
+- stop crash from purchasing one of the manufacturing researches in the forge
+- fixed command/ normal marine logger so it's always accurate (sometime this means turn 1 changes the numbers this will be sorted later)
+- reduced crashes from moving vehicles
+- occasional crash when trying to promote sgts in squads with no members left
+- orks no longer capable of defeating pdf on some planets fixed
+- power spears causing an error
+- stops duplicating by having no limit to forge assignment
+- Fix champions deselecting working properly but not returning back if you select them on the drop screen.
+- correct artifact saving
 
-Added:
+### Changed:
+- increased camera move speed 
+- made ork waagh spawn 100-300 turns in, instead of almost instantly
+- increased starting planets to 100 (from 70)
+- gives forgemaster a built in forge point boost
+- reduces tech heretic spawn numbers
+- makes tech heresy more slow burn
+- tech corruption is capped so a tech cannot make another tech more corrupt than he is himself again stopping run away numbers
+- total corruption capped to 100 as originally intended
+- moves forge resource marker to the center top of screen so announcements are visible
+- brings mass equip inline with new artifact system	
+- integrate forge points into main resource bar (etty)
+- lots more ui tweaks by etty
+- more tooltip improvements (etty)
+- new textures for rack and pinion button
+- chapter management screen overhaul
+- additions of sgts and vet sgts to chapter manage screen lists
+- stop spill over on the shop screen
+- add pages and generally overhaul shop ui
+- balancing of previous garrison numbers
+- minor revamp of planet screen
+- tetures for rack and pinion forge button
+- crafters trait on marines now improves the forge point output of a marine when assigned to a forge much more
+- minotaurs and black templar chapters better fleshed out including custom artifacts
+- all sprites now properly aligned
+- tooltips majorly improved so that players get a better understanding of backend damage calculations
+- tooltips get a dataslate like ui skin
+- improved trial descriptions
+- the display of special properties of weapons improved
+- Rework how possible promotion and critical health are displayed. Promotions recolour XP value, critical health recolour HP value.
+- Added tooltips to these values, when there is an active interaction.	
+- Rework how potential is displayed
 
+### Added:
+- new dreadnought sprites to represent more weapons
+- new backpack sprites
+- bionics will now automatically be applied if marine health is below 0 and bionics are in stock and there is an apothecary and the techmarine present
+- cheat to finish forge queue instantly "finishforge"
+- cheat to spawn slaughtersong ship "slaughtersong" (location will appear in event log)
+- cheat to start tech uprising prematurely "techuprising"
+- cheat to launch crusade event "crusade" (location will appear in event log)
+- cheat to instantly awaken a necron tomb "tomb"
+- A new script to replace characters that get beyond a set string width with "...".
+- new force weapon selection (force axe force sword and force staff) each weapon gives a different bonus to psychic attacks or are more focussed to melee force work
+- new modifier  to calculate force weapons attack based of psionic rating, intelligence and experience
+- improved garrison screen 
+- having a garrison present allows player to see the relevant defence score of the local pdf
+- having a garrison present modifies disposition with the planet based on teh squad leaders charisma (further modifiers to be expanded upon)
+- power spears added to shop
+- The crozius now added to game (awaiting sprite asset)
+
+## [0.9000]
+
+### Added:
 - companies now require command squads, which are automatically created (this also means that building a company from scratch will also automatically setup squads)
 - moving all units of a squad will also move the squad
 - squads are now automatically restocked with new recruits as needed
@@ -264,27 +273,22 @@ Added:
 - crusading marines will now get their heroic deeds logged, including tracking of new traits for maines
 - new equipment: Heavy Weapons Pack
 - new choices for Chaos Emissary's Khorne path (which includes a brand new trait for marines)
-
 - tehcmarines now undergoes stc research very slowly and passively
 - New Rescource : Forge Points
 	- All techmarines now yield a tech score each turn
 	- items can be queued at the forge for manufactoring by techmarines
 	- manufactoring research to determine what items can be built with forge points (sperate from the stc system)
-
 - techmarines can now become tech heretics and start to corrupt other tech based units
 - tech uprising schisms can occur if the player has too many tehcmarines with differing views
 - new forge master selection system
-
 - ability to filter units by stats by clicking on stat icons in the company manage screens
-
 - enhanced feature view on planets
 	- planet features now provide clues as to what a player should do
 	- contruction of forges on fortress monestaries and secret bases
 	- assignment of techmarines to forges to increase forge point yield
 	- techmarines assigned to the forge slowly increase their tech scores
 
-Changed:
-
+### Changed:
 - sector map UI rework
 - marine traits now effect which weapons they are suited to in a few instances (gain bonus's from use)
 - stcs will no longer allow the buying of new items only the construction of new items in the forge
@@ -312,8 +316,7 @@ Changed:
 - new ui designs
 - many other changes
 
-Fixed:
-
+### Fixed:
 - fixed fleet select screen so player can now select or deselect all of a fleet
 - slaughtersong event should now work correctly
 - Blood Trial will no longer waste gene-seed if recruitment is halted
@@ -340,7 +343,8 @@ Fixed:
 - many other fixes
 
 
-Version 0.8.1.1
+
+## [0.8.1.1]
 
 This version is purely fixing bugs, especially ones that crashed to desktop
 
