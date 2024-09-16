@@ -257,7 +257,7 @@ if (slide>=2){
     }
     
     draw_set_color(0);
-    draw_rectangle(436,74,436+128,74+128,0);
+    // draw_rectangle(436,74,436+128,74+128,0);
     // if (icon<=20) then draw_sprite_stretched(spr_icon,icon,436,74,128,128);
     if (icon<=20) then scr_image("creation",icon,436,74,128,128);
     if (icon>20) then draw_sprite_stretched(spr_icon_chapters,icon-19,436,74,128,128);
