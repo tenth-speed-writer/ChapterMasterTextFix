@@ -19,108 +19,63 @@ function scr_ui_popup() {
 	    if (planet_feature_bool(planet_upgrades, P_features.Arsenal)==1){arsenal=1}
 	    if (planet_feature_bool(planet_upgrades, P_features.Gene_Vault)==1){gene_vault=1}
 	    un_upgraded = gene_vault+arsenal+s_base;
-	    if (obj_temp_build.isnew==1){
-	        title="Secret Lair ("+string(obj_temp_build.target.name)+" "+scr_roman(obj_temp_build.planet)+")";
-	        draw_text_transformed(xx+312-64,yy+10,string_hash_to_newline(title),0.7,0.7,0);
-        
-	        draw_set_font(fnt_40k_14b);
-	        draw_text(xx+312,yy+45,string_hash_to_newline("Select a Secret Lair style."));
-	        draw_set_halign(fa_left);
-        
-	        var r=0,wob="",word="";
-	        for (r=1;r<10;r++){
-		        switch(wob){
-		        	case "Barbarian":
-		        		word="Heavy on leather, hides, and trophy body parts.";
-		        		tag="BRB";
-		        		break;
-		        	case "Disco":
-		        		word="Rainbow colored dance floor and steel rafters.";
-		        		tag="DIS";
-		        		break;
-		        	case "Feudal":
-		        		word="Lots of stone, metal filigree, and statues.";
-		        		tag="FEU";
-		        		break;	 
-		        	case "Gothic":
-		        		word="Heavy on leather, hides, and trophy body parts.";
-		        		tag="GTH";
-		        		break;
-		        	case "Mechanicus":
-		        		word="Grates, tubes, gears, and augmented reality.";
-		        		tag="MCH";
-		        		break;	 
-		        	case "Prospero":
-		        		word="Marble or standstone surfaces and gold filigree.";
-		        		tag="PRS";
-		        		break;
-		        	case "Rave Club":
-		        		word="Large, open area with neon or strobe lights.";
-		        		tag="RAV";
-		        		break;
-		        	case "Steel":
-		        		word="Stainless steel surfaces and water fountains.";
-		        		tag="STL";
-		        		break;
-		        	case "Utilitarian":
-		        		word="Plaster or concrete surfaces with carpeting.";
-		        		tag="UTL"
-		        		break;	        			        			        			        		       			        		       			        		
-		        }
-            
-	            draw_set_color(c_gray);draw_rectangle(xx+21,yy+38+(r*30),xx+600,yy+56+(r*30),0);
-	            if (scr_hit(xx+21,yy+38+(r*30),xx+600,yy+56+(r*30))=true){
-	                draw_set_color(c_black);
-	                draw_set_alpha(0.2);
-	                draw_rectangle(xx+21,yy+38+(r*30),xx+600,yy+56+(r*30),0);draw_set_alpha(1);
-                
-	                if (obj_controller.mouse_left=1) and (obj_controller.cooldown<=0){
-	                    obj_controller.cooldown=8000;var tag="";
-						switch (r) {
-						    case 1:
-						        tag = "BRB";
-						        break;
-						    case 2:
-						        tag = "DIS";
-						        break;
-						    case 3:
-						        tag = "FEU";
-						        break;
-						    case 4:
-						        tag = "GTH";
-						        break;
-						    case 5:
-						        tag = "MCH";
-						        break;
-						    case 6:
-						        tag = "PRS";
-						        break;
-						    case 7:
-						        tag = "RAV";
-						        break;
-						    case 8:
-						        tag = "STL";
-						        break;
-						    case 9:
-						        tag = "UTL";
-						        break;
-						    default:
-						        break;
-						}
-						var base_options = {style:tag};
-	                    obj_temp_build.isnew=0;
+		if (obj_temp_build.isnew == 1) {
+			title = "Secret Lair (" + string(obj_temp_build.target.name) + " " + scr_roman(obj_temp_build.planet) + ")";
+			draw_text_transformed(xx + 312, yy + 10, string_hash_to_newline(title), 0.7, 0.7, 0);
+		
+			draw_set_font(fnt_40k_14b);
+			draw_text(xx + 312, yy + 45, string_hash_to_newline("Select a Secret Lair style."));
+			draw_set_halign(fa_left);
+		
+			var styles = [
+				{name: "Barbarian", description: "Heavy on leather, hides, and trophy body parts.", tag: "BRB"},
+				{name: "Disco", description: "Rainbow colored dance floor and steel rafters.", tag: "DIS"},
+				{name: "Feudal", description: "Lots of stone, metal filigree, and statues.", tag: "FEU"},
+				{name: "Gothic", description: "Heavy on leather, hides, and trophy body parts.", tag: "GTH"},
+				{name: "Mechanicus", description: "Grates, tubes, gears, and augmented reality.", tag: "MCH"},
+				{name: "Prospero", description: "Marble or sandstone surfaces and gold filigree.", tag: "PRS"},
+				{name: "Rave Club", description: "Large, open area with neon or strobe lights.", tag: "RAV"},
+				{name: "Steel", description: "Stainless steel surfaces and water fountains.", tag: "STL"},
+				{name: "Utilitarian", description: "Plaster or concrete surfaces with carpeting.", tag: "UTL"}
+			];
+		
+			var base_x1 = xx + 21;
+			var base_x2 = base_x1 + 579;
+			var base_y1 = yy + 88;
+			var base_y2 = base_y1 + 18;
+			var text_x1 = base_x1 + 2;
+			var text_x2 = text_x1 + 100;
+		
+			for (var r = 0; r < array_length(styles); r++) {
+				var style = styles[r];
+				var y_offset = r * 30;
+		
+				draw_set_color(c_gray);
+				draw_rectangle(base_x1, base_y1 + y_offset, base_x2, base_y2 + y_offset, 0);
+		
+				if (scr_hit(base_x1, base_y1 + y_offset, base_x2, base_y2 + y_offset) == true) {
+					draw_set_color(c_black);
+					draw_set_alpha(0.2);
+					draw_rectangle(base_x1, base_y1 + y_offset, base_x2, base_y2 + y_offset, 0);
+					draw_set_alpha(1);
+		
+					if (obj_controller.mouse_left == 1 && obj_controller.cooldown <= 0) {
+						obj_controller.cooldown = 8000;
+						var base_options = {style: style.tag};
+						obj_temp_build.isnew = 0;
 						array_push(planet_upgrades, new new_planet_feature(P_features.Secret_Base, base_options));
-	                }
-	            }
-	            draw_set_color(0);
-	            draw_set_font(fnt_40k_14b);
-	            draw_text_transformed(xx+23,yy+40+(r*30),string_hash_to_newline(string(wob)),1,0.8,0);
-	            draw_set_font(fnt_40k_14);
-	            draw_text_transformed(xx+121,yy+40+(r*30),string_hash_to_newline(string(word)),1,0.8,0);
-	        }
-	    }
+					}
+				}
+		
+				draw_set_color(c_black);
+				draw_set_font(fnt_40k_14b);
+				draw_text_transformed(text_x1, base_y1 + 2 + y_offset, string_hash_to_newline(style.name), 1, 0.8, 0);
+				draw_set_font(fnt_40k_14);
+				draw_text_transformed(text_x2, base_y1 + 2 + y_offset, string_hash_to_newline(style.description), 1, 0.8, 0);
+			}
+		}
+		
 
-    
 
 	    if (un_upgraded==0){
 	    	title="Build ("+string(obj_temp_build.target.name)+" "+scr_roman(obj_temp_build.planet)+")";
