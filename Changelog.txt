@@ -3,6 +3,8 @@ Fixed:
 	- planet sprites numbering fixed (planets will display correctly)
 	- stc gifting fixed
 	- fix and refactor lair construction window
+	- hopefully solved MC chance to work properly
+	- fixed crash when ship with artifact attempts ot join fleet
 
 Changed:
 	- jump packs hp mod buffed by X2

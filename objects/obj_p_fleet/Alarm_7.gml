@@ -21,8 +21,8 @@ if (good>0){
     for (var a=0;a<array_length(obj_ini.artifact);a++){
         if (obj_ini.artifact[a]=="") then continue;
         if (array_contains(ships_list, obj_ini.artifact_sid[a]-500)){
-            obj_ini.artifact_sid[a]=good+500;
-            obj_ini.artifact_loc[a]=obj_ini.ship[good];       
+            obj_ini.artifact_sid[a]=c+500;
+            obj_ini.artifact_loc[a]=obj_ini.ship[c];       
         }
     }
 }
