@@ -17,9 +17,8 @@ if (is_test_map==true){
 
 var xx =__view_get( e__VW.XView, 0 );
 var yy =__view_get( e__VW.YView, 0 );
-depth=100;
-draw_warp_lanes();
-depth=-1000;
+
+
 try{
     script_execute(scr_ui_manage,0,0,0,0,0);
 } catch(_exception){

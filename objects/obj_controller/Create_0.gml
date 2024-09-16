@@ -410,6 +410,8 @@ menu_buttons = {
     "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
 
 }
+
+instance_create(x,y, obj_planet_map);
 new_button_highlight="";
 // new_button_highlighting=0;
 new_buttons_hide=0;

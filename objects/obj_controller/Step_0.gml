@@ -29,6 +29,7 @@ if (fest_scheduled==0) and (fest_sid+fest_wid>0) and (menu!=12.1){
     fest_honor_id=0;
     fest_attend="";
 }
+
 if (menu!=24) and (formating>0) then formating=0;
 
 if (instance_exists(obj_formation_bar)) and ((menu!=24) or (formating<=0)){
@@ -728,3 +729,4 @@ if (managing>0) and (man_size==0) and ((selecting_location!="") or (selecting_ty
 }
 
 if (marines<=0) and (alarm[7]=-1) and (!instance_exists(obj_fleet_controller)) and (!instance_exists(obj_ncombat)) then alarm[7]=15;
+

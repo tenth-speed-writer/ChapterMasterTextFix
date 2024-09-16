@@ -5,7 +5,7 @@ loading=0;
 loading_name="";
 alarm[0]=1;
 debug=0;
-
+depth=0;
 guard=0;
 pdf=0;
 fortification=0;

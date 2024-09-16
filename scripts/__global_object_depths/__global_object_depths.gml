@@ -71,7 +71,7 @@ function __global_object_depths() {
 	global.__objectDepths[63] = -7273799; // obj_fade
 	global.__objectDepths[64] = -5; // obj_defeat
 	global.__objectDepths[65] = 0; // obj_ini
-	global.__objectDepths[66] = -1000; // obj_controller
+	global.__objectDepths[66] = -21; // obj_controller
 	global.__objectDepths[67] = -1001; // obj_mass_equip
 	global.__objectDepths[68] = -999; // obj_turn_end
 	global.__objectDepths[69] = -19990; // obj_saveload

@@ -16,6 +16,20 @@ All notable changes to this project will be documented in this file.
 - example list
     - example nested list
 ----------------------------------
+## [0.9.3.0]
+
+### Changed:
+- warp lane travel drawing abstracted to it's own layer
+- warp lane widths now expand to be more visible when zoomed
+
+### Fixed:
+- travelling without waypoints while pressing shift now fixed
+
+### Added:
+- New warp hub planets
+    - new graded warp travel routes
+
+- ability to cancel warp travel within the same turn you commanded fleet to travel
 
 ## [0.9.2.4]
 

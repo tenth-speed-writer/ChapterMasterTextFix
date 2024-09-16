@@ -34,7 +34,8 @@ if (obj_controller.selecting_planet>0){
 if (action!=""){
     draw_set_halign(fa_left);draw_set_alpha(1);
     draw_set_color(c_white);
-    draw_line_width(x,y,action_x,action_y,1);
+    var line_width = zoomed ? 6:1;
+    draw_line_width(x,y,action_x,action_y,line_width);
     // 
     draw_set_font(fnt_40k_14b);
     if (obj_controller.zoomed=0) then draw_text_transformed(x+12,y,string_hash_to_newline("ETA "+string(action_eta)),1,1,0);
@@ -45,7 +46,7 @@ if (action!=""){
             var target_loc = star_by_name(complex_route[i]);
             draw_set_color(c_blue);
             draw_set_alpha(1);            
-            draw_line_dashed(next_loc.x,next_loc.y,target_loc.x,target_loc.y,16,0.5);
+            draw_line_dashed(next_loc.x,next_loc.y,target_loc.x,target_loc.y,16,line_width);
             next_loc = star_by_name(complex_route[i]);
         }
     }

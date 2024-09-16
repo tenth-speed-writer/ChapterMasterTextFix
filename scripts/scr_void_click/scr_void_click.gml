@@ -1,6 +1,6 @@
 function scr_void_click() {
 
-	var good;good=true;
+	var good=true;
 	var xx,yy;xx=__view_get( e__VW.XView, 0 )+0;yy=__view_get( e__VW.YView, 0 )+0;
 
 	if (obj_controller.cooldown>0) then good=false;

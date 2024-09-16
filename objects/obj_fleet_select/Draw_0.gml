@@ -46,14 +46,16 @@ draw_set_halign(fa_left);
 // Order here
 var player_fleet = instance_nearest(x,y,obj_p_fleet);
 if (player_fleet.just_left){
-    if point_and_click(draw_unit_buttons([player_fleet.x+20, player_fleet.y-10], "X",[1,1], c_red,, fnt_40k_30b, 1)){
+    var cancel_button= draw_unit_buttons([player_fleet.x+20, player_fleet.y-10], "X",[1,1], c_red,, fnt_40k_30b, 1);
+    obj_fleet_select.currently_entered = true;
+    if (point_and_click(cancel_button)){
         with (player_fleet){
             cancel_fleet_movement();
         }
     }
 }
 
-if (owner  = eFACTION.Player) and (player_fleet.action=""){
+if (owner  == eFACTION.Player) and (player_fleet.action==""){
     var free=1,z=obj_fleet_select;
     var xx = __view_get( e__VW.XView, 0 );
     var yy = __view_get( e__VW.YView, 0 );
@@ -156,7 +158,7 @@ if (owner  = eFACTION.Player) and (player_fleet.action=""){
                         move_fleet = split_selected_into_new_fleet(player_fleet);
                     }
                     if (keyboard_check(vk_shift)){
-                        final_course = [sys];
+                        final_course = [sys.name];
                     } else {
                         var final_course = star_travel.final_array_path();
                     }
