@@ -366,4 +366,70 @@ function PlanetData(planet, system) constructor{
 //		array_push(player_fleets,id);
 //	}
 //	return player_fleets;
+
+
 //}
+function draw_warp_lanes(){
+	static routes = [];
+	if (array_length(routes)==0){
+		var star_degrade_list = [];
+		var total_stars = instance_number(obj_star);
+		var cur_star,this_star,connection,i, check_star;
+		for (i = 0; i < total_stars; i++){
+			array_push(star_degrade_list, i);
+		}
+		for (i = 0; i < total_stars; i++){
+		    cur_star = instance_find(obj_star,star_degrade_list[i]);
+		    var this_star = cur_star.id;
+			var in_view = true;
+
+		   	//var in_view = in_camera_view(star_box_shape(this_star));
+		   	//if (!in_view) then  in_view = zoomed;
+		    if (array_length(cur_star.warp_lanes)>0){
+	    	    for (var s = 0; s < total_stars; s++){
+	    	    	if (s==i) then continue
+	    	    	check_star = instance_find(obj_star,star_degrade_list[s]);
+	    	    	//if (!in_view && !in_camera_view(star_box_shape(check_star))) then continue;
+	    	    	connection = determine_warp_join(check_star.id, this_star);
+	    	    	if (connection){
+	    	    		array_push(routes, [[check_star.x,check_star.y,this_star.x,this_star.y],connection]);
+	    		    }
+	    	    }
+	    	}
+		    array_delete(star_degrade_list, i,1);
+		    total_stars--;
+		    i--;
+		}
+	}
+	var route;
+	for (var i = 0;i<array_length(routes);i++){
+		draw_set_color(c_gray);
+		route = routes[i];
+		if (route[1]==4) then draw_set_color(c_yellow);
+		var route_coords = route[0];
+		for (var s=0;s<route[1];s++){
+			draw_line(route_coords[0]+(s),route_coords[1]+(s),route_coords[2]+(s),route_coords[3]+(s));
+		}
+	}
+}
+
+
+
+function star_box_shape(star="none"){
+	if (star=="none"){
+		return [x-60, y+5, x+60 , y-40];
+	} else {
+		with (star){
+			return [x-60, y+5, x+60 , y-40];
+		}
+	}
+}
+function in_camera_view(rect){
+	var cam = view_get_camera(view_current);
+	var x1 = camera_get_view_x(cam);
+	var y1 = camera_get_view_y(cam);
+	var w = x1 + camera_get_view_width(view_current);
+	var h = y1 + camera_get_view_height(view_current);
+	return rectangle_in_rectangle(rect[0],rect[1],rect[2],rect[3], x1, y1, w, h);
+}
+

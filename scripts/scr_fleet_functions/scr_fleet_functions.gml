@@ -124,10 +124,7 @@ function set_fleet_movement(){
 	    // if (owner = eFACTION.Tau) and (image_index!=1) then mine.tau_fleets-=1;
 	    // mine.present_fleets-=1;
 	    
-	    
-	    if (mine.warp_lanes==sys) then connected=1;
-	    if (sys.warp_lanes==mine) then connected=1;
-	    
+	    connected = determine_warp_join(sys, mine);
 	    cont=1;
 	    
 	    
@@ -208,12 +205,13 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true){
 	if (star1 && star2){
 		star1 = instance_nearest(xx,yy, obj_star);
 		star2 = instance_nearest(xxx,yyy, obj_star);
-		warp_lane = (star1.warp_lanes==star2 || star2.warp_lanes == star1);
+		warp_lane = determine_warp_join(star1.id,star2.id);
 	} else if (star1){
 		star1 = instance_nearest(xx,yy, obj_star);
 	}
 	eta=floor(point_distance(xx,yy,xxx,yyy)/fleet_speed)+1;
 	if (!warp_lane) then eta*=2;
+	if (warp_lane) then eta = ceil(eta/warp_lane);
 	if (instance_exists(star2)){
 		if (star2.storm){
 			eta += 10000;
@@ -330,34 +328,69 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 
 
 function create_complex_star_routes(){
-	var north=[], east=[], west=[], south=[];
+	var north=[], east=[], west=[], south=[], central=[];
 	with (obj_star){
-		if (x<300) then array_push(west, id);
-		if (y<300) then array_push(north, id);
-		if (x>room_width-300) then array_push(east, id);
-		if (y>room_height-300) then array_push(south, id);
+		if (x<700) then array_push(west, id);
+		if (y<700) then array_push(north, id);
+		if (x>room_width-700) then array_push(east, id);
+		if (y>room_height-700) then array_push(south, id);
+		if (x>700) && (y>700) && (x<room_width-700) && (x<room_width-700){
+			array_push(central, id);
+		}
+		if (irandom(10)){
+			var nearest_star = distance_removed_star(x,y,1,true,true,false);
+			if (determine_warp_join(nearest_star.id, self.id)){
+				array_push(warp_lanes, [distance_removed_star(x,y,2,true,true,false).name, 1]);
+			} else {
+				array_push(warp_lanes, [nearest_star.name, 1]);
+			}
+		} else {
+			array_push(warp_lanes, [distance_removed_star(x,y,irandom_range(3, 6),true,true,false).name, 1]);
+		}
 	}
-	full_loci = [north, east,west,south];
-	var current_start,set, join_set;
+	full_loci = [north, east,west,south,central];
+	var current_start,set, join_set, total_joins;
 	for (var i=0;i<array_length(full_loci);i++){
 		if (irandom(1)) then continue;
 		set = full_loci[i];
+		if (array_length(set) == 0) then continue;
 		current_start = set[irandom(array_length(set)-1)];
+		total_joins =0;
 		for (var s=0;s<array_length(full_loci);s++){
-			if (s==i )then continue;
+			if (!irandom(1)) then continue;
 			join_set = full_loci[s];
+			var set_count = array_length(join_set);
+			if (s==i || set_count == 0)then continue;
 			/*//if (irandom(1)) then continue;
 			for (var i=0;i<array_length(full_loci[s])i++){
 				//if !(irandom(2)) then
 			}*/
-			join_star = join_set[irandom(array_length(join_set)-1)];
+			join_star = join_set[irandom(set_count-1)];
 			array_push(current_start.warp_lanes, [join_star.name, 4]);
+			total_joins++;
+			if (total_joins>3) then break;
 		}
 	}
 }
 
-function determine_warp_join(){
-	
+function determine_warp_join(star_a, star_b){
+	var lane;
+	var lane_strength = 0;
+	for (var i=0;i<array_length(star_a.warp_lanes);i++){
+		lane = star_a.warp_lanes[i];
+		if (lane[0] == star_b.name){
+			lane_strength = lane[1];
+		}
+	}
+	if (lane_strength==0){
+		for (var i=0;i<array_length(star_b.warp_lanes);i++){
+			lane = star_b.warp_lanes[i];
+			if (lane[0] == star_a.name){
+				lane_strength = lane[1];
+			}
+		}		
+	}
+	return lane_strength;
 }
 
 

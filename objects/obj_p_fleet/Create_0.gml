@@ -17,19 +17,28 @@ if (instance_exists(wop)) and (y>0) and (x>0){
 
 image_xscale=1.25;image_yscale=1.25;
 
-var i;i=-1;
+var i=-1;
 repeat(50){i+=1;
-    capital[i]="";capital_num[i]=0;capital_sel[i]=1;capital_uid[i]=0;
+    capital[i]="";
+    capital_num[i]=0;
+    capital_sel[i]=1;
+    capital_uid[i]=0;
 }
 
-var i;i=-1;
+i=-1;
 repeat(100){i+=1;
-    frigate[i]="";frigate_num[i]=0;frigate_sel[i]=1;frigate_uid[i]=0;
+    frigate[i]="";
+    frigate_num[i]=0;
+    frigate_sel[i]=1;
+    frigate_uid[i]=0;
 }
 
-var i;i=-1;
+i=-1;
 repeat(100){i+=1;
-    escort[i]="";escort_num[i]=0;escort_sel[i]=1;escort_uid[i]=0;
+    escort[i]="";
+    escort_num[i]=0;
+    escort_sel[i]=1;
+    escort_uid[i]=0;
 }
 
 image_speed=0;

@@ -49,9 +49,8 @@ if (action=""){
     // if (owner = eFACTION.Tau) then mine.tau_fleets-=1;
     // if (owner = eFACTION.Tau) and (image_index!=1) then mine.tau_fleets-=1;
     // mine.present_fleets-=1;
-    
-    if (mine.warp_lanes=sys || sys.warp_lanes=mine) then connected=1;
-    
+
+    connected = determine_warp_join(mine, sys);
     cont=1;
     
     

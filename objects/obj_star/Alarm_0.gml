@@ -8,7 +8,6 @@ if (obj_controller.craftworld==0) and (space_hulk==0){
     test=instance_nearest(oldx+choose(random(200),1*-random(200)),oldy+choose(random(200),1*-random(200)),obj_star);
     x2=test.x;
     y2=test.y;
-    array_push(warp_lanes,test.name);
     x=oldx;
     y=oldy;
 }
