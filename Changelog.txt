@@ -1,3 +1,14 @@
+Version  0.9.2.4
+Fixed:
+	- planet sprites numbering fixed (planets will display correctly)
+	- stc gifting fixed
+	- fix and refactor lair construction window
+
+Changed:
+	- jump packs hp mod buffed by X2
+	- creation screen small rectangles under black squares remove
+
+
 Version  0.9.2.3
 
 Fixed:
