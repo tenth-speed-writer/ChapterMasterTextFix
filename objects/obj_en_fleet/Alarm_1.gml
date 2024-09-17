@@ -772,7 +772,7 @@ if (navy && action=="") {
 	    var o,that,highest,popu,popu_large;
 	    o=0;that=0;highest=0;popu=0;popu_large=false;
     
-	    repeat(4){o+=1;
+	    repeat(planets){o+=1;
 	        if (orbiting.p_orks[o]+orbiting.p_chaos[o]+orbiting.p_tyranids[o]+orbiting.p_necrons[o]+orbiting.p_tau[o]+orbiting.p_traitors[o]>highest) and (orbiting.p_type[o]!="Daemon"){
 	            that=o;highest=orbiting.p_orks[o]+orbiting.p_chaos[o]+orbiting.p_tyranids[o]+orbiting.p_necrons[o]+orbiting.p_tau[o]+orbiting.p_traitors[o];
 	            popu=orbiting.p_population[o];if (orbiting.p_large[o]=true) then popu_large=true;
@@ -1308,27 +1308,7 @@ if (action==""){
     }
     
     if (owner=eFACTION.Ork) and (action=""){// Should fix orks converging on useless planets
-        
-        var bad = is_dead_star(instance_nearest(x,y,obj_star));
-        
-        if (bad){
-            var hides=choose(1,2,3);
-            
-            repeat(hides){
-                instance_deactivate_object(instance_nearest(x,y,obj_star));
-            }
-            
-            with(obj_star){
-            	if (is_dead_star()) or (owner=eFACTION.Ork) then instance_deactivate_object(id);
-            }
-            var nex=instance_nearest(x,y,obj_star);
-            action_x=nex.x;
-            action_y=nex.y;
-            set_fleet_movement();
-
-            instance_activate_object(obj_star);
-            exit;
-        }
+        ork_fleet_move();
     }
 }
 
@@ -1446,7 +1426,7 @@ if (action="move") and (action_eta<5000){
             if (string_count("investigate_dead",trade_goods)>0) then cancel=true;
             if (string_count("spelunk",trade_goods)>0) then cancel=true;
             if (string_count("BLOOD",trade_goods)>0) then cancel=true;
-            if (trade_goods="WL7") then cancel=true;
+            if (fleet_has_cargo("ork_warboss")) cancel=true;
             if (trade_goods="csm") then cancel=true;
             
             if (trade_goods!="") and (owner!=eFACTION.Tyranids) and (owner!=eFACTION.Chaos) and (cancel=false) and ((instance_exists(target)) or (obj_ini.fleet_type=1)) {
@@ -1815,20 +1795,6 @@ if (action="move") and (action_eta<5000){
             if (cur_star.planets>=3) and (cur_star.p_type[3]!="Dead") and (cur_star.p_owner[3]!=7){kay=5;exit;}
             if (cur_star.planets>=4) and (cur_star.p_type[4]!="Dead") and (cur_star.p_owner[4]!=7){kay=5;exit;}
             
-            
-            /*
-            var chick;chick=0;
-            if (cur_star.p_type[1]!="Dead") then chick+=cur_star.p_owner[1];
-            if (cur_star.p_type[2]!="Dead") then chick+=cur_star.p_owner[2];
-            if (cur_star.p_type[3]!="Dead") then chick+=cur_star.p_owner[3];
-            if (cur_star.p_type[4]!="Dead") then chick+=cur_star.p_owner[4];
-            if (chick/7)!=round(chick/7){
-                kay=5;exit;
-            }*/
-            
-            /*if ((cur_star.owner = eFACTION.Ork) and (image_index>=5) and (owner = eFACTION.Ork)) or ((owner = eFACTION.Ork) and (image_index>=5) and (cur_star.planets=0)){// Continue away
-                kay=50;
-            }*/
             if (kay=5){// KILL the enemy
                 if (cur_star.present_fleet[1]>1) or (cur_star.present_fleet[2]>1) then exit;
             }

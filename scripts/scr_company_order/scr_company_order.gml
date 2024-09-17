@@ -147,12 +147,19 @@ function scr_company_order(company) {
 
 				if (struct_exists(squadless,wanted_roles[r])){
 					if (!squad.fulfilled){
+
 						if (struct_exists(squad.required,wanted_roles[r])){
+
 							while (array_length(squadless[$ wanted_roles[r]])>0) and (squad.required[$ wanted_roles[r]] > 0){
+
 								array_push(squad.members,[company,squadless[$ wanted_roles[r]][0]]);
+
 								TTRPG[co,squadless[$ wanted_roles[r]][0]].squad=i;
+
 								array_delete(squadless[$ wanted_roles[r]],0,1);
+
 								squad.required[$ wanted_roles[r]]--;
+								
 								squad.space[$ wanted_roles[r]]--;
 							}
 						}

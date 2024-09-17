@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Changed:
 - warp lane travel drawing abstracted to it's own layer
 - warp lane widths now expand to be more visible when zoomed
+- ork warbosses are now stored in the fleet carge_data area and the struct is transferred directly to a planet
 
 ### Fixed:
 - travelling without waypoints while pressing shift now fixed

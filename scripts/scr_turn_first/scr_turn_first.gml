@@ -82,8 +82,11 @@ function scr_turn_first() {
 	        if (did_so=false) and (faction_defeated[7]=1){
 	            with(obj_turn_end){audiences+=1;audien[audiences]=7;known[eFACTION.Chaos]=2;audien_topic[audiences]="new_warboss";did_so=true;}
             
-	            faction_defeated[7]=-1;known[eFACTION.Ork]=0;faction_leader[eFACTION.Ork]=global.name_generator.generate_ork_name();
-	            faction_title[7]="Warboss";faction_status[eFACTION.Ork]="War";disposition[7]=-40;
+	            faction_defeated[7]=-1;known[eFACTION.Ork]=0;
+	            faction_leader[eFACTION.Ork]=global.name_generator.generate_ork_name();
+	            faction_title[7]="Warboss";
+	            faction_status[eFACTION.Ork]="War";
+	            disposition[7]=-40;
             
 	            var gold,gnew,starf;gold=faction_gender[7];if (gold=0) then gold=1;gnew=0;
 	            repeat(20){if (gnew=0) or (gnew=gold) then gnew=choose(1,2,3,4);}
@@ -115,17 +118,25 @@ function scr_turn_first() {
 	                }
                 
 	                var nfleet,tplan;nfleet=instance_create(x4,y4,obj_en_fleet);
-	                nfleet.owner = eFACTION.Ork;nfleet.sprite_index=spr_fleet_ork;
-	                nfleet.capital_number=4;nfleet.frigate_number=10;
-	                nfleet.image_index=9;
+	                nfleet = new_ork_fleet(x4,y4);
 	                tplan=instance_nearest(nfleet.x,nfleet.y,obj_star);
-	                nfleet.action_x=tplan.x;nfleet.action_y=tplan.y;
-	                nfleet.alarm[4]=1;
+	                nfleet.action_x=tplan.x;
+	                nfleet.action_y=tplan.y;
+	                if (fnum=1){
+	                	starf=tplan;
+	                	nfleet.cargo_data.ork_warboss=new new_planet_feature(OrkWarboss);
+	                }	                
+	                with (nfleet){
+	                	frigate_number=10;
+	                	capital_number=4;
+	                	set_fleet_movement();
+	                }
                 
-	                if (fnum=1){starf=tplan;nfleet.trade_goods="WL7";}
                 
-	                nfleet.x-=20000;nfleet.y-=20000;
-	                tplan.x-=20000;tplan.y-=20000;
+	                nfleet.x-=20000;
+	                nfleet.y-=20000;
+	                tplan.x-=20000;
+	                tplan.y-=20000;
 	            }
             
 	            with(obj_en_fleet){if (x<-14000) and (y<-14000) and (owner = eFACTION.Ork){x+=20000;y+=20000;}}
@@ -135,9 +146,10 @@ function scr_turn_first() {
 	            with(obj_star){if (x<-14000) and (y<-14000){x+=20000;y+=20000;}}
 	            with(obj_star){if (x<-14000) and (y<-14000){x+=20000;y+=20000;}}
             
-	            var tix;tix="Warboss "+string(obj_controller.faction_leader[eFACTION.Ork])+" leads a WAAAGH! into Sector "+string(obj_ini.sector_name)+".";
-	            scr_alert("red","lol",string(tix),starf.x,starf.y);scr_event_log("red",tix);
-	            scr_popup("WAAAAGH!","A WAAAGH! led by the Warboss "+string(obj_controller.faction_leader[eFACTION.Ork])+" has arrived in "+string(obj_ini.sector_name)+".  With him is a massive Ork fleet.  Numbering in the dozens of battleships, they carry with them countless greenskins.  The forefront of the WAAAGH! is destined for the "+string(starf.name)+" system.","waaagh","");
+	            var tix="Warboss "+string(obj_controller.faction_leader[eFACTION.Ork])+" leads a WAAAGH! into Sector "+string(obj_ini.sector_name)+".";
+	            scr_alert("red","lol",string(tix),starf.x,starf.y);
+	            scr_event_log("red",tix);
+	            scr_popup("WAAAAGH!",$"A WAAAGH! led by the Warboss {obj_controller.faction_leader[eFACTION.Ork]} has arrived in "+string(obj_ini.sector_name)+".  With him is a massive Ork fleet.  Numbering in the dozens of battleships, they carry with them countless greenskins.  The forefront of the WAAAGH! is destined for the "+string(starf.name)+" system.","waaagh","");
 	        }
 	    }
 	}

@@ -25,7 +25,8 @@ enum P_features {
 			Gene_Vault,
 			Forge,
 			Gene_Stealer_Cult,
-			Mission
+			Mission,
+			Ork_Stronghold
 
 	};
 	
@@ -224,12 +225,6 @@ function new_planet_feature(feature_type, other_data={}) constructor{
 		player_hidden = 1;
 		planet_display= "Ork Warboss";
 		Warboss = "alive"
-		kill_warboss = function(){
-			f_type = P_features.Victory_Shrine
-			planet_display= $"{obj_controller.faction_leader[eFACTION.Ork]} Death Place";
-			Warboss = "dead";
-			parade = false;
-		}
 		break;
 	case P_features.Monastery:
 		planet_display="Fortress Monastary";

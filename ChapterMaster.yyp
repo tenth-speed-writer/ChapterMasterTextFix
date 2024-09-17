@@ -459,6 +459,7 @@
     {"id":{"name":"spr_loadbar_cover","path":"sprites/spr_loadbar_cover/spr_loadbar_cover.yy",},},
     {"id":{"name":"scr_ground_ai_helpers","path":"scripts/scr_ground_ai_helpers/scr_ground_ai_helpers.yy",},},
     {"id":{"name":"spr_load_text","path":"sprites/spr_load_text/spr_load_text.yy",},},
+    {"id":{"name":"scr_ork_planet_functions","path":"scripts/scr_ork_planet_functions/scr_ork_planet_functions.yy",},},
     {"id":{"name":"spr_load_splash","path":"sprites/spr_load_splash/spr_load_splash.yy",},},
     {"id":{"name":"spr_formation_bars","path":"sprites/spr_formation_bars/spr_formation_bars.yy",},},
     {"id":{"name":"spr_formation_arrow","path":"sprites/spr_formation_arrow/spr_formation_arrow.yy",},},

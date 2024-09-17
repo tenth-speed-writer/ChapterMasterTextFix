@@ -487,8 +487,12 @@ if (((leader)) or ((battle_special="world_eaters") and (!obj_controller.faction_
     if (enemy=6) then scr_event_log("","Enemy Leader Assassinated: Eldar Farseer");
     if (enemy=7){
 		scr_event_log("","Enemy Leader Assassinated: Ork Warboss");
-		if (Warlord !=0){Warlord.kill_warboss()}
-		}
+		if (Warlord !=0){
+            with (Warlord){
+                kill_warboss();
+            }
+        }
+	}
     if (enemy=8) then scr_event_log("","Enemy Leader Assassinated: Tau Diplomat");
     if (enemy=10) then scr_event_log("","Enemy Leader Assassinated: Chaos Lord");
 }
