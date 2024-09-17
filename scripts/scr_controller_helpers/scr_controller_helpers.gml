@@ -11,7 +11,6 @@ function scr_menu_clear_up(specific_area_function){
 				    action_if_number(obj_ncombat, 0, 0))
 
 		if (menu_action_allowed){
-		    with(obj_fleet_select){instance_destroy();}
 		    if (combat!=0) then exit;
 		    if (scrollbar_engaged!=0) then exit;
 		    if (instance_exists(obj_ingame_menu)) then exit;
@@ -93,6 +92,8 @@ function scr_change_menu(specific_area_function){
 			}  
 		});
 		if (continue_sequence){
+			with(obj_fleet_select){instance_destroy();}
+			with(obj_star_select){instance_destroy();}
 			specific_area_function(); 
 		}		
 	}
@@ -109,8 +110,6 @@ function scr_toggle_manage(){
 	        popup=0;
 	        selected=0;
 	        hide_banner=1;
-	        with(obj_star_select){instance_destroy();}
-	        with(obj_fleet_select){instance_destroy();}
 	        view_squad=false;
 	    }
 	    else if (menu==1){
@@ -135,8 +134,6 @@ function scr_toggle_setting(){
             popup=0;
             selected=0;
             hide_banner=1;
-            with(obj_star_select){instance_destroy();}
-            with(obj_fleet_select){instance_destroy();}
         }
         else if (menu==21){
             onceh=0;
@@ -317,11 +314,10 @@ function scr_toggle_fleet_area(){
 	        onceh=1;
 	        cooldown=8000;
 	        click=1;
-	        temp[37]="";
-	        temp[38]="";
-	        temp[39]="";
-	        temp[40]="";
-	        temp[41]="";
+	        for (var i=37;i<=41;i++){
+	        	temp[i] = "";
+	        }
+
 	        for(var i=101;i<120;i++){
 	             temp[i]="";
 	        }

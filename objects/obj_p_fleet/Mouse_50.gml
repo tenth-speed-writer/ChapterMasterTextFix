@@ -8,14 +8,11 @@ if __b__
 
 
 var m_dist, exi;exi=0;
-if (instance_exists(obj_fleet_show)) and (obj_controller.cooldown<=0){
-    m_dist=point_distance(x,y,obj_fleet_show.x,obj_fleet_show.y);
-    if (m_dist<=32) then with(obj_fleet_show){instance_destroy();}
-}
+
 m_dist=point_distance(x,y,mouse_x,mouse_y);
 
 
-if (scr_void_click()=false) then exit;
+if (!scr_void_click()) then exit;
 
 
 if ((obj_controller.zoomed=0) and (mouse_y<__view_get( e__VW.YView, 0 )+60)) or (obj_controller.menu!=0) then exi=1;
