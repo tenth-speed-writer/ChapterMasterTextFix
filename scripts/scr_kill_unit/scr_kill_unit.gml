@@ -35,7 +35,8 @@ function kill_and_recover(company, unit_slot, equipment=true, gene_seed_collect=
 		unit.alter_equipment(strip,false, true);
 	} 
 	if (gene_seed_collect && unit.base_group=="astartes"){
-        if (unit.age() > 30) and (obj_ini.zygote==0) and (string_count("Doom",obj_ini.strin2)==0) then obj_controller.gene_seed+=1;
+		//TODO get rid of string methods
+        if (unit.age() > 30) and (!obj_ini.zygote) and (string_count("Doom",obj_ini.strin2)==0) then obj_controller.gene_seed+=1;
         if (unit.age() > 50) and (string_count("Doom",obj_ini.strin2)==0) then obj_controller.gene_seed+=1;		
 	}
     if (obj_ini.race[company][unit_slot]==1){

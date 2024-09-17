@@ -413,55 +413,10 @@ if (navy && action=="") {
 	}
 
 	//Eldar shit I think? Doesn't check for eldar ships
-	if (trade_goods="building_ships"){
-	    var onceh,cont,p;onceh=0;cont=0;p=0;
-    
-	    p=0;
-	    if (instance_exists(orbiting)) then repeat(4) {
-			p+=1;
-	        if (orbiting.p_type[p]="Forge"){
-				//if no non-imperium,player, or eldar aligned fleets or ground forces, continue
-	            if (orbiting.p_orks[p]+orbiting.p_chaos[p]+orbiting.p_tyranids[p]+orbiting.p_necrons[p]+orbiting.p_tau[p]+orbiting.p_traitors[p]=0){
-	                if (orbiting.present_fleet[7]+orbiting.present_fleet[8]+orbiting.present_fleet[9]+orbiting.present_fleet[10]+orbiting.present_fleet[13]=0){
-	                    cont=1;
-	                }
-	            }
-	        }
-	    }
-    
-	    if (cont=1){
-	        if (escort_number<12) and (onceh=0) {
-				escort_number+=1;onceh=1;
-			}
-	        if (capital_number<1) {
-				capital_number+=0.0834;
-				onceh=1;
-				if (capital_number>1) then capital_number=1;
-			}
-	        if (frigate_number<5) and (onceh=0) {
-				frigate_number+=0.25;
-				onceh=1;
-				if (frigate_number>4.99) then frigate_number=5;
-			}
-	        if (onceh=1){
-	            var ii;ii=0;ii+=capital_number;ii+=round((frigate_number/2));
-	            ii+=round((escort_number/4));if (ii<=1) then ii=1;image_index=ii;
-	        }
-        
-	        if (capital_number=1) and (frigate_number>=5) and (escort_number>=12){
-	            var i;i=0;repeat(capital_number){i+=1;
-	                capital_max_imp[i]=(((floor(random(15))+1)*1000000)+15000000)*2;
-	            }
-	            i=0;repeat(frigate_number){i+=1;
-	                frigate_max_imp[i]=(500000+(floor(random(50))+1)*10000)*2;
-	            }
-	            trade_goods="";
-	        }
-	    }
-    
-	    if (trade_goods="building_ships") or (cont!=1) then exit;
+	if (!new_navy_ships_forge()){
+		exit;
 	}
-
+	if (trade_goods=="building_ships") then exit;
 
 
 	var maxi,curr,i,o;
@@ -524,131 +479,30 @@ if (navy && action=="") {
 	    }
 	}
 
-	if (((capital_number*8)+(frigate_number*2)+escort_number)<=14) and (guardsmen_unloaded=0){
-	    // Got to forge world
-	    if (action="") and (trade_goods="goto_forge") and (instance_exists(orbiting)){
-	        trade_goods="building_ships";exit;
-	    }
 
-	    // Quene a visit to a forge world
-	    if (action="") and (trade_goods="") and (instance_exists(orbiting)){
-	        with(obj_temp_inq){
-                instance_destroy();
-            }
-	        with(obj_star){
-	            var cont=0,p=0;
-	            repeat(planets){
-                    p+=1;
-	                if (p_type[p]="Forge"){
-	                    if (p_orks[o]+p_chaos[o]+p_tyranids[o]+p_necrons[o]+p_tau[o]+p_traitors[o]=0){
-	                        if (present_fleet[7]+present_fleet[8]+present_fleet[9]+present_fleet[10]+present_fleet[13]=0){
-	                            cont=1;
-	                        }
-	                    }
-	                }
-	            }
-	            if (cont!=0) then instance_create(x,y,obj_temp_inq);
-	        }
-	        if (instance_exists(obj_temp_inq)){
-	            var go_there=instance_nearest(x,y,obj_temp_inq);
-	            action_x=go_there.x;
-                action_y=go_there.y;
-                alarm[4]=1;
-                trade_goods="goto_forge";// show_message("D");
-	            with(obj_temp_inq){instance_destroy();}exit;
-	        }
-	    }
+	if (navy_strength_calc()<=14) and (guardsmen_unloaded=0){
+		dock_navy_at_forge();
+
+		send_navy_to_forge();
 	}
-
 	// Bombard the shit out of things when able
-	if (trade_goods="") and (instance_exists(orbiting)) and (action=""){
-	    if (guardsmen_unloaded=0) or ((orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]=0) and (guardsmen_unloaded=1)) or ((orbiting.p_player[cr]>0) and (obj_controller.faction_status[eFACTION.Imperium]="War")){
-	        if (orbiting.present_fleet[6]+orbiting.present_fleet[7]+orbiting.present_fleet[8]+orbiting.present_fleet[9]+orbiting.present_fleet[10]+orbiting.present_fleet[13]=0){
-	            var hol;hol=false;if ((orbiting.present_fleet[1]>0) and (obj_controller.faction_status[eFACTION.Imperium]="War")) then hol=true;
-        
-	            if (hol=false){
-	                var o,bombard,deaths,hurss,scare,onceh,wob,kill;
-	                o=0;bombard=0;deaths=0;hurss=0;onceh=0;wob=0;kill=0;
-                
-	                repeat(orbiting.planets){
-                        o+=1;
-	                    if (orbiting.p_type[o]!="Daemon"){
-	                        if (orbiting.p_population[o]=0) and (orbiting.p_tyranids[o]>0) and (onceh=0){
-                                bombard=o;
-                                onceh=1;
-                            }
-	                        if (orbiting.p_population[o]=0) and (orbiting.p_orks[o]>0) and (orbiting.p_owner[o]=7) and (onceh=0){bombard=o;onceh=1;}
-	                        if (orbiting.p_owner[o]=8) and (orbiting.p_tau[o]+orbiting.p_pdf[o]>0) and (onceh=0){
-                                bombard=o;onceh=1;
-                            }
-	                        if (orbiting.p_owner[o]=10) and ((orbiting.p_chaos[o]+orbiting.p_traitors[o]+orbiting.p_pdf[o]>0) or (orbiting.p_heresy[o]>=50)){bombard=o;onceh=1;}
-	                    }
-	                }
-                
-	                if (bombard>0){
-	                    scare=(capital_number*3)+frigate_number;
-                    
-                    
-                    
-	                    // Eh heh heh
-	                    if (onceh<2) and (orbiting.p_tyranids[bombard]>0){
-	                        if (scare>2) then scare=2;if (scare<1) then scare=0;
-	                        orbiting.p_tyranids[bombard]-=2;onceh=2;
-	                    }
-	                    if (onceh<2) and (orbiting.p_orks[bombard]>0){
-	                        if (scare>2) then scare=2;if (scare<1) then scare=0;
-	                        orbiting.p_orks[bombard]-=2;onceh=2;
-	                    }
-	                    if (onceh<2) and (orbiting.p_owner[bombard]=8) and (orbiting.p_tau[bombard]>0){
-	                        if (scare>2) then scare=2;if (scare<1) then scare=0;
-	                        orbiting.p_tau[bombard]-=2;onceh=2;
-                        
-	                        if (orbiting.p_large[bombard]=0) then kill=scare*15000000;// Population if normal
-	                        if (orbiting.p_large[bombard]=1) then kill=scare*0.15;// Population if large
-	                    }
-	                    if (onceh<2) and (orbiting.p_owner[bombard]=8) and (orbiting.p_pdf[bombard]>0){
-	                        wob=scare*5000000+choose(floor(random(100000)),floor(random(100000))*-1);
-	                        orbiting.p_pdf[bombard]-=wob;
-	                        if (orbiting.p_pdf[bombard]<0) then orbiting.p_pdf[bombard]=0;
-                        
-	                        if (orbiting.p_large[bombard]=0) then kill=scare*15000000;// Population if normal
-	                        if (orbiting.p_large[bombard]=1) then kill=scare*0.15;// Population if large
-	                    }
-	                    if (onceh<2) and (orbiting.p_owner[bombard]=10){
-	                        if (scare>2) then scare=2;if (scare<1) then scare=0;
-                        
-	                        if (onceh!=2) and (orbiting.p_chaos[bombard]>0){orbiting.p_chaos[bombard]=max(0,orbiting.p_traitors[bombard]-1);onceh=2;}
-	                        if (onceh!=2) and (orbiting.p_traitors[bombard]>0){orbiting.p_traitors[bombard]=max(0,orbiting.p_traitors[bombard]-2);onceh=2;}
-                        
-	                        if (orbiting.p_large[bombard]=0) then kill=scare*15000000;// Population if normal
-	                        if (orbiting.p_large[bombard]=1) then kill=scare*0.15;// Population if large
-	                        if (orbiting.p_heresy[bombard]>0) then orbiting.p_heresy[bombard]=max(0,orbiting.p_heresy[bombard]-5);
-	                    }
-                    
-	                    orbiting.p_population[bombard]-=kill;
-	                    if (orbiting.p_population[bombard]<0) then orbiting.p_population[bombard]=0;
-	                    if (orbiting.p_pdf[bombard]<0) then orbiting.p_pdf[bombard]=0;
-                    
-	                    if (orbiting.p_population[bombard]+orbiting.p_pdf[bombard]<=0) and (orbiting.p_owner[bombard]=1) and (obj_controller.faction_status[eFACTION.Imperium]="War"){
-	                        if (planet_feature_bool(orbiting.p_feature[bombard],P_features.Monastery)==0){orbiting.p_owner[bombard]=2;orbiting.dispo[bombard]=-50;}
-	                    }
-	                    exit;
-	                }
-	            }
-	        }
-	    }
+	 else if (trade_goods=="") and (instance_exists(orbiting)) and (action=""){
+	    imperial_navy_bombard();
 	}
 
 
 	// If the guardsmen all die then move on
 	var o=0;
 	if (guardsmen_unloaded=1) and (instance_exists(orbiting)){
-	    var o,bad;o=0;bad=1;
+	    var o=0,guardsmen_alive=1;
 	    repeat(orbiting.planets){
             o+=1;
-	        if (orbiting.p_guardsmen[o]>0) then bad-=1;
+	        if (orbiting.p_guardsmen[o]>0){
+	        	guardsmen_alive=false;
+	        	break;
+	        }
 	    }
-	    if (bad=1){
+	    if (guardsmen_alive=1){
             guardsmen_unloaded=0;
             guardsmen_ratio=0;
             trade_goods="";

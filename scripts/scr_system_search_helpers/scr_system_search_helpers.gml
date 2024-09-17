@@ -227,6 +227,18 @@ function new_star_event_marker(colour){
     bob.color=colour;
 }
 
+function nearest_from_array(xx,yy,list){
+	var _nearest = 0;
+	var nearest_dist = point_distance(xx, yy ,list[_nearest].x, list[_nearest].y)
+	for (var i=1;i<array_length(list);i++){
+		if (point_distance(xx, yy, list[i].x,list[i].y) < nearest_dist){
+			_nearest = i;
+			nearest_dist = point_distance(xx, yy, list[i].x,list[i].y);
+		}
+	}
+	return 
+}
+
 function is_dead_star(star="none"){
 	var dead_star=true;
 	if (star=="none"){

@@ -592,81 +592,8 @@ if (array_contains(obj_ini.adv,"Scavengers")){
         scr_alert("","loot",tix,0,0);
     }
 }
-// ** Check number of navy fleets **
-with(obj_temp_inq){instance_destroy();}
-with(obj_temp8){instance_destroy();}
+imperial_navy_fleet_construction();
 
-with(obj_en_fleet){
-    if (owner==eFACTION.Imperium) and (navy==1) then instance_create(x,y,obj_temp_inq);
-}
-if (instance_number(obj_temp_inq)>target_navy_number) {
-    with(obj_en_fleet) {
-		if (navy==0) or (guardsmen_unloaded==1) then y-=20000;
-	}
-    var him = instance_nearest(random(room_width),random(room_height),obj_en_fleet);
-    if (him.guardsmen_unloaded==0) and (him.navy==1)  {
-		with(him){instance_destroy();}
-	}
-    with(obj_en_fleet){if (y<-10000) then y+=20000;}
-}
-
-//if the inquisition temp navy amount is less than the target, make a fleet
-if (instance_number(obj_temp_inq)<target_navy_number) {
-    with(obj_star){
-        var good=false;
-        for(var o=1; o<=4; o++) {
-            if (p_type[o]=="Forge") 
-				and (p_owner[o]==eFACTION.Mechanicus) 
-				and (p_orks[o]+p_tau[o]+p_tyranids[o]+p_chaos[o]+p_traitors[o]+p_necrons[o]==0) {
-					
-					var enemy_fleets = [
-						eFACTION.Ork,
-						eFACTION.Tau,
-						eFACTION.Tyranids,
-						eFACTION.Chaos,
-						eFACTION.Necrons
-					]
-				
-					var enemy_fleet_count = array_reduce(enemy_fleets, function(prev, curr) {
-						return prev + present_fleet[curr]
-					})
-		            if (enemy_fleet_count == 0){
-		                good=true;
-		                if (instance_nearest(x+24,y-24,obj_en_fleet).navy==1) then good=false;
-		            }
-            }
-        }
-        if (good==true) then instance_create(x,y,obj_temp8);
-    }
-}
-
-// After initial navy fleet construction fleet growth is handled in obj_en_fleet.alarm_5
-if (instance_exists(obj_temp8)){
-    var newy,nav;
-    newy=instance_nearest(random(room_width),random(room_height),obj_temp8);
-    nav=instance_create(newy.x+24,newy.y-24,obj_en_fleet);
-    nav.owner=eFACTION.Imperium;
-    
-    nav.capital_number=0;
-    nav.frigate_number=0;
-    nav.escort_number=1;
-    nav.home_x=x;
-    nav.home_y=y;
-    with(instance_nearest(newy.x,newy.y,obj_star)){present_fleet[2]+=1;}
-    nav.orbiting=instance_nearest(newy.x,newy.y,obj_star);
-    nav.navy=1;
-    
-    var total_ships=0;
-    total_ships+=nav.capital_number-1;
-    total_ships+=round((nav.frigate_number/2));
-    total_ships+=round((nav.escort_number/4));
-    if (total_ships<=1) and (nav.capital_number+nav.frigate_number+nav.escort_number>0) then total_ships=1;
-    nav.image_index=total_ships;
-    nav.image_speed=0;
-    
-    nav.trade_goods="building_ships";
-    with(obj_temp8){instance_destroy();}
-}
 // ** Adeptus Mechanicus Geneseed Tithe **
 if (gene_tithe==0) and (faction_status[eFACTION.Imperium]!="War"){
     gene_tithe=24;

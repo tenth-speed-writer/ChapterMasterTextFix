@@ -80,7 +80,7 @@ function get_largest_player_fleet(){
 	return chosen_fleet;
 }
 
-function set_fleet_movement(){
+function set_fleet_movement(fastest_route = true){
 	if (action!=""){
 	    var sys, sys_dist, mine, connected, fleet, cont;
 	    sys_dist=9999;connected=0;cont=0;
@@ -90,7 +90,7 @@ function set_fleet_movement(){
 	    sys_dist=point_distance(action_x,action_y,sys.x,sys.y);
 	    act_dist=point_distance(x,y,sys.x,sys.y);
 	    mine=instance_nearest(x,y,obj_star);
-	    if (mine.x=sys.x2) and (mine.y=sys.y2) then connected=1;
+	    connected = determine_warp_join(mine, sys);
 	    
 	    var eta=0;
 	    eta=floor(point_distance(x,y,action_x,action_y)/action_spd)+1;
@@ -134,7 +134,7 @@ function set_fleet_movement(){
 	    
 	    
 	    if (cont=20){// Move the entire fleet, don't worry about the other crap
-	        var eta;eta=0;
+	        var eta=0;
 	        
 	        if (trade_goods!="") and (owner != eFACTION.Tyranids) and (owner != eFACTION.Chaos) and (string_count("Inqis",trade_goods)=0) and (string_count("merge",trade_goods)=0)and (string_count("_her",trade_goods)=0) and (trade_goods!="cancel_inspection") and (trade_goods!="return"){
 	            if (target!=0) and (instance_exists(target)){

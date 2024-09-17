@@ -22,13 +22,25 @@ All notable changes to this project will be documented in this file.
 - warp lane travel drawing abstracted to it's own layer
 - warp lane widths now expand to be more visible when zoomed
 - ork warbosses are now stored in the fleet carge_data area and the struct is transferred directly to a planet
+- advatages tweaks:
+    - "kings of space" advatage now provides +1 battle barge
+    - "Boarders" now provides +2 frigates
+    - display and discription text tweaks
+    - "lightning warriors" now increases number of starting biker squads
+
+- equipment and weapons:
+    - boarding shields now provide advatages to boarders
+    - underslung flamers now have light armour piercing
 
 ### Fixed:
 - travelling without waypoints while pressing shift now fixed
+- melee enthusiats now decreases starting devestators as well as increasing assualts
 
 ### Added:
 - New warp hub planets
     - new graded warp travel routes
+
+- new squad type breachers
 
 - ability to cancel warp travel within the same turn you commanded fleet to travel
 
