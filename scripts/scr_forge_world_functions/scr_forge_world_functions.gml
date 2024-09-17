@@ -5,7 +5,7 @@ function imperial_navy_fleet_construction(){
 
 	var new_navy_fleets = [];
 	with(obj_en_fleet){
-	    if (owner==eFACTION.Imperium) and (new_navy_fleety==1) {
+	    if (owner==eFACTION.Imperium) and (navy==1) {
 	    	array_push(new_navy_fleets.id);
 	    }
 	}
@@ -49,7 +49,7 @@ function imperial_navy_fleet_construction(){
 						})
 			            if (enemy_fleet_count == 0){
 			                good=true;
-			                if (instance_nearest(x+24,y-24,obj_en_fleet).new_navy_fleety==1) then good=false;
+			                if (instance_nearest(x+24,y-24,obj_en_fleet).navy) then good=false;
 			            }
 	            }
 	        }
