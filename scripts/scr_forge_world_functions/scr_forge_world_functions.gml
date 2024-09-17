@@ -1,15 +1,15 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function imperial_navy_fleet_construction(){
-	// ** Check number of new_navy_fleety fleets **
+	// ** Check number of navy fleets **
 
 	var new_navy_fleets = [];
 	with(obj_en_fleet){
 	    if (owner==eFACTION.Imperium) and (navy==1) {
-	    	array_push(new_navy_fleets.id);
+	    	array_push(new_navy_fleets, id);
 	    }
 	}
-	//delete new_navy_fleety fleets if more than required
+	//delete navy fleets if more than required
 	var navy_fleet_count = array_length(new_navy_fleets);
 	var cur_fleet;
 	if (navy_fleet_count>target_navy_number) {
@@ -26,7 +26,7 @@ function imperial_navy_fleet_construction(){
 			}
 		} 
 
-		//if system needs more new_navy_fleety fleets get forge world to make some
+		//if system needs more navy fleets get forge world to make some
 	} else if (navy_fleet_count<target_navy_number) {
 		var forge_systems = [];
 	    with(obj_star){
@@ -58,7 +58,7 @@ function imperial_navy_fleet_construction(){
 	        }
 	        if (good==true) then array_push(forge_systems, id);
 	    }
-	// After initial new_navy_fleety fleet construction fleet growth is handled in obj_en_fleet.alarm_5
+	// After initial navy fleet construction fleet growth is handled in obj_en_fleet.alarm_5
 		if (array_length(forge_systems)){
 		    var construction_forge,new_navy_fleet;
 		    construction_forge=choose_array(forge_systems);
