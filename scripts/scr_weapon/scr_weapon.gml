@@ -1425,7 +1425,7 @@ global.weapons = {
 		"ammo": 4,
 		"range": 2.1,
 		"spli": 3,
-		"arp": 0,
+		"arp": -1,
 		"tags": ["flame", "attached"]
 	},
 	"Combiflamer": {
@@ -2203,8 +2203,6 @@ global.gear = {
 				"master_crafted": 10,
 				"artifact": 10
 			},
-			"melee_hands": -0.5,
-			"ranged_hands": -0.5,
 		},
 		"Jump Pack": {
 			"abbreviation": "JmpPck",
