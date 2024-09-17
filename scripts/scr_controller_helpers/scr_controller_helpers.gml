@@ -11,7 +11,6 @@ function scr_menu_clear_up(specific_area_function){
 				    action_if_number(obj_ncombat, 0, 0))
 
 		if (menu_action_allowed){
-		    with(obj_fleet_select){instance_destroy();}
 		    if (combat!=0) then exit;
 		    if (scrollbar_engaged!=0) then exit;
 		    if (instance_exists(obj_ingame_menu)) then exit;
@@ -93,6 +92,7 @@ function scr_change_menu(specific_area_function){
 			}  
 		});
 		if (continue_sequence){
+			with(obj_fleet_select){instance_destroy();}
 			specific_area_function(); 
 		}		
 	}

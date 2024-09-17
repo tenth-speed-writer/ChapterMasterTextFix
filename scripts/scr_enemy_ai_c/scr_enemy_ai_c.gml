@@ -116,7 +116,7 @@ function scr_enemy_ai_c() {
 
 
 	// This is the ork landing code
-	function ork_fleet_arrive_target();
+	ork_fleet_arrive_target();
 
 
 

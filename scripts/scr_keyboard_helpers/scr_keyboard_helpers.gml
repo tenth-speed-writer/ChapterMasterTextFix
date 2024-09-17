@@ -19,6 +19,19 @@ function press_exclusive(press_choice){
 }
 
 
+function hold_exclusive(press_choice){
+	if (keyboard_check(vk_nokey)) then return false;
+	if (!keyboard_check(press_choice)) then return false;
+	for (var i=0;i<array_length(global.virtual_keys);i++){
+		if (keyboard_check(global.virtual_keys[i]) && global.virtual_keys[i] != press_choice){
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
 function press_with_held(press_choice, hold_choice){
 	if (keyboard_check_pressed(vk_nokey)) then return false;
 	if (!keyboard_check_pressed(press_choice) || !keyboard_check(hold_choice)) then return false;

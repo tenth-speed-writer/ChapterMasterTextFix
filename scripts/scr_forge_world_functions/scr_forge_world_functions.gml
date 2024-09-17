@@ -1,6 +1,6 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function imperial_new_navy_fleety_fleet_construction(){
+function imperial_navy_fleet_construction(){
 	// ** Check number of new_navy_fleety fleets **
 
 	var new_navy_fleets = [];
@@ -10,24 +10,24 @@ function imperial_new_navy_fleety_fleet_construction(){
 	    }
 	}
 	//delete new_navy_fleety fleets if more than required
-	var cur_new_navy_fleet = array_length(new_navy_fleets);
+	var navy_fleet_count = array_length(new_navy_fleets);
 	var cur_fleet;
-	if (cur_new_navy_fleet>target_new_navy_fleety_number) {
-		for (var i=0;i<cur_new_navy_fleet;i++){
+	if (navy_fleet_count>target_navy_number) {
+		for (var i=0;i<navy_fleet_count;i++){
 			cur_fleet = new_navy_fleets[i];
 			if (cur_fleet.guardsmen_unloaded){
 				continue;
 			} else {
 				instance_destroy(cur_fleet);
-				cur_new_navy_fleet--;
+				navy_fleet_count--;
 				array_delete(new_navy_fleets, i, 1);
 				i--;
-				if (cur_new_navy_fleet<=target_new_navy_fleety_number) then break;
+				if (navy_fleet_count<=target_navy_number) then break;
 			}
 		} 
 
 		//if system needs more new_navy_fleety fleets get forge world to make some
-	} else if (cur_new_navy_fleet<target_new_navy_fleety_number) {
+	} else if (navy_fleet_count<target_navy_number) {
 		var forge_systems = [];
 	    with(obj_star){
 	        var good=false;
@@ -72,7 +72,7 @@ function imperial_new_navy_fleety_fleet_construction(){
 		    new_navy_fleet.home_y=y;
 		    with(construction_forge){present_fleet[2]+=1;}
 		    new_navy_fleet.orbiting=construction_forge;
-		    new_navy_fleet.new_navy_fleety=1;
+		    new_navy_fleet.navy=1;
 		    
 		    var total_ships=0;
 		    total_ships+=new_navy_fleet.capital_number-1;

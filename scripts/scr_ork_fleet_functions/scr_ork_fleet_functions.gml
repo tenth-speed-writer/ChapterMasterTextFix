@@ -111,7 +111,7 @@ function ork_fleet_arrive_target(){
                     
 
                         if (fleet_has_cargo("ork_warboss",boat)){
-                            array_push(p_feature[i], boat.carg_data.ork_warboss));
+                            array_push(p_feature[i], boat.carg_data.ork_warboss);
                             p_orks[i]=6;
                         }
 

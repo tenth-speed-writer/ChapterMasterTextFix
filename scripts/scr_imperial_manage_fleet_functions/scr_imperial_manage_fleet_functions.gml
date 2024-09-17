@@ -122,7 +122,7 @@ function new_navy_ships_forge(){
             }
         }
         
-        if (!advance) then continue;
+        if (!advance) then exit;
 
 
         if (escort_number<12) and (onceh=0) {
@@ -168,7 +168,7 @@ function new_navy_ships_forge(){
 }
 //TODO further breakup into a nvay fleet functions script
 function navy_strength_calc(){
-    return (capital_number*8)+(frigate_number*2)+escort_number);
+    return ((capital_number*8)+(frigate_number*2)+escort_number);
 }
 
 function dock_navy_at_forge(){
