@@ -304,14 +304,16 @@ function fastest_route_algorithm(start_x,start_y, xx,yy,fleet, start_from_star=f
 	    draw_set_color(c_blue);
         draw_set_alpha(1);            
         var cur_star = start_star;
+        var scale = obj_controller.zoomed ? 3.5 : 1;
         for (var i=0;i<array_length(final_route_info[2]);i++){
-             draw_line_dashed(cur_star.x,cur_star.y,final_route_info[2][i].x,final_route_info[2][i].y,16,0.5);
+             draw_line_dashed(cur_star.x,cur_star.y,final_route_info[2][i].x,final_route_info[2][i].y,16,scale);
              cur_star = final_route_info[2][i];
         }
         draw_line_dashed(cur_star.x,cur_star.y,final_route_info[0].x,final_route_info[0].y,16,0.5);
         var eta = $"ETA {final_route_info[1]+1}";
-        if (obj_controller.zoomed=0) then draw_text_transformed(cur_star.x+16,cur_star.y+15,eta,1,1,0);
-        if (obj_controller.zoomed=1) then draw_text_transformed(cur_star.x+24,cur_star.y+40,eta,5,5,0);             
+        scale = obj_controller.zoomed ? 5 : 1;
+        draw_text_transformed(cur_star.x+16,cur_star.y+15,eta,scale,scale,0);
+        draw_text_transformed(cur_star.x+16,cur_star.y+15,eta,1,1,0);      
 	}
 	static final_array_path = function(){
 		var final_path = final_route_info[2];

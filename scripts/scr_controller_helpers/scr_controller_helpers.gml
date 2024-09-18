@@ -109,8 +109,6 @@ function scr_toggle_manage(){
 	        popup=0;
 	        selected=0;
 	        hide_banner=1;
-	        with(obj_star_select){instance_destroy();}
-	        with(obj_fleet_select){instance_destroy();}
 	        view_squad=false;
 	    }
 	    else if (menu==1){
@@ -135,8 +133,6 @@ function scr_toggle_setting(){
             popup=0;
             selected=0;
             hide_banner=1;
-            with(obj_star_select){instance_destroy();}
-            with(obj_fleet_select){instance_destroy();}
         }
         else if (menu==21){
             onceh=0;
@@ -317,11 +313,10 @@ function scr_toggle_fleet_area(){
 	        onceh=1;
 	        cooldown=8000;
 	        click=1;
-	        temp[37]="";
-	        temp[38]="";
-	        temp[39]="";
-	        temp[40]="";
-	        temp[41]="";
+	        for (var i=37;i<=41;i++){
+	        	temp[i] = "";
+	        }
+
 	        for(var i=101;i<120;i++){
 	             temp[i]="";
 	        }

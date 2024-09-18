@@ -29,17 +29,18 @@ if (obj_controller.selecting_planet>0){
     }
 }
 
-
+var line_width = obj_controller.zoomed ? 6:1;
+var text_size = obj_controller.zoomed ? 2:1;
 
 if (action!=""){
     draw_set_halign(fa_left);draw_set_alpha(1);
     draw_set_color(c_white);
-    var line_width = zoomed ? 6:1;
     draw_line_width(x,y,action_x,action_y,line_width);
     // 
     draw_set_font(fnt_40k_14b);
-    if (obj_controller.zoomed=0) then draw_text_transformed(x+12,y,string_hash_to_newline("ETA "+string(action_eta)),1,1,0);
-    if (obj_controller.zoomed=1) then draw_text_transformed(x+24,y,string_hash_to_newline("ETA "+string(action_eta)),1.4,1.4,0);
+
+    draw_text_transformed(x+12,y,string_hash_to_newline("ETA "+string(action_eta)),text_size,text_size,0);
+
     if (array_length(complex_route)>0){
         var next_loc = instance_nearest(action_x,action_y, obj_star);
         for (var i=0;i<array_length(complex_route);i++){
@@ -72,8 +73,7 @@ if (within=1) or (selected>0){
     
     
     // 
-    if (obj_controller.zoomed=0) then draw_text_transformed(x,y-32,string_hash_to_newline(ppp),1,1,0);
-    if (obj_controller.zoomed=1) then draw_text_transformed(x,y-48,string_hash_to_newline(ppp),2,2,0);// was 1.4
+    if (obj_controller.zoomed=1) then draw_text_transformed(x,y-48,string_hash_to_newline(ppp),text_size,text_size,0);// was 1.4
     
     draw_circle(x,y,12,0);
     

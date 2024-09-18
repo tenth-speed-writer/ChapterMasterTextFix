@@ -47,7 +47,11 @@ draw_set_halign(fa_left);
 var player_fleet = instance_nearest(x,y,obj_p_fleet);
 if (player_fleet.just_left){
     var cancel_button= draw_unit_buttons([player_fleet.x+20, player_fleet.y-10], "X",[1,1], c_red,, fnt_40k_30b, 1);
-    obj_fleet_select.currently_entered = true;
+
+    if (scr_hit(cancel_button)){
+        currently_entered = true;
+    }
+
     if (point_and_click(cancel_button)){
         with (player_fleet){
             cancel_fleet_movement();
@@ -56,17 +60,16 @@ if (player_fleet.just_left){
 }
 
 if (owner  == eFACTION.Player) and (player_fleet.action==""){
-    var free=1,z=obj_fleet_select;
     var xx = __view_get( e__VW.XView, 0 );
     var yy = __view_get( e__VW.YView, 0 );
-    if (obj_fleet_select.currently_entered) then free = 0;
+    var free =  !(currently_entered);
     
     if (free=1){
 
         var sys_dist=9999,connected=0;
         
         with(obj_star){
-            if (p_type[1]="Craftworld") and (obj_controller.known[eFACTION.Eldar]=0) then instance_deactivate_object(id);
+            if (p_type[1]="Craftworld" && obj_controller.known[eFACTION.Eldar]=0) then instance_deactivate_object(id);
         }
 
         var sys=instance_nearest(mouse_x,mouse_y,obj_star);
@@ -122,7 +125,7 @@ if (owner  == eFACTION.Player) and (player_fleet.action==""){
             if (sys.storm>0) or (instance_nearest(x,y+24,obj_star).storm>0) then draw_set_color(c_red);
     
             
-            draw_line_dashed(x,y,sys.x,sys.y,16,0.5);
+            draw_line_dashed(x,y,sys.x,sys.y,16,scale);
             
             draw_set_font(fnt_40k_14b);
             var eta=0;       
@@ -171,6 +174,12 @@ if (owner  == eFACTION.Player) and (player_fleet.action==""){
             }
         }
         instance_activate_object(obj_star);
+    }
+}
+
+if (mouse_check_button_pressed(mb_left)){
+    if (!currently_entered && point_distance(mouse_x,mouse_y,player_fleet.x,player_fleet.y)>32){
+        instance_destroy();
     }
 }
 
