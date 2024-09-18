@@ -109,10 +109,11 @@ if (owner  == eFACTION.Player) and (player_fleet.action==""){
                 }                                 
             }               
             var selection_travel_speed = calculate_action_speed(has_capitals,has_frigates,has_escorts);
+            player_fleet.action_spd = selection_travel_speed;
             if (is_array(star_travel)){
-                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, selection_travel_speed);
+                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
             }else if (sys.id != star_travel.final_route_info[0]){
-                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, selection_travel_speed);
+                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
             }
             star_travel.draw_route();
             draw_set_color(c_white);
@@ -126,7 +127,7 @@ if (owner  == eFACTION.Player) and (player_fleet.action==""){
             draw_set_font(fnt_40k_14b);
             var eta=0;       
 
-            eta = calculate_fleet_eta(mine.x,mine.y,sys.x,sys.y, selection_travel_speed);
+            eta = calculate_fleet_eta(mine.x,mine.y,sys.x,sys.y, selection_travel_speed, ,,player_fleet.warp_able);
 
             if (sys.storm>0) or (instance_nearest(x,y+24,obj_star).storm>0) then eta="N/A";
             

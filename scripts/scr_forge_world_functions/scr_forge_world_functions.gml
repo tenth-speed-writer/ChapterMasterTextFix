@@ -70,6 +70,7 @@ function imperial_navy_fleet_construction(){
 		    new_navy_fleet.escort_number=1;
 		    new_navy_fleet.home_x=x;
 		    new_navy_fleet.home_y=y;
+		    new_navy_fleet.warp_able = true;
 		    with(construction_forge){present_fleet[2]+=1;}
 		    new_navy_fleet.orbiting=construction_forge;
 		    new_navy_fleet.navy=1;

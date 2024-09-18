@@ -15,6 +15,7 @@ minimum_eta=0;
 navy=0;
 guardsmen_ratio=0;
 guardsmen_unloaded=0;
+complex_route = [];
 warp_able = false;
 ii_check=floor(random(5))+1;
 etah=0;safe=0;

@@ -5,6 +5,7 @@ frigate_number=0;
 escort_number=0;
 selected=0;
 orbiting=0;
+warp_able=true;
 ii_check=choose(8,9,10,11,12);
 
 var wop=instance_nearest(x,y,obj_star);

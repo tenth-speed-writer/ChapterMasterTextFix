@@ -1041,6 +1041,7 @@ function scr_load(argument0, argument1) {
 	        fla.navy=ini_read_real("Fleet",$"ef{i}navy",0);
 	        fla.guardsmen_unloaded=ini_read_real("Fleet",$"ef{i}unl",0);
 	        fla.inquisitor=ini_read_real("Fleet",$"ef{i}inquis",-1);
+	        fla.complex_route = return_json_from_ini("Fleet", $"ef{i}complex_route", []);
 
 	        if (fla.navy=1){var e;e=-1;
 	            repeat(20){e+=1;

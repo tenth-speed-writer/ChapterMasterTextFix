@@ -524,6 +524,7 @@ function scr_save(save_slot,save_id) {
 	        ini_write_real("Fleet","ef"+string(i)+"home_x",instance_array[i].home_x);
 	        ini_write_real("Fleet","ef"+string(i)+"home_y",instance_array[i].home_y);
 	        ini_write_real("Fleet","ef"+string(i)+"inquis",instance_array[i].inquisitor);
+	        ini_encode_and_json("Fleet",$"ef{i}complex_route", instance_array[i].complex_route);
 
 	        ini_write_real("Fleet","ef"+string(i)+"target",instance_array[i].target);
 	        ini_write_real("Fleet","ef"+string(i)+"target_x",instance_array[i].target_x);
