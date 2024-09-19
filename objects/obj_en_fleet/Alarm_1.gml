@@ -1169,7 +1169,13 @@ if (action==""){
 
 if (action="move") and (action_eta>5000){
     var woop = instance_nearest(x,y,obj_star);
-    if (woop.storm=0) then action_eta-=10000;
+    if (woop.storm=0){
+    	action_eta-=10000;
+    } else {
+    	if !(instance_nearest(target_x,target_y,obj_star).storm){
+    		action_eta-=10000;
+    	}
+    }
 }
 
 else if (action="move") and (action_eta<5000){
@@ -1193,13 +1199,14 @@ else if (action="move") and (action_eta<5000){
     if (action_eta==2) and (owner=eFACTION.Inquisition) && (inquisitor>-1){
     	inquisitor_ship_approaches();
     } else if (action_eta==0) {
+    	action = "";
     	if (array_length(complex_route)>0){
-    		action = "";
     		var target_loc = star_by_name(complex_route[0]);
     		if (target_loc != "none"){
     			array_delete(complex_route, 0, 1);
     			action_x = target_loc.x;
     			action_y = target_loc.y;
+    			target = target_loc;
     			set_fleet_movement(false);
     		} else {
     			complex_route = [];

@@ -159,9 +159,6 @@ function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3
     return from;     
 }
 
-function star_distace_calc(star1,star2){
-	return point_distance(star1.x, star1.y, star2.x, star2.y);
-}
 
 function nearest_star_proper(xx,yy) {
 	var i=0;

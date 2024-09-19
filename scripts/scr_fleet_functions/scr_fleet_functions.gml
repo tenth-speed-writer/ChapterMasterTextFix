@@ -81,110 +81,55 @@ function get_largest_player_fleet(){
 }
 
 function set_fleet_movement(fastest_route = true){
-	if (action!=""){
-	    var sys, sys_dist, mine, connected, fleet, cont;
-	    sys_dist=9999;connected=0;cont=0;
-	    
-	    fleet=instance_id_get( 0 );
-	    sys=instance_nearest(action_x,action_y,obj_star);
-	    sys_dist=point_distance(action_x,action_y,sys.x,sys.y);
-	    act_dist=point_distance(x,y,sys.x,sys.y);
-	    mine=instance_nearest(x,y,obj_star);
 
-	    connected = determine_warp_join(mine, sys);
-	    
-	    var eta=0;
-	    eta=floor(point_distance(x,y,action_x,action_y)/action_spd)+1;
-	    if (connected=0) then eta=eta*2;
-	    if (connected=1) then connected=1;
-	    
-	    if (owner=eFACTION.Inquisition) and (action_eta<2) then action_eta=2;
-	    // action_x=sys.x;
-	    // action_y=sys.y;
-	    action="move";
-	    
-	    if (owner != eFACTION.Eldar) and (mine.storm>0) then action_eta+=10000;
-	    
-	    x=x+lengthdir_x(24,point_direction(x,y,sys.x,sys.y));
-	    y=y+lengthdir_y(24,point_direction(x,y,sys.x,sys.y));
-	}
+	action = "";
 
-
-	else if (action==""){
-	    var sys, sys_dist, mine, connected, fleet, cont, target_dist;
-	    sys_dist=9999;connected=0;cont=0;target_dist=0;
+	if (action==""){
+	    var sys, mine, fleet;
+	    var connected=0,cont=0,target_dist=0;
 	    if (fastest_route){
-	    	var star_travel = new fastest_route_algorithm(x,y,action_x,action_y, self.id);
-	    	var targ = star_by_name(star_travel[0]);
+	    	mine=instance_nearest(x,y,obj_star);
+	    	var is_orbiting = point_distance(x,y,mine.x, mine.y)<50;
+	    	var star_travel = new fastest_route_algorithm(x,y,action_x,action_y, self.id,is_orbiting);
+	    	var path =  star_travel.final_array_path();
+	    	var targ = star_by_name(path[0]);
 	    	if (targ!="none"){
-	    		array_delete(star_travel,0,1);
-	    		complex_route = star_travel
-	    		action_x = target_planet.x;
-				action_y = target_planet.y;
+	    		array_delete(path,0,1);
+	    		complex_route = path;
+	    		action_x = targ.x;
+				action_y = targ.y;
+				target = targ.id;
 	    		set_fleet_movement(false);
 	    	} else {
 	    		set_fleet_movement(false);
 	    	}
 	    } else {
 
-		    fleet=id;
 		    sys=instance_nearest(action_x,action_y,obj_star);
-		    sys_dist=point_distance(action_x,action_y,sys.x,sys.y);
-		    if (target!=0) and (instance_exists(target)) then target_dist=point_distance(x,y,target.action_x,target.action_y);
-		    act_dist=point_distance(x,y,sys.x,sys.y);
+
 		    mine=instance_nearest(x,y,obj_star);
-		    
-		    // if (owner = eFACTION.Tau) then mine.tau_fleets-=1;
-		    // if (owner = eFACTION.Tau) and (image_index!=1) then mine.tau_fleets-=1;
-		    // mine.present_fleets-=1;
-		    
-		    connected = determine_warp_join(sys, mine);
-		    cont=1;
-		    
-		    
-		    if (cont=1){
-		        cont=20;
-		    }
-		    
-		    
-		    if (cont=20){// Move the entire fleet, don't worry about the other crap
-		        var eta=0;
-		        
-		        if (trade_goods!="") and (owner != eFACTION.Tyranids) and (owner != eFACTION.Chaos) and (string_count("Inqis",trade_goods)=0) and (string_count("merge",trade_goods)=0)and (string_count("_her",trade_goods)=0) and (trade_goods!="cancel_inspection") and (trade_goods!="return"){
-		            if (target!=0) and (instance_exists(target)){
-		                if (target.action!=""){
-		                    if (target_dist>sys_dist){
-		                        action_x=target.action_x;
-		                        action_y=target.action_y;
-		                        sys=instance_nearest(action_x,action_y,obj_star);}
-		                }
-		            }
-		        }        
-		        
-		        eta = calculate_fleet_eta(x,y,action_x,action_y,instance_exists(target),instance_exists(orbiting),warp_able);
-		        
-		        if (action_eta<=0) or (owner  != eFACTION.Inquisition){
-		            action_eta=eta;
-		            if (owner  = eFACTION.Inquisition) and (action_eta<2) and (string_count("_her",trade_goods)=0) then action_eta=2;
-		        }
-		        
-		        if (owner != eFACTION.Eldar) and (mine.storm>0) then action_eta+=10000;
-		        
-		        // action_x=sys.x;
-		        // action_y=sys.y;
-		        action="move";
-		        
-		        if (minimum_eta>action_eta) and (minimum_eta>0) then action_eta=minimum_eta;
-		        minimum_eta=0;
-		        if (etah>action_eta) and (etah!=0) then action_eta=etah;
-		        
-		        x=x+lengthdir_x(24,point_direction(x,y,sys.x,sys.y));
-		        y=y+lengthdir_y(24,point_direction(x,y,sys.x,sys.y));
-		    }
+
+	            
+			var is_orbiting = point_distance(x,y,mine.x, mine.y)<50;
+	        
+	        var eta = calculate_fleet_eta(x,y,action_x,action_y,action_spd,instance_exists(sys),is_orbiting,warp_able);
+	        action_eta = eta;
+	        if (action_eta<=0) or (owner  != eFACTION.Inquisition){
+	            action_eta=eta;
+	            if (owner  = eFACTION.Inquisition) and (action_eta<2) and (string_count("_her",trade_goods)=0) then action_eta=2;
+	        }
+	        
+	        if (owner != eFACTION.Eldar && mine.storm) then action_eta+=10000;
+	        
+	        // action_x=sys.x;
+	        // action_y=sys.y;
+	        orbiting = false;
+	        action="move";
+	        
+	        if (minimum_eta>action_eta) and (minimum_eta>0) then action_eta=minimum_eta;
+	        minimum_eta=0;
 		}
 	}
-
-	etah=0;	
 }
 
 
@@ -223,8 +168,8 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true,w
 		star1 = instance_nearest(xx,yy, obj_star);
 	}
 	eta=floor(point_distance(xx,yy,xxx,yyy)/fleet_speed)+1;
-	if (!warp_lane || !warp_able) then eta*=2;
-	if (warp_lane) then eta = ceil(eta/warp_lane);
+	if (!warp_lane) then eta*=2;
+	if (warp_lane && warp_able) then eta = ceil(eta/warp_lane);
 	if (instance_exists(star2)){
 		if (star2.storm){
 			eta += 10000;
@@ -233,98 +178,6 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true,w
 	return eta;
 }
 
-function fastest_route_algorithm(start_x,start_y, xx,yy,fleet, start_from_star=false) constructor{
-	var star_number = instance_number(obj_star);
-	target = instance_nearest(xx,yy,obj_star);
-	self.fleet=fleet;
-	self.ship_speed = fleet.action_spd;
-	worst_case = (floor(point_distance(start_x,start_y, xx,yy)/ship_speed+2))*2;
-	start_star = instance_nearest(start_x,start_y,obj_star).id;
-	unvisited_stars = [
-		[start_star,-1, [], false],
-		[target,-1, [], false],
-	];
-
-	for (var i = 0; i < star_number; i++){
-		if (instance_find(obj_star,i).id == start_star.id) then continue;
-		if (instance_find(obj_star,i).id == target.id) then continue;
-		var i_star = instance_find(obj_star,i);
-		for (var s=1;s<array_length(unvisited_stars);s++){
-			var s_star = unvisited_stars[s][0];
-			if (point_distance(i_star.x,i_star.y, start_star.x,start_star.y)<point_distance(s_star.x,s_star.y, start_star.x,start_star.y)){
-				array_insert(unvisited_stars, s, [i_star,-1, [], false]);
-				break;
-			}
-		}
-	};
-
-	function find_star_travel_distances(cur_star_id){
-		var current_star = unvisited_stars[cur_star_id][0];
-		var cur_travel = unvisited_stars[cur_star_id][1];
-		var eta;
-		var warp_lane = false;
-		for (var s=cur_star_id+1; s<array_length(unvisited_stars);s++){
-			var visit_data = unvisited_stars[s];
-			if (visit_data[3]) then continue;
-			visit_star = unvisited_stars[s][0];
-			eta = calculate_fleet_eta(current_star.x,current_star.y,visit_star.x,visit_star.y, ship_speed, true, true, fleet.warp_able);
-			if (eta){
-				if (eta+cur_travel<visit_data[1]
-					|| visit_data[1]==-1 ){
-					visit_data[1] = eta+cur_travel;
-					visit_data[2] =[];
-					for (var c=0;c<array_length(unvisited_stars[cur_star_id][2]);c++){
-						array_push(visit_data[2], unvisited_stars[cur_star_id][2][c]);
-					}
-					if (!array_contains(visit_data[2], current_star.id)){
-						array_push(visit_data[2], current_star.id);
-					};
-				}
-			} else {
-				visit_data[3] = true;
-			}
-			/*if (cur_star_id==0){
-				if (eta>worst_case){
-					visit_data[3] = true;
-				}
-			}*/
-			unvisited_stars[s] = visit_data;
-		}
-		unvisited_stars[cur_star_id][3] = true;
-	}
-
-	for (var i=0;i<array_length(unvisited_stars);i++){
-		if (!unvisited_stars[i][3]){
-			find_star_travel_distances(i);
-		}
-	}
-
-	final_route_info = unvisited_stars[array_length(unvisited_stars)-1];
-	static draw_route = function(){
-	    draw_set_color(c_blue);
-        draw_set_alpha(1);            
-        var cur_star = start_star;
-        var scale = obj_controller.zoomed ? 3.5 : 1;
-        for (var i=0;i<array_length(final_route_info[2]);i++){
-             draw_line_dashed(cur_star.x,cur_star.y,final_route_info[2][i].x,final_route_info[2][i].y,16,scale);
-             cur_star = final_route_info[2][i];
-        }
-        draw_line_dashed(cur_star.x,cur_star.y,final_route_info[0].x,final_route_info[0].y,16,0.5);
-        var eta = $"ETA {final_route_info[1]+1}";
-        scale = obj_controller.zoomed ? 5 : 1;
-        draw_text_transformed(cur_star.x+16,cur_star.y+15,eta,scale,scale,0);
-        draw_text_transformed(cur_star.x+16,cur_star.y+15,eta,1,1,0);      
-	}
-	static final_array_path = function(){
-		var final_path = final_route_info[2];
-		var path_store = [];
-		array_push(final_path, final_route_info[0]);
-		for (var i=0;i<array_length(final_path);i++){
-			array_push(path_store, final_path[i].name);
-		}
-		return path_store;
-	}
-}
 
 
 
@@ -339,75 +192,6 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 	}
 	if (obj_controller.stc_ships>=6) and (fleet_speed>=100) then fleet_speed*=0.8;
 	return fleet_speed;
-}
-
-
-
-
-function create_complex_star_routes(){
-	var north=[], east=[], west=[], south=[], central=[];
-	with (obj_star){
-		if (x<700) then array_push(west, id);
-		if (y<700) then array_push(north, id);
-		if (x>room_width-700) then array_push(east, id);
-		if (y>room_height-700) then array_push(south, id);
-		if (x>700) && (y>700) && (x<room_width-700) && (x<room_width-700){
-			array_push(central, id);
-		}
-		if (irandom(10)){
-			var nearest_star = distance_removed_star(x,y,1,true,true,false);
-			if (determine_warp_join(nearest_star.id, self.id)){
-				array_push(warp_lanes, [distance_removed_star(x,y,2,true,true,false).name, 1]);
-			} else {
-				array_push(warp_lanes, [nearest_star.name, 1]);
-			}
-		} else {
-			array_push(warp_lanes, [distance_removed_star(x,y,irandom_range(3, 6),true,true,false).name, 1]);
-		}
-	}
-	full_loci = [north, east,west,south,central];
-	var current_start,set, join_set, total_joins;
-	for (var i=0;i<array_length(full_loci);i++){
-		if (irandom(1)) then continue;
-		set = full_loci[i];
-		if (array_length(set) == 0) then continue;
-		current_start = set[irandom(array_length(set)-1)];
-		total_joins =0;
-		for (var s=0;s<array_length(full_loci);s++){
-			if (!irandom(1)) then continue;
-			join_set = full_loci[s];
-			var set_count = array_length(join_set);
-			if (s==i || set_count == 0)then continue;
-			/*//if (irandom(1)) then continue;
-			for (var i=0;i<array_length(full_loci[s])i++){
-				//if !(irandom(2)) then
-			}*/
-			join_star = join_set[irandom(set_count-1)];
-			array_push(current_start.warp_lanes, [join_star.name, 4]);
-			total_joins++;
-			if (total_joins>3) then break;
-		}
-	}
-}
-
-function determine_warp_join(star_a, star_b){
-	var lane;
-	var lane_strength = 0;
-	for (var i=0;i<array_length(star_a.warp_lanes);i++){
-		lane = star_a.warp_lanes[i];
-		if (lane[0] == star_b.name){
-			lane_strength = lane[1];
-		}
-	}
-	if (lane_strength==0){
-		for (var i=0;i<array_length(star_b.warp_lanes);i++){
-			lane = star_b.warp_lanes[i];
-			if (lane[0] == star_a.name){
-				lane_strength = lane[1];
-			}
-		}		
-	}
-	return lane_strength;
 }
 
 //TODO further split this shite up
@@ -451,7 +235,7 @@ function fleet_arrival_logic(){
     if (trade_goods="female_her") or (trade_goods="male_her"){
         // if (owner  = eFACTION.Inquisition) then show_message("A");
         
-        var next;next=0;
+        var next=0;
         if (!instance_exists(obj_p_fleet)) then next=1;
         if (instance_exists(obj_p_fleet)){
             with(obj_p_fleet){if (action!="") then instance_deactivate_object(id);}

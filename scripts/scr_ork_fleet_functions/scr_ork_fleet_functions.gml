@@ -54,6 +54,7 @@ function build_new_ork_ships_to_fleet(star, planet){
         if (instance_exists(new_wagh_star)){
             action_x=new_wagh_star.x;
             action_y=new_wagh_star.y;
+            action = "";
             set_fleet_movement();
         }
     
@@ -79,6 +80,7 @@ function ork_fleet_move(){
         var nex=instance_nearest(x,y,obj_star);
         action_x=nex.x;
         action_y=nex.y;
+        action="";
         set_fleet_movement();
 
         instance_activate_object(obj_star);
@@ -100,7 +102,13 @@ function ork_fleet_arrive_target(){
             l+=1;
             if (t1=0) and (p_tyranids[l]>0) then t1=l;
         }
-        if (t1>0) then p_tyranids[t1]-=boat.capital_number+(frigate_number/2);
+        if (t1>0) then p_tyranids[t1]-=boat.capital_number+(boat.frigate_number/2);
+        if (p_tyranids[t1]<=0){
+            delete_features(p_feature[battle_planet], P_features.Gene_Stealer_Cult);
+            adjust_influence(eFACTION.Tyranids, -25, battle_planet);
+            
+
+        }
         
         landi = !is_dead_star();
         if (!landi){
