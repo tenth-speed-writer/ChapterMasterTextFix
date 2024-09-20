@@ -1,10 +1,4 @@
 
-//function fr tallying arrays
-function array_sum(_prev, _curr, _index) {
-    return _prev + _curr;
-}
-
-
 
 //to be run within with scope
 function set_fleet_target(targ_x, targ_y, final_target){
@@ -80,6 +74,17 @@ function get_largest_player_fleet(){
 	return chosen_fleet;
 }
 
+function is_orbiting(){
+	if (action != "") then return false;
+	var nearest = instance_nearest(x,y,obj_star);
+	if (point_distance(x,y,nearest.x, nearest.y)<50){
+		orbiting =  nearest;
+		return true
+	}
+	orbiting=false;
+	return false;
+}
+
 function set_fleet_movement(fastest_route = true){
 
 	action = "";
@@ -89,8 +94,7 @@ function set_fleet_movement(fastest_route = true){
 	    var connected=0,cont=0,target_dist=0;
 	    if (fastest_route){
 	    	mine=instance_nearest(x,y,obj_star);
-	    	var is_orbiting = point_distance(x,y,mine.x, mine.y)<50;
-	    	var star_travel = new fastest_route_algorithm(x,y,action_x,action_y, self.id,is_orbiting);
+	    	var star_travel = new fastest_route_algorithm(x,y,action_x,action_y, self.id,is_orbiting());
 	    	var path =  star_travel.final_array_path();
 	    	var targ = star_by_name(path[0]);
 	    	if (targ!="none"){
@@ -108,11 +112,8 @@ function set_fleet_movement(fastest_route = true){
 		    sys=instance_nearest(action_x,action_y,obj_star);
 
 		    mine=instance_nearest(x,y,obj_star);
-
-	            
-			var is_orbiting = point_distance(x,y,mine.x, mine.y)<50;
 	        
-	        var eta = calculate_fleet_eta(x,y,action_x,action_y,action_spd,instance_exists(sys),is_orbiting,warp_able);
+	        var eta = calculate_fleet_eta(x,y,action_x,action_y,action_spd,instance_exists(sys),is_orbiting(),warp_able);
 	        action_eta = eta;
 	        if (action_eta<=0) or (owner  != eFACTION.Inquisition){
 	            action_eta=eta;
@@ -205,7 +206,9 @@ function fleet_arrival_logic(){
     
     if (owner = eFACTION.Mechanicus){
         if (string_count("spelunk1",trade_goods)=1){
-            trade_goods="mars_spelunk2";action_x=home_x;action_y=home_y;action_eta=52;exit;
+            trade_goods="mars_spelunk2";
+            action_x=home_x;action_y=home_y;action_eta=52;
+            exit;
         }
         if (string_count("spelunk2",trade_goods)=1){
             // Unload techmarines nao plz

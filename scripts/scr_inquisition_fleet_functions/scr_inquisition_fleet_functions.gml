@@ -3,6 +3,7 @@ function base_inquis_fleet (){
     frigate_number=1;
     sprite_index=spr_fleet_inquisition;
     image_index=0;
+    warp_able=true;
     var roll=irandom(100)+1;
     inquisitor = 0;
     trade_goods="Inqis";

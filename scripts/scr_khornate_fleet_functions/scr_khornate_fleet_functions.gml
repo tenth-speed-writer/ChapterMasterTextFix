@@ -4,7 +4,6 @@ function khorne_fleet_cargo(){
 	//This handles khorne fleets killing planet popultions moving planet and then choosing a new target ot chase
 	var orb=orbiting; 
 	if (orb!=0) and (instance_exists(orb)) and (action=""){
-        array_reduce(orb.present_fleet, array_sum,1)
         if (orb.present_fleet[1]+orb.present_fleet[2]+orb.present_fleet[3]+orb.present_fleet[6]+orb.present_fleet[7]+orb.present_fleet[9]+orb.present_fleet[13]=0){
             var ii=0,good=0,part=0,find_new_planet=false;
             

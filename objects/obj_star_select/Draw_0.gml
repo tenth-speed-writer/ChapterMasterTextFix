@@ -787,17 +787,19 @@ if (debug){
     yy=__view_get( e__VW.YView, 0 )+165;
     current_planet=obj_controller.selecting_planet;
     
-    draw_set_color(c_black);draw_rectangle(xx+9,yy+9,xx+310,yy+260,0);
-    draw_set_font(fnt_40k_14b);draw_set_color(c_gray);draw_set_halign(fa_left);
+    draw_set_color(c_black);
+    draw_rectangle(xx+9,yy+9,xx+310,yy+260,0);
+    draw_set_font(fnt_40k_14b);
+    draw_set_color(c_gray);draw_set_halign(fa_left);
     
-    draw_text(xx+11,yy+11,string_hash_to_newline("Orks: "+string(target.p_orks[current_planet])));
-    draw_text(xx+11,yy+31,string_hash_to_newline("Tau: "+string(target.p_tau[current_planet])));
-    draw_text(xx+11,yy+51,string_hash_to_newline("Tyranids: "+string(target.p_tyranids[current_planet])));
-    draw_text(xx+11,yy+71,string_hash_to_newline("Traitors: "+string(target.p_traitors[current_planet])));
-    draw_text(xx+11,yy+91,string_hash_to_newline("CSM: "+string(target.p_chaos[current_planet])));
-    draw_text(xx+11,yy+111,string_hash_to_newline("Daemons: "+string(target.p_demons[current_planet])));
-    draw_text(xx+11,yy+131,string_hash_to_newline("Necrons: "+string(target.p_necrons[current_planet])));
-    draw_text(xx+11,yy+151,string_hash_to_newline("Sisters: "+string(target.p_sisters[current_planet])));
+    draw_text(xx+11,yy+11,("Orks: "+string(target.p_orks[current_planet])));
+    draw_text(xx+11,yy+31,("Tau: "+string(target.p_tau[current_planet])));
+    draw_text(xx+11,yy+51,("Tyranids: "+string(target.p_tyranids[current_planet])));
+    draw_text(xx+11,yy+71,("Traitors: "+string(target.p_traitors[current_planet])));
+    draw_text(xx+11,yy+91,("CSM: "+string(target.p_chaos[current_planet])));
+    draw_text(xx+11,yy+111,("Daemons: "+string(target.p_demons[current_planet])));
+    draw_text(xx+11,yy+131,("Necrons: "+string(target.p_necrons[current_planet])));
+    draw_text(xx+11,yy+151,("Sisters: "+string(target.p_sisters[current_planet])));
     
     draw_text(xx+120,yy+11,string_hash_to_newline("[-] [+]"));
     draw_text(xx+120,yy+31,string_hash_to_newline("[-] [+]"));

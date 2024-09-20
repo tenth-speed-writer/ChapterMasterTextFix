@@ -26,7 +26,8 @@ global.SystemHelps = new NSystemSearchHelpers();
 function fetch_faction_group(group="imperium_default") {
 	switch(group){
 		case "imperium_default":
-			var imperium =  [eFACTION.Imperium,
+			var imperium =  [
+					eFACTION.Imperium,
 					eFACTION.Mechanicus,
 					eFACTION.Inquisition,
 					eFACTION.Ecclesiarchy
@@ -131,7 +132,7 @@ function star_by_name(search_name){
 	return "none";
 }
 
-function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3), disclude_hulk=true, disclude_elder=true, disclude_deads=true){
+function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3), disclude_hulk=true, disclude_elder=true, disclude_deads=true, warp_concious=true){
 	var from = instance_nearest(origional_x,origional_y,obj_star);
     for(var i=0; i<star_offset; i++){
         from=instance_nearest(origional_x,origional_y,obj_star);
@@ -156,6 +157,10 @@ function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3
     }
     //from=instance_nearest(origional_x,origional_y,obj_star);
     instance_activate_object(obj_star);
+    //TODO finish this off to make the distance remove more concious of warp lanes
+    /*if (warp_concious){
+    	var options = [from];
+    }*/
     return from;     
 }
 
@@ -176,7 +181,7 @@ function nearest_star_proper(xx,yy) {
 }
 
 
-function nearest_star_with_ownership(xx,yy, ownership){
+function nearest_star_with_ownership(xx,yy, ownership, start_star="none"){
 	var nearest = "none"
 	var total_stars =  instance_number(obj_star);
 	var i=0;
@@ -186,6 +191,12 @@ function nearest_star_with_ownership(xx,yy, ownership){
 	while (nearest=="none" && i<total_stars){
 		i++;
 		var cur_star =  instance_nearest(xx,yy, obj_star);
+		if (start_star!="none"){
+			if (start_star.id == cur_star.id){
+				instance_deactivate_object(cur_star.id);
+				continue;
+			}
+		}
 		if (array_contains(ownership, cur_star.owner)){
 			nearest=cur_star.id;
 		} else {

@@ -2,7 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function adjust_influence(faction, value, planet){
 	p_influence[planet][faction]+=value;
-	var total_influence =  array_reduce(p_influence[planet], array_sum,1);
+	var total_influence =  array_sum(p_influence[planet]);
 	var loop=0;
 	if (total_influence>100){
 		var difference = total_influence-100;

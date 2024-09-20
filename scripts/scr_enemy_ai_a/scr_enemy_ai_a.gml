@@ -82,11 +82,11 @@ function scr_enemy_ai_a() {
 	        }
         	
 
-	        if (stop=false){
+	        if (!stop){
 	            var plap=0,old_x=x,old_y=y,flee=0;
             	var _current_planet_name = name;
             	var launch_planet, launch_point_found=false;
-            	launch_planet = nearest_star_with_ownership(x,y, [owner=eFACTION.Imperium || owner=eFACTION.Mechanicus]);
+            	launch_planet = nearest_star_with_ownership(x,y, [owner=eFACTION.Imperium, owner=eFACTION.Mechanicus], self.id);
 
             	if (instance_exists(launch_planet)){
 		            flee=instance_create(launch_planet.x,launch_planet.y-24,obj_en_fleet);
@@ -96,7 +96,9 @@ function scr_enemy_ai_a() {
 		            flee.action_x=x;
 		            flee.action_y=y;
 		            flee.trade_goods+="|investigate_dead|";
-		            flee.alarm[4]=1;
+		            with (flee){
+		            	set_fleet_movement();
+		            }
             	}
 	        }
 	    }

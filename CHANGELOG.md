@@ -35,6 +35,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed:
 - travelling without waypoints while pressing shift now fixed
 - melee enthusiats now decreases starting devestators as well as increasing assualts
+- crash from inquisitors snooping onplayer bases
 
 ### Added:
 - New warp hub planets

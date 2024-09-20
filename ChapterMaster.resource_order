@@ -3,6 +3,8 @@
   "ResourceOrderSettings": [
     {"name":"scr_forge_world_functions","order":4,"path":"scripts/scr_forge_world_functions/scr_forge_world_functions.yy",},
     {"name":"scr_buttons","order":10,"path":"scripts/scr_buttons/scr_buttons.yy",},
+    {"name":"scr_array_functions","order":14,"path":"scripts/scr_array_functions/scr_array_functions.yy",},
+    {"name":"scr_imperial_navy_functions","order":13,"path":"scripts/scr_imperial_navy_functions/scr_imperial_navy_functions.yy",},
     {"name":"scr_star_travel_algorithm","order":12,"path":"scripts/scr_star_travel_algorithm/scr_star_travel_algorithm.yy",},
     {"name":"scr_mission_functions","order":2,"path":"scripts/scr_mission_functions/scr_mission_functions.yy",},
     {"name":"scr_ork_planet_functions","order":11,"path":"scripts/scr_ork_planet_functions/scr_ork_planet_functions.yy",},
