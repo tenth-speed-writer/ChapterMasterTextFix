@@ -138,12 +138,15 @@ function is_specialist(unit_role, type="standard", include_trainee=false) {
 			break;
 		case "chap":
 			specialists = [
-						obj_ini.role[100][14],//techmarine
+						obj_ini.role[100][14],//chaplain
 						"Master of Sanctity",
 			];
 			if (include_trainee){
 				array_push(specialists,  string("{0} Aspirant",obj_ini.role[100][14]));
-			}			
+			}
+			if (global.chapter_name == "Iron Hands"){
+				array_push(specialists, obj_ini.role[100][16]);
+			}	
 			break;
 		case "apoth":
 			specialists = [
@@ -152,7 +155,10 @@ function is_specialist(unit_role, type="standard", include_trainee=false) {
 			];
 			if (include_trainee){
 				array_push(specialists,  string("{0} Aspirant",obj_ini.role[100][15]));
-			}			
+			}	
+			if (global.chapter_name == "Space Wolves"){
+				array_push(specialists, obj_ini.role[100][14]);
+			}		
 			break;
 		case "heads":
 			specialists = role_groups("heads");

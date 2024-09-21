@@ -39,19 +39,10 @@ function scr_drop_fiddle(argument0, argument1, argument2, argument3) {
 	                if (obj_ini.role[comp][i]="Champion") then champions+=1;
                 
 	                if (obj_ini.role[comp][i]=obj_ini.role[100][5]) then capts+=1;
-	                if (obj_ini.role[comp][i]="Master of Sanctity") then chaplains+=1;
-	                if (obj_ini.role[comp][i]=obj_ini.role[100][14]) and (global.chapter_name!="Space Wolves") then chaplains+=1;
-                	
+	                if (unit.IsSpecialist("chap", true)) then chaplains+=1;
                 	if (unit.IsSpecialist("libs")) then psykers++;
-                	if (unit.IsSpecialist("apoth")){
-                		if ((global.chapter_name!="Space Wolves")){
-                			chaplains++;
-                		}
-
-                		apothecaries++;
-                	}
+                	if (unit.IsSpecialist("apoth")) then apothecaries++;
                 	if (unit.IsSpecialist("forge")) then techmarines++;
-                	if (unit.IsSpecialist("chap")) then chaplains++;
                 
 	                if (obj_ini.role[comp][i]="Death Company") and (string_count("Dreadnought",obj_ini.armour[comp][i])=0) then mahreens+=1;
 	                if (obj_ini.role[comp][i]=obj_ini.role[100][4]) then terminators+=1;
@@ -101,19 +92,10 @@ function scr_drop_fiddle(argument0, argument1, argument2, argument3) {
 	                if (obj_ini.role[comp][i]="Champion") then champions-=1;
                 
 	                if (obj_ini.role[comp][i]=obj_ini.role[100][5]) then capts-=1;
-	                if (obj_ini.role[comp][i]="Master of Sanctity") then chaplains-=1;
-	                if (obj_ini.role[comp][i]=obj_ini.role[100][14]) and (global.chapter_name!="Space Wolves") then chaplains-=1;
-                
-	                if (obj_ini.role[comp][i]="Chief "+string(obj_ini.role[100,17])) then psykers-=1;
-	                if (obj_ini.role[comp][i]=obj_ini.role[100,17]) then psykers-=1;
-	                if (obj_ini.role[comp][i]="Codiciery") then psykers-=1;
-	                if (obj_ini.role[comp][i]="Lexicanum") then psykers-=1;
-                
-	                if (obj_ini.role[comp][i]="Master of the Apothecarion") then apothecaries-=1;
-	                if (obj_ini.role[comp][i]=obj_ini.role[100][15]) then apothecaries-=1;
-                
-	                if (obj_ini.role[comp][i]="Forge Master") then techmarines-=1;
-	                if (obj_ini.role[comp][i]=obj_ini.role[100][16]) then techmarines-=1;
+	                if (unit.IsSpecialist("chap", true)) then chaplains-=1;
+	                if (unit.IsSpecialist("libs", true)) then psykers-=1;
+	                if (unit.IsSpecialist("apoth", true)) then apothecaries-=1;
+	                if (unit.IsSpecialist("forge", true)) then techmarines-=1;
                 
 	                if (obj_ini.role[comp][i]="Death Company") and (string_count("Dreadnought",obj_ini.armour[comp][i])=0) then mahreens-=1;
 	                if (obj_ini.role[comp][i]=obj_ini.role[100][4]) then terminators-=1;

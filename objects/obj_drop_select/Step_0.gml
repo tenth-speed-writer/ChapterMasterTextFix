@@ -43,13 +43,13 @@ if (refresh_raid!=0){
                     else if (unit.role()=obj_ini.role[100][4]) { terminators+=1;}
                     else if (unit.role()=obj_ini.role[100][5]) { capts+=1;}
                     
-                    else if (unit.IsSpecialist("chap") and (global.chapter_name!="Space Wolves") and (global.chapter_name!="Iron Hands")){
+                    else if (unit.IsSpecialist("chap", true)){
                         chaplains++;
-                    }else if (unit.IsSpecialist("apoth")){
+                    }else if (unit.IsSpecialist("apoth", true)){
                         apothecaries++;
-                    }else if (unit.IsSpecialist("libs")){
+                    }else if (unit.IsSpecialist("libs", true)){
                         psykers++;
-                    }else if (unit.IsSpecialist("forge")){
+                    }else if (unit.IsSpecialist("forge", true)){
                         techmarines++;
                     }
                     if (unit.role()="Chapter Master") then master=1;
@@ -83,12 +83,11 @@ if (refresh_raid!=0){
                     if (unit.role()="Champion") and ((raid_vet=0) or (remove=1)){fighting[comp][i]=0;champions-=1;}
                     
                     if (unit.role()="Chapter Master") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;master=0;}
-                    if (unit.role()="Master of Sanctity") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;chaplains-=1}
+                    if (unit.IsSpecialist("chap", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;chaplains-=1}
                     if (unit.role()="Master of the Apothecarion") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;apothecaries-=1;}
                     if (unit.role()="Chief "+string(obj_ini.role[100,17])) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
                     if (unit.role()="Forge Master") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;techmarines-=1;}
                     
-                    if (unit.role()=obj_ini.role[100][14]) and (global.chapter_name!="Space Wolves") and (global.chapter_name!="Iron Hands") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;chaplains-=1;}
                     if (unit.role()=obj_ini.role[100,17]) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
                     if (unit.role()="Codiciery") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
                     if (unit.role()="Lexicanum") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
@@ -124,17 +123,10 @@ if (refresh_raid!=0){
                     if (unit.role()="Champion") and (raid_vet=1){fighting[comp][i]=1;champions+=1;}
                     
                     if (unit.role()="Chapter Master") and (raid_spec=1){fighting[comp][i]=1;master=1;}
-                    if (unit.role()="Master of Sanctity") and (raid_spec=1){fighting[comp][i]=1;chaplains+=1}
-                    if (unit.role()="Master of the Apothecarion") and (raid_spec=1){fighting[comp][i]=1;apothecaries+=1;}
-                    if (unit.role()="Chief "+string(obj_ini.role[100,17])) and (raid_spec=1){fighting[comp][i]=1;psykers+=1;}
-                    if (unit.role()="Forge Master") and (raid_spec=1){fighting[comp][i]=1;techmarines+=1;}
-                    
-                    if (unit.role()=obj_ini.role[100][14]) and (global.chapter_name!="Space Wolves") and (global.chapter_name!="Iron Hands") and (raid_spec=1){fighting[comp][i]=1;chaplains+=1;}
-                    if (unit.role()=obj_ini.role[100,17]) and (raid_spec=1){fighting[comp][i]=1;psykers+=1;}
-                    if (unit.role()="Codiciery") and (raid_spec=1){fighting[comp][i]=1;psykers+=1;}
-                    if (unit.role()="Lexicanum") and (raid_spec=1){fighting[comp][i]=1;psykers+=1;}
-                    if (unit.role()=obj_ini.role[100][15]) and (raid_spec=1){fighting[comp][i]=1;apothecaries+=1;}
-                    if (unit.role()=obj_ini.role[100][16]) and (raid_spec=1){fighting[comp][i]=1;techmarines+=1;}
+                    if (unit.IsSpecialist("chap", true)) and (raid_spec=1){fighting[comp][i]=1;chaplains+=1}
+                    if (unit.IsSpecialist("apoth", true)) and (raid_spec=1){fighting[comp][i]=1;apothecaries+=1;}
+                    if (unit.IsSpecialist("libs", true)) and (raid_spec=1){fighting[comp][i]=1;psykers+=1;}
+                    if (unit.IsSpecialist("forge", true)) and (raid_spec=1){fighting[comp][i]=1;techmarines+=1;}
                 }
                 
                 
@@ -167,17 +159,10 @@ if (refresh_raid!=0){
                     if (unit.role()=obj_ini.role[100][5]) then capts-=1;
                 
                     if (unit.role()="Chapter Master") then master=0;
-                    if (unit.role()="Master of Sanctity") then chaplains-=1
-                    if (unit.role()="Master of the Apothecarion") then apothecaries-=1;
-                    if (unit.role()="Chief "+string(obj_ini.role[100,17])) then psykers-=1;
-                    if (unit.role()="Forge Master") then techmarines-=1;
-                    
-                    if (unit.role()=obj_ini.role[100][14]) and (global.chapter_name!="Space Wolves") and (global.chapter_name!="Iron Hands") then chaplains-=1;
-                    if (unit.role()=obj_ini.role[100,17]) then psykers-=1;
-                    if (unit.role()="Codiciery") then psykers-=1;
-                    if (unit.role()="Lexicanum") then psykers-=1;
-                    if (unit.role()=obj_ini.role[100][15]) then apothecaries-=1;
-                    if (unit.role()=obj_ini.role[100][16]) then techmarines-=1;
+                    if (unit.IsSpecialist("chap", true)) then chaplains-=1
+                    if (unit.IsSpecialist("apoth", true)) then apothecaries-=1;
+                    if (unit.IsSpecialist("libs", true)) then psykers-=1;
+                    if (unit.IsSpecialist("forge", true)) then techmarines-=1;
                 }
             }
         }
