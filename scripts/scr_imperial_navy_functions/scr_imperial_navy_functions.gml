@@ -380,9 +380,9 @@ function scr_navy_planet_action(){
 	            }
 	        }
 	        if (array_length(stars_needing_help)){
-	            var current_star=nearest_from_array(x,y,stars_needing_help);
-	            current_star = stars_needing_help[current_star];
-	            var star_distance = point_distance(x,y,stars_needing_help[current_star].x,current_star.y);
+	            var _current=nearest_from_array(x,y,stars_needing_help);
+	            current_star = stars_needing_help[_current];
+	            var star_distance = point_distance(x,y,current_star.x,current_star.y);
 	            if (star_distance>600) then halp=0;
 
 	            if (star_distance<=600){

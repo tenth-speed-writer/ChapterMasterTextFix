@@ -110,7 +110,7 @@ function ork_fleet_arrive_target(){
                 var nearest_imperial = nearest_star_with_ownership(x,y,eFACTION.Imperium, self.id);
                 if (nearest_imperial != "none"){
                     var targ_planet = scr_get_planet_with_owner(nearest_imperial,eFACTION.Imperium);
-                    new_colony_fleet(self.id, p_population[t1], nearest_imperial.id, targ_planet, "refugee");
+                    new_colony_fleet(self.id, t1, nearest_imperial.id, targ_planet, "refugee");
                 }
             }
         }

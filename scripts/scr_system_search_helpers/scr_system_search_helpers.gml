@@ -246,7 +246,7 @@ function nearest_from_array(xx,yy,list){
 			nearest_dist = point_distance(xx, yy, list[i].x,list[i].y);
 		}
 	}
-	return 
+	return  _nearest;
 }
 
 function is_dead_star(star="none"){
