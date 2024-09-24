@@ -427,12 +427,14 @@ function scr_powers(power_set, power_count, enemy_target, unit_id) {
 	}
 
 	if (has_force_weapon){
-		if (p_att>0) then p_att=round(p_att)*1.25;
-		if (p_rang>0) then p_rang=round(p_rang)*1.25;
 		if (unit.weapon_one()=="Force Staff" || unit.weapon_two()=="Force Staff"){
 			if (p_att>0) then p_att=round(p_att)*2;
 			if (p_rang>0) then p_rang=round(p_rang)*1.5;
-		}		
+		}
+		else{
+			if (p_att>0) then p_att=round(p_att)*1.25;
+			if (p_rang>0) then p_rang=round(p_rang)*1.25;
+		}
 	}
 
 	if (binders==true) and (p_type=="attack"){
