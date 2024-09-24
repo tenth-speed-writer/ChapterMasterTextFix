@@ -3261,6 +3261,7 @@ function scr_initialize_custom() {
 
 			// if (company=2){dready=1;
 			if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 1;
+			dready = 1;
 			rhinoy = 8;
 			whirly = whirlwind;
 			speedy = 2;
