@@ -36,6 +36,7 @@ All notable changes to this project will be documented in this file.
     - underslung flamers now have light armour piercing
 - eviscerator and relic blade sprites are now vertical again and support second weapon display
 - deathwing color now is a tiny bit darker
+- lots of artifact and mc weapon and equipmnet values altered (mostly upwards)
 
 ### Fixed:
 - travelling without waypoints while pressing shift now fixed
@@ -44,6 +45,10 @@ All notable changes to this project will be documented in this file.
 - eviscerator and relic blade sprites display on terminators
 - deathwing knights color scheme
 - crash from inquisitors snooping onplayer bases
+- Force stuff used to gain it's double damage buff twice
+- chaplain duplication error with edge cases (space wolves and Iron Hands)
+- in game wiki fixed
+- equal specialist distribution chapters will now still get their full allowance of dreads on game spawn
 
 ### Added:
 - New warp hub planets
@@ -54,6 +59,14 @@ All notable changes to this project will be documented in this file.
 	- sisterofbattle - spawns 1 Sister of Battle
 	- skitarii - spawns 1 Skitarii
 	- flashgit - spawns 1 Flash Git
+
+### Under The Hood:
+- in game wiki reformatted
+- refactor of drop select
+    - alarm_1
+    - step_0
+    - scr_drop_fiddle
+
 
 ## [0.9.2.4]
 
