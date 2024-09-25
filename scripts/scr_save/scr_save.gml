@@ -52,7 +52,8 @@ function scr_save(save_part,save_id) {
 	        ini_write_string("Star","sr"+string(i)+"present_fleets",base64_encode(json_stringify(instance_array[i].present_fleet)));
 
 	        var g=0;
-	        repeat(4){g+=1;
+	        repeat(4){
+	        	g+=1;
 	            if (instance_array[i].planets>=g){
 	                ini_write_real("Star","sr"+string(i)+"plan"+string(g),instance_array[i].planet[g]);
 	                ini_write_real("Star","sr"+string(i)+"dispo"+string(g),instance_array[i].dispo[g]);
@@ -597,7 +598,7 @@ function scr_save(save_part,save_id) {
 	if (save_part=5) or (save_part=0){
 	    ini_open($"save{save_id}.ini");
 	    instance_activate_object(obj_event_log);
-	    ini_write_string("Event", "log", base64_encode(json_stringify(obj_event_log.event)));
+	    ini_write_string("Event", "loglist", ini_encode_and_json(obj_event_log.event));
 	    obj_saveload.hide=true;
 	    obj_controller.invis=true;
 	    obj_saveload.alarm[2]=2;

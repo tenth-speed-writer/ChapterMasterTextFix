@@ -1,20 +1,24 @@
 
-if (save_part=6){txt="Praise to the Machine God";with(obj_controller){scr_save(5,obj_saveload.save_number);}trickle=50;}
+if (save_part=6){txt="Praise to the Machine God";
 
-if (save_part=5){txt="Astartes Registry";with(obj_controller){scr_save(4,obj_saveload.save_number);}trickle=40;save_part=6;}
+with(obj_controller){scr_save(5,obj_saveload.save_number);}trickle=50;}
 
-if (save_part=4){txt="Sacred Anointing of Oil";with(obj_controller){scr_save(3,obj_saveload.save_number);}trickle=10;save_part=5;}
+if (save_part=5){txt="Astartes Registry";
 
-if (save_part=3){txt="Charting Sector";with(obj_controller){scr_save(2,obj_saveload.save_number);}trickle=10;save_part=4;}
+with(obj_controller){scr_save(4,obj_saveload.save_number);}trickle=40;save_part=6;}
 
-if (save_part=2){
-    txt="Finding Servo Skulls";
-    with(obj_controller){
-        scr_save(1,obj_saveload.save_number);
-    }
-    trickle=10;
-    save_part=3;
+if (save_part=4){txt="Sacred Anointing of Oil";
+
+with(obj_controller){scr_save(3,obj_saveload.save_number);}trickle=10;save_part=5;}
+
+if (save_part=3){txt="Charting Sector";
+
+    with(obj_controller){scr_save(2,obj_saveload.save_number);}trickle=10;save_part=4;
 }
+
+if (save_part=2){txt="Finding Servo Skulls";
+
+with(obj_controller){scr_save(1,obj_saveload.save_number);}trickle=10;save_part=3;}
 
 if (save_part=1){
     if (file_exists("save"+string(save_number)+".ini")) then file_delete("save"+string(save_number)+".ini");

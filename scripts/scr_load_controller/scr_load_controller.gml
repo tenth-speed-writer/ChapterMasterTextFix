@@ -16,10 +16,10 @@ function default_bat_formation(){
     }	
 }
 
-function scr_load_controller(save_part,save_id){
-	
+function scr_load_controller(save_id){
+		var rang=0,i=0,g=0,stars=0,pfleets=0,efleets=0;
 		debugl("Loading slot "+string(save_id));
-		var save_file_name = "save"+string(save_id)+".ini";
+		var save_file_name = $"save{save_id}.ini";
 
 		if(file_exists("tsave.ini"))
 		{

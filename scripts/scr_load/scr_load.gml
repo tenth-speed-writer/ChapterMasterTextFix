@@ -31,7 +31,7 @@ function scr_load(save_part, save_id) {
 
 
 	if (save_part=1) or (save_part=0){
-		scr_load_controller();
+		scr_load_controller(save_id);
 	}
 
 
@@ -581,13 +581,17 @@ function scr_load(save_part, save_id) {
 	    }
 	    with(obj_en_fleet){if (owner=0) then instance_destroy();}
 	    ini_close();
+	    instance_create(-100,-100,obj_event_log);
+	    ini_open("tsave.ini");
+	    obj_event_log.event = return_json_from_ini("Event","loglist",[]);	    	    
+	    ini_close();
 	}
 
 	if (save_part=5) or (save_part=0){
 	    ini_open("tsave.ini");
 	    // file_delete("tsave.ini");
 
-	    var i;i=0;
+	    var i=0;
 	    obj_controller.restart_name=ini_read_string("Res","nm","");
 	    obj_controller.restart_founding=ini_read_real("Res","found",0);
 	    obj_controller.restart_secret=ini_read_string("Res","secre","");
@@ -766,8 +770,6 @@ function scr_load(save_part, save_id) {
 	    with(obj_en_fleet){
 			choose_fleet_sprite_image();
 	    }
-	    instance_create(-100,-100,obj_event_log);
-	    obj_event_log.event = return_json_from_ini("Event","log",[]);
 	    obj_saveload.alarm[1]=30;
 	    obj_controller.invis=false;
 	    global.load=0;
