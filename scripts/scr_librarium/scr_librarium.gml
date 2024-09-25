@@ -228,14 +228,17 @@ function scr_librarium(){
                         cur_arti.destroy_arti();
 
                         //TODO centralise into function
-                        for(var e=1; e<=500; e++){
+                        for (var e=1; e<=array_length(obj_controller.recent_keyword); e++){
                             if (obj_ini.artifact_tags[i]==obj_controller.recent_keyword[e]){
-                                obj_controller.recent_keyword[e]="";
-                                obj_controller.recent_type[e]="";
-                                obj_controller.recent_turn[e]=0;
-                                obj_controller.recent_number[e]=0;
+                                with (obj_controller){
+                                    array_delete(recent_keyword, e, 1);
+                                    array_delete(recent_type, e, 1);
+                                    array_delete(recent_turn, e, 1);
+                                    array_delete(recent_number, e, 1);
+                                }
                                 scr_recent("artifact_destroyed",obj_controller.recent_keyword,2);
                                 scr_recent("","",0);
+                                break;
                             }
                         }
                         delete_artifact(i);                           

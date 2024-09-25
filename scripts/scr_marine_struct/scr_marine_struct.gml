@@ -2451,8 +2451,9 @@ function jsonify_marine_struct(company, marine){
 	var names = variable_struct_get_names(copy_marine_struct); // get all keys within structure
 	for (var name = 0; name < array_length(names); name++) { //loop through keys to find which ones are methods as they can't be saved as a json string
 		if (!is_method(copy_marine_struct[$ names[name]])){
-			copy_part = DeepCloneStruct(copy_marine_struct[$ names[name]])
+			copy_part = DeepCloneStruct(copy_marine_struct[$ names[name]]);
 			variable_struct_set(new_marine, names[name],copy_part); //if key value is not a method add to copy structure
+			delete copy_part;
 		}
 	}
 	return json_stringify(new_marine);

@@ -512,9 +512,12 @@ fest_feasts=0;
 fest_boozes=0;
 fest_drugses=0;
 
-for(var i=0; i<601; i++){
-    recent_type[i]="";recent_keyword[i]="";recent_turn[i]=0;recent_number[i]=0;
-}recent_happenings=0;
+recent_type=[];
+recent_keyword=[];
+recent_turn=[];
+recent_number = [];
+
+recent_happenings=0;
 
 // Sets up items to be default
 for(var i=0; i<40; i++){
@@ -972,12 +975,7 @@ for(var i=0; i<16; i++){
 // 2: Defend        type=1
 // 3: Raid              type=2
 // 4: (New Formation)   type=0
-bat_formation[1]="Attack";
-bat_formation_type[1]=1;
-bat_formation[2]="Defend";
-bat_formation_type[2]=1;
-bat_formation[3]="Raid";
-bat_formation_type[3]=2;
+default_bat_formation();
 // Defaults formations end here
 
 bat_devastator_column=1;

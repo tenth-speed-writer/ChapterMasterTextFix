@@ -304,6 +304,7 @@ function scr_company_order(company) {
 				unit.company = co;
 				unit.marine_number = i;
 				unit.movement_after_math();
+				delete temp_struct[co][i];
 			}
 	}
 /*	i=0;repeat(300){i+=1;

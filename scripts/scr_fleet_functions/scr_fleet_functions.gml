@@ -695,4 +695,24 @@ function fleet_arrival_logic(){
     exit;// end of eta=0	
 }
 
+function choose_fleet_sprite_image(){
+    if (owner = eFACTION.Imperium && !fleet_has_cargo("colonize")){
+    	sprite_index=spr_fleet_imperial;
+    }
+    else if (owner = eFACTION.Imperium && fleet_has_cargo("colonize")){
+    	sprite_index=spr_fleet_civilian;
+    }
+    else if (owner == eFACTION.Mechanicus) { sprite_index=spr_fleet_mechanicus;}
+    else if (owner  == eFACTION.Inquisition) && (string_count("_fleet",trade_goods)>0) and (target>0){
+        target=instance_nearest(target_x,target_y,obj_p_fleet);
+    }
+    else if (owner  == eFACTION.Inquisition) { sprite_index=spr_fleet_inquisition;}
+    else if (owner == eFACTION.Eldar) { sprite_index=spr_fleet_eldar;}
+    else if (owner == eFACTION.Ork) { sprite_index=spr_fleet_ork;}
+    else if (owner == eFACTION.Tau) { sprite_index=spr_fleet_tau;}
+    else if (owner == eFACTION.Tyranids) { sprite_index=spr_fleet_tyranid;}
+    else if (owner == eFACTION.Chaos) { sprite_index=spr_fleet_chaos;}
+    image_speed=0;	
+}
+
 

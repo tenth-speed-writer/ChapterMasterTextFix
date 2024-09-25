@@ -83,17 +83,7 @@ if (type=99){
     if (giveto>0) and (type=9){
         var arti_index = obj_controller.menu_artifact;
 
-        /*var e=0;
-        repeat(50){e+=1;
-            if (obj_controller.fest_display=arti_index) then obj_controller.fest_display=0;
 
-            /*if (obj_ini.artifact_tags[obj_controller.menu_artifact]=obj_controller.recent_keyword[e]){
-                obj_controller.recent_keyword[e]="";obj_controller.recent_type[e]="";
-                obj_controller.recent_turn[e]=0;obj_controller.recent_number[e]=0;
-                scr_recent("artifact_gifted",obj_controller.recent_keyword,giveto);
-                scr_recent("","",0);
-            }
-        }*/
         var artifact_struct = obj_ini.artifact_struct[arti_index];
         var cur_tags = obj_ini.artifact_tags[arti_index];
 

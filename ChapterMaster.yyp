@@ -90,6 +90,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"UI","folderPath":"folders/Sprites/UI.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"save_load","folderPath":"folders/Scripts/save_load.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"custom_icons_help.txt","CopyToMask":153157610357391598,"filePath":"datafiles/icons",},
@@ -416,6 +417,7 @@
     {"id":{"name":"spr_weapon_knife","path":"sprites/spr_weapon_knife/spr_weapon_knife.yy",},},
     {"id":{"name":"spr_weapon_chsword","path":"sprites/spr_weapon_chsword/spr_weapon_chsword.yy",},},
     {"id":{"name":"scr_imperial_navy_functions","path":"scripts/scr_imperial_navy_functions/scr_imperial_navy_functions.yy",},},
+    {"id":{"name":"scr_save_controller","path":"scripts/scr_save_controller/scr_save_controller.yy",},},
     {"id":{"name":"spr_weapon_sniper","path":"sprites/spr_weapon_sniper/spr_weapon_sniper.yy",},},
     {"id":{"name":"spr_weapon_thhammer","path":"sprites/spr_weapon_thhammer/spr_weapon_thhammer.yy",},},
     {"id":{"name":"spr_weapon_evisc","path":"sprites/spr_weapon_evisc/spr_weapon_evisc.yy",},},
@@ -465,6 +467,7 @@
     {"id":{"name":"scr_ork_planet_functions","path":"scripts/scr_ork_planet_functions/scr_ork_planet_functions.yy",},},
     {"id":{"name":"spr_load_splash","path":"sprites/spr_load_splash/spr_load_splash.yy",},},
     {"id":{"name":"spr_formation_bars","path":"sprites/spr_formation_bars/spr_formation_bars.yy",},},
+    {"id":{"name":"scr_load_controller","path":"scripts/scr_load_controller/scr_load_controller.yy",},},
     {"id":{"name":"spr_formation_arrow","path":"sprites/spr_formation_arrow/spr_formation_arrow.yy",},},
     {"id":{"name":"scr_player_fleet_functions","path":"scripts/scr_player_fleet_functions/scr_player_fleet_functions.yy",},},
     {"id":{"name":"spr_formation_splash","path":"sprites/spr_formation_splash/spr_formation_splash.yy",},},
