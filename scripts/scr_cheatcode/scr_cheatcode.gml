@@ -58,7 +58,7 @@ function scr_cheatcode(argument0) {
 		if (cheatcode_string == "skitarii") {
 			scr_add_man("Skitarii", 0, "", "", 0, true, "default");
 		}
-		// Explanation - techpriest and inquisition crusader crash the game, while ork sniper simply does not work, hence commenting them out
+		// Ork sniper simply does not work, hence commenting them out
 		// I did not add eldar ranger, because someone thought it was skitarii ranger and eldar are hard to find anyway
 		if (cheatcode_string=="techpriest"){
 			scr_add_man("Techpriest",0,"","",0,true,"default");
