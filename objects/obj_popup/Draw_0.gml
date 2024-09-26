@@ -974,9 +974,11 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
                 if (have_mobi_num>=req_mobi_num) or (n_mobi="(None")  then n_good5=1;
                 if (have_mobi_num<req_mobi_num){n_good5=0;warning="Not enough "+string(n_mobi)+"; "+string(units-req_mobi_num)+" more are required.";}
 
-                if (n_mobi!="") and ((n_armour="Terminator Armour") or (n_armour="Tartaros")){
-                    n_good5=0;warning="Terminators cannot use Mobility gear.";
+                var terminator_mobi = ["", "Servo-arm", "Servo-harness", "Conversion Beamer Mount"];
+                if (!array_contains(terminator_mobi, n_mobi)) and ((n_armour="Terminator Armour") or (n_armour="Tartaros")){
+                    n_good5=0;warning="Cannot use this gear with Terminator Armour.";
                 }
+
                 if (n_mobi!="(None)") and (n_mobi!="") and (n_armour="Dreadnought"){
                     n_good5=0;
                     warning=string(obj_ini.role[100][6])+"s may not use mobility gear.";
@@ -1125,7 +1127,7 @@ if (zoom=0) and (type==5) and (instance_exists(obj_controller)){
             draw_text(xx+1030,yy+390,string_hash_to_newline(string(req_armour)+" (-"+string(gr)+")"));}
             if (gr<=0) and (req_armour!=""){
                 draw_set_color(c_gray);
-                draw_text(xx+1030,yy+390,string_hash_to_newline(string(req_armour)+" ("+string(have_armour_num)+"-"+string(req_armour_num)+")"));
+                draw_text(xx+1030,yy+390,string_hash_to_newline(string(req_armour_num) + string(req_armour) +"(Have "+string(have_armour_num) + ")"));
             }
         }
         if (req_gear!=""){
@@ -1135,37 +1137,37 @@ if (zoom=0) and (type==5) and (instance_exists(obj_controller)){
             draw_text(xx+1030,yy+410,string_hash_to_newline(string(req_gear)+" (-"+string(gr)+")"));}
             if (gr<=0) and (req_gear!=""){
                 draw_set_color(c_gray);
-                draw_text(xx+1030,yy+390,string_hash_to_newline(string(req_gear)+" ("+string(have_gear_num)+"-"+string(req_gear_num)+")"));
+                draw_text(xx+1030,yy+410,string_hash_to_newline(string(req_gear_num) + string(req_gear) +"(Have "+string(have_gear_num) + ")"));
             }
         }
         if (req_mobi!=""){
             gr=req_mobi_num-have_mobi_num;
             tox="";
             if (gr>0){draw_set_color(255);
-            draw_text(xx+1030,yy+410,string_hash_to_newline(string(req_mobi)+" (-"+string(gr)+")"));}
+            draw_text(xx+1030,yy+430,string_hash_to_newline(string(req_mobi)+" (-"+string(gr)+")"));}
             if (gr<=0) and (req_mobi!=""){
                 draw_set_color(c_gray);
-                draw_text(xx+1030,yy+410,string_hash_to_newline(string(req_mobi)+" ("+string(have_mobi_num)+"-"+string(req_mobi_num)+")"));
+                draw_text(xx+1030,yy+430,string_hash_to_newline(string(req_mobi_num) + string(req_mobi) +"(Have "+string(have_mobi_num) + ")"));
             }
         }
         if (req_wep1!=""){
             gr=req_wep1_num-have_wep1_num;
             tox="";
             if (gr>0){draw_set_color(255);
-            draw_text(xx+1200,yy+390,string_hash_to_newline(string(req_wep1)+" (-"+string(gr)+")"));}
+            draw_text(xx+1330,yy+390,string_hash_to_newline(string(req_wep1)+" (-"+string(gr)+")"));}
             if (gr<=0) and (req_wep1!=""){
                 draw_set_color(c_gray);
-                draw_text(xx+1140,yy+390,string_hash_to_newline(string(req_wep1)+" ("+string(have_wep1_num)+"-"+string(req_wep1_num)+")"));
+                draw_text(xx+1330,yy+390,string_hash_to_newline(string(req_wep1_num) + string(req_wep1) +"(Have "+string(have_wep1_num) + ")"));
             }
         }
         if (req_wep2!=""){
             gr=req_wep2_num-have_wep2_num;
             tox="";
             if (gr>0){draw_set_color(255);
-            draw_text(xx+1200,yy+410,string_hash_to_newline(string(req_wep2)+" (-"+string(gr)+")"));}
+            draw_text(xx+1330,yy+410,string_hash_to_newline(string(req_wep2)+" (-"+string(gr)+")"));}
             if (gr<=0) and (req_wep2!=""){
                 draw_set_color(c_gray);
-                draw_text(xx+1140,yy+410,string_hash_to_newline(string(req_wep2)+" ("+string(have_wep2_num)+"-"+string(req_wep2_num)+")"));
+                draw_text(xx+1330,yy+410,string_hash_to_newline(string(req_wep2_num) + string(req_wep2) +"(Have "+string(have_wep2_num) + ")"));
             }
         }
         

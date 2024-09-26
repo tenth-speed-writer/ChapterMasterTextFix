@@ -37,12 +37,13 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 				unit = new TTRPG_stats("mechanicus", target_company, good, "skitarii");
 				break;
 	        case "Techpriest":
-	            obj_ini.wep1[target_company][good]="Power Weapon";
-	            obj_ini.wep2[target_company][good]="Conversion Beam Projector";
-	            obj_ini.armour[target_company][good]="Dragon Scales";
-	            obj_ini.gear[target_company][good]="Servo Arms";
-	            obj_ini.experience[target_company][good]=100;
-	            obj_ini.race[target_company][good]=3;
+				obj_ini.wep1[target_company][good] = "Power Axe";
+				obj_ini.wep2[target_company][good] = "Infernus Pistol";
+				obj_ini.armour[target_company][good] = "Dragon Scales";
+				obj_ini.gear[target_company][good] = "";
+				obj_ini.mobi[target_company][good] = "Servo-arm";
+				obj_ini.experience[target_company][good] = 100;
+				obj_ini.race[target_company][good] = 3;
 				unit = new TTRPG_stats("mechanicus", target_company, good, "tech_priest");
 				break
 	        case "Ranger":
