@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ----------------------------------
-## [example_version]
+## [0.0.0.0]
 
 ### Added:
 - example list
@@ -17,24 +17,27 @@ All notable changes to this project will be documented in this file.
     - example nested list
 
 ### Under The Hood:
-- here go changes that are important only to other developers.
+- here go changes that are important only to other collaborators.
     - everything that a normal player doesn't need to know.
 ----------------------------------
+
 ## [0.9.3.0]
 
 ### Added:
-- Warp hub planets.
+- Warp travel:
+	- Warp hub planets.
     - Graded warp travel routes.
-- New squad type - Breachers.
-- Ability to cancel warp travel within the same turn you commanded fleet to travel.
-- 3 new cheats:
+	- Ability to cancel warp travel within the same turn you commanded fleet to travel.
+- New Squad type - Breachers.
+- New cheats:
 	- sisterofbattle - spawns 1 Sister of Battle.
 	- skitarii - spawns 1 Skitarii.
 	- flashgit - spawns 1 Flash Git.
 
 ### Changed:
-- Warp lane travel drawing abstracted to it's own layer.
-- Warp lane widths now expand to be more visible when zoomed.
+- Warp travel:
+	- Warp lane travel drawing abstracted to it's own layer.
+	- Warp lane widths now expand to be more visible when zoomed.
 - Advantages tweaks:
     - "Kings of Space" advantage now provides +1 Battle Barge.
     - "Boarders" now provides +2 Frigates.
@@ -44,19 +47,22 @@ All notable changes to this project will be documented in this file.
 - Equipment and weapons:
     - Boarding Shields now provide advantages to boarders.
     - Underslung Flamers now have light armour piercing.
-- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
-- Deathwing color now is a tiny bit darker.
-- Minor Power Spear sprite adjustments.
+- Visual:
+	- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
+	- Deathwing color now is a tiny bit darker.
+	- Minor Power Spear sprite adjustments.
 - Little Damage Resistance bonus to some Master Crafted and Artifact quality gear pieces.
 
 ### Fixed:
-- Crash: caused Inquisitors snooping on player bases.
-- Crash: caused by chaplain duplication on drop select.
+- Crashes: 
+	- Caused Inquisitors snooping on player bases.
+	- Caused by Chaplain duplication on drop select.
+- Visual:
+	- Eviscerator and Relic Blade sprites display on Terminators properly now.
+	- Deathwing knights color scheme is no longer broken.
 - In-game wiki should now work (kinda).
 - Travelling without waypoints while pressing shift now fixed.
 - Vanguard Sergeants, Honour Guard and Dark Angels Veterans no longer spawn overburdened.
-- Eviscerator and Relic Blade sprites display on Terminators properly now.
-- Deathwing knights color scheme is no longer broken.
 - No more recruiting Psykers in Psyker Intolerant chapters (all recruiting set to 0 at game start).
 - Advantages Kings of Space and Boarders work properly for both chapter start types.
 - Chaplains equip proper items on game start.
