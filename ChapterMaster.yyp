@@ -1086,6 +1086,7 @@
     {"id":{"name":"obj_centerline","path":"objects/obj_centerline/obj_centerline.yy",},},
     {"id":{"name":"obj_pnunit","path":"objects/obj_pnunit/obj_pnunit.yy",},},
     {"id":{"name":"obj_enunit","path":"objects/obj_enunit/obj_enunit.yy",},},
+    {"id":{"name":"scr_log","path":"scripts/scr_log/scr_log.yy",},},
     {"id":{"name":"obj_nfort","path":"objects/obj_nfort/obj_nfort.yy",},},
     {"id":{"name":"obj_temp1","path":"objects/obj_temp1/obj_temp1.yy",},},
     {"id":{"name":"obj_temp2","path":"objects/obj_temp2/obj_temp2.yy",},},
