@@ -634,7 +634,7 @@ if (shop = "equipment2") {
 
     i += 1;
     x_mod[i] = 9;
-    item[i] = "Conversion Beamer Mount";
+    item[i] = "Conversion Beamer Pack";
     item_stocked[i] = scr_item_count(item[i]);
     item_cost[i] = 180;
     if (rene = 1) {

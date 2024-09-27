@@ -2284,7 +2284,7 @@ global.gear = {
 			"melee_hands": -0.5,
 			"ranged_hands": -0.5,
 		},
-		"Conversion Beamer Mount": {
+		"Conversion Beamer Pack": {
 			"abbreviation": "CnvBmr",
 			"second_profiles": ["Conversion Beam Projector"],
 			"description": "The Conversion Beam Projector is a heavy energy weapon that harnesses advanced technology to project a concentrated beam of destructive energy. Armor detonates as the matter that comproises it is transformed into pure energy.",

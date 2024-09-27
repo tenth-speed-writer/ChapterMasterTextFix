@@ -974,7 +974,7 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
                 if (have_mobi_num>=req_mobi_num) or (n_mobi="(None")  then n_good5=1;
                 if (have_mobi_num<req_mobi_num){n_good5=0;warning="Not enough "+string(n_mobi)+"; "+string(units-req_mobi_num)+" more are required.";}
 
-                var terminator_mobi = ["", "Servo-arm", "Servo-harness", "Conversion Beamer Mount"];
+                var terminator_mobi = ["", "Servo-arm", "Servo-harness", "Conversion Beamer Pack"];
                 if (!array_contains(terminator_mobi, n_mobi)) and ((n_armour="Terminator Armour") or (n_armour="Tartaros")){
                     n_good5=0;warning="Cannot use this gear with Terminator Armour.";
                 }
