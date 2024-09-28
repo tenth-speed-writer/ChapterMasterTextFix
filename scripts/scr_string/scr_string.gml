@@ -11,6 +11,7 @@ function string_upper_first(_string) {
         _first_char = string_char_at(_string, 1);
         _first_char = string_upper( _first_char );
         
+        _modified_string = _string;
         _modified_string = string_delete(_modified_string, 1, 1);
         _modified_string = string_insert(_first_char, _modified_string, 1);
     
@@ -20,5 +21,6 @@ function string_upper_first(_string) {
 		log_into_file(_exception.longMessage);
 		log_into_file(_exception.script);
 		log_into_file(_exception.stacktrace);
+        show_debug_message(_exception.longMessage);
 	}
 }
