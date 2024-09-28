@@ -44,7 +44,7 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 				break;
 			case "Techpriest":
 				obj_ini.wep1[target_company][good] = "Power Axe";
-				obj_ini.wep2[target_company][good] = "Infernus Pistol";
+				obj_ini.wep2[target_company][good] = "Laspistol";
 				obj_ini.armour[target_company][good] = "Dragon Scales";
 				obj_ini.gear[target_company][good] = "";
 				obj_ini.mobi[target_company][good] = "Servo-arm";

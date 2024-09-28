@@ -124,19 +124,35 @@ global.weapons = {
 	},
 	"Archeotech Laspistol": {
 		"attack": {
-			"standard": 120,
-			"master_crafted": 130,
-			"artifact": 140
+			"standard": 40,
+			"master_crafted": 60,
+			"artifact": 80
 		},
-		"description": "Known as a Lasrod or Gelt Gun, this pistol is an ancient design of Laspistol with much greater range and power.",
+		"description": "Known as a Lasrod or Gelt Gun, this pistol is an ancient design of Laspistol with much greater power.",
 		"abbreviation": "ArchLpstl",
 		"melee_hands": 0,
-		"ranged_hands": 1,
-		"ammo": 0,
+		"ranged_hands": 0.5,
+		"ammo": 30,
 		"range": 3.1,
 		"spli": 0,
 		"arp": 0,
 		"tags": ["pistol", "ancient", "las"],
+	},
+	"Laspistol": {
+		"attack": {
+			"standard": 20,
+			"master_crafted": 30,
+			"artifact": 40
+		},
+		"description": "The Laspistol is the pistol version of the Lasgun and like that weapon fires a coherent beam of energetic photons that can burn through most materials. The Laspistol is powered by a miniature power pack that is usually placed within the grip.",
+		"abbreviation": "Lpstl",
+		"melee_hands": 0,
+		"ranged_hands": 0.25,
+		"ammo": 30,
+		"range": 3.1,
+		"spli": 0,
+		"arp": 0,
+		"tags": ["pistol", "las"],
 	},
 	"Combat Knife": {
 		"abbreviation": "CbKnf",
