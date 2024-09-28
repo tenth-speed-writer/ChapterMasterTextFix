@@ -25,9 +25,6 @@ function scr_cheatcode(argument0) {
 						forge_queue_logic();
 					}
 					break;
-				case "slaughtersong":
-					create_starship_event();
-					break;
 				case "newapoth":
 					obj_controller.apothecary_points = 50;
 					break;
@@ -49,13 +46,10 @@ function scr_cheatcode(argument0) {
 					break;
 				case "artifact":
 					if (input_string[1] != "1") {
-						scr_add_artifact(string_upper_first(input_string[1]), "", 6, obj_ini.ship[1], 501);
+						scr_add_artifact(input_string[1], "", 6, obj_ini.ship[1], 501);
 					} else {
 						scr_add_artifact("random", "", 6, obj_ini.ship[1], 501);
 					}
-					break;
-				case "inspection":
-					new_inquisitor_inspection();
 					break;
 				case "sisterhospitaler":
 					repeat(string_digits(input_string[1])){
@@ -96,12 +90,6 @@ function scr_cheatcode(argument0) {
 						new_ork_fleet(x, y);
 					}
 					break;
-				case "techuprising":
-					var pip = instance_create(0, 0, obj_popup);
-					pip.title = "Technical Differences!";
-					pip.text = "You Recive an Urgent Transmision A serious breakdown in culture has coccured causing believers in tech heresy to demand that they are given preseidence and assurance to continue their practises";
-					pip.image = "tech_uprising";
-					break;
 				case "inquisarti":
 					scr_quest(0, "artifact_loan", 4, 10);
 					var last_artifact = scr_add_artifact("good", "inquisition", 0, obj_ini.ship[1], 501);
@@ -137,6 +125,15 @@ function scr_cheatcode(argument0) {
 						with (obj_controller) {
 							awaken_tomb_event();
 						}
+					} else if (input_string[1] == "techuprising") {
+						var pip = instance_create(0, 0, obj_popup);
+						pip.title = "Technical Differences!";
+						pip.text = "You Recive an Urgent Transmision A serious breakdown in culture has coccured causing believers in tech heresy to demand that they are given preseidence and assurance to continue their practises";
+						pip.image = "tech_uprising";
+					} else if (input_string[1] == "inspection") {
+						new_inquisitor_inspection();
+					} else if (input_string[1] == "slaughtersong") {
+						create_starship_event();
 					} else {
 						with (obj_controller) {
 							scr_random_event(false);
@@ -183,16 +180,14 @@ function scr_cheatcode(argument0) {
 					break;
 				case "req": 
 					if (global.cheat_req == 0) {
-						cheat_name_digits = clamp(cheat_name_digits, 0, 100000);
 						cheatyface = 1;
-						obj_controller.requisition = cheat_name_digits;
+						obj_controller.requisition = string_digits(input_string[1]);
 					}
 					break;
 				case "seed":
 					if (global.cheat_gene == 0) {
-						cheat_name_digits = clamp(cheat_name_digits, 0, 9999);
 						cheatyface = 1;
-						obj_controller.gene_seed = cheat_name_digits;
+						obj_controller.gene_seed = string_digits(input_string[1]);
 					}
 					break;
 				case "depimp":
