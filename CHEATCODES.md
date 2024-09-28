@@ -1,7 +1,7 @@
 # Cheat codes reference:
 Most of the time the input is: (cheatcode) (number or type) (number or type) (unused for now).  
 Spaces between arguments are required.  
-Most of the time it's case insensitive, but rarely may not be.
+Most of the time it's case insensitive, but rarely may not be.  
 Arguments with stars `(argument*)` can be omitted.
 
 ### General:
@@ -13,11 +13,11 @@ Arguments with stars `(argument*)` can be omitted.
 - `seed (number)` - sets Geneseed to specified amount.
 - `stc (number)` - adds specified amount of STC fragments. 
 - `finishforge` - gives 1 million Forge Points (ending all crafting).
-
 ### Spawning:
 - `recruit (number*)` - spawns a 20 XP recruit (or amount specified) with 1 month of remaining training.
 - `artifact (type*)` - spawns an artifact of a random type, if unspecified.
     - `(type*)` - possible values: random, random_nodemon, Weapon, Armour, Gear, Device, Robot, Tome, chaos_gift, good. Case sensitive.
+- `artifactpopulate` - spawns artifacts on all planets.
 - `additem (name) (number*) (quality*)` - spawns an item(s) with specified parameters.
     - `(name)` - item name, as it's written in the game. Case sensitive.
     - `(quality*)` - possible values: standard, master_crafted, artificer, artifact, exemplary. Case insensitive.
@@ -41,7 +41,7 @@ Arguments with stars `(argument*)` can be omitted.
     - `inspection` - triggers the Inquisitorial Inspection event.
     - `slaughtersong` - triggers the Starship event.
 - `inquisarti` - triggers the Artifact Loan quest.
-- `govmission` - spawns a new planet governor mission.
+- `govmission` - spawns governor missions on all planets.
 ### Disposition:
 - `depall (number*)` - sets disposition of everyone to specified value.
 - `depmec (number*)` - sets disposition of Mechanicus to specified value.
