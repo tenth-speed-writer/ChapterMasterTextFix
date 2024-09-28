@@ -15,7 +15,7 @@ function scr_cheatcode(argument0) {
 			}
 		}
 
-		var cheat_name = input_string[0];
+		var cheat_name = string_lower(input_string[0]);
 
 		if (cheat_name!= "") {
 			switch (cheat_name) {
@@ -42,13 +42,17 @@ function scr_cheatcode(argument0) {
 					break;
 				case "additem":
 					if (input_string[3] != "1") {
-						scr_add_item(input_string[1], string_digits(input_string[2]), input_string[3]);
+						scr_add_item(input_string[1], string_digits(input_string[2]), string_lower(input_string[3]));
 					} else {
 						scr_add_item(input_string[1], string_digits(input_string[2]));
 					}
 					break;
 				case "artifact":
-					scr_add_artifact("random", "", 6, obj_ini.ship[1], 501);
+					if (input_string[1] != "1") {
+						scr_add_artifact(string_upper_first(input_string[1]), "", 6, obj_ini.ship[1], 501);
+					} else {
+						scr_add_artifact("random", "", 6, obj_ini.ship[1], 501);
+					}
 					break;
 				case "inspection":
 					new_inquisitor_inspection();

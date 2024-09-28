@@ -995,6 +995,7 @@
     {"id":{"name":"action_color","path":"scripts/action_color/action_color.yy",},},
     {"id":{"name":"action_draw_ellipse","path":"scripts/action_draw_ellipse/action_draw_ellipse.yy",},},
     {"id":{"name":"spr_servo_arms","path":"sprites/spr_servo_arms/spr_servo_arms.yy",},},
+    {"id":{"name":"scr_string","path":"scripts/scr_string/scr_string.yy",},},
     {"id":{"name":"action_if_number","path":"scripts/action_if_number/action_if_number.yy",},},
     {"id":{"name":"action_if_variable","path":"scripts/action_if_variable/action_if_variable.yy",},},
     {"id":{"name":"spr_medicine_icon","path":"sprites/spr_medicine_icon/spr_medicine_icon.yy",},},
