@@ -1,10 +1,10 @@
 /// Step Event
 
-if (keyboard_check(vk_enter)) {
+if (press_exclusive(vk_enter)) {
     execute = true;
 }
 
-if (keyboard_check(vk_escape)) {
+if (press_exclusive(vk_escape)) {
     instance_destroy();
 }
 
