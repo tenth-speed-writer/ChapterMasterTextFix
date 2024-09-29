@@ -245,7 +245,7 @@ function scr_cheatcode(argument0) {
 					}
 					break;
 				case "stc":
-					repeat(cheat_code[1]){
+					repeat(cheat_arguments[0]){
 						scr_add_stc_fragment();
 					}
 					break;
