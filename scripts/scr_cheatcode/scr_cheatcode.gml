@@ -39,9 +39,9 @@ function scr_cheatcode(argument0) {
 					break;
 				case "additem":
 					if (input_string[3] != "1") {
-						scr_add_item(input_string[1], string_digits(input_string[2]), string_lower(input_string[3]));
+						scr_add_item(input_string[1], real(input_string[2]), string_lower(input_string[3]));
 					} else {
-						scr_add_item(input_string[1], string_digits(input_string[2]));
+						scr_add_item(input_string[1], real(input_string[2]));
 					}
 					break;
 				case "artifact":
@@ -52,32 +52,32 @@ function scr_cheatcode(argument0) {
 					}
 					break;
 				case "sisterhospitaler":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Sister Hospitaler", 0, "", "", 0, true, "default");
 					}
 					break;
 				case "sisterofbattle":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Sister of Battle", 0, "", "", 0, true, "default");
 					}
 					break;
 				case "skitarii":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Skitarii", 0, "", "", 0, true, "default");
 					}
 					break;
 				case "techpriest":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Techpriest", 0, "", "", 0, true, "default");
 					}
 					break;
 				case "crusader":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Crusader", 0, "", "", 0, true, "default");
 					}
 					break;
 				case "flashgit":
-					repeat(string_digits(input_string[1])){
+					repeat(real(input_string[1])){
 						scr_add_man("Flash Git", 0, "", "", 0, true, "default");
 					}
 					break;
@@ -181,47 +181,47 @@ function scr_cheatcode(argument0) {
 				case "req": 
 					if (global.cheat_req == 0) {
 						cheatyface = 1;
-						obj_controller.requisition = string_digits(input_string[1]);
+						obj_controller.requisition = real(input_string[1]);
 					}
 					break;
 				case "seed":
 					if (global.cheat_gene == 0) {
 						cheatyface = 1;
-						obj_controller.gene_seed = string_digits(input_string[1]);
+						obj_controller.gene_seed = real(input_string[1]);
 					}
 					break;
 				case "depimp":
-					obj_controller.disposition[2] = string_digits(input_string[1]);
+					obj_controller.disposition[2] = real(input_string[1]);
 					break;
 				case "depmec":
-					obj_controller.disposition[3] = string_digits(input_string[1]);
+					obj_controller.disposition[3] = real(input_string[1]);
 					break;
 				case "depinq":
-					obj_controller.disposition[4] = string_digits(input_string[1]);
+					obj_controller.disposition[4] = real(input_string[1]);
 					break;
 				case "depecc":
-					obj_controller.disposition[5] = string_digits(input_string[1]);
+					obj_controller.disposition[5] = real(input_string[1]);
 					break;
 				case "depeld":
-					obj_controller.disposition[6] = string_digits(input_string[1]);
+					obj_controller.disposition[6] = real(input_string[1]);
 					break;
 				case "depork":
-					obj_controller.disposition[7] = string_digits(input_string[1]);
+					obj_controller.disposition[7] = real(input_string[1]);
 					break;
 				case "deptau":
-					obj_controller.disposition[8] = string_digits(input_string[1]);
+					obj_controller.disposition[8] = real(input_string[1]);
 					break;
 				case "deptyr":
-					obj_controller.disposition[9] = string_digits(input_string[1]);
+					obj_controller.disposition[9] = real(input_string[1]);
 					break;
 				case "depcha":
-					obj_controller.disposition[10] = string_digits(input_string[1]);
+					obj_controller.disposition[10] = real(input_string[1]);
 					break;
 				case "depall":
 					global.cheat_disp = 1;
 					cheatyface = 1;
 					for (var i = 2; i <= 10; i++) {
-						obj_controller.disposition[i] = string_digits(input_string[1]);
+						obj_controller.disposition[i] = real(input_string[1]);
 					}
 					break;
 				case "stc":
@@ -242,15 +242,15 @@ function scr_cheatcode(argument0) {
 							continue
 						}
 					}
-					for (i = _start_pos; i < (string_digits(input_string[1]) + _start_pos); i++) {
+					for (i = _start_pos; i < (real(input_string[1]) + _start_pos); i++) {
 						array_insert(obj_controller.recruit_corruption, i, 0);
 						array_insert(obj_controller.recruit_distance, i, 0);
 						array_insert(obj_controller.recruit_training, i, 1);
 						array_insert(obj_controller.recruit_exp, i, 20);
 						array_insert(obj_controller.recruit_data, i, {});
 						array_insert(obj_controller.recruit_name, i, global.name_generator.generate_space_marine_name());
+						scr_alert("green", "recruitment", (string(obj_controller.recruit_name[i]) + "has started training."), 0, 0)
 					}
-					scr_alert("green", "recruitment", (string(input_string[1]) + "has started training."), 0, 0)
 					break;
 			}
 		}
@@ -258,5 +258,6 @@ function scr_cheatcode(argument0) {
 		log_into_file(_exception.longMessage);
 		log_into_file(_exception.script);
 		log_into_file(_exception.stacktrace);
+		show_debug_message(_exception.longMessage);
 	}
 }
