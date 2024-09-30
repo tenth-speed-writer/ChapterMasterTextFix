@@ -1,4 +1,4 @@
-# Change Log
+# CHANGELOG
 All notable changes to this project will be documented in this file.
 
 ----------------------------------
@@ -30,10 +30,18 @@ All notable changes to this project will be documented in this file.
 	- Ability to cancel warp travel within the same turn you commanded fleet to travel.
 - New Squad type - Breachers.
 - New cheats:
-	- sisterofbattle - spawns 1 Sister of Battle.
-	- skitarii - spawns 1 Skitarii.
-	- flashgit - spawns 1 Flash Git.
-
+	- Refer to CHEATCODES.md in the game folder for a full reference with input rules.
+	- Many of the old cheatcodes are a bit changed, so make SURE to read the reference.
+	- sisterofbattle - spawns a Sister of Battle.
+	- skitarii - spawns a Skitarii.
+	- flashgit - spawns a Flash Git.
+	- crusader - spawns a Crusader (fixed).
+	- techpriest - spawns a Tech Priest (fixed).
+	- additem - used to spawn specific items.
+- Equipment and weapons:
+	- Conversion Beamer Pack backpack item.
+		- Basically just a backpack item with an integrated conversion beamer.
+	- Laspistols for Tech Priests.
 ### Changed:
 - Warp travel:
 	- Warp lane travel drawing abstracted to it's own layer.
@@ -47,12 +55,19 @@ All notable changes to this project will be documented in this file.
 - Equipment and weapons:
     - Boarding Shields now provide advantages to boarders.
     - Underslung Flamers now have light armour piercing.
+	- Little Damage Resistance bonus to some Master Crafted and Artifact quality gear pieces.
+	- Servo-arm (Servo Arms) and Servo-harness (Master Servo Arms) are overhauled.
+		- Both now use the backpack slot.
+		- Servo-arm only has an integrated melee arm, harness has a flamer, plasma cutter and melee arms.
+		- Servo-harness can save 2 times more lost vehicles per Techmarine, in comparison to Servo-arm.
+		- You can use additem to get these, if old items got broken because of the rename.
+	- Tech Priest loadout is now more or less similar to lore friendly Enginseer loadout.
 - Visual:
 	- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
 	- Deathwing color now is a tiny bit darker.
 	- Minor Power Spear sprite adjustments.
-- Little Damage Resistance bonus to some Master Crafted and Artifact quality gear pieces.
-
+	- Techmarines now have eye attachments.
+	- Edited Servo-arm and Servo-harness sprites.
 ### Fixed:
 - Crashes: 
 	- Caused Inquisitors snooping on player bases.
@@ -60,6 +75,7 @@ All notable changes to this project will be documented in this file.
 - Visual:
 	- Eviscerator and Relic Blade sprites display on Terminators properly now.
 	- Deathwing knights color scheme is no longer broken.
+	- Promotion gear text overlapping.
 - In-game wiki should now work (kinda).
 - Travelling without waypoints while pressing shift now fixed.
 - Vanguard Sergeants, Honour Guard and Dark Angels Veterans no longer spawn overburdened.
@@ -78,6 +94,10 @@ All notable changes to this project will be documented in this file.
     - alarm_1
     - step_0
     - scr_drop_fiddle
+- Some refactors to scr_draw_unit_image.
+- Pass scr_add_man through a formatter.
+- Almost completly refactor cheatcodes.
+- New function `string_upper_first`, used to capitalize only the first letter of a string.
 
 
 ## [0.9.2.4]
