@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
     - Graded warp travel routes.
 	- Ability to cancel warp travel within the same turn you commanded fleet to travel.
 - New Squad type - Breachers.
+- Zooming on map with either +- keys or mouse wheel.
 - New cheats:
 	- Refer to CHEATCODES.md in the game folder for a full reference with input rules.
 	- Many of the old cheatcodes are a bit changed, so make SURE to read the reference.
@@ -43,6 +44,8 @@ All notable changes to this project will be documented in this file.
 		- Basically just a backpack item with an integrated conversion beamer.
 	- Laspistols for Tech Priests.
 ### Changed:
+- Stars will no longer spawn over the top of each other.
+- Player should now be able to move camera closer to the edge of the screen.
 - Warp travel:
 	- Warp lane travel drawing abstracted to it's own layer.
 	- Warp lane widths now expand to be more visible when zoomed.
@@ -84,12 +87,13 @@ All notable changes to this project will be documented in this file.
 - Chaplains equip proper items on game start.
 - 1 Dreadnought to Equal Specialist Distribution custom chapters.
 - Fixed Force Staff getting double damage bonus because of a code mistake.
+- stars should no longer spawn very close to the right or bottom edge of the map
 
 ### Under The Hood:
 - Ork Warbosses are now stored in the fleet carge_data area and the struct is transferred directly to a planet.
 - Git: resource_order is now in gitignore.
-- Scripts: is_specialist supports Space Wolves and Iron Hands.
-- Scripts: in-game Wiki refactored (part one).
+- is_specialist supports Space Wolves and Iron Hands.
+- In-game Wiki refactored (part one).
 - Refactor of drop select
     - alarm_1
     - step_0
@@ -98,6 +102,11 @@ All notable changes to this project will be documented in this file.
 - Pass scr_add_man through a formatter.
 - Almost completly refactor cheatcodes.
 - New function `string_upper_first`, used to capitalize only the first letter of a string.
+- GUI drawing layer:
+	- obj_controller drawing mostly moved to the GUI layer of drawing.
+	- Fleet select panel moved to the GUI layer of drawing.
+	- Point and click updated in function to now work in both the GUI layer and standard draw layer and take into account literal or relative screen loc.
+	- obj_star_select drawing now moved to the GUI drawing layer.
 
 
 ## [0.9.2.4]
