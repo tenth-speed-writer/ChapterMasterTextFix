@@ -28,7 +28,7 @@ for (var i=0;i<array_length(unit_struct);i++){
         }
         
         if (!marine_dead[i]){
-            if (is_specialist(unit.role,"apot", true)) {
+            if (is_specialist(unit.role,"apoth", true)) {
                 skill_level = unit.intelligence / 80;
                 if (marine_gear[i]=="Narthecium"){
                     obj_ncombat.apoth++;
