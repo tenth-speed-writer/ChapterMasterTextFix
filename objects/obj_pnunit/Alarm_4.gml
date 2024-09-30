@@ -1,6 +1,7 @@
 
 // 
 var unit;
+var skill_level;
 for (var i=0;i<array_length(unit_struct);i++){
     unit = unit_struct[i];
     if (!is_struct(unit))then continue;
@@ -27,22 +28,31 @@ for (var i=0;i<array_length(unit_struct);i++){
         }
         
         if (!marine_dead[i]){
-            if (marine_type[i]=obj_ini.role[100][15]) and (marine_gear[i]=="Narthecium") {
-                obj_ncombat.apothecaries_alive++;
-                obj_ncombat.apoth+=1;
+            if (is_specialist(unit.role,"apot", true)) {
+                skill_level = unit.intelligence / 80;
+                if (marine_gear[i]=="Narthecium"){
+                    obj_ncombat.apoth++;
+                    skill_level*=2;
+                } 
+                skill_level += random(unit.luck/10);
+                obj_ncombat.apothecaries_alive += skill_level;
             }
-            else if (marine_type[i]=obj_ini.role[100][16]) and ((marine_mobi[i]=="Servo-arm") || (marine_mobi[i]=="Servo-harness")) {
-                obj_ncombat.techmarines_alive++;
-                if (marine_mobi[i]=="Servo-harness") then obj_ncombat.techmarines_alive++; 
+            else if (is_specialist(unit.role,"forge", true)) {
+                skill_level = unit.technology / 60;
+                if (marine_mobi[i]=="Servo-arm") then skill_level*=2; 
+                else if (marine_mobi[i]=="Servo-harness") then skill_level*=4;
+                skill_level += random(unit.luck/10);
+                obj_ncombat.techmarines_alive += skill_level;
                 obj_ncombat.techma++;
             }
         } else if (marine_dead[i]>0) and (marine_dead[i]<2) and (unit.hp()>-25) and (marine_type[i]!="") and ((obj_ncombat.dropping+obj_ncombat.defeat)!=2){
             var rand1, survival;
             onceh=0;
             survival=40;
-            if (obj_ncombat.membrane=1) then survival=20;
+            if (obj_ncombat.membrane=1) then survival-=20;
             rand1=floor(random(100))+1;
-            
+            skill_level = irandom(unit.luck);
+            rand1-=skill_level;
             if (rand1<=survival) and (marine_dead[i]!=2){
                 // show_message(string(marine_type[i])+" mans up#Roll: "+string(rand1)+"#Needed: "+string(survival)+"-");
                 marine_dead[i]=0;
