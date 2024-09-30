@@ -32,8 +32,9 @@ for (var i=0;i<array_length(unit_struct);i++){
                 obj_ncombat.apoth+=1;
             }
             else if (marine_type[i]=obj_ini.role[100][16]) and ((marine_mobi[i]=="Servo-arm") || (marine_mobi[i]=="Servo-harness")) {
-                obj_ncombat.techmarines_alive+=1;
-                obj_ncombat.techma+=1;
+                obj_ncombat.techmarines_alive++;
+                if (marine_mobi[i]=="Servo-harness") then obj_ncombat.techmarines_alive++; 
+                obj_ncombat.techma++;
             }
         } else if (marine_dead[i]>0) and (marine_dead[i]<2) and (unit.hp()>-25) and (marine_type[i]!="") and ((obj_ncombat.dropping+obj_ncombat.defeat)!=2){
             var rand1, survival;
