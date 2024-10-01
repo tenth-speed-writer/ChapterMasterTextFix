@@ -10,15 +10,15 @@ if (p_type[1]="Craftworld") and (obj_controller.known[eFACTION.Eldar]=0){
 var show=name;
 
 if (global.cheat_debug=true) then show=string(name)+"#"+string(p_problem[1,1])+":"+string(p_timer[1,1])+"#"+string(p_problem[1,2])+":"+string(p_timer[1,2])+"#"+string(p_problem[1,3])+":"+string(p_timer[1,3]);
-
+var _scale = min(camera_get_view_width(view_camera[0])/global.default_view_width, 2.4);
 draw_set_color(c_white);
 draw_set_alpha(0.25);
 
-if (!craftworld) and (vision==1) then draw_self();
+if (!craftworld) and (vision==1) then draw_sprite_ext(sprite_index,image_index,x,y,1*_scale,1*_scale,0,c_white,1)
 if (craftworld) then draw_sprite_ext(spr_craftworld,0,x,y,1,1,point_direction(x,y,room_width/2,room_height/2)+90,c_white,1);
 if (space_hulk) then draw_sprite_ext(spr_star_hulk,0,x,y,1,1,0,c_white,1);
 
-if (storm>0) then draw_sprite_ext(spr_warp_storm,storm_image,x,y,0.75,0.75,0,c_white,1);
+if (storm>0) then draw_sprite_ext(spr_warp_storm,storm_image,x,y,0.75*_scale,0.75*_scale,0,c_white,1);
 
 //ad hoc way of determining whether stuff is in view or not...needs work
 
@@ -28,7 +28,7 @@ draw_set_alpha(1);
 
 
 if (!global.load && (obj_controller.zoomed || in_camera_view(star_box_shape()))) {
-    var _scale = camera_get_view_width(view_camera[0])/global.defualt_view_width;
+    
     if (garrison){
         draw_sprite(spr_new_resource,3,x-30,y+15);
         if (scr_hit(x-40,y+10,x-10,y+35)){

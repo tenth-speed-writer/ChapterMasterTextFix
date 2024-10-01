@@ -20,10 +20,10 @@ function scr_zoom() {
         }
     }
 }
-global.defualt_view_width = 1600;
-global.defualt_view_height = 900;
+global.default_view_width = 1600;
+global.default_view_height = 900;
 function set_zoom_to_defualt(){
-    camera_set_view_size(view_camera[0], global.defualt_view_width, global.defualt_view_height);
+    camera_set_view_size(view_camera[0], global.default_view_width, global.default_view_height);
 }
 
 function scr_zoom_keys(){
@@ -33,8 +33,8 @@ function scr_zoom_keys(){
         if (obj_controller.map_scale<3){
             var view_w = camera_get_view_width(view_camera[0]);
             var view_h = camera_get_view_height(view_camera[0]);
-            if (view_w>(0.5*global.defualt_view_width)){
-                camera_set_view_size(view_camera[0], view_w*0.99, view_h*0.99);
+            if (view_w>(0.5*global.default_view_width)){
+                camera_set_view_size(view_camera[0], view_w*0.97, view_h*0.97);
                 change=true;
             }
         }
@@ -43,8 +43,8 @@ function scr_zoom_keys(){
         if (obj_controller.map_scale>0.1){
             var view_w = camera_get_view_width(view_camera[0]);
             var view_h = camera_get_view_height(view_camera[0]);
-            if (view_w<(5*global.defualt_view_width)){
-                camera_set_view_size(view_camera[0], view_w*1.01, view_h*1.01);
+            if (view_w<(5*global.default_view_width)){
+                camera_set_view_size(view_camera[0], view_w*1.03, view_h*1.03);
                 change=true
             }
         }
