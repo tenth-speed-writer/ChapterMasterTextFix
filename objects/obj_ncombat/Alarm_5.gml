@@ -163,19 +163,19 @@ if (slime>0){
 instance_activate_object(obj_star);
 
 
-var lowf=true;
-if (battle_special="tyranid_org") then lowf=false;
-if (string_count("_attack",battle_special)>0) then lowf=false;
-if (battle_special="ship_demon") then lowf=false;
-if (enemy+threat=17) then lowf=false;
-if (battle_special="ruins") then lowf=false;
-if (battle_special="ruins_eldar") then lowf=false;
-if (battle_special="fallen1") then lowf=false;
-if (battle_special="fallen2") then lowf=false;
-if (battle_special="study2a") then lowf=false;
-if (battle_special="study2b") then lowf=false;
+var reduce_fortification=true;
+if (battle_special="tyranid_org") then reduce_fortification=false;
+if (string_count("_attack",battle_special)>0) then reduce_fortification=false;
+if (battle_special="ship_demon") then reduce_fortification=false;
+if (enemy+threat=17) then reduce_fortification=false;
+if (battle_special="ruins") then reduce_fortification=false;
+if (battle_special="ruins_eldar") then reduce_fortification=false;
+if (battle_special="fallen1") then reduce_fortification=false;
+if (battle_special="fallen2") then reduce_fortification=false;
+if (battle_special="study2a") then reduce_fortification=false;
+if (battle_special="study2b") then reduce_fortification=false;
 
-if (fortified>0) and (!instance_exists(obj_nfort)) and (lowf=true){
+if (fortified>0) and (!instance_exists(obj_nfort)) and (reduce_fortification=true){
     part9="Fortification level of "+string(battle_loc);
     if (battle_id=1) then part9+=" I";
     if (battle_id=2) then part9+=" II";
@@ -200,31 +200,31 @@ if (fortified>0) and (!instance_exists(obj_nfort)) and (lowf=true){
 
 
 if (defeat=0) and (battle_special="space_hulk"){
-    var en_power=0,loot=0,dicey=floor(random(100))+1,ex=0;
+    var enemy_power=0,loot=0,dicey=floor(random(100))+1,ex=0;
 
     if (enemy=7){
-        en_power=battle_object.p_orks[battle_id];
+        enemy_power=battle_object.p_orks[battle_id];
         battle_object.p_orks[battle_id]-=1;
     }
     else if (enemy=9){
-        en_power=battle_object.p_tyranids[battle_id];
+        enemy_power=battle_object.p_tyranids[battle_id];
         battle_object.p_tyranids[battle_id]-=1;
     }
     else if (enemy=10){
-        en_power=battle_object.p_traitors[battle_id];
+        enemy_power=battle_object.p_traitors[battle_id];
         battle_object.p_traitors[battle_id]-=1;
     }
 
     part10="Space Hulk Exploration at ";
-    ex=min(100,100-((en_power-1)*20));
+    ex=min(100,100-((enemy_power-1)*20));
     part10+=string(ex)+"%";
     newline=part10;if (ex=100) then newline_color="red";
     scr_newtext();
 
     if (string_count("Shitty",obj_ini.strin2)>0) then dicey=dicey*1.5;
-    // show_message("Roll Under: "+string(en_power*10)+", Roll: "+string(dicey));
+    // show_message("Roll Under: "+string(enemy_power*10)+", Roll: "+string(dicey));
 
-    if (dicey<=(en_power*10)){
+    if (dicey<=(enemy_power*10)){
         loot=choose(1,2,3,4);
         if (enemy!=10) then loot=choose(1,1,2,3);
         hulk_treasure=loot;
@@ -243,46 +243,49 @@ if (string_count("ruins",battle_special)>0){
     scr_newtext();
 }
 
-var npowers;npowers=true;
-if (battle_special="tyranid_org") then npowers=false;
-if (battle_special="ship_demon") then npowers=false;
-if (string_count("_attack",battle_special)>0) then npowers=false;
-if (string_count("ruins",battle_special)>0) then npowers=false;
-if (battle_special="space_hulk") then npowers=false;
-if (battle_special="fallen1") then npowers=false;
-if (battle_special="fallen2") then npowers=false;
-if (battle_special="study2a") then npowers=false;
-if (battle_special="study2b") then npowers=false;
-if (defeat=0) and (npowers=true){
-    var en_power,new_power;
-    en_power=0;new_power=0;
+var reduce_power;reduce_power=true;
+if (battle_special="tyranid_org") then reduce_power=false;
+if (battle_special="ship_demon") then reduce_power=false;
+if (string_count("_attack",battle_special)>0) then reduce_power=false;
+if (string_count("ruins",battle_special)>0) then reduce_power=false;
+if (battle_special="space_hulk") then reduce_power=false;
+if (battle_special="fallen1") then reduce_power=false;
+if (battle_special="fallen2") then reduce_power=false;
+if (battle_special="study2a") then reduce_power=false;
+if (battle_special="study2b") then reduce_power=false;
+if (defeat=0) and (reduce_power=true){
+    var enemy_power,new_power, power_reduction, final_pow, requisition_reward;
+    enemy_power=0;new_power=0; power_reduction=0; requisition_reward=0;
 
     if (enemy=2){
-        en_power=battle_object.p_guardsmen[battle_id];
+        enemy_power=battle_object.p_guardsmen[battle_id];
         battle_object.p_guardsmen[battle_id]-=threat;
         // if (threat=1) or (threat=2) then battle_object.p_guardsmen[battle_id]=0;
     }
 
-    if (enemy=5){en_power=battle_object.p_sisters[battle_id];part10="Ecclesiarchy";}
-    if (enemy=6){en_power=battle_object.p_eldar[battle_id];part10="Eldar";}
-    if (enemy=7){en_power=battle_object.p_orks[battle_id];part10="Ork";}
-    if (enemy=8){en_power=battle_object.p_tau[battle_id];part10="Tau";}
-    if (enemy=9){en_power=battle_object.p_tyranids[battle_id];part10="Tyranid";}
-    if (enemy=10){en_power=battle_object.p_traitors[battle_id];part10="Heretic";if (threat=7) then part10="Daemon";}
-    if (enemy=11){en_power=battle_object.p_chaos[battle_id];part10="Chaos Space Marine";}
-    if (enemy=13){en_power=battle_object.p_necrons[battle_id];part10="Necrons";}
+    if (enemy=5){enemy_power=battle_object.p_sisters[battle_id];part10="Ecclesiarchy";}
+    if (enemy=6){enemy_power=battle_object.p_eldar[battle_id];part10="Eldar";}
+    if (enemy=7){enemy_power=battle_object.p_orks[battle_id];part10="Ork";}
+    if (enemy=8){enemy_power=battle_object.p_tau[battle_id];part10="Tau";}
+    if (enemy=9){enemy_power=battle_object.p_tyranids[battle_id];part10="Tyranid";}
+    if (enemy=10){enemy_power=battle_object.p_traitors[battle_id];part10="Heretic";if (threat=7) then part10="Daemon";}
+    if (enemy=11){enemy_power=battle_object.p_chaos[battle_id];part10="Chaos Space Marine";}
+    if (enemy=13){enemy_power=battle_object.p_necrons[battle_id];part10="Necrons";}
 
-    if (instance_exists(battle_object)) and (en_power>2){
+    if (instance_exists(battle_object)) and (enemy_power>2){
         if (awake_tomb_world(battle_object.p_feature[battle_id])!=0){
-            scr_gov_disp(battle_object.name,battle_id,floor(en_power/2));
+            scr_gov_disp(battle_object.name,battle_id,floor(enemy_power/2));
         }
     }
 
 	
     if (enemy!=2){
-        if (attacker=0) then new_power=en_power-1;
-        if ((attacker=1) or (dropping=1)) then new_power=en_power-2;
-
+        if (attacker=0) then power_reduction = 1;
+        if ((attacker=1) or (dropping=1)) then power_reduction = 2;
+        new_power = enemy_power - power_reduction;
+        // Give some money for killing enemies?
+        requisition_reward += power(2, enemy_power) * 10;
+        obj_controller.requisition += requisition_reward;
         new_power=max(new_power,0);
 		
 		//(¿?) Ramps up threat/enemy presence in case enemy Type == "Daemon" (¿?)
@@ -323,25 +326,25 @@ if (defeat=0) and (npowers=true){
                 }                               
             }
         }
-        if (enemy=11) and (en_power!=floor(en_power)) then en_power=floor(en_power);
+        if (enemy=11) and (enemy_power!=floor(enemy_power)) then enemy_power=floor(enemy_power);
     }
 
 
-    if ((obj_controller.blood_debt=1) and (defeat=0) && en_power>0){
-        var final_pow = min(en_power, 6)-1;
+    if ((obj_controller.blood_debt=1) and (defeat=0) && enemy_power>0){
+        final_pow = min(enemy_power, 6)-1;
         if (enemy=6) or (enemy=9) or (enemy=11) or (enemy=13){
             obj_controller.penitent_turn=0;
             obj_controller.penitent_turnly=0;
             var penitent_crusade_chart = [25,62,95,190,375,750];
 
-            var final_pow = min(en_power, 6)-1;
+            final_pow = min(enemy_power, 6)-1;
             obj_controller.penitent_current+=penitent_crusade_chart[final_pow];
 
         }
         else if (enemy=7) or (enemy=8) or (enemy=10){
             obj_controller.penitent_turn=0;
             obj_controller.penitent_turnly=0;
-            var final_pow = min(en_power, 7)-1;
+            final_pow = min(enemy_power, 7)-1;
             var penitent_crusade_chart = [25,50,75,150,300,600, 1500];         
              obj_controller.penitent_current+=penitent_crusade_chart[final_pow];
         }
@@ -357,16 +360,22 @@ if (defeat=0) and (npowers=true){
     else if (enemy=13){battle_object.p_necrons[battle_id]=new_power;}
 
     if (enemy!=2) and (string_count("cs_meeting_battle",battle_special)=0){
-        part10+=" Forces on "+string(battle_loc);
+        part10+=" forces on "+string(battle_loc);
         if (battle_id=1) then part10+=" I";
         if (battle_id=2) then part10+=" II";
         if (battle_id=3) then part10+=" III";
         if (battle_id=4) then part10+=" IV";
         if (battle_id=5) then part10+=" V";
-        part10+=$" have decreased to {new_power} ({en_power} {en_power-new_power})";
+        if (new_power == 0){
+            part10+=$" were completely wiped out. Previous: {enemy_power}. Reduction: {power_reduction}.";
+        } else {
+            part10+=$" were reduced to {new_power} after this battle. Previous: {enemy_power}. Reduction: {power_reduction}.";
+        }
         newline=part10;scr_newtext();
-
-        if (new_power<=0) and (en_power>0) then battle_object.p_raided[battle_id]=1;
+        part10 == $"Received {requisition_reward} requisition as a reward for slaying enemies of the Imperium.";
+        newline=part10;scr_newtext();
+    
+        if (new_power<=0) and (enemy_power>0) then battle_object.p_raided[battle_id]=1;
     }
     if (enemy=2){
         part10+=" Imperial Guard Forces on "+string(battle_loc);
@@ -375,7 +384,7 @@ if (defeat=0) and (npowers=true){
         if (battle_id=3) then part10+=" III";
         if (battle_id=4) then part10+=" IV";
         if (battle_id=5) then part10+=" V";
-        part10+=" have decreased to "+string(battle_object.p_guardsmen[battle_id])+" ("+string(en_power)+"-"+string(threat)+")";
+        part10+=" were reduced to "+string(battle_object.p_guardsmen[battle_id])+" ("+string(enemy_power)+"-"+string(threat)+")";
         newline=part10;scr_newtext();
     }
 
