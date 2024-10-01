@@ -343,9 +343,9 @@ function scr_unit_quick_find_pane() constructor{
 				if (hide_sequence=30) then hide_sequence=0;
 				if ((hide_sequence>0 && hide_sequence<15) || (hide_sequence>15 && hide_sequence<30)){
 					if (hide_sequence>15){
-						x_draw=(main_panel.width) +((main_panel.width/15)*(hide_sequence-15));
+						x_draw=(-main_panel.width) +((main_panel.width/15)*(hide_sequence-15));
 					} else {
-						x_draw=((main_panel.width/15)*hide_sequence);
+						x_draw=((-main_panel.width/15)*hide_sequence);
 					}
 					hide_sequence++;
 				}

@@ -5,11 +5,10 @@
 function scr_menu_clear_up(specific_area_function){
 	var spec_func = specific_area_function;
 	with(obj_controller){
-		set_zoom_to_defualt();
 		var menu_action_allowed = (action_if_number(obj_saveload, 0, 0) &&
 				    action_if_number(obj_drop_select, 0, 0) &&
 				    action_if_number(obj_popup_dialogue, 0, 0) &&
-				    action_if_number(obj_ncombat, 0, 0))
+				    action_if_number(obj_ncombat, 0, 0));
 
 		if (menu_action_allowed){
 		    if (combat!=0) then exit;
@@ -48,10 +47,12 @@ function scr_menu_clear_up(specific_area_function){
 		    if (zoomed==0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
 		        // Main Menu
 		        if (scr_hit(xx+1485,yy+7,xx+1589,yy+48)){
+		        	set_zoom_to_defualt();
 		            instance_create(0,0,obj_ingame_menu);
 		        }
 		        // Menu - Help
 		        if (scr_hit(xx+1375,yy+7,xx+1480,yy+48)) and (cooldown<=0){
+		        	set_zoom_to_defualt();
 		            if (menu!=17.5) and (onceh==0){
 		                menu=17.5;
 		                
@@ -87,6 +88,7 @@ function scr_menu_clear_up(specific_area_function){
 function scr_change_menu(specific_area_function){
 	var continue_sequence = false;
 	with (obj_controller){
+		set_zoom_to_defualt();
 		continue_sequence = scr_menu_clear_up(function(){
 			if (zoomed==0)  && (diplomacy==0){
 				return true;

@@ -140,7 +140,7 @@ if (global.cheat_debug && obj_controller.selecting_planet && !loading)
         if (point_and_click(rect)){
             debug = true;
         }
-        if (scr_hit((( 184) - 123), (( 184) + 123), ( 200), ( 226))){
+        if (scr_hit(rect)){
             draw_rectangle((( 184) - 123), ( 200), (( 184) + 123), ( 226), false);
         }
     }
@@ -247,6 +247,8 @@ if (obj_controller.selecting_planet!=0){
 
     main_data_slate.inside_method = function(){
         improve=0
+        var xx=15;
+        var yy=25;
         var current_planet=obj_controller.selecting_planet;
         var planet_data = new PlanetData(current_planet, target);
         var nm=scr_roman(current_planet), temp1=0;
@@ -269,30 +271,30 @@ if (obj_controller.selecting_planet!=0){
         if ((target.dispo[current_planet]>=0) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0)) and (succession=0){
             var wack=0;
             draw_set_color(c_blue);
-            draw_rectangle(349,175,349+(min(100,target.dispo[current_planet])*3.68),192,0);
+            draw_rectangle(xx+349,yy+175,xx+349+(min(100,target.dispo[current_planet])*3.68),yy+192,0);
         }
         draw_set_color(c_gray);
-        draw_rectangle(349,175,717,192,1);
+        draw_rectangle(xx+349,yy+175,xx+717,yy+192,1);
         draw_set_color(c_white);
         
         var player_dispo = planet_data.player_disposition;
         if (!succession){
-            if (player_dispo>=0) and (target.p_first[current_planet]<=5) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0) then draw_text(534,176,string_hash_to_newline("Disposition: "+string(min(100,player_dispo))+"/100"));
+            if (player_dispo>=0) and (target.p_first[current_planet]<=5) and (target.p_owner[current_planet]<=5) and (target.p_population[current_planet]>0) then draw_text(xx+534,yy+176,string_hash_to_newline("Disposition: "+string(min(100,player_dispo))+"/100"));
             if (player_dispo>-30) and (player_dispo<0) and (planet_data.current_owner<=5) and (planet_data.population>0){
-                draw_text(534,176,"Disposition: ???/100");
+                draw_text(xx+534,yy+176,"Disposition: ???/100");
             }
             if ((player_dispo>=0) and (planet_data.origional_owner<=5) and (target.p_owner[current_planet]>5)) or (target.p_population[current_planet]<=0){
-                draw_text(534,176,"-------------");
+                draw_text(xx+534,yy+176,"-------------");
             }
 
-            if (player_dispo<=-3000) then draw_text(534,176,"Disposition: N/A");
-        } else  if (succession=1) then draw_text(534,176,"War of Succession");
+            if (player_dispo<=-3000) then draw_text(xx+534,yy+176,"Disposition: N/A");
+        } else  if (succession=1) then draw_text(xx+534,yy+176,"War of Succession");
         draw_set_color(c_gray);
         // End draw disposition
         draw_set_color(c_gray);
-        draw_rectangle(349,193,717,210,0);
+        draw_rectangle(xx+349,yy+193,xx+717,yy+210,0);
         var bar_width = 717-349;
-        var bar_start_point = 349;
+        var bar_start_point = xx+349;
         var bar_percent_length = (bar_width/100);
         var current_bar_percent = 0;
         with (target){
@@ -307,26 +309,26 @@ if (obj_controller.selecting_planet!=0){
                         draw_set_color(global.star_name_colors[eFACTION.Imperium]);
                     }
                     var current_start = bar_start_point+(current_bar_percent*bar_percent_length)
-                    draw_rectangle(current_start,193,current_start+(bar_percent_length*p_influence[current_planet][i]),210,0);
+                    draw_rectangle(current_start,yy+193,current_start+(bar_percent_length*p_influence[current_planet][i]),yy+210,0);
                     current_bar_percent+=p_influence[current_planet][i];
                 }
                 draw_set_color(c_gray);
             }
         }
         draw_set_color(c_white);   
-        draw_text(534,194,"Population Influence");
-
+        draw_text(xx+534,yy+194,"Population Influence");
+        yy+=20;
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
-        if (target.craftworld=0) and (target.space_hulk=0) then draw_text(480,196,$"{target.name} {nm}  ({target.p_type[current_planet]})");
-        if (target.craftworld=1) then draw_text(480,196,string(target.name)+" (Craftworld)");
-        // if (target.craftworld=0) and (target.space_hulk=0) then draw_text(534,214,string(target.p_type[current_planet])+" World");
-        // if (target.craftworld=1) then draw_text(594,214,"Craftworld");
-        if (target.space_hulk=1) then draw_text(480,196,string_hash_to_newline("Space Hulk"));
+        if (target.craftworld=0) and (target.space_hulk=0) then draw_text(xx+480,yy+196,$"{target.name} {nm}  ({target.p_type[current_planet]})");
+        if (target.craftworld=1) then draw_text(xx+480,yy+196,string(target.name)+" (Craftworld)");
+        // if (target.craftworld=0) and (target.space_hulk=0) then draw_text(xx+534,yy+214,string(target.p_type[current_planet])+" World");
+        // if (target.craftworld=1) then draw_text(xx+594,yy+214,"Craftworld");
+        if (target.space_hulk=1) then draw_text(xx+480,yy+196,string_hash_to_newline("Space Hulk"));
         
         var planet_type = target.p_type[current_planet];
-        // draw_sprite(spr_planet_splash,temp1,349,194);
-        scr_image("planet",scr_planet_image_numbers(planet_type),349,194,128,128);
-        draw_rectangle(349,194,477,322,1);
+        // draw_sprite(spr_planet_splash,temp1,xx+349,yy+194);
+        scr_image("planet",scr_planet_image_numbers(planet_type),xx+349,yy+194,128,128);
+        draw_rectangle(xx+349,yy+194,xx+477,yy+322,1);
         draw_set_font(fnt_40k_14);
         
         
@@ -342,8 +344,8 @@ if (obj_controller.selecting_planet!=0){
             label:pop_string,
             tooltip : "population data toggle with 'P'",
             keystroke : press_exclusive(ord("P")),
-            x1 : 480,
-            y1 : 217,
+            x1 : xx+480,
+            y1 : yy+217,
             w : 200,
             h : 22
         })
@@ -358,16 +360,16 @@ if (obj_controller.selecting_planet!=0){
         if (target.craftworld=0) and (target.space_hulk=0){
             var y7=240,temp3=string(scr_display_number(target.p_guardsmen[current_planet]));
             if (target.p_guardsmen[current_planet]>0){
-                draw_text(480,y7,$"Imperial Guard: {temp3}");
+                draw_text(xx+480,yy+y7,$"Imperial Guard: {temp3}");
                 y7+=20;
             }
             if (target.p_owner[current_planet]!=8){
                 var temp4=string(scr_display_number(target.p_pdf[current_planet]));
-                draw_text(480,y7,$"Defense Force: {temp4}");
+                draw_text(xx+480,yy+y7,$"Defense Force: {temp4}");
             }
             if (target.p_owner[current_planet]=8){
                 var temp4=string(scr_display_number(target.p_pdf[current_planet]));
-                draw_text(480,y7,$"Gue'Vesa Force:  {temp4}");
+                draw_text(xx+480,yy+y7,$"Gue'Vesa Force:  {temp4}");
             }
         }
         
@@ -377,21 +379,21 @@ if (obj_controller.selecting_planet!=0){
         if (target.space_hulk=0){
             if (improve=1){
                 draw_set_color(c_green);
-                draw_rectangle(481,280,716,298,0);
-                draw_sprite(spr_requisition,0,657,283);
+                draw_rectangle(xx+481,yy+280,xx+716,yy+298,0);
+                draw_sprite(spr_requisition,0,xx+657,yy+283);
                 
                 
                 var improve_cost=1500,yep=0,o=0;
 
                 if (array_contains(obj_ini.adv, "Siege Masters")) then improve_cost=1100;
                 
-                draw_text_glow(671, 281,string(improve_cost),16291875,0);
+                draw_text_glow(xx+671, yy+281,string(improve_cost),16291875,0);
                 
-                if (scr_hit(481,282,716,300)){
+                if (scr_hit(xx+481,yy+282,xx+716,yy+300)){
                     draw_set_color(0);
                     draw_set_alpha(0.2);
-                    draw_rectangle(481,280,716,298,0);
-                    if (point_and_click([481,282,716,300])){
+                    draw_rectangle(xx+481,yy+280,xx+716,yy+298,0);
+                    if (obj_controller.cooldown<=0) and (obj_controller.mouse_left=1) and (obj_controller.requisition>=improve_cost){
                         obj_controller.cooldown=8000;
                         obj_controller.requisition-=improve_cost;
                         target.p_fortified[current_planet]+=1;
@@ -408,14 +410,14 @@ if (obj_controller.selecting_planet!=0){
             var forti_string = ["None", "Sparse","Light","Moderate","Heavy","Major","Extreme"];
             var planet_forti = $"Defenses: {forti_string[target.p_fortified[current_planet]]}";
 
-            draw_text(480,280,planet_forti);
+            draw_text(xx+480,yy+280,planet_forti);
         }
         
         draw_set_color(c_gray);
         
         if (target.space_hulk=1){
             temp5="Integrity: "+string(floor(target.p_fortified[current_planet]*20))+"%";
-            draw_text(480,280,string_hash_to_newline(string(temp5)));
+            draw_text(xx+480,yy+280,string_hash_to_newline(string(temp5)));
         }
         
         var temp6="???";
@@ -427,12 +429,12 @@ if (obj_controller.selecting_planet!=0){
         if (max(target_planet_heresy,tau_influence)>50) and (max(target_planet_heresy,tau_influence)<=70) then temp6="Heavy";
         if (max(target_planet_heresy,tau_influence)>70) and (max(target_planet_heresy,tau_influence)<=96) then temp6="Extreme";
         if (target_planet_heresy>=96) or (tau_influence>=96) then temp6="Maximum";
-        draw_text(480,300,$"Corruption: {temp6}");
+        draw_text(xx+480,yy+300,$"Corruption: {temp6}");
         
         
         draw_set_font(fnt_40k_14b);
-        draw_text(349,326,string_hash_to_newline("Planet Forces"));
-        draw_text(535,326,string_hash_to_newline("Planet Features"));
+        draw_text(xx+349,yy+326,string_hash_to_newline("Planet Forces"));
+        draw_text(xx+535,yy+326,string_hash_to_newline("Planet Features"));
         draw_set_font(fnt_40k_14);
         
         
@@ -463,21 +465,21 @@ if (obj_controller.selecting_planet!=0){
             
             if (ahuh!="") and (ahuh2>0) then temp8+=string(ahuh)+" "+string(ahuh3)+"#";
         }
-        draw_text(349,346,string_hash_to_newline(string(temp8)));
+        draw_text(xx+349,yy+346,string_hash_to_newline(string(temp8)));
         
         
         var fit,to_show,temp9;t=-1;to_show=0;temp9="";
 
         fit =  array_create(11, "");
-    	var planet_displays = [], i;
-    	var feat_count, _cur_feature;
-    	var feat_count = array_length(target.p_feature[current_planet]);
+        var planet_displays = [], i;
+        var feat_count, _cur_feature;
+        var feat_count = array_length(target.p_feature[current_planet]);
         var upgrade_count = array_length(target.p_upgrades[current_planet]);
         var size = ["", "Small", "", "Large"];
-    	if ( feat_count > 0){
-        	for (i =0; i <  feat_count ;i++){
+        if ( feat_count > 0){
+            for (i =0; i <  feat_count ;i++){
                 cur_feature= target.p_feature[current_planet][i]
-        		if (cur_feature.planet_display != 0){
+                if (cur_feature.planet_display != 0){
                     if (cur_feature.f_type == P_features.Gene_Stealer_Cult){
                         if (!cur_feature.hiding){
                             array_push(planet_displays, [cur_feature.planet_display, cur_feature]);
@@ -486,7 +488,7 @@ if (obj_controller.selecting_planet!=0){
                         array_push(planet_displays, ["????", ""] );
                     }else{
                         array_push(planet_displays, [cur_feature.planet_display, cur_feature]);
-        			}
+                    }
                     if (cur_feature.f_type == P_features.Monastery){
                         if (cur_feature.forge>0){
                             var forge = cur_feature.forge_data;
@@ -494,8 +496,8 @@ if (obj_controller.selecting_planet!=0){
                             array_push(planet_displays, [size_string, target.p_feature[current_planet][i].forge_data]);
                         }
                     }                
-        		}
-        	}
+                }
+            }
         }
         if (upgrade_count>0){
             for (i =0; i <  upgrade_count ;i++){
@@ -530,7 +532,7 @@ if (obj_controller.selecting_planet!=0){
         for (i=0; i< array_length(planet_displays); i++){
             button_colour = c_green;
             if (planet_displays[i][0] == "????") then button_colour = c_red;
-            button_size = draw_unit_buttons([535,346+y_move], planet_displays[i][0],[1,1], button_colour,, fnt_40k_14b, 1);
+            button_size = draw_unit_buttons([xx+535,yy+346+y_move], planet_displays[i][0],[1,1], button_colour,, fnt_40k_14b, 1);
             y_move += button_size[3]-button_size[1];
             if (point_and_click(button_size)){
                 if (planet_displays[i][0] != "????"){
@@ -552,16 +554,16 @@ if (obj_controller.selecting_planet!=0){
             }*/
             
             /*if (target.p_first[current_planet]=1){
-                if (mouse_x>=363) and (mouse_y>=194) and (mouse_x<502) and (mouse_y<204){
+                if (mouse_x>=xx+363) and (mouse_y>=yy+194) and (mouse_x<xx+502) and (mouse_y<yy+204){
                     if (string_count("Monastery",target.p_feature[current_planet])>0){
                         var wid,hei,tex;draw_set_halign(fa_left);
                         tex=string(target.p_lasers[current_planet])+" Defense Laser, "+string(target.p_defenses[current_planet])+" Weapon Emplacements, "+string(target.p_silo[current_planet])+" Missile Silo";
                         hei=string_height_ext(tex,-1,200)+4;wid=string_width_ext(tex,-1,200)+4;
                         draw_set_color(c_black);
-                        draw_rectangle(363,210,363+wid,210+hei,0);
+                        draw_rectangle(xx+363,yy+210,xx+363+wid,yy+210+hei,0);
                         draw_set_color(38144);
-                        draw_rectangle(363,210,363+wid,210+hei,1);
-                        draw_text_ext(365,212,tex,-1,200);
+                        draw_rectangle(xx+363,yy+210,xx+363+wid,yy+210+hei,1);
+                        draw_text_ext(xx+365,yy+212,tex,-1,200);
                     }
                 }
             }*/
@@ -613,7 +615,7 @@ if (obj_controller.selecting_planet!=0){
                     }
                 }
             }
-            garrison_data_slate.draw(344+main_data_slate.width-4, 160, 0.6, 0.6);
+            garrison_data_slate.draw(340+main_data_slate.width, 160, 0.6, 0.6);
 
         } 
     } else if (population){

@@ -15,7 +15,7 @@ if (!obj_controller.zoomed){
     	
     	fleet_min_button = "-"
     	if (fleet_minimized || screen_expansion<20){
-    		fleet_min_button = "+"
+    		fleet_min_button = "+";
     		selection_window.draw_cut(60, 110, 0.35, 0.8, screen_expansion*5);
     		if (fleet_minimized && screen_expansion>1){
     			screen_expansion--;
