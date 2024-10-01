@@ -372,7 +372,7 @@ if (defeat=0) and (reduce_power=true){
             part10+=$" were reduced to {new_power} after this battle. Previous: {enemy_power}. Reduction: {power_reduction}.";
         }
         newline=part10;scr_newtext();
-        part10 == $"Received {requisition_reward} requisition as a reward for slaying enemies of the Imperium.";
+        part10 = $"Received {requisition_reward} requisition as a reward for slaying enemies of the Imperium.";
         newline=part10;scr_newtext();
     
         if (new_power<=0) and (enemy_power>0) then battle_object.p_raided[battle_id]=1;

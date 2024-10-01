@@ -28,7 +28,7 @@ for (var i=0;i<array_length(unit_struct);i++){
         }
         
         if (!marine_dead[i]){
-            if (is_specialist(unit.role,"apoth", true)) {
+            if (unit.IsSpecialist("apoth", true)) {
                 skill_level = unit.intelligence / 80;
                 if (marine_gear[i]=="Narthecium"){
                     obj_ncombat.apoth++;
@@ -37,7 +37,7 @@ for (var i=0;i<array_length(unit_struct);i++){
                 skill_level += random(unit.luck/10);
                 obj_ncombat.apothecaries_alive += skill_level;
             }
-            else if (is_specialist(unit.role,"forge", true)) {
+            else if (unit.IsSpecialist("forge", true)) {
                 skill_level = unit.technology / 60;
                 if (marine_mobi[i]=="Servo-arm") then skill_level*=2; 
                 else if (marine_mobi[i]=="Servo-harness") then skill_level*=4;
