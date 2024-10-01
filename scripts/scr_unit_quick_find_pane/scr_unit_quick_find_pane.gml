@@ -319,20 +319,6 @@ function scr_unit_quick_find_pane() constructor{
 			    i++;
 			}			
 		}
-		if (array_length(travel_target)==2){
-			if (obj_controller.x!=travel_target[0] || obj_controller.y!=travel_target[1]){
-				obj_controller.x += travel_increments[0];
-				obj_controller.y += travel_increments[1];
-				travel_time++;
-			} else {
-				travel_target=[];		
-			}
-			if (travel_time==15){
-				obj_controller.x = travel_target[0];
-				obj_controller.y = travel_target[1];
-				travel_target=[];			
-			}
-		}
 	}
 	static draw = function(){
 		if (obj_controller.menu==0 && obj_controller.zoomed==0 ){
@@ -343,9 +329,9 @@ function scr_unit_quick_find_pane() constructor{
 				if (hide_sequence=30) then hide_sequence=0;
 				if ((hide_sequence>0 && hide_sequence<15) || (hide_sequence>15 && hide_sequence<30)){
 					if (hide_sequence>15){
-						x_draw=(-main_panel.width) +((main_panel.width/15)*(hide_sequence-15));
+						x_draw=((main_panel.width/15)*(hide_sequence-15))-main_panel.width;
 					} else {
-						x_draw=((-main_panel.width/15)*hide_sequence);
+						x_draw=-((main_panel.width/15)*hide_sequence);
 					}
 					hide_sequence++;
 				}
@@ -363,7 +349,7 @@ function scr_unit_quick_find_pane() constructor{
 					    update_garrison_log();
 					}					
 					if (x_draw<0){
-						tab_buttons.hider.draw(xx,lower_draw, "Show")
+						tab_buttons.hider.draw(0,lower_draw, "Show")
 					} else {
 						if (tab_buttons.hider.draw(x_draw+280,lower_draw, "Hide")){
 						    hide_sequence++;
@@ -378,6 +364,20 @@ function scr_unit_quick_find_pane() constructor{
 				    view_area="troops";
 				}*/							
 			}
+			if (array_length(travel_target)==2){
+				if (obj_controller.x!=travel_target[0] || obj_controller.y!=travel_target[1]){
+					obj_controller.x += travel_increments[0];
+					obj_controller.y += travel_increments[1];
+					travel_time++;
+				} else {
+					travel_target=[];		
+				}
+				if (travel_time==15){
+					obj_controller.x = travel_target[0];
+					obj_controller.y = travel_target[1];
+					travel_target=[];			
+				}
+			}			
 		}
 	}
 }
