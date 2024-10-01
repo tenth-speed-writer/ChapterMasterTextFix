@@ -221,7 +221,7 @@ en_important_dudes=0;
 
 // 
 
-attacker=0;// 0 is defensive
+attack_type=0;// 0 is defensive
 dropping=0;// 0 is was on ground
 attacking=0;// 1 means attacked from space/local
 time=floor(random(24))+1;
@@ -269,7 +269,7 @@ if (enemy_tau=1) and (enemy=8){global_attack=global_attack*1.1;global_defense=gl
 if (enemy_tyranids=1) and (enemy=9){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
 if (enemy_necrons=1) and (enemy=13){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
 
-if (siege=1) and (enemy_fortified>=3) and (attacker=1) then global_attack=global_attack*1.2;
+if (siege=1) and (enemy_fortified>=3) and (attack_type=1) then global_attack=global_attack*1.2;
 
 
 if (slow=1){global_attack-=0.1;global_defense+=0.2;}

@@ -254,8 +254,8 @@ if (battle_special="fallen2") then reduce_power=false;
 if (battle_special="study2a") then reduce_power=false;
 if (battle_special="study2b") then reduce_power=false;
 if (defeat=0) and (reduce_power=true){
-    var enemy_power,new_power, power_reduction, final_pow, requisition_reward;
-    enemy_power=0;new_power=0; power_reduction=0; requisition_reward=0;
+    var enemy_power,new_power, power_reduction, final_pow, requisition_reward, power_fought;
+    enemy_power=0;new_power=0; power_reduction=0; requisition_reward=0; power_fought=0;
 
     if (enemy=2){
         enemy_power=battle_object.p_guardsmen[battle_id];
@@ -280,14 +280,33 @@ if (defeat=0) and (reduce_power=true){
 
 	
     if (enemy!=2){
-        if (attacker=0) then power_reduction = 1;
-        if ((attacker=1) or (dropping=1)) then power_reduction = 2;
+        if (attack_type=0){
+            power_reduction = 1;
+            power_fought = min(enemy_power - 1, 1); // Raiding generates enemies at -1 power
+        }
+        if ((attack_type=1) or (dropping=1)){
+            power_reduction = 2;
+            power_fought = enemy_power;
+        }
         new_power = enemy_power - power_reduction;
-        // Give some money for killing enemies?
-        requisition_reward += power(2, enemy_power) * 10;
-        obj_controller.requisition += requisition_reward;
         new_power=max(new_power,0);
-		
+
+        // Give some money for killing enemies?
+        var base_reward = 10;
+        var exponential_factor = 1.2;
+        var scaling_factor = 0.05;
+        requisition_reward = base_reward * scaling_factor * power_fought + power(exponential_factor, power_fought) * 25;
+        obj_controller.requisition += requisition_reward;
+        /* 
+        I'm very bad at math, this formula is something that I think should work, but I have no idea if it has to be so long.
+        1 power_fought - 2.5 requisition_reward.
+        2 power_fought - 5 requisition_reward.
+        3 power_fought - 12.5 requisition_reward.
+        4 power_fought - 30 requisition_reward.
+        5 power_fought - 75 requisition_reward.
+        6 power_fought - 315 requisition_reward. 
+        */
+
 		//(¿?) Ramps up threat/enemy presence in case enemy Type == "Daemon" (¿?)
 		//Does the inverse check/var assignment 10 lines above
         if (part10="Daemon") then new_power=7;

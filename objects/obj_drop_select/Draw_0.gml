@@ -391,7 +391,7 @@ if (scr_hit(xx+954,yy+556,xx+1043,yy+579)=true){
         obj_ncombat.attacking=attack;
         obj_ncombat.enemy=attacking;
         obj_ncombat.formation_set=formation_possible[formation_current];
-        obj_ncombat.attacker=1;
+        obj_ncombat.attack_type=1;
         if (ship_all[500]=1) then obj_ncombat.local_forces=1;
         var _planet = obj_ncombat.battle_object.p_feature[obj_ncombat.battle_id]
         if (obj_ncombat.battle_object.space_hulk=1) then obj_ncombat.battle_special="space_hulk";

@@ -49,7 +49,7 @@ if (fortified>1) and (enemy+threat!=17){
         u.hp[1]=1500;
     }
     
-    if (siege=1) and (fortified>0) and (attacker=0){
+    if (siege=1) and (fortified>0) and (attack_type=0){
         global_attack=global_attack*1.1;
         u.hp[1]=round(u.hp[1]*1.2);
     }
