@@ -19,7 +19,7 @@ function scr_shoot(weapon_index_position, target_object, target_type, damage_dat
 
 	// target_object.hostile_men=0;
 
-	if (weapon_index_position > 0) and(instance_exists(target_object)) and(owner = eFACTION.Imperium) {
+	if (weapon_index_position>0) and (instance_exists(target_object)) and (owner==2) {
 		var stop, damage_type, doom;
 		var shots_fired = wep_num[weapon_index_position];
 		if (shots_fired = 0 || ammo[weapon_index_position] == 0) then exit;
