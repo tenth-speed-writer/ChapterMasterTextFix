@@ -27,19 +27,23 @@ function main_map_move_keys(){
 	        var view_y = __view_get( e__VW.YView, 0 )+2;
 
 	        if ((keyboard_check(vk_left)) or (mouse_x<=view_x+(view_w*0.02)) or (keyboard_check(ord("A")))) and (x>x_limits){
-	        	x = (x>view_x+(global.default_view_width/2)) ? view_x+(global.default_view_width/2) : x;
+	        	var rel_view = view_w>global.default_view_width ?global.default_view_width/2:view_w/2;
+	        	x = (x>view_x+rel_view) ? view_x+rel_view : x;
 	        	x-=spd;
 	        }
 	        if ((keyboard_check(vk_right)) or (mouse_x>=view_x+(view_w*0.98)) or (keyboard_check(ord("D")))) and (x<(room_width-(x_limits))){
-	        	x = (x<view_x+view_w-(global.default_view_width/2)) ? view_x+view_w-(global.default_view_width/2) : x;
+	        	var rel_view = view_w>global.default_view_width ?global.default_view_width/2:view_w/2;
+	        	x = (x<view_x+view_w-rel_view) ? view_x+view_w-rel_view : x;
 	        	x+=spd;
 	        }
 	        if ((keyboard_check(vk_up)) or (mouse_y<=view_y+(view_h*0.02)) or (keyboard_check(ord("W")))) and (y>y_limits){
-	        	y = (x>view_y+(global.default_view_height/2)) ? view_y+(global.default_view_height/2) : y;
+	        	var rel_view = view_h>global.default_view_height ?global.default_view_height/2:view_h/2;
+	        	y = (y>view_y+rel_view) ? view_y+rel_view : y;
 	        	y-=spd;
 	        }
 	        if ((keyboard_check(vk_down)) or (mouse_y>=view_y+(view_h*0.98)) or (keyboard_check(ord("S")))) and (y<room_height-(y_limits)){
-	        	y = (x<view_y+view_h-(global.default_view_height/2)) ? view_y+view_h-(global.default_view_height/2) : y;
+	        	var rel_view = view_h>global.default_view_height ?global.default_view_height/2:view_h/2;
+	        	y = (y<view_y+view_h-rel_view) ? view_y+view_h-rel_view : y;
 	        	y+=spd;
 	        }
 	    }

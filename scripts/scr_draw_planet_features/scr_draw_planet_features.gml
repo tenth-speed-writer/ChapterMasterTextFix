@@ -239,7 +239,7 @@ function draw_building_builder(xx, yy, req_require, building_sprite){
 	if (obj_controller.requisition>=req_require){
 		if (scr_hit(image_middle+30, image_bottom+28, image_middle+78, image_bottom+44)){
 			draw_sprite_ext(spr_slate_2, 5, image_middle-10, image_bottom, 1, 1, 0, c_white, 1);
-			if (mouse_check_button(mb_left)){
+			if (scr_click_left()){
 				clicked=true;								
 			}
 		} else {
@@ -429,7 +429,7 @@ function shutter_button() constructor{
 		height = Height *scale;
 		if (text=="") then entered = false;
 		if (entered==""){
-			entered = point_in_rectangle(mouse_x, mouse_y, xx, yy, xx+width, yy+height);
+			entered = scr_hit(xx, yy, xx+width, yy+height);
 		} else {
 			entered=entered;
 		}
@@ -443,7 +443,7 @@ function shutter_button() constructor{
 				right_rack.draw(xx+width, yy, true);
 				left_rack.draw(xx, yy, true);
 			}
-			if ((mouse_check_button_pressed(mb_left) && point_in_rectangle(mouse_x, mouse_y, xx, yy, xx+width, yy+height))||click_timer>0 ){
+			if (point_and_click([xx, yy, xx+width, yy+height]) || click_timer>0 ){
 				shutter_backdrop = 6;
 				click_timer++;
 			}

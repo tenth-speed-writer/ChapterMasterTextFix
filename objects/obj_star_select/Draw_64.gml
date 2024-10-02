@@ -56,9 +56,9 @@ if (device_mouse_check_button_pressed(0,mb_left)){
             } else if (obj_controller.selecting_planet>0){
                 if (scr_hit(
                     main_data_slate.XX-4,
-                    165,
-                    main_data_slate.YY+main_data_slate.width,
-                    165 + main_data_slate.height,
+                    main_data_slate.YY,
+                    main_data_slate.XX+main_data_slate.width,
+                    main_data_slate.YY + main_data_slate.height,
                 )){
                     closes=false;
                 }
@@ -81,8 +81,8 @@ if (device_mouse_check_button_pressed(0,mb_left)){
                     if (scr_hit(
                         feature.main_slate.XX,
                         feature.main_slate.YY,
-                        feature.main_slate.feature.main_slate.width,
-                        feature.main_slate.feature.main_slate.height
+                        feature.main_slate.XX+feature.main_slate.width,
+                        feature.main_slate.YY+feature.main_slate.height
                         )){
                         closes=false;
                     }
@@ -598,20 +598,20 @@ if (obj_controller.selecting_planet!=0){
                 var cur_planet = obj_controller.selecting_planet;
                 var half_way =  garrison_data_slate.height/2;
                 draw_set_halign(fa_left);
-                draw_line(10, half_way, garrison_data_slate.width-10, half_way);
+                draw_line(xx+10, half_way, garrison_data_slate.width-10, half_way);
                 var defence_data  = determine_pdf_defence(target.p_pdf[cur_planet], garrison,target.p_fortified[cur_planet]);
                 var defence_string = $"Planetary Defence : {defence_data[0]}";
-                draw_text(20, half_way, defence_string);
-                if (scr_hit(20, half_way+10, 20+string_width(defence_string), half_way+10+20)){
+                draw_text(xx+20, half_way, defence_string);
+                if (scr_hit(xx+20, half_way+10, xx+20+string_width(defence_string), half_way+10+20)){
                     tooltip_draw(defence_data[1], 400);
                 }
                 if (garrison.dispo_change!="none"){
                     if (garrison.dispo_change>55){
-                        draw_text(20, half_way+30, $"Garrison Disposition Effect : Positive");
+                        draw_text(xx+20, half_way+30, $"Garrison Disposition Effect : Positive");
                     } else if (garrison.dispo_change>44){
-                        draw_text(20, half_way+30, $"Garrison Disposition Effect : Neutral");
+                        draw_text(xx+20, half_way+30, $"Garrison Disposition Effect : Neutral");
                     } else{ 
-                        draw_text(20, half_way+30, $"Garrison Disposition Effect : Negative");
+                        draw_text(xx+20, half_way+30, $"Garrison Disposition Effect : Negative");
                     }
                 }
             }
@@ -629,7 +629,7 @@ if (obj_controller.selecting_planet!=0){
             var doner_length = array_length(potential_doners);
             if (doner_length){
                 //TODO swap this out for an object button with a bound tooltip option
-                var colonist_coords = draw_unit_buttons([20, half_way], "Request Colonists");
+                var colonist_coords = draw_unit_buttons([xx+20, half_way], "Request Colonists");
                 if (scr_hit(colonist_coords)){
                     tooltip_draw("Planets with higher populations can provide more recruits both for your chapter and to keep a planets PDF bolstered, however colonists from other planets bring with them their home planets influences and evils /n REQ : 1000");
                     if (point_and_click(colonist_coords)){

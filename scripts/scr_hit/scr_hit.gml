@@ -18,6 +18,10 @@ function point_and_click(rect){
 	return false;
 }
 
+function scr_click_left(){
+	return device_mouse_check_button_pressed(0,mb_left) || mouse_check_button_pressed(mb_left);
+}
+
 function return_mouse_consts(){
 	if (event_number==ev_gui){
 		var mouse_const_x = device_mouse_x_to_gui(0);
