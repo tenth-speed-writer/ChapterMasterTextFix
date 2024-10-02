@@ -1,5 +1,5 @@
 
-
+scale = 1/obj_controller.map_scale;
 if (owner = eFACTION.Eldar) and (instance_exists(orbiting)) and (obj_controller.is_test_map=true){
     draw_set_color(c_red);draw_line_width(x,y,orbiting.x,orbiting.y,1);
 }
@@ -17,18 +17,12 @@ if (obj_controller.zoomed=0){
     if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
 }
 if (obj_controller.zoomed=1){
-    if (owner = eFACTION.Imperium) then draw_set_color(c_gray);
-    if (owner = eFACTION.Mechanicus) then draw_set_color(16512);
-    if (owner = eFACTION.Ecclesiarchy) then draw_set_color(c_white);
-    if (owner = eFACTION.Eldar) then draw_set_color(33023);
-    if (owner = eFACTION.Ork) then draw_set_color(38144);
-    if (owner = eFACTION.Tau) then draw_set_color(117758);
-    if (owner = eFACTION.Tyranids) then draw_set_color(7492269);
-    if (owner = eFACTION.Chaos) then draw_set_color(c_purple);
-    if (owner = eFACTION.Necrons) then draw_set_color(65408);
+    var faction_colour = global.star_name_colors[owner];
+    draw_set_color(faction_colour);
     
-    if (owner = eFACTION.Imperium) and (navy=0) then draw_set_alpha(0.5);
-    draw_circle(x,y,12,0);draw_set_alpha(1);
+    if (owner == eFACTION.Imperium) and (navy=0) then draw_set_alpha(0.5);
+    draw_circle(x,y,12,0);
+    draw_set_alpha(1);
     if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
 }
 

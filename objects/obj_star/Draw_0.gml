@@ -10,15 +10,15 @@ if (p_type[1]="Craftworld") and (obj_controller.known[eFACTION.Eldar]=0){
 var show=name;
 
 if (global.cheat_debug=true) then show=string(name)+"#"+string(p_problem[1,1])+":"+string(p_timer[1,1])+"#"+string(p_problem[1,2])+":"+string(p_timer[1,2])+"#"+string(p_problem[1,3])+":"+string(p_timer[1,3]);
-var _scale = min(camera_get_view_width(view_camera[0])/global.default_view_width, 2.4);
+scale = min(camera_get_view_width(view_camera[0])/global.default_view_width, 2.4);
 draw_set_color(c_white);
 draw_set_alpha(0.25);
 
-if (!craftworld) and (vision==1) then draw_sprite_ext(sprite_index,image_index,x,y,1*_scale,1*_scale,0,c_white,1)
+if (!craftworld) and (vision==1) then draw_sprite_ext(sprite_index,image_index,x,y,1*scale,1*scale,0,c_white,1)
 if (craftworld) then draw_sprite_ext(spr_craftworld,0,x,y,1,1,point_direction(x,y,room_width/2,room_height/2)+90,c_white,1);
 if (space_hulk) then draw_sprite_ext(spr_star_hulk,0,x,y,1,1,0,c_white,1);
 
-if (storm>0) then draw_sprite_ext(spr_warp_storm,storm_image,x,y,0.75*_scale,0.75*_scale,0,c_white,1);
+if (storm>0) then draw_sprite_ext(spr_warp_storm,storm_image,x,y,0.75*scale,0.75*scale,0,c_white,1);
 
 //ad hoc way of determining whether stuff is in view or not...needs work
 
@@ -36,7 +36,7 @@ if (!global.load && (obj_controller.zoomed || in_camera_view(star_box_shape())))
         }
     }
     if (point_in_rectangle(mouse_x, mouse_y,x-128,y, x+128, y+80) && obj_controller.zoomed){
-        _scale *= 1.5;
+        scale *= 1.5;
     }    
     if (stored_owner != owner || !surface_exists(star_tag_surface)){
         star_tag_surface = surface_create(256, 128);
@@ -75,9 +75,9 @@ if (!global.load && (obj_controller.zoomed || in_camera_view(star_box_shape())))
         draw_text(xx, yy+33, name)
         surface_reset_target();
         stored_owner = owner;
-        draw_surface_ext(star_tag_surface, x-(64*_scale), y, _scale, _scale, 1, c_white, 1);
+        draw_surface_ext(star_tag_surface, x-(64*scale), y, scale, scale, 1, c_white, 1);
     } else {
-        draw_surface_ext(star_tag_surface, x-(64*_scale), y, _scale, _scale, 1, c_white, 1);
+        draw_surface_ext(star_tag_surface, x-(64*scale), y, scale, scale, 1, c_white, 1);
     }
 }
 draw_set_valign(fa_top)

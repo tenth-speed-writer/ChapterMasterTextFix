@@ -8,6 +8,7 @@ if (((x>=(room_width-150)) and (y<=450)) or (y<100)) and (global.load==0){// was
     instance_destroy();
 }
 
+scale
 var run=0;
 name="";
 star="";

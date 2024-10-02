@@ -1020,7 +1020,7 @@ function scr_ui_manage() {
 					button.alpha = 1;
 					if (button.draw()){
 						cooldown=8;
-						scr_load_all(!alll);
+						scr_load_all(loading);
 						selecting_types = alll ? "" :"%!@";
 					}
 
