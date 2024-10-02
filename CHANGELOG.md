@@ -43,11 +43,17 @@ All notable changes to this project will be documented in this file.
 	- Conversion Beamer Pack backpack item.
 		- Basically just a backpack item with an integrated conversion beamer.
 	- Laspistols for Tech Priests.
+- Marine stats affect after-battle outcomes.
+	- Techmarine Technology and Luck stats affect the cap of vehicles that one can save.
+	- Apothecary Intelligence and Luck affect the cap of marines that one can save.
+	- Luck also affects the chance of a marine not dying and getting injured instead.
+- Requisition points reward for winning battles, depending on the strength of the enemy that you fought.
+	- Code-wise it's just a simple table with static rewards. I can't bother with more.
 ### Changed:
-- Stars will no longer spawn over the top of each other.
+- Stars will no longer spawn on top of each other.
 - Player should now be able to move camera closer to the edge of the screen.
 - Warp travel:
-	- Warp lane travel drawing abstracted to it's own layer.
+	- Warp lane travel drawing moved to it's own layer.
 	- Warp lane widths now expand to be more visible when zoomed.
 - Advantages tweaks:
     - "Kings of Space" advantage now provides +1 Battle Barge.
@@ -65,13 +71,13 @@ All notable changes to this project will be documented in this file.
 		- Servo-harness can save 2 times more lost vehicles per Techmarine, in comparison to Servo-arm.
 		- You can use addi tem to get these, if old items got broken because of the rename.
 	- Tech Priest loadout is now more or less similar to lore friendly Enginseer loadout.
-- max artifact count increased to 50
 - Visual:
 	- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
 	- Deathwing color now is a tiny bit darker.
 	- Minor Power Spear sprite adjustments.
 	- Techmarines now have eye attachments.
 	- Edited Servo-arm and Servo-harness sprites.
+	- Star sprites edited. Black backgrounds removed and slight blur is applied, to reduce jaggedness.
 ### Fixed:
 - Crashes: 
 	- Caused Inquisitors snooping on player bases.
@@ -88,22 +94,24 @@ All notable changes to this project will be documented in this file.
 - Chaplains equip proper items on game start.
 - 1 Dreadnought to Equal Specialist Distribution custom chapters.
 - Fixed Force Staff getting double damage bonus because of a code mistake.
-- stars should no longer spawn very close to the right or bottom edge of the map
-- will no longer be able to select all ships globally wiht select all on bombard
-- hopefully fixed company view some times not coming up
+- Stars should no longer spawn very close to the right or bottom edge of the map.
+- Will no longer be able to select all ships globally with select all on bombard.
+- Hopefully fixed company view sometimes not coming up.
+- Max artifact count is increased to 50.
 
 ### Under The Hood:
 - Ork Warbosses are now stored in the fleet carge_data area and the struct is transferred directly to a planet.
 - Git: resource_order is now in gitignore.
 - is_specialist supports Space Wolves and Iron Hands.
 - In-game Wiki refactored (part one).
-- Refactor of drop select
+- Refactor of drop select.
     - alarm_1
     - step_0
     - scr_drop_fiddle
 - Some refactors to scr_draw_unit_image.
 - Pass scr_add_man through a formatter.
-- Almost completly refactor cheatcodes.
+- Almost completely refactor cheatcodes.
+- Minor variable name changes in ncombat and related files.
 - New function `string_upper_first`, used to capitalize only the first letter of a string.
 - GUI drawing layer:
 	- obj_controller drawing mostly moved to the GUI layer of drawing.
