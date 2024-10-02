@@ -1325,9 +1325,9 @@ if (enemy = 7) {
 		instance_deactivate_object(u);
 
 		u = instance_nearest(xxx + 10, 240, obj_enunit);
-		u.dudes[1] = "Dread";
+		u.dudes[1] = "Deff Dread";
 		u.dudes_num[1] = 9;
-		u.dudes[2] = "Battle Wagon";
+		u.dudes[2] = "Battlewagon";
 		u.dudes_num[2] = 6;
 		u.dudes[3] = "Mekboy";
 		u.dudes_num[3] = 1;
@@ -1368,9 +1368,9 @@ if (enemy = 7) {
 		instance_deactivate_object(u);
 
 		u = instance_nearest(xxx + 10, 240, obj_enunit);
-		u.dudes[1] = "Dread";
+		u.dudes[1] = "Deff Dread";
 		u.dudes_num[1] = 21;
-		u.dudes[2] = "Battle Wagon";
+		u.dudes[2] = "Battlewagon";
 		u.dudes_num[2] = 12;
 		u.dudes[3] = "Mekboy";
 		u.dudes_num[3] = 3;
@@ -1413,9 +1413,9 @@ if (enemy = 7) {
 		instance_deactivate_object(u);
 
 		u = instance_nearest(xxx + 10, 240, obj_enunit);
-		u.dudes[1] = "Dread";
+		u.dudes[1] = "Deff Dread";
 		u.dudes_num[1] = 40;
-		u.dudes[2] = "Battle Wagon";
+		u.dudes[2] = "Battlewagon";
 		u.dudes_num[2] = 18;
 		u.dudes[3] = "Mekboy";
 		u.dudes_num[3] = 6;
@@ -1460,9 +1460,9 @@ if (enemy = 7) {
 		instance_deactivate_object(u);
 
 		u = instance_nearest(xxx + 10, 240, obj_enunit);
-		u.dudes[1] = "Dread";
+		u.dudes[1] = "Deff Dread";
 		u.dudes_num[1] = 40;
-		u.dudes[2] = "Battle Wagon";
+		u.dudes[2] = "Battlewagon";
 		u.dudes_num[2] = 18;
 		u.dudes[3] = "Mekboy";
 		u.dudes_num[3] = 6;
@@ -1484,9 +1484,9 @@ if (enemy = 7) {
 		instance_deactivate_object(u);
 
 		u = instance_nearest(xxx + 30, 240, obj_enunit);
-		u.dudes[1] = "Dread";
+		u.dudes[1] = "Deff Dread";
 		u.dudes_num[1] = 40;
-		u.dudes[2] = "Battle Wagon";
+		u.dudes[2] = "Battlewagon";
 		u.dudes_num[2] = 18;
 		u.dudes[3] = "Mekboy";
 		u.dudes_num[3] = 6;

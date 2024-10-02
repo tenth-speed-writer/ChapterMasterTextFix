@@ -1008,7 +1008,7 @@ if __b__ {
 			men += dudes_num[j];
 		}
 
-		if (dudes[j] = "Battle Wagon") {
+		if (dudes[j] = "Battlewagon") {
 			scr_en_weapon("Kannon", false, dudes_num[j], dudes[j], j);
 			scr_en_weapon("Big Shoota", false, dudes_num[j] * 2, dudes[j], j);
 			scr_en_weapon("Rokkit Launcha", false, dudes_num[j] * 2, dudes[j], j);

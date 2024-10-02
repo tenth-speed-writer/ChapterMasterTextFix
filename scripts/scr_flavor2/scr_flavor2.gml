@@ -4,7 +4,7 @@ function scr_flavor2(lost_units_count, target_type) {
 
 	if (obj_ncombat.wall_destroyed = 1) then exit;
 
-	var m1, m2, m3;
+	var m1, m2, m3, mes;
 	m1 = "";
 	m2 = "";
 	m3 = "";
