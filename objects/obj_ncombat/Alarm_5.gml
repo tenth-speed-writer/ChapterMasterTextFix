@@ -291,20 +291,8 @@ if (defeat=0) and (reduce_power=true){
         new_power = max(new_power, 0);
 
         // Give some money for killing enemies?
-        var base_reward = 10;
-        var exponential_factor = 1.2;
-        var scaling_factor = 0.05;
-        requisition_reward = round(base_reward * scaling_factor * power_fought + power(exponential_factor, power_fought) * 25);
-        obj_controller.requisition += requisition_reward;
-        /* 
-        I'm very bad at math, this formula is something that I think should work, but I have no idea if it has to be so long.
-        1 power_fought - 2.5 requisition_reward.
-        2 power_fought - 5 requisition_reward.
-        3 power_fought - 12.5 requisition_reward.
-        4 power_fought - 30 requisition_reward.
-        5 power_fought - 75 requisition_reward.
-        6 power_fought - 315 requisition_reward. 
-        */
+        var reward_table = [0, 5, 10, 20, 40, 80, 160, 320];
+        requisition_reward = reward_table[power_fought];
 
 		//(¿?) Ramps up threat/enemy presence in case enemy Type == "Daemon" (¿?)
 		//Does the inverse check/var assignment 10 lines above
