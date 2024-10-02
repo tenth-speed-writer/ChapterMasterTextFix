@@ -508,15 +508,13 @@ if (temp>=100) and (threat>1) and (big_mofo>0) and (big_mofo<10) and (dropping=0
         newline=p3;scr_newtext();
         newline=p4;scr_newtext();
     }
-    
-    
-    
-    
-    
-    
 }
 
-
+var line_break = "------------------------------------------------------------------------------";
+newline = line_break;
+scr_newtext();
+newline = line_break;
+scr_newtext();
 
 /* */
 /*  */
