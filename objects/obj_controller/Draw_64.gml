@@ -173,7 +173,6 @@ if (global.cheat_debug == true){
     draw_text((__view_get((0 << 0), 0) + 1124), (__view_get((1 << 0), 0) + 7), string_hash_to_newline("DEBUG MODE"));
 }
 
-script_execute(scr_ui_popup,0,0,0,0,0);
 
 function draw_line(x1, y1, y_slide, variable) {
     l_hei = 37;

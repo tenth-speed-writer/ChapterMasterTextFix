@@ -549,6 +549,4 @@ function scr_ui_popup() {
 	        draw_text_transformed(__view_get( e__VW.XView, 0 )+24.5+93,__view_get( e__VW.YView, 0 )+26,string_hash_to_newline(string(blurp2)),0.7,0.7,0);
 	    }
 	}
-
-
 }

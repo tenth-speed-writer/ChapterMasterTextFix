@@ -1403,9 +1403,9 @@ while(instance_number(obj_star)<planet) {
     yy = irandom_range(130, room_height-130);
     nearest_star = instance_nearest(xx, yy, obj_star);
     repeats = 0;
-    while (point_distance(xx, yy, nearest_star.x,nearest_star.y)<90 && repeats<100){
+    while (point_distance(xx, yy, nearest_star.x,nearest_star.y)<130 && repeats<100){
         xx = irandom_range(200, room_width-150); // dictates how far away from the edge stars spawn
-        yy = irandom_range(130, room_height-130);
+        yy = irandom_range(130, room_height-160);
         repeats++;       
     }
     if (repeats!=100){

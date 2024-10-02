@@ -416,21 +416,23 @@ function exit_adhoc_manage(){
 
 
 function update_general_manage_view(){
-    if (obj_controller.managing>0){
-        if (managing<=10) and (managing!=0){
-        	scr_company_view(managing);
-        	company_data = new scr_company_struct(managing);
-        }
-        if (managing>10) or (managing=0){
-			scr_special_view(managing);
-			company_data={};
-        }            
-        cooldown=10;
-        sel_loading=0;
-        unload=0;
-        alarm[6]=30;
-    } else if (obj_controller.managing==-1){
-        update_garrison_manage();
+	with (obj_controller){
+	    if (managing>0){
+	        if (managing<=10) and (managing!=0){
+	        	scr_company_view(managing);
+	        	company_data = new scr_company_struct(managing);
+	        }
+	        if (managing>10) or (managing=0){
+				scr_special_view(managing);
+				company_data={};
+	        }            
+	        cooldown=10;
+	        sel_loading=0;
+	        unload=0;
+	        alarm[6]=30;
+	    } else if (managing==-1){
+	        update_garrison_manage();
+	    }
     }	
 }
 

@@ -63,7 +63,8 @@ function scr_company_struct(comp) constructor{
 	}
 
 	static draw_squad_view = function(){
-		var xx=__view_get( e__VW.XView, 0 )+0, yy=__view_get( e__VW.YView, 0 )+0;
+		var xx=__view_get( e__VW.XView, 0 )+0;
+		var yy=__view_get( e__VW.YView, 0 )+0;
     	var member;
     	selected_unit=obj_controller.temp[120];
 		if (array_length(company_squads) > 0){

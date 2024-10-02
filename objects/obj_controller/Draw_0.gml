@@ -1,4 +1,5 @@
 
+//TODO almost all of this can be handled in the gui layer
 try{
     script_execute(scr_ui_manage,0,0,0,0,0);
 } catch(_exception){
@@ -28,3 +29,5 @@ try{
     manage = 0;
     menu = 0;   
 }
+
+script_execute(scr_ui_popup,0,0,0,0,0);
