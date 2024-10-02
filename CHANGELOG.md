@@ -63,8 +63,9 @@ All notable changes to this project will be documented in this file.
 		- Both now use the backpack slot.
 		- Servo-arm only has an integrated melee arm, harness has a flamer, plasma cutter and melee arms.
 		- Servo-harness can save 2 times more lost vehicles per Techmarine, in comparison to Servo-arm.
-		- You can use additem to get these, if old items got broken because of the rename.
+		- You can use addi tem to get these, if old items got broken because of the rename.
 	- Tech Priest loadout is now more or less similar to lore friendly Enginseer loadout.
+- max artifact count increased to 50
 - Visual:
 	- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
 	- Deathwing color now is a tiny bit darker.

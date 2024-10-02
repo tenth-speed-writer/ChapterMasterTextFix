@@ -1,8 +1,7 @@
 function find_open_artifact_slot(){
 	var i=0,last_artifact=-1;
-	for (var i=0;i<array_length(obj_ini.artifact)){
+	for (var i=0;i<array_length(obj_ini.artifact);i++){
 		if (last_artifact=-1){
-			i+=1;
 			if (obj_ini.artifact[i]==""){
 				last_artifact=i;
 				break;
