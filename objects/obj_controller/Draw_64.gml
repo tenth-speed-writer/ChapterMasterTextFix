@@ -2,9 +2,10 @@
 // You can write your code in this editor
 
 // Draws the main UI menu. The function is used to highlight if you selected something in the menu
+if instance_exists
 var l_hei=37,l_why=0;
 
-
+if (instance_exists(obj_saveload)) then exit;
 if (instance_exists(obj_ncombat)) then exit;
 if (instance_exists(obj_fleet)) then exit;
 if (global.load>0) then exit;

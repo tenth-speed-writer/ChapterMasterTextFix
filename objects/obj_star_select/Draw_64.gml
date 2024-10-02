@@ -596,7 +596,7 @@ if (obj_controller.selecting_planet!=0){
                 var xx = garrison_data_slate.XX;
                 var yy = garrison_data_slate.YY;
                 var cur_planet = obj_controller.selecting_planet;
-                var half_way =  garrison_data_slate.height/2;
+                var half_way =  yy+garrison_data_slate.height/2;
                 draw_set_halign(fa_left);
                 draw_line(xx+10, half_way, garrison_data_slate.width-10, half_way);
                 var defence_data  = determine_pdf_defence(target.p_pdf[cur_planet], garrison,target.p_fortified[cur_planet]);
