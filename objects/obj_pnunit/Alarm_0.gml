@@ -16,7 +16,7 @@ rightest=instance_nearest(1000,y,obj_pnunit);// Right most pnunit
 enemy=instance_nearest(0,y,obj_enunit);// Left most enemy
 enemy2=enemy;
 
-if (obj_ncombat.attack_type=1) or (obj_ncombat.dropping=1){
+if (obj_ncombat.defending=false) or (obj_ncombat.dropping=1){
     if (!collision_point(rightest.x+10,y+1,obj_enunit,0,1)) and (collision_line(x,y+1,x+1000,y,obj_enunit,0,1)){
         x+=10;
     }

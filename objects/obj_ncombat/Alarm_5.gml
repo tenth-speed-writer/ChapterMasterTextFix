@@ -280,22 +280,21 @@ if (defeat=0) and (reduce_power=true){
 
 	
     if (enemy!=2){
-        if (attack_type=0){
+        if (dropping == true || defending == true) {
             power_reduction = 1;
-            power_fought = min(enemy_power - 1, 1); // Raiding generates enemies at -1 power
-        }
-        if ((attack_type=1) or (dropping=1)){
+            power_fought = min(enemy_power - 1, 1); // Raiding generates enemies at -1 power, so less points
+        } else {
             power_reduction = 2;
             power_fought = enemy_power;
         }
         new_power = enemy_power - power_reduction;
-        new_power=max(new_power,0);
+        new_power = max(new_power, 0);
 
         // Give some money for killing enemies?
         var base_reward = 10;
         var exponential_factor = 1.2;
         var scaling_factor = 0.05;
-        requisition_reward = base_reward * scaling_factor * power_fought + power(exponential_factor, power_fought) * 25;
+        requisition_reward = round(base_reward * scaling_factor * power_fought + power(exponential_factor, power_fought) * 25);
         obj_controller.requisition += requisition_reward;
         /* 
         I'm very bad at math, this formula is something that I think should work, but I have no idea if it has to be so long.
@@ -386,12 +385,12 @@ if (defeat=0) and (reduce_power=true){
         if (battle_id=4) then part10+=" IV";
         if (battle_id=5) then part10+=" V";
         if (new_power == 0){
-            part10+=$" were completely wiped out. Previous: {enemy_power}. Reduction: {power_reduction}.";
+            part10+=$" were completely wiped out. Previous power: {enemy_power}. Reduction: {power_reduction}.";
         } else {
-            part10+=$" were reduced to {new_power} after this battle. Previous: {enemy_power}. Reduction: {power_reduction}.";
+            part10+=$" were reduced to {new_power} after this battle. Previous power: {enemy_power}. Reduction: {power_reduction}.";
         }
         newline=part10;scr_newtext();
-        part10 = $"Received {requisition_reward} requisition as a reward for slaying enemies of the Imperium.";
+        part10 = $"Received {requisition_reward} requisition points as a reward for slaying enemies of the Imperium.";
         newline=part10;scr_newtext();
     
         if (new_power<=0) and (enemy_power>0) then battle_object.p_raided[battle_id]=1;
