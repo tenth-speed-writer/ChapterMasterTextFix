@@ -606,7 +606,7 @@ repeat(20){j+=1;
     if (dudes[j]="Ard Boy"){scr_en_weapon("Choppa",true,dudes_num[j],dudes[j],j);scr_en_weapon("Slugga",true,dudes_num[j],dudes[j],j);dudes_ac[j]=20;dudes_hp[j]=70;men+=dudes_num[j];}
     if (dudes[j]="Kommando"){scr_en_weapon("Choppa",true,dudes_num[j],dudes[j],j);scr_en_weapon("Rokkit Launcha",true,dudes_num[j],dudes[j],j);dudes_ac[j]=10;dudes_hp[j]=80;men+=dudes_num[j];}
     if (dudes[j]="Burna Boy"){scr_en_weapon("Choppa",true,dudes_num[j],dudes[j],j);scr_en_weapon("Burna",true,dudes_num[j],dudes[j],j);dudes_ac[j]=10;dudes_hp[j]=35;men+=dudes_num[j];}
-    if (dudes[j]="Tank Busta"){
+    if (dudes[j]="Tankbusta"){
         scr_en_weapon("Rokkit Launcha",true,dudes_num[j],dudes[j],j);
         scr_en_weapon("Tankbusta Bomb",true,dudes_num[j],dudes[j],j);
         scr_en_weapon("Melee1",true,dudes_num[j],dudes[j],j);
@@ -621,7 +621,7 @@ repeat(20){j+=1;
         dudes_ac[j]=40;dudes_hp[j]=200;
         veh+=dudes_num[j];dudes_vehicle[j]=1;
     }
-    if (dudes[j]="Dread"){
+    if (dudes[j]="Deff Dread"){
         scr_en_weapon("Power Klaw",false,dudes_num[j]*2,dudes[j],j);
         scr_en_weapon("Big Shoota",false,dudes_num[j],dudes[j],j);
         scr_en_weapon("Rokkit Launcha",false,dudes_num[j],dudes[j],j);

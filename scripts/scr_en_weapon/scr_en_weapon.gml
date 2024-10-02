@@ -100,7 +100,7 @@ function scr_en_weapon(name, is_man, man_number, man_type, group) {
 	    if (argument0="Choppa"){atta=28;arp=0;rang=1;spli=3;}
 	    if (argument0="Power Klaw"){atta=150;arp=1;rang=1;spli=3;}
 	    if (argument0="Slugga"){atta=27;arp=0;rang=3.1;amm=4;spli=3;}
-	    if (argument0="Tankbusta Bomb"){atta=264;arp=1;rang=1;amm=2;spli=3;}
+	    if (argument0="Tankbusta Bomb"){atta=264;arp=1;rang=1;amm=1;spli=0;}
 	    if (argument0="Big Shoota"){atta=100;arp=0;rang=12;amm=30;spli=0;}
 	    if (argument0="Dakkagun"){atta=150;arp=0;rang=10;amm=20;spli=0;}
 	    if (argument0="Deffgun"){atta=120;arp=0;rang=8;amm=20;spli=0;}
