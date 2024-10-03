@@ -57,6 +57,7 @@ function new_planet_feature(feature_type, other_data={}) constructor{
 		planet_display = "Genestealer Cult";
 		cult_age = 0;
 		hiding=true;
+		name = global.name_generator.generate_genestealer_cult_name();		
 		break;
 		case P_features.Necron_Tomb:
 		awake = 0;

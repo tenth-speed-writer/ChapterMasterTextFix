@@ -15,8 +15,8 @@ draw_set_color(c_white);
 draw_set_alpha(0.25);
 
 if (!craftworld) and (vision==1) then draw_sprite_ext(sprite_index,image_index,x,y,1*scale,1*scale,0,c_white,1)
-if (craftworld) then draw_sprite_ext(spr_craftworld,0,x,y,1,1,point_direction(x,y,room_width/2,room_height/2)+90,c_white,1);
-if (space_hulk) then draw_sprite_ext(spr_star_hulk,0,x,y,1,1,0,c_white,1);
+if (craftworld) then draw_sprite_ext(spr_craftworld,0,x,y,1*scale,1*scale,point_direction(x,y,room_width/2,room_height/2)+90,c_white,1);
+if (space_hulk) then draw_sprite_ext(spr_star_hulk,0,x,y,1*scale,1*scale,0,c_white,1);
 
 if (storm>0) then draw_sprite_ext(spr_warp_storm,storm_image,x,y,0.75*scale,0.75*scale,0,c_white,1);
 

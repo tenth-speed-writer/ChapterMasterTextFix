@@ -12,6 +12,7 @@ function feature_selected(Feature) constructor{
 	destroy=false;
 	exit_count = 0;
 	enter_count=18;
+	planet_data = new PlanetData(obj_controller.selecting_planet,obj_controller.selected.id);
 
 	if (feature.f_type == P_features.Forge){
 		var worker_caps= [2,4,8];
@@ -114,7 +115,23 @@ function feature_selected(Feature) constructor{
 				generic=true;
 				title = "STC Fragment";
 				body = $"Unload a {obj_ini.role[100][16]} and whatever entourage you deem necessary to recover the STC Fragment";
-				break;	
+				break;
+			case P_features.Gene_Stealer_Cult:
+				generic=true;
+				var cult_control = planet_data.population_influences[eFACTION.Tyranids];
+				title = $"Cult of {feature.name}";
+				var control_string = "";
+				if (cult_control<25){
+					control_string = "currently has limited influence on the planet but is fast gaining speed";
+				} else if (cult_control<50){
+					control_string = "Is rapidly gaining momentum with the planets populace and will soon sieze control of the planet if left unchecked";
+				}else if (cult_control<75){
+					control_string = "Has managed to galvanise the populace to overcome the former governor of the planet turning much of the local pdf to it's cause, it must be stopped, lest it spread.";
+				} else {
+					control_string = "The Cults rot and control of the planet is complete even if the cult can be dismantled the rot is great and the population will need significant purging and monitering to remove the rot";
+				}
+				body = $"The Cult of {feature.name} {control_string}";
+				break;				
 			case P_features.Victory_Shrine:
 				draw_text_transformed(xx+(area_width/2), yy +10, "Victory Shrine", 2, 2, 0);
 				draw_set_halign(fa_left);
@@ -222,7 +239,8 @@ function feature_selected(Feature) constructor{
 				break;
 		}
 		if (generic){
-			draw_text_transformed(xx+(area_width/2), yy +5, title, 2, 2, 0);
+			draw_text_ext_transformed(xx+(area_width/2), yy +5, title, -1, area_width-20, 2, 2, 0)
+
 			draw_set_halign(fa_left);
 			draw_set_color(c_gray);
 			draw_text_ext(xx+10, yy+40,body,-1,area_width-20);

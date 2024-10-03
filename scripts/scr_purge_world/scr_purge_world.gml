@@ -124,7 +124,19 @@ function scr_purge_world(star, planet, action_type, action_score) {
 	        if (sci1>0) then sci2=min((sci1*2),round(action_score/25));// How much hurresy to get rid of
 	        heres_after=heres_before-sci2;
 	        if (pop_before>0) and (pop_after=0) then heres_after=0;
-        
+
+	        var nid_influence = star.p_influence[eFACTION.Tyranids];
+	        if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){
+				var cult = return_planet_features(p_feature[i], P_features.Gene_Stealer_Cult)[0];
+				if (cult.hiding){
+					
+				}
+			} else {
+	        	if (nid_influence>25){
+	        		txt1 += "Scores of mutant offspring from a genestealer infestation are burnt, while the situation is grave the mutants appear to lack the organisation of a true cult";
+	        		adjust_influence(eFACTION.Tyranids, -10, battle_planet);
+	        	}
+	        }
 	        if (star.p_large[planet]=0) then pop_after=round(pop_after);    
 	        if (pop_after<=0) and (pop_before>0) then heres_after=0;
 	        if (star.p_large[planet]=0) then txt1+="##The planet had a population of "+string(scr_display_number(floor(pop_before)))+" and "+string(scr_display_number(floor(kill)))+" die over the duration of the cleansing.##Heresy has fallen down to "+string(max(0,heres_after))+"%.";

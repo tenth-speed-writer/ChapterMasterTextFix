@@ -722,8 +722,8 @@ if (menu=0) and (purge>=2){
     influ=p_target.p_influence[obj_controller.selecting_planet];
     if (p_target.p_large[obj_controller.selecting_planet]=1) then poppy=string(p_target.p_population[obj_controller.selecting_planet])+"B";
     if (p_target.p_large[obj_controller.selecting_planet]=0) then poppy=string(scr_display_number(p_target.p_population[obj_controller.selecting_planet]));
-    draw_text(x2+14,y2+312,string_hash_to_newline("Heresy: "+string(max(hers,influ[eFACTION.Tau]))+"%"));
-    draw_text(x2+14,y2+332,string_hash_to_newline("Population: "+string(poppy)));
+    draw_text(x2+14,y2+312,"Heresy: "+string(max(hers,influ[eFACTION.Tau]))+"%");
+    draw_text(x2+14,y2+332,"Population: "+string(poppy));
     
     
     
@@ -855,10 +855,13 @@ if (menu=0) and (purge>=2){
         if (mouse_left>=1) and (obj_controller.cooldown<=0){obj_controller.cooldown=8000;purge=1;}
     }
     
-    draw_set_color(c_gray);draw_rectangle(xx+954,yy+556,xx+1043,yy+579,0);
-    draw_set_color(0);draw_text_transformed(x2+423,y2+358,string_hash_to_newline("PURGE!"),1.25,1.25,0);
+    draw_set_color(c_gray);
+    draw_rectangle(xx+954,yy+556,xx+1043,yy+579,0);
+    draw_set_color(0);
+    draw_text_transformed(x2+423,y2+358,"PURGE!",1.25,1.25,0);
     if (scr_hit(xx+954,yy+556,xx+1043,yy+579)=true){
-        draw_set_alpha(0.2);draw_rectangle(xx+954,yy+556,xx+1043,yy+579,0);draw_set_alpha(1);
+        draw_set_alpha(0.2);
+        draw_rectangle(xx+954,yy+556,xx+1043,yy+579,0);draw_set_alpha(1);
         if (mouse_left>=1) and (obj_controller.cooldown<=0){
             obj_controller.cooldown=30;// Start purge here
             
