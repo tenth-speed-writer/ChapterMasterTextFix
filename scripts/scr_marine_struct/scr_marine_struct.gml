@@ -2201,7 +2201,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		var reasons = {}
 		var points = 0;
 		if (trained_person){
-			var points = technology/10;
+			var points = round(technology / 10);
 			reasons.trained = points;
 		}
 		if (job!="none"){
