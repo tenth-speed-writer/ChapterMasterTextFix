@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ----------------------------------
 ## [0.0.0.0]
 
-### Added:
+### New:
 - example list
     - example nested list
 
@@ -23,13 +23,12 @@ All notable changes to this project will be documented in this file.
 
 ## [0.9.3.0]
 
-### Added:
+### New:
 - Warp travel:
-	- Warp hub planets.
-    - Graded warp travel routes.
+    - Fast warp routes (appear as warp holes).
+	- "Warp hub systems" that have multiple fast warp routes.
 	- Ability to cancel warp travel within the same turn you commanded fleet to travel.
 - New Squad type - Breachers.
-- Zooming on map with either +- keys or mouse wheel.
 - New cheats:
 	- Refer to CHEATCODES.md in the game folder for a full reference with input rules.
 	- Many of the old cheatcodes are a bit changed, so make SURE to read the reference.
@@ -49,9 +48,12 @@ All notable changes to this project will be documented in this file.
 	- Luck also affects the chance of a marine not dying and getting injured instead.
 - Requisition points reward for winning battles, depending on the strength of the enemy that you fought.
 	- Code-wise it's just a simple table with static rewards. I can't bother with more.
+- Genestealer cults now have names.
 ### Changed:
 - Stars will no longer spawn on top of each other.
 - Player should now be able to move camera closer to the edge of the screen.
+- Purging with fire now also removes Genestealer population influence.
+- A lot of flavour text adjustments, for both enemies and the player. If someone attacks - it should be displayed always, nothing is skipped or "not displayed".
 - Warp travel:
 	- Warp lane travel drawing moved to it's own layer.
 	- Warp lane widths now expand to be more visible when zoomed.
@@ -71,6 +73,7 @@ All notable changes to this project will be documented in this file.
 		- Servo-harness can save 2 times more lost vehicles per Techmarine, in comparison to Servo-arm.
 		- You can use addi tem to get these, if old items got broken because of the rename.
 	- Tech Priest loadout is now more or less similar to lore friendly Enginseer loadout.
+	- Tankbusta bombs have less ammo (2>1) and max kills(3>0).
 - Visual:
 	- Eviscerator and Relic Blade sprites are now vertical again and can display a second weapon.
 	- Deathwing color now is a tiny bit darker.
@@ -100,6 +103,7 @@ All notable changes to this project will be documented in this file.
 - Max artifact count is increased to 50.
 
 ### Under The Hood:
+- Warp travel route grading support.
 - Ork Warbosses are now stored in the fleet carge_data area and the struct is transferred directly to a planet.
 - Git: resource_order is now in gitignore.
 - is_specialist supports Space Wolves and Iron Hands.
@@ -112,6 +116,7 @@ All notable changes to this project will be documented in this file.
 - Pass scr_add_man through a formatter.
 - Almost completely refactor cheatcodes.
 - Minor variable name changes in ncombat and related files.
+- A lot of files were passed through a formatter, to fix indentations and other syntax issues.
 - New function `string_upper_first`, used to capitalize only the first letter of a string.
 - GUI drawing layer:
 	- obj_controller drawing mostly moved to the GUI layer of drawing.
