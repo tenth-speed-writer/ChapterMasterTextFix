@@ -102,7 +102,6 @@ function set_fleet_movement(fastest_route = true){
 	    		complex_route = path;
 	    		action_x = targ.x;
 				action_y = targ.y;
-				target = targ.id;
 	    		set_fleet_movement(false);
 	    	} else {
 	    		set_fleet_movement(false);
