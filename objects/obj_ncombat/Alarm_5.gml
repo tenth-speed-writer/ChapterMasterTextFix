@@ -282,7 +282,7 @@ if (defeat=0) and (reduce_power=true){
     if (enemy!=2){
         if (dropping == true || defending == true) {
             power_reduction = 1;
-            power_fought = min(enemy_power - 1, 1); // Raiding generates enemies at -1 power, so less points
+            power_fought = max(enemy_power - 1, 1); // Raiding generates enemies at -1 power, so less points
         } else {
             power_reduction = 2;
             power_fought = enemy_power;

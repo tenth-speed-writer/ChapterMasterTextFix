@@ -6,9 +6,17 @@ if __b__
 
 
 
-
-var leftest,charge,enemy2,chapter_fuck,unit;
-charge=0;enemy2=0;chapter_fuck=1;
+with (obj_pnunit){
+   if (men+veh<=0){
+        var x5=enemy.x;
+        with(enemy){
+            x=-100;
+            instance_deactivate_object(id);
+        } 
+    }  
+}
+var leftest,charge,enemy2,chapter_master_position,unit;
+charge=0;enemy2=0;chapter_master_position=1;
 
 // with(obj_pnunit){if (x<-4000) or (defenses=1) then instance_deactivate_object(id);}
 
@@ -30,7 +38,7 @@ if (flank=0){
     if (point_distance(x,0,enemy.x,0)<5) then x+=10;
     // instance_activate_object(obj_cursor);
 }
-if (flank=1){
+else if (flank=1){
     enemy=instance_nearest(x,y,obj_pnunit);// Right most enemy
     enemy2=enemy;
     // if (collision_point(x+10,y,obj_pnunit,0,1)) then engaged=1;
@@ -41,53 +49,58 @@ if (flank=1){
     // instance_activate_object(obj_cursor);
 }
 
-if (!collision_point(x+10,y,obj_pnunit,0,1)) and (!collision_point(x-10,y,obj_pnunit,0,1)) then engaged=0;
-if (collision_point(x+10,y,obj_pnunit,0,1)) or (collision_point(x-10,y,obj_pnunit,0,1)) then engaged=1;
+engaged = (collision_point(x+10,y,obj_pnunit,0,1)) or (collision_point(x-10,y,obj_pnunit,0,1));
+if (!instance_exists(obj_pnunit)) then exit;
 
-
-if (engaged=0){// Shooting
-    var i,dist,block;i=0;dist=999;block=0;
+if (!engaged){// Shooting
+    var i=0,dist=999,block=0;
     dist=point_distance(x,y,enemy.x,enemy.y)/10;
     
-    var wall_exists;wall_exists=0;
-    if (instance_exists(obj_nfort)){wall_exists=1;dist=2;}
+    var wall_exists=0;
+    if (instance_exists(obj_nfort)){
+        wall_exists=1;
+        dist=2;
+    }
     /*with(obj_pnunit){if (veh_type[1]="Defenses") then instance_create(x,y,obj_temp_inq);}
     if (instance_exists(obj_temp_inq)){
         enemy=instance_nearest(obj_temp_inq.x,obj_temp_inq.y,obj_pnunit);
         with(obj_temp_inq){instance_destroy();}
     }*/
     
-    if (!instance_exists(obj_pnunit)) then exit;
     
-    repeat(30){chapter_fuck=1;
-        if (!instance_exists(obj_pnunit)) then exit;
-        if (instance_exists(enemy)) and (instance_exists(obj_pnunit)){
+    for (var i=0 ;i<array_length(wep);i++){
+        chapter_master_position=1;
+        if (wep[i] == "") then continue;
+        if (instance_exists(enemy)) {
             if (enemy.x<-4000){
-                if (flank=0){enemy=instance_nearest(4000,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
-                if (flank=1){enemy=instance_nearest(0,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
+                var enemy_search_x = flank ? 0 : 4000;
+                enemy=instance_nearest(enemy_search_x,y,obj_pnunit);
+                enemy2=enemy;
+                dist=point_distance(x,y,enemy.x,enemy.y)/10;                
             }
         }
-        if (!instance_exists(enemy)) and (instance_exists(obj_pnunit)){
-            if (flank=0){enemy=instance_nearest(4000,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
-            if (flank=1){enemy=instance_nearest(0,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
-        }
-        
-        if (instance_exists(enemy)) and (instance_exists(obj_pnunit)){
-            i+=1;block=0;
-            if (flank=0){enemy=instance_nearest(4000,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
-            if (flank=1){enemy=instance_nearest(0,y,obj_pnunit);enemy2=enemy;dist=point_distance(x,y,enemy.x,enemy.y)/10;}
-            if (enemy.men+enemy.veh<=0){var x5;x5=enemy.x;with(enemy){x=-100;instance_deactivate_object(id);}enemy=instance_nearest(4000,y,obj_pnunit);enemy2=enemy;}
+
+        show_debug_message($"{wep[i]}, {wep_num[i]}{range[i]},{dist}");
+
+        if (instance_exists(obj_pnunit)){
+
+            var enemy_search_x = flank ? 0 : 4000;
+            enemy=instance_nearest(enemy_search_x,y,obj_pnunit);
+            enemy2=enemy;
+            dist=point_distance(x,y,enemy.x,enemy.y)/10; 
         
             if (instance_exists(obj_nfort)) and (obj_nfort.hp[1]>0){// Give the wall the melee D
                 enemy=instance_nearest(x,y,obj_nfort);
-                var bug1;bug1=instance_nearest(40,y,obj_enunit);
+                var bug1=instance_nearest(40,y,obj_enunit);
                 if (range[i]=1) and (bug1.id=self.id) then range[i]=2;
-                enemy2=enemy;dist=2;
+                enemy2=enemy;
+                dist=2;
             }
             
             if (wep[i]!="") and (wep_num[i]>0) and (range[i]>=dist) and (range[i]!=1) and (combi[i]<2) and (ammo[i]!=0){// Weapon meets preliminary checks
-                
-                var ap;ap=0;if (apa[i]>0) then ap=1;// Determines if it is AP or not
+                show_debug_message($"{wep[i]}, {wep_num[i]}{range[i]},{dist}");
+                var ap=0;
+                if (apa[i]>0) then ap=1;// Determines if it is AP or not
                 // if (string_count("Gauss",wep[i])>0) then ap=1;
                 
                 // show_message(string(wep[i])+" is in range and AP:"+string(ap));
@@ -101,32 +114,36 @@ if (engaged=0){// Shooting
                 if ((wep[i]="Power Fist") or (wep[i]="Bolter")) and (obj_ncombat.alpha_strike>0) and (wep_num[i]>5){
                     obj_ncombat.alpha_strike-=0.5;
                     
-                    with(obj_temp5){instance_destroy();}
+                    var cm_in_row = array_get_index(enemy.marine_type,"Chapter Master");
+                    if (cm_in_row>-1){
+                        obj_ncombat.hue=cm_in_row;
+                    }
+                    var row=-1;
                     with(obj_pnunit){
-                        var i;i=0;
-                        repeat(200){
-                            i+=1;if (marine_type[i]="Chapter Master"){
-                                obj_ncombat.hue=i;instance_create(x,y,obj_temp5);
-                            }
+                        cm_in_row = array_get_index(enemy.marine_type,"Chapter Master");
+                          if (cm_in_row>-1){
+                            obj_ncombat.hue=cm_in_row;
+                            row = self.id;
+                            break
                         }
                     }
-                    if (instance_exists(obj_temp5)){
-                        enemy=instance_nearest(obj_temp5.x,obj_temp5.y,obj_pnunit);
-                        chapter_fuck=obj_ncombat.hue;with(obj_temp5){instance_destroy();}
+                    if (row!=-1){
+                        enemy = row;
+                        chapter_master_position=cm_in_row;                        
                     }
                 }
                 
                 
-                
+                var attack_veicles
                 if (ap=1) and ((!instance_exists(obj_nfort)) or (flank=1)){// Check for vehicles
                     var g,good,enemy2;g=0;good=0;
                     
                     if (enemy.veh+enemy.dreads>0) or (enemy.veh_type[1]="Defenses"){
                         // good=scr_target(enemy,"veh");// First target has vehicles, blow it to hell
-                        scr_shoot(i,enemy,chapter_fuck,"arp","ranged");
+                        scr_shoot(i,enemy,chapter_master_position,"arp","ranged");
                     }
                     if (good=0) and (instance_number(obj_pnunit)>1) and (obj_ncombat.enemy!=7){// First target does not have vehicles, cycle through objects to find one that has vehicles
-                        var x2;x2=enemy.x;
+                        var x2=enemy.x;
                         repeat(instance_number(obj_pnunit)-1){
                             if (good=0){
                                 if (flank=0) then x2-=10;
@@ -134,7 +151,7 @@ if (engaged=0){// Shooting
                                 enemy2=instance_nearest(x2,y,obj_pnunit);
                                 if (enemy2.veh+enemy2.dreads>0) and (good=0){
                                     // good=scr_target(enemy2,"veh");// This target has vehicles, blow it to hell
-                                    scr_shoot(i,enemy2,chapter_fuck,"arp","ranged");
+                                    scr_shoot(i,enemy2,chapter_master_position,"arp","ranged");
                                 }
                             }
                         }
@@ -156,14 +173,14 @@ if (engaged=0){// Shooting
                     var g,good,enemy2;g=0;good=0;
                     if ((enemy.men-enemy.dreads)>0){
                         // good=scr_target(enemy,"men");// First target has vehicles, blow it to hell
-                        scr_shoot(i,enemy,chapter_fuck,"att","ranged");
+                        scr_shoot(i,enemy,chapter_master_position,"att","ranged");
                     }
                     
                     // First target does not have vehicles, cycle through objects to find one that has vehicles
                     // Note that unless the player has 10+ vehicles in the front rank they can fire on through
                     
                     if (good=0) and (instance_number(obj_pnunit)>1) and (enemy.veh+enemy.dreads<=10){
-                        var x2;x2=enemy.x;
+                        var x2=enemy.x;
                         repeat(instance_number(obj_pnunit)-1){
                             if (good=0){
                                 if (flank=0) then x2-=10;
@@ -193,16 +210,22 @@ if (engaged=0){// Shooting
                                 // if (enemy2.men-enemy2.dreads>0) and (good=0) and (block=0){
                                 if (enemy2.men-enemy2.dreads>0) and (good=0) and (block=0){
                                     // good=scr_target(enemy2,"men");// This target has men, blow it to hell
-                                    scr_shoot(i,enemy2,chapter_fuck,"att","ranged");
+
+                                    scr_shoot(i,enemy2,chapter_master_position,"att","ranged");
                                 }
                             }
                         }
                     }
                 }
                 
-                
-                
             }
+            with (obj_pnunit){
+               if (men+veh<=0){
+                    x=-100;
+                    instance_deactivate_object(id);
+
+                }  
+            }            
         }
     }
 }

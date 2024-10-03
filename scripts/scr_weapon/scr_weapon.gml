@@ -1093,26 +1093,6 @@ global.weapons = {
 		"arp": 1,
 		"tags": ["las", "heavy_ranged", "vehicle", "dreadnought"]
 	},
-	"Lascannons": {
-		"abbreviation": "DblLascnn",
-		"attack": {
-			"standard": 300,
-			"master_crafted": 330,
-			"artifact": 360
-		},
-		"description": "Lascannons are powerful anti-armour weapons that fire highly focused and devastating energy beams capable of penetrating even the toughest armor.",
-		"melee_hands": 1,
-		"ranged_hands": 2.25,
-		"ammo": 5,
-		"range": 20,
-		"spli": 2,
-		"arp": 1,
-		"tags": {
-			"standard": ["las", "heavy_ranged", "vehicle", "dreadnought"],
-			"master_crafted": ["las", "heavy_ranged", "vehicle", "dreadnought"],
-			"artifact": ["las", "heavy_ranged", "vehicle", "dreadnought"]
-		},
-	},
 	"Heavy Bolter": {
 		"abbreviation": "HvyBltr",
 		"attack": {
