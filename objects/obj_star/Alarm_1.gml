@@ -152,7 +152,7 @@ if (owner == eFACTION.Imperium || owner == eFACTION.Ork || owner == eFACTION.Mec
     if (escort<0) then escort=0;
     
     if (system_fleet>0){                                                      // DISABLED FOR TESTING FLEET COMBAT
-        fleet=instance_create(x,y-32,obj_en_fleet);
+        fleet=instance_create(x,y,obj_en_fleet);
         fleet.owner = eFACTION.Imperium;
         
         fleet.capital_number=capital;
@@ -211,7 +211,7 @@ if (owner == eFACTION.Tau){
         escort=floor(random_range(5,12));
     }
     if (system_fleet>0){
-        fleet=instance_create(x-24,y-24,obj_en_fleet);
+        fleet=instance_create(x,y,obj_en_fleet);
         fleet.owner = eFACTION.Tau;
         // Create ships here
         fleet.sprite_index=spr_fleet_tau;

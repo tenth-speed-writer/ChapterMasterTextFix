@@ -70,7 +70,7 @@ function scr_enemy_ai_b() {
 
 	            if (fleet_spawn_chance<=15){
 	                if (present_fleet[eFACTION.Necrons] > 0) {//if necron fleet
-						    necron_fleet = instance_nearest(x + 32, y + 32, obj_en_fleet);
+						    necron_fleet = instance_nearest(x , y , obj_en_fleet);
 
 						    if (necron_fleet.owner == eFACTION.Necrons) {
 						        if (necron_fleet.escort_number < necron_fleet.capital_number * 1.5) {
@@ -82,7 +82,7 @@ function scr_enemy_ai_b() {
 						        }
 						    }
 						}else if (present_fleet[eFACTION.Necrons]==0){
-	                    necron_fleet=instance_create(x+32,y+32,obj_en_fleet);
+	                    necron_fleet=instance_create(x,y,obj_en_fleet);
 	                    necron_fleet.owner=eFACTION.Necrons;
 	                    necron_fleet.capital_number=1;
 	                    necron_fleet.sprite_index=spr_fleet_necron;necron_fleet.image_speed=0;

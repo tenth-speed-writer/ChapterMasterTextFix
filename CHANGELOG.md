@@ -101,6 +101,7 @@ All notable changes to this project will be documented in this file.
 - Will no longer be able to select all ships globally with select all on bombard.
 - Hopefully fixed company view sometimes not coming up.
 - Max artifact count is increased to 50.
+- Inquisitor should no longer try inspect fleets heading out of system.
 
 ### Under The Hood:
 - Warp travel route grading support.

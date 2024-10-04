@@ -96,7 +96,7 @@ if (image="debug_banshee") and (cooldown<=0){
     if (planet=5){
         if (press=1){
             var fleet,tar;tar=instance_nearest(x,y,obj_star);
-            fleet=instance_create(tar.x+32,tar.y-0,obj_en_fleet);
+            fleet=instance_create(tar.x,tar.y,obj_en_fleet);
             fleet.owner = eFACTION.Ork;fleet.sprite_index=spr_fleet_ork;
             fleet.capital_number=2;fleet.frigate_number=5;
             tar.present_fleet[7]+=1;fleet.image_index=4;
@@ -104,7 +104,7 @@ if (image="debug_banshee") and (cooldown<=0){
         }
         if (press=2){
             var fleet,tar;tar=instance_nearest(x,y,obj_star);
-            fleet=instance_create(tar.x-24,tar.y-24,obj_en_fleet);
+            fleet=instance_create(tar.x,tar.y,obj_en_fleet);
             fleet.owner = eFACTION.Tau;fleet.sprite_index=spr_fleet_tau;
             fleet.capital_number=2;fleet.frigate_number=5;
             tar.present_fleet[8]+=1;fleet.image_index=4;
@@ -115,10 +115,12 @@ if (image="debug_banshee") and (cooldown<=0){
     if (planet=3){
         if (press=1){
             var fleet,tar;tar=instance_nearest(x,y,obj_star);
-            fleet=instance_create(tar.x+0,tar.y-24,obj_en_fleet);
+            fleet=instance_create(tar.x,tar.y,obj_en_fleet);
             fleet.owner = eFACTION.Imperium;fleet.sprite_index=spr_fleet_imperial;
-            fleet.capital_number=2;fleet.frigate_number=5;
-            tar.present_fleet[2]+=1;fleet.image_index=4;
+            fleet.capital_number=2;
+            fleet.frigate_number=5;
+            tar.present_fleet[2]+=1;
+            fleet.image_index=4;
             fleet.orbiting=id;
             instance_destroy();
         }

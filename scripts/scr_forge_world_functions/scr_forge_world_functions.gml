@@ -49,7 +49,7 @@ function imperial_navy_fleet_construction(){
 						})
 			            if (enemy_fleet_count == 0){
 			                good=true;
-			                if (instance_nearest(x+24,y-24,obj_en_fleet).navy) then good=false;
+			                if (instance_nearest(x,y,obj_en_fleet).navy) then good=false;
 			            }
 	            }
 	        }
@@ -62,7 +62,7 @@ function imperial_navy_fleet_construction(){
 		if (array_length(forge_systems)){
 		    var construction_forge,new_navy_fleet;
 		    construction_forge=choose_array(forge_systems);
-		    new_navy_fleet=instance_create(construction_forge.x+24,construction_forge.y-24,obj_en_fleet);
+		    new_navy_fleet=instance_create(construction_forge.x,construction_forge.y,obj_en_fleet);
 		    new_navy_fleet.owner=eFACTION.Imperium;
 		    
 		    new_navy_fleet.capital_number=0;

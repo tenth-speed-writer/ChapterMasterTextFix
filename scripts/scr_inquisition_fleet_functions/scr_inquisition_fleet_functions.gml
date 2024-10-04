@@ -119,7 +119,7 @@ function new_inquisitor_inspection(){
 
               //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_star.x,target_star.y);            
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
 
 
             with (new_inquis_fleet){
@@ -143,7 +143,7 @@ function new_inquisitor_inspection(){
             //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_player_fleet.x,target_player_fleet.y);
 
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
             var obj;
             with (new_inquis_fleet){
             	base_inquis_fleet();
