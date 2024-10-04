@@ -416,11 +416,8 @@ function scr_draw_unit_image(_background=false){
             ui_back=false;
 			back_type=BackType.Dev;
         } else if (unit_back="Servo-arm"){
-            ui_back=false;
             servo_arm=1;
-        }
-        if (unit_back="Servo-harness"){
-            ui_back=false;
+        } else if (unit_back="Servo-harness"){
             servo_harness=1;
         }
 
@@ -763,6 +760,16 @@ function scr_draw_unit_image(_background=false){
                 else draw_sprite(spr_gear_apoth,0,x_surface_offset,y_surface_offset-6); // for normal power armour
             }
         
+            // Draw Techmarine gear
+            if (servo_arm > 0 || servo_harness > 0) && (!arm_bypass) {
+                var arm_offset_y = 0;
+                if (unit_armour == "Terminator Armour" || unit_armour == "Tartaros") {
+                    arm_offset_y -= 18;
+                }
+            
+                draw_sprite(servo_arm > 0? spr_servo_arm : spr_servo_harness, 0, x_surface_offset, y_surface_offset + arm_offset_y);
+            }
+
             if (armour_type==ArmourType.None){            
                 if (unit_role=="Chapter Master" && unit_chapter=="Doom Benefactors") then skin_color=6;
             
@@ -979,15 +986,6 @@ function scr_draw_unit_image(_background=false){
                         }
                     }
 
-                }
-
-                if (servo_arm > 0 || servo_harness > 0) && (!arm_bypass) {
-                    var arm_offset_y = 0;
-                    if (unit_armour == "Terminator Armour" || unit_armour == "Tartaros") {
-                        arm_offset_y -= 18;
-                    }
-                
-                    draw_sprite(servo_arm > 0? spr_servo_arms : spr_servo_harness, 0, x_surface_offset, y_surface_offset + arm_offset_y);
                 }
 
                 // Draw the Iron Halo
