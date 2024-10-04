@@ -133,6 +133,14 @@ function ork_fleet_arrive_target(){
                         with(boat){instance_destroy();}
                         aler=1;
                     }                    
+                } else {
+                    var new_wagh_star = distance_removed_star(x,y, choose(2,3,4,5));
+                    if (instance_exists(new_wagh_star)){
+                        action_x=new_wagh_star.x;
+                        action_y=new_wagh_star.y;
+                        action = "";
+                        set_fleet_movement();
+                    }                    
                 }
             }
         }

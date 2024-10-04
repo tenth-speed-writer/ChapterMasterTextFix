@@ -108,7 +108,7 @@ function send_navy_to_forge(){
 }
 
 function imperial_navy_bombard(){
-    if (guardsmen_unloaded=0) or ((orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]=0) and (guardsmen_unloaded=1)) or ((array_sum(orbiting.p_player[1]>0)) and (obj_controller.faction_status[eFACTION.Imperium]=="War")){
+    if (guardsmen_unloaded=0) or ((array_sum(orbiting.p_guardsmen)==0) and (guardsmen_unloaded=1)) or ((array_sum(orbiting.p_player)>0) and (obj_controller.faction_status[eFACTION.Imperium]=="War")){
         if (orbiting.present_fleet[6]+orbiting.present_fleet[7]+orbiting.present_fleet[8]+orbiting.present_fleet[9]+orbiting.present_fleet[10]+orbiting.present_fleet[13]=0){
             var hol=false;
             if ((orbiting.present_fleet[1]>0) and (obj_controller.faction_status[eFACTION.Imperium]="War")) then hol=true;
@@ -126,7 +126,8 @@ function imperial_navy_bombard(){
                         }
                         if (orbiting.p_population[p]=0) and (orbiting.p_orks[p]>0) and (orbiting.p_owner[p]=7) and (onceh=0){bombard=p;onceh=1;}
                         if (orbiting.p_owner[p]=8) and (orbiting.p_tau[p]+orbiting.p_pdf[p]>0) and (onceh=0){
-                            bombard=p;onceh=1;
+                            bombard=p;
+                            onceh=1;
                         }
                         if (orbiting.p_owner[p]=10) and ((orbiting.p_chaos[p]+orbiting.p_traitors[p]+orbiting.p_pdf[p]>0) or (orbiting.p_heresy[p]>=50)){bombard=p;onceh=1;}
                     }
