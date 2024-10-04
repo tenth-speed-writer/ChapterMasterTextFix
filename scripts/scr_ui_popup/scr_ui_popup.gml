@@ -1,4 +1,4 @@
-sfunction scr_ui_popup() {
+function scr_ui_popup() {
 	// 48,48      over like 256, down to 480-128
 
 	if (obj_controller.menu=60){

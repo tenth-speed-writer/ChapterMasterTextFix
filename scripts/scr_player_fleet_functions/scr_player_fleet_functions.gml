@@ -2,9 +2,9 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more informationype
 
 enum ePlayerBase {
-	home_world = 1;
-	fleet_based = 2;
-	penitent = 3;
+	home_world = 1,
+	fleet_based = 2,
+	penitent = 3,
 }
 function fleet_has_roles(fleet="none", roles){
 	var all_ships = fleet_full_ship_array(fleet);

@@ -197,7 +197,7 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 function scr_efleet_arrive_at_trade_loc(){
 	var chase_fleet =false;
 	var arrive_at_player_fleet = (instance_exists(target));
-    if (arrive_at_player_fleet &&  owner!=eFACTION.Tyranids && owner!=eFACTION.Chaos)){
+    if (arrive_at_player_fleet &&  owner!=eFACTION.Tyranids && owner!=eFACTION.Chaos){
     	arrive_at_player_fleet = target.object_index == obj_p_fleet;
     	var chase_fleet = (target.action!="" || point_distance(x,y,target.x,target.y)>40) && obj_ini.fleet_type != ePlayerBase.home_world;
     } else {
@@ -381,7 +381,7 @@ function fleet_arrival_logic(){
     
 
     if (owner==eFACTION.Inquisition) and (string_count("_her",trade_goods)=0){
-        if (cur_star.owner  = eFACTION.Player) and (trade_goods="cancel_inspection"){
+        if (cur_star.owner  == eFACTION.Player) and (trade_goods="cancel_inspection"){
             instance_deactivate_object(cur_star);
             repeat(choose(1,2)){
                 orbiting=instance_nearest(x,y,obj_star);
