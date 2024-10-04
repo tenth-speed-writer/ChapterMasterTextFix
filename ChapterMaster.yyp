@@ -61,7 +61,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"arms_hands","folderPath":"folders/Sprites/Marine Viewer/arms_hands.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"bionics","folderPath":"folders/Sprites/Marine Viewer/bionics.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"body_types","folderPath":"folders/Sprites/Marine Viewer/body_types.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"deprecated","folderPath":"folders/Sprites/Marine Viewer/body_types/deprecated.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"deprecated","folderPath":"folders/Sprites/Marine Viewer/deprecated.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"specialist","folderPath":"folders/Sprites/Marine Viewer/body_types/specialist.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"dark_angels_specials","folderPath":"folders/Sprites/Marine Viewer/body_types/specialist/dark_angels_specials.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"decorations","folderPath":"folders/Sprites/Marine Viewer/decorations.yy",},
