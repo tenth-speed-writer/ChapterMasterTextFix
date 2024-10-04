@@ -276,8 +276,9 @@ function scr_enemy_ai_d() {
                 scr_event_log("green",taxt);
             }
             
-            var flit=instance_create(x,y-32,obj_en_fleet);
-            flit.owner = eFACTION.Mechanicus;flit.sprite_index=spr_fleet_mechanicus;
+            var flit=instance_create(x,y,obj_en_fleet);
+            flit.owner = eFACTION.Mechanicus;
+            flit.sprite_index=spr_fleet_mechanicus;
             flit.capital_number=1;flit.image_index=0;flit.image_speed=0;
             flit.trade_goods="mars_spelunk1";
             flit.home_x=x;

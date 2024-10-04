@@ -632,7 +632,7 @@ for(var i=0; i<100; i++){
         go=999;
 		array_push(craft.p_feature[1],new new_planet_feature(P_features.Warlord6));
         
-        var elforce=instance_create(xx-24,yy-24,obj_en_fleet);
+        var elforce=instance_create(xx,yy,obj_en_fleet);
         elforce.sprite_index=spr_fleet_eldar;
         elforce.owner = eFACTION.Eldar;
         elforce.capital_number=choose(2,3);

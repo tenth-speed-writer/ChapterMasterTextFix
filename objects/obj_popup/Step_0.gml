@@ -71,7 +71,7 @@ if (image="debug_banshee") and (cooldown<=0){
             with(obj_star){
                 if (choose(0,1,1)=1) and (owner != eFACTION.Eldar) and (owner!=1){
                     var fleet;
-                    fleet=instance_create(x+32,y,obj_en_fleet);
+                    fleet=instance_create(x,y,obj_en_fleet);
                     fleet.owner=obj_popup.amount;
                     if (obj_popup.amount=7){fleet.sprite_index=spr_fleet_ork;fleet.capital_number=3;present_fleet[7]+=1;}
                     if (obj_popup.amount=9){
@@ -126,7 +126,7 @@ if (image="debug_banshee") and (cooldown<=0){
         }
         if (press=2){
             var fleet,tar;tar=instance_nearest(x,y,obj_star);
-            fleet=instance_create(tar.x-32,tar.y-0,obj_en_fleet);
+            fleet=instance_create(tar.x,tar.y,obj_en_fleet);
             fleet.owner = eFACTION.Chaos;fleet.sprite_index=spr_fleet_chaos;
             fleet.capital_number=2;fleet.frigate_number=5;
             tar.present_fleet[10]+=1;fleet.image_index=4;

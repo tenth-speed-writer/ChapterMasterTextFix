@@ -5,7 +5,7 @@ function scr_ork_fleet_functions(){
 }
 
 function new_ork_fleet(xx,yy){
-    fleet=instance_create(xx+32,yy,obj_en_fleet);
+    fleet=instance_create(xx,yy,obj_en_fleet);
     fleet.owner = eFACTION.Ork;
     fleet.sprite_index=spr_fleet_ork;
     fleet.image_index=1;

@@ -139,7 +139,7 @@ function scr_quest(quest_satus=0, quest_name, quest_fac, quest_end) {
 	        if (instance_exists(obj_temp2)) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
 	        if (!instance_exists(obj_temp2)) and (instance_exists(obj_ground_mission)) then targ=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_temp3);
         
-	        flit=instance_create(targ.x-0,targ.y-32,obj_en_fleet);
+	        flit=instance_create(targ.x,targ.y,obj_en_fleet);
 	        flit.owner=quick_trade;
         
 	        if (quick_trade=2) then flit.sprite_index=spr_fleet_imperial;

@@ -16,9 +16,9 @@ function ork_ship_production(planet){
                 if (point_distance(x,y,nearestPlayerFleet.x,nearestPlayerFleet.y)<50) and (nearestPlayerFleet.action=="") then contin=0;
             }
             if (contin==2){
-                fleet=instance_nearest(x+32,y,obj_en_fleet);
-                if (fleet.owner != eFACTION.Ork) or (point_distance(x+32,y,fleet.x,fleet.y)>5) or (fleet.action!="") then contin=3;
-                if (fleet.owner == eFACTION.Ork) and (point_distance(x+32,y,fleet.x,fleet.y)<=5) and (fleet.action=="") and (contin!=3){
+                fleet=scr_orbiting_fleet(eFACTION.Ork);
+                if (fleet=="none") then contin=3;
+                if (fleet!="none") and (contin!=3){
                     rando=choose(1,1,1,1,1,2,2,2,2);
                     switch (rando) {
                         case 1:
@@ -64,7 +64,7 @@ function ork_ship_production(planet){
             }
             if (contin==3) and (rando<=25){// Create a fleet
                 // fleet=instance_create
-                fleet=instance_create(x+32,y,obj_en_fleet);
+                fleet=instance_create(x,y,obj_en_fleet);
                 fleet.owner = eFACTION.Ork;
                 fleet.sprite_index=spr_fleet_ork;
                 fleet.image_index=1;

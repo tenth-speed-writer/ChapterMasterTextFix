@@ -55,7 +55,7 @@ if (!instance_exists(obj_temp2)) and (!instance_exists(obj_temp7)) and (instance
 if (instance_exists(obj_temp2)) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
 if (!instance_exists(obj_temp2)) and (instance_exists(obj_temp7)) then targ=instance_nearest(obj_temp7.x,obj_temp7.y,obj_temp3);
 
-flit=instance_create(targ.x-0,targ.y-32,obj_en_fleet);
+flit=instance_create(targ.x,targ.y,obj_en_fleet);
 
 flit.owner=obj_controller.diplomacy;
 flit.home_x=targ.x;flit.home_y=targ.y;

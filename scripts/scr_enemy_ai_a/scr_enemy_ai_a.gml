@@ -89,7 +89,7 @@ function scr_enemy_ai_a() {
             	launch_planet = nearest_star_with_ownership(x,y, [owner=eFACTION.Imperium, owner=eFACTION.Mechanicus], self.id);
             	if (launch_planet != "none"){
 	            	if (instance_exists(launch_planet)){
-			            flee=instance_create(launch_planet.x,launch_planet.y-24,obj_en_fleet);
+			            flee=instance_create(launch_planet.x,launch_planet.y,obj_en_fleet);
 			            with (flee){
 			            	base_inquis_fleet();
 			            }

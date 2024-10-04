@@ -314,44 +314,31 @@ function scr_trade(argument0) {
 	            if (instance_exists(obj_temp2)) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
 	            if (!instance_exists(obj_temp2)) and (instance_exists(obj_ground_mission)) then targ=instance_nearest(obj_ground_mission.x,obj_ground_mission.y,obj_temp3);
 	        // }
-        
-	        // if (obj_ini.fleet_type=ePlayerBase.home_world) then targ=instance_nearest(obj_temp2.x,obj_temp2.y,obj_temp3);
-        
-	        /*if (obj_ini.fleet_type != ePlayerBase.home_world){flit=instance_create(targ.x-0,targ.y-32,obj_en_fleet);}
-	        if (obj_ini.fleet_type=ePlayerBase.home_world){var wooo;
-	            wooo=instance_nearest(targ.x,targ.y,obj_temp3);
-	            flit=instance_create(wooo.x-0,wooo.y-32,obj_en_fleet);
-	        }*/
-        
+
 	        if (!instance_exists(obj_temp3)){
 	            with(obj_star){
 	                if (x<-3500) and (y<-3500){x+=10000;y+=10000;}
 	                if (x<-3500) and (y<-3500){x+=10000;y+=10000;}
 	            }
 	            trading=0;scr_dialogue("trade_error_2");
-            
-	            if (trade_take[1]="Recruiting Planet") then recruiting_worlds_bought-=1;
-	            if (trade_take[2]="Recruiting Planet") then recruiting_worlds_bought-=1;
-	            if (trade_take[3]="Recruiting Planet") then recruiting_worlds_bought-=1;
-	            if (trade_take[4]="Recruiting Planet") then recruiting_worlds_bought-=1;
-	            if (trade_take[1]="License: Crusade") or (trade_take[2]="License: Crusade") or (trade_take[3]="License: Crusade") or (trade_take[4]="License: Crusade"){
-	                obj_controller.liscensing=0;
-	            }
-	            if (trade_take[1]="Useful Information") or (trade_take[2]="Useful Information") or (trade_take[3]="Useful Information") or (trade_take[4]="Useful Information"){
-	                obj_controller.liscensing=0;
-	            }
-	            if (trade_take[1]="License: Repair") or (trade_take[2]="License: Repair") or (trade_take[3]="License: Repair") or (trade_take[4]="License: Repair"){
-	                repair_ships=0;
+
+	            for (var i=1;i<5;i++){
+	            	if (trade_take[i]=="Recruiting Planet") then recruiting_worlds_bought-=1;
+	            	if (trade_take[i]=="License: Crusade") then obj_controller.liscensing=0;
+	            	if (trade_take[i]=="Useful Information") then obj_controller.liscensing=0;
+	            	if (trade_take[i]=="License: Repair") then repair_ships=0;
 	            }
             
-	            instance_activate_all();exit;
+	            instance_activate_all();
+	            exit;
 	        }
         
         
-	        flit=instance_create(targ.x-0,targ.y-32,obj_en_fleet);
+	        flit=instance_create(targ.x,targ.y,obj_en_fleet);
         
 	        flit.owner=diplomacy;
-	        flit.home_x=targ.x;flit.home_y=targ.y;
+	        flit.home_x=targ.x;
+	        flit.home_y=targ.y;
         
 	        if (diplomacy=5) then flit.owner = eFACTION.Imperium;
         
