@@ -108,7 +108,7 @@ function send_navy_to_forge(){
 }
 
 function imperial_navy_bombard(){
-    if (guardsmen_unloaded=0) or ((orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]=0) and (guardsmen_unloaded=1)) or ((orbiting.p_player[cr]>0) and (obj_controller.faction_status[eFACTION.Imperium]="War")){
+    if (guardsmen_unloaded=0) or ((orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]=0) and (guardsmen_unloaded=1)) or ((array_sum(orbiting.p_player[1]>0)) and (obj_controller.faction_status[eFACTION.Imperium]=="War")){
         if (orbiting.present_fleet[6]+orbiting.present_fleet[7]+orbiting.present_fleet[8]+orbiting.present_fleet[9]+orbiting.present_fleet[10]+orbiting.present_fleet[13]=0){
             var hol=false;
             if ((orbiting.present_fleet[1]>0) and (obj_controller.faction_status[eFACTION.Imperium]="War")) then hol=true;
@@ -188,7 +188,7 @@ function imperial_navy_bombard(){
 
 
 function navy_attack_player_world(){
-if (obj_controller.faction_status[eFACTION.Imperium]="War") and (trade_goods="invade_player") and (guardsmen_unloaded=0){
+	if (obj_controller.faction_status[eFACTION.Imperium]="War") and (trade_goods="invade_player") and (guardsmen_unloaded=0){
 	    if (instance_exists(orbiting)){
 	        var tar=0;
 			var i=0;
@@ -350,7 +350,7 @@ function scr_navy_planet_action(){
 	        	}
 	        }
 	    }
-    
+    	show_debug_message($"{selected_planet},{highest}, {array_sum(orbiting.p_guardsmen)}")
 	    if (selected_planet>0) and (highest>0) and (array_sum(orbiting.p_guardsmen)<=0){
 	        if (highest>2) or (orbiting.p_pdf[selected_planet]=0){
 	            scr_navy_unload_guard(selected_planet)

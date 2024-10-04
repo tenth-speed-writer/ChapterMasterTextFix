@@ -20,7 +20,7 @@ function array_sum(choice_array,start_value=0, offset=0,length=0){
 
 	length = array_iter_length(choice_array,offset,length);
 
-	array_reduce(choice_array,arraysum,start_value,offset)
+	return array_reduce(choice_array,arraysum,start_value,offset,length)
 }
 
 function array_set_value(choice_array, value){

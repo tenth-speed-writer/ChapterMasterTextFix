@@ -157,7 +157,7 @@ function draw_warp_lanes(){
 						hover_time = 0;
 					}
 
-					if (mouse_check_button_pressed(mb_left) || (instance_exists(obj_fleet_select) && hover_time>=10)){
+					if (mouse_check_button_pressed(mb_left) || (instance_exists(obj_fleet_select) && hover_time>=15)){
 						set_map_pan_to_loc(to);
 					}
 				}
@@ -187,7 +187,7 @@ function draw_warp_lanes(){
 						hover_loc = [route_coords[2], route_coords[3]];
 						hover_time = 0;
 					}
-					if (mouse_check_button_pressed(mb_left) || (instance_exists(obj_fleet_select) && hover_time>=10)){
+					if (mouse_check_button_pressed(mb_left) || (instance_exists(obj_fleet_select) && hover_time>=15)){
 						set_map_pan_to_loc(to);
 					}
 				}
