@@ -194,6 +194,92 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 	return fleet_speed;
 }
 
+function scr_efleet_arrive_at_trade_loc(){
+	var chase_fleet =false;
+	var arrive_at_player_fleet = (instance_exists(target));
+    if (arrive_at_player_fleet &&  owner!=eFACTION.Tyranids && owner!=eFACTION.Chaos)){
+    	arrive_at_player_fleet = target.object_index == obj_p_fleet;
+    	var chase_fleet = (target.action!="" || point_distance(x,y,target.x,target.y)>40) && obj_ini.fleet_type != ePlayerBase.home_world;
+    } else {
+    	arrive_at_player_fleet=false;
+    	target=noone;
+    }
+    if (arrive_at_player_fleet && chase_fleet) {
+
+
+        var mah_x=instance_nearest(x,y,obj_star).x;
+        var mah_y=instance_nearest(x,y,obj_star).y;
+        
+        if  (string_count("Inqis",trade_goods)=0){
+
+            
+           
+            if (target.action!="") {
+				action_x=target.action_x;
+				action_y=target.action_y;
+			}
+			else if (target.action="" ){
+                action_x=instance_nearest(target.x,target.y,obj_star).x;
+                action_y=instance_nearest(target.x,target.y,obj_star).y;
+            }
+            action="";
+            set_fleet_movement();
+            if (owner!=eFACTION.Eldar) then obj_controller.disposition[owner]-=1;
+
+        }
+    }
+
+        
+        
+        /*show_message(string(trade_goods));
+        show_message(string_count("_her",trade_goods)=0);
+        show_message(target);
+        show_message(string(point_distance(x,y,target.x,target.y)));
+        show_message(target.action);*/
+        
+        
+        
+    else if (arrive_at_player_fleet || obj_ini.fleet_type=ePlayerBase.home_world){
+        with(obj_temp2){instance_destroy();}
+        with(obj_temp3){instance_destroy();}
+        with(obj_ground_mission){instance_destroy();}
+        
+        var targ;
+        var cur_star=nearest_star_proper(x, y);
+        var bleh="";
+        if (owner!=eFACTION.Inquisition) 
+			bleh=$"{obj_controller.faction[owner]} Fleet finalizes trade at {cur_star.name}.";
+        else{
+			bleh=$"Inquisitor Ship finalizes trade at {cur_star.name}.";
+        }
+        debugl(bleh);
+        scr_alert("green","trade",bleh,cur_star.x,cur_star.y);
+        scr_event_log("",bleh,cur_star.name);
+        
+        // Drop off here
+        if (trade_goods!="stuff") and (trade_goods!="none") then scr_trade_dep();
+        
+        trade_goods="return";
+        if (target!=noone) then target=noone;
+        
+        if (owner=eFACTION.Eldar){
+        	cur_star = nearest_star_with_ownership(xx,yy, eFACTION.Eldar);
+        	if (cur_star!="none"){
+				cur_star=targ.x;
+				cur_star=targ.y;  
+        	}                  	
+        } else {
+            action_x=home_x;
+			action_y=home_y;                   	
+        }
+        
+        action_eta=0;
+		action="";
+
+        set_fleet_movement();
+    }
+    exit;
+}
 //TODO further split this shite up
 function fleet_arrival_logic(){
 	var cur_star, sta, steh_dist, old_x, old_y;
@@ -287,97 +373,14 @@ function fleet_arrival_logic(){
         if (string_count("BLOOD",trade_goods)>0) then cancel=true;
         if (fleet_has_cargo("ork_warboss")) cancel=true;
         if (trade_goods="csm") then cancel=true;
-        
-        var inquis_arrive_fleet = (instance_exists(target));
-        if (inquis_arrive_fleet){
-        	inquis_arrive_fleet = target.object_index == obj_p_fleet;
-        }
-        if (trade_goods!="") and (owner!=eFACTION.Tyranids) and (owner!=eFACTION.Chaos) and (!cancel) and ((instance_exists(target)) or (obj_ini.fleet_type==ePlayerBase.home_world)) {
 
-            if ((trade_goods!="return") and (target!=noone) and ((target.action!="") or (point_distance(x,y,target.x,target.y)>30))) and (obj_ini.fleet_type != ePlayerBase.home_world){
-
-                var mah_x=instance_nearest(x,y,obj_star).x;
-                var mah_y=instance_nearest(x,y,obj_star).y;
-                
-                if (target!=noone) and (string_count("Inqis",trade_goods)=0){
-                    if (instance_exists(target)) {
-                        
-                        if (target.action!="") or (point_distance(x,y,target.x,target.y)>40){
-                       
-                            if (target.action!="") {
-								action="";
-								action_x=target.action_x;
-								action_y=target.action_y;
-								alarm[4]=1;
-								if (owner!=eFACTION.Eldar) then obj_controller.disposition[owner]-=1;exit;}
-                            if (target.action="" ){
-								action="";
-                                action_x=instance_nearest(target.x,target.y,obj_star).x;
-                                action_y=instance_nearest(target.x,target.y,obj_star).y;
-                                alarm[4]=1;
-								if (owner!=eFACTION.Eldar) then obj_controller.disposition[owner]-=1;exit;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            
-            /*show_message(string(trade_goods));
-            show_message(string_count("_her",trade_goods)=0);
-            show_message(target);
-            show_message(string(point_distance(x,y,target.x,target.y)));
-            show_message(target.action);*/
-            
-            
-            
-            if (trade_goods!="return") and (string_count("_her",trade_goods)=0) and ((target=noone) or ((point_distance(x,y,target.x,target.y)<=40)) and ((target.action="") or (obj_ini.fleet_type=ePlayerBase.home_world))){
-                with(obj_temp2){instance_destroy();}
-                with(obj_temp3){instance_destroy();}
-                with(obj_ground_mission){instance_destroy();}
-                
-                var targ;
-                var cur_star=nearest_star_proper(x, y);
-                var bleh="";
-                if (owner!=eFACTION.Inquisition) 
-					bleh=$"{obj_controller.faction[owner]} Fleet finalizes trade at {cur_star.name}.";
-                else{
-					bleh=$"Inquisitor Ship finalizes trade at {cur_star.name}.";
-                }
-                debugl(bleh);
-                scr_alert("green","trade",bleh,cur_star.x,cur_star.y);
-                scr_event_log("",bleh,cur_star.name);
-                
-                // Drop off here
-                if (trade_goods!="stuff") and (trade_goods!="none") then scr_trade_dep();
-                
-                trade_goods="return";
-                if (target!=noone) then target=noone;
-                
-                if (owner=eFACTION.Eldar){
-                	cur_star = nearest_star_with_ownership(xx,yy, eFACTION.Eldar);
-                	if (cur_star!="none"){
-						cur_star=targ.x;
-						cur_star=targ.y;  
-                	}                  	
-                } else {
-                    action_x=home_x;
-					action_y=home_y;                   	
-                }
-                
-                action_eta=0;
-				action="";
-
-                set_fleet_movement();
-            }
-            exit;
-        }
+        if (!cancel && trade_goods!="" && trade_goods!="return"){
+        	scr_efleet_arrive_at_trade_loc();
+        }    
     }
     
-    
-    
-    
-    if (owner=eFACTION.Inquisition) and (string_count("_her",trade_goods)=0){
+
+    if (owner==eFACTION.Inquisition) and (string_count("_her",trade_goods)=0){
         if (cur_star.owner  = eFACTION.Player) and (trade_goods="cancel_inspection"){
             instance_deactivate_object(cur_star);
             repeat(choose(1,2)){
