@@ -1418,9 +1418,9 @@ while(instance_number(obj_star)<planet) {
 mask_index = -1;
 
 fleet_type="";
-if (obj_ini.fleet_type==1) then fleet_type="Fleet";
-if (obj_ini.fleet_type==1) then fleet_type="Homeworld";
-if (obj_ini.fleet_type==3) then fleet_type="Crusade";
+if (obj_ini.fleet_type==ePlayerBase.home_world) then fleet_type="Homeworld";
+if (obj_ini.fleet_type==ePlayerBase.fleet_based) then fleet_type="Fleet";
+if (obj_ini.fleet_type==ePlayerBase.penitent) then fleet_type="Crusade";
 star_names="";
 // ** Sets up the number of enemy factions to appear **
 tau=1; 
@@ -1662,8 +1662,8 @@ glad_names=string_delete(glad_names,vih,1);
 vih=string_pos(",",hunt_names);
 hunt_names=string_delete(hunt_names,vih,1);
 
-if (obj_ini.fleet_type!=1) or (bb==1) then temp[62]+="Your flagship is the Battle Barge "+string(obj_ini.ship[1])+".  ";
-if (obj_ini.fleet_type==1) and (bb>1){
+if (obj_ini.fleet_type != ePlayerBase.home_world) or (bb==1) then temp[62]+="Your flagship is the Battle Barge "+string(obj_ini.ship[1])+".  ";
+if (obj_ini.fleet_type==ePlayerBase.home_world) and (bb>1){
     temp[62]+="There are "+string(bb)+" Battle Barges; "+string(bb_names)+".  ";
 }
 temp[62]+="#";

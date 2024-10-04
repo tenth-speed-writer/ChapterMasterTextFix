@@ -436,8 +436,8 @@ function scr_ui_advisors() {
                 fest_wid = 0;
                 fest_planet = 0;
 
-                if (obj_ini.fleet_type != 1) then fest_planet = -1;
-                if (obj_ini.fleet_type = 1) then fest_planet = 1;
+                if (obj_ini.fleet_type != home_world) then fest_planet = -1;
+                if (obj_ini.fleet_type = ePlayerBase.home_world) then fest_planet = 1;
 
                 fest_lav = 0;
                 fest_locals = 0;

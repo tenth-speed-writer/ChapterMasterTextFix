@@ -94,7 +94,7 @@ function new_inquisitor_inspection(){
 	var inspection_set = false;
 	var target_system = "none";
 	var new_inquis_fleet;
-    if (obj_ini.fleet_type==1){
+    if (obj_ini.fleet_type==ePlayerBase.home_world){
     	var monestary_system = "none";
         // If player does not own their homeworld than do a fleet inspection instead
         var player_stars = [];
@@ -134,7 +134,7 @@ function new_inquisitor_inspection(){
             obj_controller.last_world_inspection=obj_controller.turn;
         }
     }
-    if  (obj_ini.fleet_type!=1 || !inspection_set){
+    if  (obj_ini.fleet_type = ePlayerBase.home_world || !inspection_set){
         // If player does not own their homeworld than do a fleet inspection instead
 
         var target_player_fleet = get_largest_player_fleet();

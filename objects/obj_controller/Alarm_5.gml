@@ -943,8 +943,8 @@ if (loyalty_counter==0) then scr_loyalty("Undevout","+");
 if (marines>=1050) then scr_loyalty("Non-Codex Size","+");
 
 var last_inquisitor_inspection=0;
-if (obj_ini.fleet_type=1) then last_inquisitor_inspection=last_world_inspection;
-if (obj_ini.fleet_type!=1) then last_inquisitor_inspection=last_fleet_inspection;
+if (obj_ini.fleet_type=ePlayerBase.home_world) then last_inquisitor_inspection=last_world_inspection;
+if (obj_ini.fleet_type != ePlayerBase.home_world) then last_inquisitor_inspection=last_fleet_inspection;
 
 var inspec=false;
 if (loyalty>=85) and ((last_inquisitor_inspection+59)<turn) then inspec=true;
@@ -952,8 +952,8 @@ if (loyalty>=70) and (loyalty<85) and ((last_inquisitor_inspection+47)<turn) the
 if (loyalty>=50) and (loyalty<70) and ((last_inquisitor_inspection+35)<turn) then inspec=true;
 if (loyalty<50) and ((last_inquisitor_inspection+11+choose(1,2,3,4))<turn) then inspec=true;
 
-if (obj_ini.fleet_type!=1){
-    if (instance_number(obj_p_fleet)==1) and (obj_ini.fleet_type!=1){// Might be crusading, right?
+if (obj_ini.fleet_type != ePlayerBase.home_world){
+    if (instance_number(obj_p_fleet)==1) and (obj_ini.fleet_type = ePlayerBase.home_world){// Might be crusading, right?
         if (obj_p_fleet.x<0) or (obj_p_fleet.x>room_width) or (obj_p_fleet.y<0) or (obj_p_fleet.y>room_height) then inspec=false;
     }
     if (instance_number(obj_p_fleet)==0) then inspec=false;
@@ -1162,10 +1162,10 @@ for(var i=1; i<=99; i++){
                 if (item=="Artifact"){
                     var last_artifact=0;
                     scr_event_log("",string(obj_ini.role[100][16])+" "+string(marine_name)+" constructs an Artifact.");
-                    if (obj_ini.fleet_type==1){
+                    if (obj_ini.fleet_type==ePlayerBase.home_world){
                         last_artifact =  scr_add_artifact("random_nodemon","",0,obj_ini.home_name,2);
                     } else {
-                        if (obj_ini.fleet_type!=1){
+                        if (obj_ini.fleet_type != ePlayerBase.home_world){
                             last_artifact = scr_add_artifact("random_nodemon","",0,obj_ini.ship_location[1],501);
                         }
                     }

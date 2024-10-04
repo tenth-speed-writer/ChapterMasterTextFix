@@ -31,7 +31,7 @@ for(var i=0; i<100; i++){
                 if (current_system.p_type[1]=="Temperate"){
                     did=1;
                     ok=1;
-                    if (obj_ini.fleet_type==1){
+                    if (obj_ini.fleet_type==ePlayerBase.home_world){
                         current_system.p_owner[1]=eFACTION.Player;
                         current_system.p_first[1]=eFACTION.Player;
                         current_system.owner  = eFACTION.Player;
@@ -42,7 +42,7 @@ for(var i=0; i<100; i++){
                 if (current_system.p_type[2]=="Temperate") and (did=0){
                     did=1;
                     ok=1;
-                    if (obj_ini.fleet_type==1){
+                    if (obj_ini.fleet_type==ePlayerBase.home_world){
                         current_system.p_owner[2]=1;
                         current_system.p_first[2]=1;
                         current_system.owner  = eFACTION.Player;
@@ -53,7 +53,7 @@ for(var i=0; i<100; i++){
                 if (current_system.p_type[3]=="Temperate") and (did=0){
                     did=1;
                     ok=1;
-                    if (obj_ini.fleet_type==1){
+                    if (obj_ini.fleet_type==ePlayerBase.home_world){
                         current_system.p_owner[3]=1;
                         current_system.p_first[3]=1;
                         current_system.owner  = eFACTION.Player;
@@ -64,7 +64,7 @@ for(var i=0; i<100; i++){
                 if (current_system.p_type[4]=="Temperate") and (did=0){
                     did=1;
                     ok=1;
-                    if (obj_ini.fleet_type==1){
+                    if (obj_ini.fleet_type==ePlayerBase.home_world){
                         current_system.p_owner[4]=1;
                         current_system.p_first[4]=1;
                         current_system.owner  = eFACTION.Player;
@@ -85,13 +85,13 @@ if (did==1){
 
     current_system.planets=2;
     current_system.vision=1;
-    if (obj_ini.fleet_type=1) then current_system.owner  = eFACTION.Player;
+    if (obj_ini.fleet_type=ePlayerBase.home_world) then current_system.owner  = eFACTION.Player;
     current_system.p_type[3]="";
     current_system.planet[3]=0;
     current_system.p_type[4]="";
     current_system.planet[4]=0;
     
-    if (obj_ini.fleet_type==1){
+    if (obj_ini.fleet_type==ePlayerBase.home_world){
         if (obj_ini.recruiting_type!=obj_ini.home_type) and (obj_ini.home_name!=obj_ini.recruiting_name){
             current_system.p_type[1]=obj_ini.recruiting_type;
             if (obj_ini.recruiting_name!="random") then current_system.name=obj_ini.recruiting_name;
@@ -523,7 +523,7 @@ if (did==1){
     var ed2,n,i,orkz=choose(4,5,6)+5;
     if (field=="orks") then orkz+=20;
     if (field=="both") then orkz+=15;
-   /*if (obj_ini.fleet_type==3) then orkz+=2;*/
+   /*if (obj_ini.fleet_type==ePlayerBase.penitent) then orkz+=2;*/
     if (is_test_map==true) then orkz=4;
 
     for(var j=0; j<orkz; j++){
@@ -547,7 +547,7 @@ if (did==1){
 
     if (field=="tyranids"){
         orkz=(choose(3,4,6)+7);
-        if (obj_ini.fleet_type==3) then orkz+=2;
+        if (obj_ini.fleet_type==ePlayerBase.penitent) then orkz+=2;
         
         for(var j=0; j<orkz; j++){
             n=instance_number(obj_temp3);
@@ -569,7 +569,7 @@ if (did==1){
         }
     }
     if (field=="both"){
-        if (obj_ini.fleet_type==3) then orkz+=3;
+        if (obj_ini.fleet_type==ePlayerBase.penitent) then orkz+=3;
         orkz+=3;
         for(var j=0; j<orkz; j++){
             n=instance_number(obj_temp3);

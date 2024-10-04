@@ -124,7 +124,7 @@ function khorne_fleet_cargo(){
                     // Go after the player now
                     var yarr = false;
                     
-                    if (obj_ini.fleet_type==1) {
+                    if (obj_ini.fleet_type==ePlayerBase.home_world) {
                         var player_stars =0;
                         with(obj_star){
                             if !(array_contains(p_owner, eFACTION.Player)){
@@ -145,7 +145,7 @@ function khorne_fleet_cargo(){
 							yarr=true;
                         }
                         instance_activate_object(obj_star);
-                    }else if (obj_ini.fleet_type!=1)  {
+                    }else if (obj_ini.fleet_type != ePlayerBase.home_world)  {
 
                         // Chase player fleets
                         var target_chosen = false;

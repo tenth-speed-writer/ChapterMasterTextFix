@@ -22,9 +22,9 @@ function scr_add_vehicle(argument0, argument1, argument2, argument3, argument4, 
 	if (good!=0){
 	    obj_ini.veh_race[argument1][good]=1;
 
-	    if (obj_ini.fleet_type=1){obj_ini.veh_loc[argument1][good]=obj_ini.home_name;obj_ini.veh_wid[argument1][good]=2;obj_ini.veh_lid[argument1][good]=0;}
+	    if (obj_ini.fleet_type=ePlayerBase.home_world){obj_ini.veh_loc[argument1][good]=obj_ini.home_name;obj_ini.veh_wid[argument1][good]=2;obj_ini.veh_lid[argument1][good]=0;}
 
-	    if (obj_ini.fleet_type!=1){// Need a more elaborate ship_carrying += here for the different types of units
+	    if (obj_ini.fleet_type != ePlayerBase.home_world){// Need a more elaborate ship_carrying += here for the different types of units
 	        var first,backup;first=0;backup=0;i=0;
 	        repeat(30){i+=1;
 	            if (obj_ini.ship_class[i]="Battle Barge") and (first=0) and (obj_ini.ship_capacity[i]>obj_ini.ship_carrying[i]) then first=i;

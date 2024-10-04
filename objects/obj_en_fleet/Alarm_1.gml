@@ -684,7 +684,7 @@ if (action==""){
                 valid=false;
             }
         }
-        if (((orbiting.owner = eFACTION.Player || system_feature_bool(orbiting.p_feature, P_features.Monastery)) or (obj_ini.fleet_type!=1)) and (trade_goods!="cancel_inspection") && valid){
+        if (((orbiting.owner = eFACTION.Player || system_feature_bool(orbiting.p_feature, P_features.Monastery)) or (obj_ini.fleet_type != ePlayerBase.home_world)) and (trade_goods!="cancel_inspection") && valid){
             if (obj_controller.disposition[6]>=60) then scr_loyalty("Xeno Associate","+");
             if (obj_controller.disposition[7]>=60) then scr_loyalty("Xeno Associate","+");
             if (obj_controller.disposition[8]>=60) then scr_loyalty("Xeno Associate","+");

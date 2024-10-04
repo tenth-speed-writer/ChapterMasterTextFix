@@ -1081,7 +1081,7 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
             if (mission="artifact"){
                 var last_artifact;
                 scr_quest(0,"artifact_loan",4,estimate);
-                if (obj_ini.fleet_type=1){
+                if (obj_ini.fleet_type=ePlayerBase.home_world){
                     image="fortress";
                     if (obj_ini.home_type="Hive") then image="fortress_hive";
                     if (obj_ini.home_type="Death") then image="fortress_death";
@@ -1091,7 +1091,7 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
                     if (obj_ini.icon_name="dorf2") then image="fortress_dorf";
                     if (obj_ini.icon_name="dorf3") then image="fortress_dorf";
                     last_artifact = scr_add_artifact("good","inquisition",0,obj_ini.home_name,2);
-                }else if (obj_ini.fleet_type!=1){
+                }else if (obj_ini.fleet_type != ePlayerBase.home_world){
                     image="artifact_given";
                     last_artifact =scr_add_artifact("good","inquisition",0,obj_ini.ship[1],501);
                 }
@@ -1100,8 +1100,8 @@ if (press=1) and (option1!="") or ((demand=1) and (mission!="") and (string_coun
                 fancy_title=0;
                 text_center=0;
                 text="The Inquisition has left an Artifact in your care, until it may be retrieved.  It has been stored ";
-                if (obj_ini.fleet_type=1) then text+="within your Fortress Monastery.";
-                if (obj_ini.fleet_type!=1) then text+="upon your ship '"+string(obj_ini.ship[1])+"'.";
+                if (obj_ini.fleet_type=ePlayerBase.home_world) then text+="within your Fortress Monastery.";
+                if (obj_ini.fleet_type != ePlayerBase.home_world) then text+="upon your ship '"+string(obj_ini.ship[1])+"'.";
                 scr_event_log("","Inquisition Mission Accepted: The Inquisition has left an Artifact in your care.");
                 
                 text+="  It is some form of "+string(obj_ini.artifact[last_artifact])+".";
@@ -1167,8 +1167,8 @@ if (press=2) and (option2!=""){
     
     if (title="Artifact Offered"){
         with(obj_en_fleet){if (trade_goods="male_her") or (trade_goods="female_her") then instance_destroy();}
-        if (obj_ini.fleet_type!=1) then scr_add_artifact("random","",4,obj_ini.ship[1],501);
-        if (obj_ini.fleet_type=1) then scr_add_artifact("random","",4,obj_ini.home_name,2);
+        if (obj_ini.fleet_type != ePlayerBase.home_world) then scr_add_artifact("random","",4,obj_ini.ship[1],501);
+        if (obj_ini.fleet_type=ePlayerBase.home_world) then scr_add_artifact("random","",4,obj_ini.home_name,2);
         var i,last_artifact;i=0;last_artifact=0;
         repeat(100){if (last_artifact=0){i+=1;if (obj_ini.artifact[i]="") then last_artifact=i-1;}}
         option1="";option2="";option3="";
@@ -1297,8 +1297,8 @@ if (press=3) and (option3!=""){
                 alarm[4]=1;trade_goods="|DELETE|";action_spd=256;action="";
             }
         }
-        if (obj_ini.fleet_type!=1) then scr_add_artifact("random","",4,obj_ini.ship[1],501);
-        if (obj_ini.fleet_type=1) then scr_add_artifact("random","",4,obj_ini.home_name,2);
+        if (obj_ini.fleet_type != ePlayerBase.home_world) then scr_add_artifact("random","",4,obj_ini.ship[1],501);
+        if (obj_ini.fleet_type=ePlayerBase.home_world) then scr_add_artifact("random","",4,obj_ini.home_name,2);
         var i,last_artifact;i=0;last_artifact=0;
         repeat(100){if (last_artifact=0){i+=1;if (obj_ini.artifact[i]="") then last_artifact=i-1;}}
         option1="";option2="";option3="";

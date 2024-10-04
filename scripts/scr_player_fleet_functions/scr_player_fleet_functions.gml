@@ -1,10 +1,16 @@
 // Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more informationype
+
+enum ePlayerBase {
+	home_world = 1;
+	fleet_based = 2;
+	penitent = 3;
+}
 function fleet_has_roles(fleet="none", roles){
 	var all_ships = fleet_full_ship_array(fleet);
 	var unit;
 	for (var i=0;i<=10;i++){
-		for (var s=0;s<500;s++){
+		for (var s=0;s<array_length(obj_ini.TTRPG[i]);s++){
 			unit=fetch_unit([i,s]);
 			if (unit.planet_location<1){
 				if (array_contains(all_ships,unit.ship_location)){

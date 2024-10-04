@@ -2128,7 +2128,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	static allocate_unit_to_fresh_spawn = function(type="default"){
 		var homestar = "none";
 		var spawn_location_chosen = false;
-	 	if ((type="home") or (type="default")) and (obj_ini.fleet_type==1){
+	 	if ((type="home") or (type="default")) and (obj_ini.fleet_type==ePlayerBase.home_world){
 	        var homestar =  star_by_name(obj_ini.home_name);
 	    } else if (type !="ship"){
 	    	var homestar =  star_by_name(type);	    	

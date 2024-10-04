@@ -273,7 +273,7 @@ function fleet_arrival_logic(){
     
     
     
-    if (navy==0){
+    if (!navy){
         var cancel;
 		cancel=false;
         if (string_count("Inqis",trade_goods)>0) then cancel=true;
@@ -288,11 +288,16 @@ function fleet_arrival_logic(){
         if (fleet_has_cargo("ork_warboss")) cancel=true;
         if (trade_goods="csm") then cancel=true;
         
-        if (trade_goods!="") and (owner!=eFACTION.Tyranids) and (owner!=eFACTION.Chaos) and (cancel=false) and ((instance_exists(target)) or (obj_ini.fleet_type=1)) {
-            if ((trade_goods!="return") and (target!=noone) and ((target.action!="") or (point_distance(x,y,target.x,target.y)>30))) and (obj_ini.fleet_type!=1) and (navy=0){
-                var mah_x,mah_y;
-                mah_x=instance_nearest(x,y,obj_star).x;
-                mah_y=instance_nearest(x,y,obj_star).y;
+        var inquis_arrive_fleet = (instance_exists(target));
+        if (inquis_arrive_fleet){
+        	inquis_arrive_fleet = target.object_index == obj_p_fleet;
+        }
+        if (trade_goods!="") and (owner!=eFACTION.Tyranids) and (owner!=eFACTION.Chaos) and (!cancel) and ((instance_exists(target)) or (obj_ini.fleet_type==ePlayerBase.home_world)) {
+
+            if ((trade_goods!="return") and (target!=noone) and ((target.action!="") or (point_distance(x,y,target.x,target.y)>30))) and (obj_ini.fleet_type != ePlayerBase.home_world){
+
+                var mah_x=instance_nearest(x,y,obj_star).x;
+                var mah_y=instance_nearest(x,y,obj_star).y;
                 
                 if (target!=noone) and (string_count("Inqis",trade_goods)=0){
                     if (instance_exists(target)) {
@@ -326,7 +331,7 @@ function fleet_arrival_logic(){
             
             
             
-            if (trade_goods!="return") and (string_count("_her",trade_goods)=0) and ((target=noone) or ((point_distance(x,y,target.x,target.y)<=40)) and ((target.action="") or (obj_ini.fleet_type=1))){
+            if (trade_goods!="return") and (string_count("_her",trade_goods)=0) and ((target=noone) or ((point_distance(x,y,target.x,target.y)<=40)) and ((target.action="") or (obj_ini.fleet_type=ePlayerBase.home_world))){
                 with(obj_temp2){instance_destroy();}
                 with(obj_temp3){instance_destroy();}
                 with(obj_ground_mission){instance_destroy();}

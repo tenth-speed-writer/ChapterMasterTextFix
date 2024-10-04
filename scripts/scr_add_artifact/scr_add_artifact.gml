@@ -170,7 +170,7 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	// show_message(string(t3));
 
 	if (artifact_location == ""){
-		if (obj_ini.fleet_type=1){
+		if (obj_ini.fleet_type=ePlayerBase.home_world){
 			artifact_location = obj_ini.home_name;
 			ship_id = 2;
 		} else {

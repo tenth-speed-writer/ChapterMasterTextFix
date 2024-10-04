@@ -112,10 +112,10 @@ function scr_quest(quest_satus=0, quest_name, quest_fac, quest_end) {
 
 
 	if (quick_trade!=0){
-	    if (obj_ini.fleet_type=1) then with(obj_star){
+	    if (obj_ini.fleet_type=ePlayerBase.home_world) then with(obj_star){
 	            if (owner  = eFACTION.Player) and ((p_owner[1]=1) or (p_owner[2]=1)) then instance_create(x,y,obj_temp2);
 	        }
-	        if (obj_ini.fleet_type!=1) then with(obj_p_fleet){// Get fleet star system
+	        if (obj_ini.fleet_type != ePlayerBase.home_world) then with(obj_p_fleet){// Get fleet star system
 	            if (capital_number>0) and (action="") then instance_create(instance_nearest(x,y,obj_star).x,instance_nearest(x,y,obj_star).y,obj_temp2);
 	            if (frigate_number>0) and (action="") then instance_create(instance_nearest(x,y,obj_star).x,instance_nearest(x,y,obj_star).y,obj_ground_mission);
 	        }

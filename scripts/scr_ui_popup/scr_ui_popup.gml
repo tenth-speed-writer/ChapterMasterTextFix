@@ -1,4 +1,4 @@
-function scr_ui_popup() {
+sfunction scr_ui_popup() {
 	// 48,48      over like 256, down to 480-128
 
 	if (obj_controller.menu=60){
@@ -381,7 +381,7 @@ function scr_ui_popup() {
 	   		if (income_base>0) then plu="+";
 	        tool1+=string("Base Income: {0}{1}", plu, income_base);
 	        tool2+="Base Income: ";
-		    if (obj_ini.fleet_type=1){
+		    if (obj_ini.fleet_type=ePlayerBase.home_world){
 		        plu="";
 
 		        if (income_home>0){
@@ -397,7 +397,7 @@ function scr_ui_popup() {
 		        	tool2+="#Nearby Agri Worlds:";
 		        }
 		    }
-		    if (obj_ini.fleet_type!=1){
+		    if (obj_ini.fleet_type != ePlayerBase.home_world){
 		        plu="";
 		        if (income_home>0) then plu="+";
 		        tool1+="#Battle Barge Trade: "+string(plu)+string(income_home);

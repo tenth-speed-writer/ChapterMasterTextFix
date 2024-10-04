@@ -314,8 +314,8 @@ function scr_dialogue(diplo_keyphrase) {
 	    obj_controller.chaos_rating+=1;
     
 	    // Casket, Chalice, Tome
-	    if (obj_ini.fleet_type=1) then scr_add_artifact("chaos_gift","",0,obj_ini.home_name,2);
-	    if (obj_ini.fleet_type!=1) then scr_add_artifact("chaos_gift","",0,obj_ini.ship[1],501);
+	    if (obj_ini.fleet_type=ePlayerBase.home_world) then scr_add_artifact("chaos_gift","",0,obj_ini.home_name,2);
+	    if (obj_ini.fleet_type != ePlayerBase.home_world) then scr_add_artifact("chaos_gift","",0,obj_ini.ship[1],501);
 	}
 	if (string_count("cs_meeting_battle",diplo_keyphrase)>0){
 	    current_eventing=diplo_keyphrase;combating=1;
@@ -1489,8 +1489,8 @@ function scr_dialogue(diplo_keyphrase) {
 	        rando=choose(1,1,2);
 	        if (rando==1) then diplo_text="Very well, Chapter Master.  I will bury you and your Chapter so thoroughly even I will forget your existence.";
 	        if (rando==2){
-	            if (obj_ini.fleet_type==1) then diplo_text="I understand.  I am authorizing the deployment of cyclonic torpedoes.  Make peace with your homeworld, Chapter Master.";
-	            if (obj_ini.fleet_type!=1) then diplo_text="I am mobilizing the Segmentum battlefleet.  You may run, heretic, but it will do you no good.";
+	            if (obj_ini.fleet_type==ePlayerBase.home_world) then diplo_text="I understand.  I am authorizing the deployment of cyclonic torpedoes.  Make peace with your homeworld, Chapter Master.";
+	            if (obj_ini.fleet_type != ePlayerBase.home_world) then diplo_text="I am mobilizing the Segmentum battlefleet.  You may run, heretic, but it will do you no good.";
 	        }
 	        var ev=0;
 			for(var v=1; v<=99; v++){if (ev=0) and (event[v]="") then ev=v;}
@@ -2179,8 +2179,8 @@ function scr_dialogue(diplo_keyphrase) {
 							instance_activate_object(obj_star);
 							with(obj_temp6){instance_destroy();}
 							with(obj_temp5){instance_destroy();}
-							if (obj_ini.fleet_type==1) then with(obj_star){if (owner==1) then instance_create(x,y,obj_temp6);}
-							if (obj_ini.fleet_type!=1) then with(obj_p_fleet){if (capital_number>0) then instance_create(x,y,obj_temp6);}
+							if (obj_ini.fleet_type==ePlayerBase.home_world) then with(obj_star){if (owner==1) then instance_create(x,y,obj_temp6);}
+							if (obj_ini.fleet_type != ePlayerBase.home_world) then with(obj_p_fleet){if (capital_number>0) then instance_create(x,y,obj_temp6);}
 						
 							with(obj_star){
 								if (owner != eFACTION.Imperium) then instance_deactivate_object(id);
@@ -2220,8 +2220,8 @@ function scr_dialogue(diplo_keyphrase) {
 							instance_activate_object(obj_star);
 							with(obj_temp6){instance_destroy();}
 							with(obj_temp5){instance_destroy();}
-							if (obj_ini.fleet_type==1) then with(obj_star){if (owner==1) then instance_create(x,y,obj_temp6);}
-							if (obj_ini.fleet_type!=1) then with(obj_p_fleet){if (capital_number>0) then instance_create(x,y,obj_temp6);}
+							if (obj_ini.fleet_type==ePlayerBase.home_world) then with(obj_star){if (owner==1) then instance_create(x,y,obj_temp6);}
+							if (obj_ini.fleet_type != ePlayerBase.home_world) then with(obj_p_fleet){if (capital_number>0) then instance_create(x,y,obj_temp6);}
 							with(obj_star){
 								if (owner != eFACTION.Imperium) then instance_deactivate_object(id);
 								if (owner == eFACTION.Imperium) and (point_distance(x,y,obj_temp6.x,obj_temp6.y)<800) then instance_deactivate_object(id);
@@ -2644,8 +2644,8 @@ function scr_dialogue(diplo_keyphrase) {
 	}
 
 	// ** Trading Error Handling **
-	if (diplo_keyphrase=="trade_error_1") and (obj_ini.fleet_type==1) then diplo_text="[Error 1: No valid planet to trade with.]";
-	if (diplo_keyphrase=="trade_error_1") and (obj_ini.fleet_type!=1) then diplo_text="[Error 1: No valid fleet to trade with.]";
+	if (diplo_keyphrase=="trade_error_1") and (obj_ini.fleet_type==ePlayerBase.home_world) then diplo_text="[Error 1: No valid planet to trade with.]";
+	if (diplo_keyphrase=="trade_error_1") and (obj_ini.fleet_type != ePlayerBase.home_world) then diplo_text="[Error 1: No valid fleet to trade with.]";
 	if (diplo_keyphrase=="trade_error_2") then diplo_text="[Error 2: "+string(obj_controller.faction[diplomacy])+" has no valid origin for a fleet.]";
 
 	// ** Sets ignored turns when kicked out of diplomacy screen **
