@@ -287,10 +287,30 @@ function calculate_research_points(turn_end=false){
         }
     }   
 }
+function scr_forge_item(item){
+    var master_craft_count=0;
+    var quality_string="";
+    var normal_count=0;
+    for (var s=0;s<forge_queue[i].count;s++){
+        if (master_craft_chance && (irandom(100)<master_craft_chance)){
+            master_craft_count++;
+        } else {
+            normal_count++;
+        }
+    }
+    scr_add_item(forge_queue[i].name, normal_count);
+    if (master_craft_count>0){
+        scr_add_item(forge_queue[i].name, master_craft_count,"master_crafted");
+        var numerical_string = master_craft_count==1?"was":"were";
+        quality_string=$"X{master_craft_count} {numerical_string} Completed to a Master Crafted standard";
+    }else {
+        quality_string=$"all were completed to a standard STC compliant quality";
+    }
+    scr_popup("Forge Completed",$"{forge_queue[i].name} X{forge_queue[i].count} construction finished {quality_string}","","");
+}
 
 function forge_queue_logic(){
     if (forge_points>0){
-        var master_craft_count, normal_count, quality_string;
         var reduction_points = forge_points;
         if (array_length(forge_queue)>0 && forge_points>0){
             var forging_length = array_length(forge_queue);
@@ -298,25 +318,13 @@ function forge_queue_logic(){
                 if (forge_queue[i].forge_points<=reduction_points){
                     reduction_points-=forge_queue[i].forge_points;
                     if (is_string(forge_queue[i].name)){
-                        master_craft_count=0;
-                        quality_string="";
-                        normal_count=0;
-                        for (var s=0;s<forge_queue[i].count;s++){
-                            if (master_craft_chance && (irandom(100)<master_craft_chance)){
-                                master_craft_count++;
-                            } else {
-                                normal_count++;
-                            }
-                        }
-                        scr_add_item(forge_queue[i].name, normal_count);
-                        if (master_craft_count>0){
-                            scr_add_item(forge_queue[i].name, master_craft_count,"master_crafted");
-                            var numerical_string = master_craft_count==1?"was":"were";
-                            quality_string=$"X{master_craft_count} {numerical_string} Completed to a Master Crafted standard";
-                        }else {
-                            quality_string=$"all were completed to a standard STC compliant quality";
-                        }
-                        scr_popup("Forge Completed",$"{forge_queue[i].name} X{forge_queue[i].count} construction finished {quality_string}","","");                        
+                        var vehicles = ["Rhino","Predator","Land Raider","Whirlwind","Land Speeder"];
+                        var is_vehicle =  array_contain(vehicles,forge_queue[i].name);
+                        if (!is_vehicle){
+                            scr_forge_item(forge_queue[i].name);
+                        } else {
+                            scr_add_vehicle(forge_queue[i].name,9,"standard","standard","standard","standard","standard");
+                        }                      
                     } else if (is_array(forge_queue[i].name)){
                         if (forge_queue[i].name[0]=="research"){
                             var tier_depth = array_length(forge_queue[i].name[2]);
@@ -826,10 +834,10 @@ function scr_draw_armentarium(){
         draw_set_alpha(1);
         draw_set_font(fnt_40k_14);
         draw_set_color(0);
-        draw_text(xx+359,yy+109,string_hash_to_newline("Name"));
-        draw_text(xx+500,yy+109,string_hash_to_newline("Number"));
-        draw_text(xx+600,yy+109,string_hash_to_newline("Forge Points"));
-        draw_text(xx+700,yy+109,string_hash_to_newline("Construction ETA"));        
+        draw_text(xx+359,yy+109,"Name");
+        draw_text(xx+500,yy+109,"Number");
+        draw_text(xx+600,yy+109,"Forge Points");
+        draw_text(xx+700,yy+109,"Construction ETA");        
         draw_set_color(c_gray);
         var item_gap = 130;
         var total_eta=0;
@@ -838,7 +846,7 @@ function scr_draw_armentarium(){
             if (i+1>array_length(forge_queue)) then break;
             draw_set_color(c_gray);
             if point_in_rectangle(mouse_x, mouse_y, xx + 359,yy +item_gap, xx + 886, yy +item_gap+20){
-                draw_set_color(c_white);
+                draw_set_color(c_white)
             }
             if (is_string(forge_queue[i].name)){
                 draw_text(xx+359,yy + item_gap,string_hash_to_newline(forge_queue[i].name));
