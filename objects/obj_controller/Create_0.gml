@@ -409,8 +409,8 @@ menu_buttons = {
     "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D"),scr_toggle_diplomacy),
     "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O"),scr_toggle_event_log),
     "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
-    "help":new main_menu_button(spr_ui_hov_4, spr_ui_hov_4,,,,scr_in_game_help),
-    "menu":new main_menu_button(spr_ui_hov_4, spr_ui_hov_4,,,,scr_in_game_menu),
+    "help":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,ord("H"),scr_in_game_help),
+    "menu":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,,scr_in_game_menu),
 
 }
 

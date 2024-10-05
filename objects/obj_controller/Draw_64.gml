@@ -26,9 +26,6 @@ var yy = 0;
 if (!zoomed && !zui){
     draw_sprite(spr_new_ui,0,0,0);
     draw_set_color(c_white);
-    // Buttons here
-    draw_sprite(spr_ui_but_4,0,1374,8);
-    draw_sprite(spr_ui_but_4,0,1484,8);
 
     menu_buttons.chapter_manage.draw(34,838+y_slide, "Chapter Management",1,1,145)
     menu_buttons.chapter_settings.draw(179,838+y_slide, "Chapter Settings",1,1,145)
@@ -41,8 +38,8 @@ if (!zoomed && !zui){
     menu_buttons.diplo.draw(1130,838+y_slide, "Diplomacy",1,1,145)
     menu_buttons.event.draw(1275,838+y_slide, "Event Log",1,1,145)
     menu_buttons.end_turn.draw(1420,838+y_slide, "End Turn",1,1,145);
-    menu_buttons.help.draw(1360,10, "Help",1,1,145);
-    menu_buttons.menu.draw(1440,10, "Menu",1,1,145);
+    menu_buttons.help.draw(1374,8+y_slide, "Help");
+    menu_buttons.menu.draw(1484,8+y_slide, "Menu");
     
     
     if (y_slide>0) then draw_set_alpha((100-(y_slide*2))/100);
