@@ -10,6 +10,7 @@ slate_panel.inside_method = function(){
     var xx=__view_get( e__VW.XView, 0 )+0;
     var yy=__view_get( e__VW.YView, 0 )+0;
     draw_set_halign(fa_left);
+    draw_set_font(fnt_40k_14b);
     draw_text(xx+962,yy+159,"Name");
     draw_text(xx+962.5,yy+159.5,"Name");
     if (shop!="production"){
@@ -197,7 +198,7 @@ slate_panel.inside_method = function(){
 }
 draw_set_color(c_white);
 slate_panel.draw(xx+920, yy+95, 690/850, 0.85);
-draw_set_font(fnt_40k_14);
+draw_set_font(fnt_40k_14b);
 draw_set_color(c_gray);
 draw_set_halign(fa_left);
 
@@ -210,7 +211,7 @@ if (shop=="vehicles"){
 }
 
 draw_set_alpha(1);
-draw_set_font(fnt_40k_14);
+draw_set_font(fnt_40k_14b);
 draw_set_color(0);
 var shop_area="";
 if(tab_buttons.equipment.draw(xx+960,yy+64, "Equipment")){
