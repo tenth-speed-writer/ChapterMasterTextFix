@@ -4,15 +4,27 @@ if (instance_exists(orbiting)) and (obj_controller.is_test_map=true){
     draw_line_width(x,y,orbiting.x,orbiting.y,1);
 }
 scale = 1/obj_controller.map_scale;
-var  within=false;
-var m_dist=point_distance(x,y,mouse_x,mouse_y);within=0;
+
+if (x<0) or (x>room_width) or (y<0) or (y>room_height) then exit;
+if (image_alpha=0) then exit;
+
+var coords = [0,0];
+var near_star = instance_nearest(x,y, obj_star);
+
+if (x==near_star.x && y==near_star.y){
+    var coords = fleet_star_draw_offsets();
+}
+
+var within=false;
+var m_dist=point_distance(mouse_x,mouse_y,x+(coords[0]*scale),y+((coords[1])*scale+(12*scale)));
+
 if (obj_controller.zoomed=0){
     if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
 }
 if (obj_controller.zoomed=1){
-    draw_set_color(c_blue);
-    draw_circle(x,y,12,0);    
-    
+    draw_set_color(#3385ff);
+    draw_circle(x,y,12,0);
+    draw_set_alpha(1);
     if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
 }
 
@@ -56,38 +68,43 @@ if (action!=""){
 
 
 if (within=1) or (selected>0){
-    draw_set_color(38144);
-    
-    draw_set_font(fnt_40k_14b);
-    draw_set_halign(fa_center);
-    
     var ppp;
     if (owner  = eFACTION.Player) then ppp=global.chapter_name;
-    
     if (capital_number=1) and (frigate_number=0) and (escort_number=0) then ppp=capital[1];
     if (capital_number=0) and (frigate_number=1) and (escort_number=0) then ppp=frigate[1];
     if (capital_number=0) and (frigate_number=0) and (escort_number=1) then ppp=escort[1];
-    
-    
-    
     // ppp=acted;
-    
-    
     // 
+    draw_set_color(38144);
+    draw_set_font(fnt_40k_14b);
+    draw_set_halign(fa_center);
     if (obj_controller.zoomed) then draw_text_transformed(x,y-48,string_hash_to_newline(ppp),text_size,text_size,0);// was 1.4
-    
-    draw_circle(x,y,12*scale,0);
-    
     draw_set_halign(fa_left);
+
+    draw_circle(x+(coords[0]*scale),y+(coords[1])*scale,12*scale,0);
+} else {
+    draw_set_color(#3385ff);
+    draw_set_alpha(0.5);
+    draw_circle(x+(coords[0]*scale),y+(coords[1])*scale,12*scale,0);
+    draw_set_alpha(1);
 }
 
-if (is_orbiting()){
-    orbiting = instance_nearest(x,y ,obj_star);
-    var draw_x = x - orbiting.x;
-    var draw_y = y - orbiting.y;
-    draw_sprite_ext(sprite_index,image_index,orbiting.x+(draw_x*scale),orbiting.y+(draw_y*scale),1*scale,1*scale,0,c_white,1)
-}
-draw_self();
+// if (is_orbiting()){
+//     orbiting = instance_nearest(x,y ,obj_star);
+//     var draw_x = x - orbiting.x;
+//     var draw_y = y - orbiting.y;
+// }
+
+
+
+draw_sprite_ext(sprite_index,image_index,x+(coords[0]*scale),y+(coords[1]*scale),1*scale,1*scale,0,c_white,1);
+
+// draw_sprite_ext(sprite_index,image_index,(draw_x*scale),(draw_y*scale),1*scale,1*scale,0,c_white,1)
+
+
+
+
+
 
 
 
