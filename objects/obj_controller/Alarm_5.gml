@@ -80,7 +80,7 @@ var ship_allowance=array_length(imperium_worlds)*(0.65+(mechanicus_world_total*3
          one third of the total imperial star systems*/
 if (mechanicus_world_total>0) and (imp_ships<ship_allowance){
     var rando=irandom(100)+1, rando2=choose(1,2,2,3,3,3);
-    var forge=mechanicus_worlds[irandom(mechanicus_world_total-1)];
+    var forge=array_random(mechanicus_worlds);
     
     //the less mechanicus forge worlds the less likely to spawn a new fleet
     if (rando<=(12)*mechanicus_world_total){
@@ -122,9 +122,8 @@ if (mechanicus_world_total>0) and (imp_ships<ship_allowance){
 					eFACTION.Necrons
 				];
 				
-				system_fleet_elements = array_reduce(fleet_types, function(prev, curr) {
-					return prev + present_fleet[curr]
-				});
+                system_fleet_elements = array_sum(present_fleet)
+
 				var coords = [x,y];
 				
                 if (system_fleet_elements==0) {
@@ -166,10 +165,10 @@ if (mechanicus_world_total>0) and (imp_ships<ship_allowance){
 		}
 
         if (targeted){ 
-            new_defense_fleet.action_x=target.x;
-            new_defense_fleet.action_y=target.y;
+            new_defense_fleet.action_x=target[0];
+            new_defense_fleet.action_y=target[1];
             with (new_defense_fleet){
-                set_fleet_movement()
+                set_fleet_movement();
             }
         }
     }
@@ -1065,7 +1064,7 @@ for(var i=1; i<=99; i++){
                 }
                 if (array_length(active_forges)>0){
                     var ship_spawn = active_forges[irandom(array_length(active_forges)-1)];
-                    var new_defense_fleet=instance_create(ship_spawn.system.x+24,ship_spawn.system.y-24,obj_p_fleet);
+                    var new_defense_fleet=instance_create(ship_spawn.system.x,ship_spawn.system.y,obj_p_fleet);
 
                     // Creates the ship
 

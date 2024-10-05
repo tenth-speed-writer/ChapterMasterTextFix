@@ -191,7 +191,7 @@ if (did==1){
         current_system.p_player[2]+=obj_ini.man_size;
     }
     
-    var fleet=instance_create(current_system.x+24,current_system.y-24,obj_p_fleet);
+    var fleet=instance_create(current_system.x,current_system.y,obj_p_fleet);
     fleet.owner  = eFACTION.Player;
     fleet.alarm[5]=5;
     

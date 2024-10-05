@@ -702,24 +702,12 @@ function fleet_arrival_logic(){
         
         var kay, temp5, temp6, temp7;
         kay=0;temp5=0;temp6=0;temp7=0;
-        
-        var cur_star;cur_star=0;// Opposite of what normally is
-		//the hell is this jank? Doesn't even make sense since all the tests will fail
-        if (owner = eFACTION.Imperium) then cur_star=instance_nearest(x,y+32,obj_star);
-        if (owner = eFACTION.Mechanicus) then cur_star=instance_nearest(x,y+32,obj_star);
-        if (owner  = eFACTION.Inquisition) then cur_star=instance_nearest(x,y+32,obj_star);
-        if (owner = eFACTION.Ork) then cur_star=instance_nearest(x-32,y,obj_star);
-        if (owner = eFACTION.Tau) then cur_star=instance_nearest(x+24,y+24,obj_star);
-        if (owner = eFACTION.Tyranids) then cur_star=instance_nearest(x,y-32,obj_star);
-        if (owner = eFACTION.Chaos) then cur_star=instance_nearest(x+32,y,obj_star);
-        
+
+		var cur_star=instance_nearest(x,y,obj_star);
+    
         
         // This is the new check to go along code; if doesn't add up to all planets = 7 then they exit
-        
-        if (cur_star.planets>=1) and (cur_star.p_type[1]!="Dead") and (cur_star.p_owner[1]!=7){kay=5;exit;}
-        if (cur_star.planets>=2) and (cur_star.p_type[2]!="Dead") and (cur_star.p_owner[2]!=7){kay=5;exit;}
-        if (cur_star.planets>=3) and (cur_star.p_type[3]!="Dead") and (cur_star.p_owner[3]!=7){kay=5;exit;}
-        if (cur_star.planets>=4) and (cur_star.p_type[4]!="Dead") and (cur_star.p_owner[4]!=7){kay=5;exit;}
+        if (!is_dead_star(cur_star)) then kay=5;
         
         if (kay=5){// KILL the enemy
             if (cur_star.present_fleet[1]>1) or (cur_star.present_fleet[2]>1) then exit;
@@ -746,6 +734,7 @@ function fleet_arrival_logic(){
                 action_x=temp7.x;
                 action_y=temp7.y;
                 alarm[4]=1;
+                
                 // cur_star.present_fleets-=1;
             }
             

@@ -24,9 +24,6 @@ if (exi=1) then exit;
 
 
 if (obj_controller.popup=1) and (obj_controller.cooldown<=0){obj_controller.selected=0;obj_controller.popup=0;selected=0;}
-if (m_dist>24) and (selected=1){obj_controller.selected=0;obj_controller.popup=0;selected=0;}
-
-if (m_dist<=24) and (obj_controller.menu=0) then alarm[3]=1;
 
 }
 }

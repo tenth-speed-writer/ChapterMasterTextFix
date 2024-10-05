@@ -68,8 +68,8 @@ function cancel_fleet_movement(){
 	show_debug_message("cancel");
 	var nearest_star = instance_nearest(x,y, obj_star);
     action="";
-    x=nearest_star+24;
-    y=nearest_star-24;
+    x=nearest_star.x;
+    y=nearest_star.y;
     action_x=0;
     action_y=0;
     complex_route=[];

@@ -93,8 +93,8 @@ else if (action="move") or (action="crusade1") or (action="crusade2") or (action
         if (steh.owner = eFACTION.Tau) and (obj_controller.faction_defeated[8]=0) and (obj_controller.known[eFACTION.Tau]=0) then obj_controller.known[eFACTION.Tau]=1;
         
         action="";
-        x=action_x+24;
-        y=action_y-24;
+        x=action_x;
+        y=action_y;
         action_x=0;
         action_y=0;
         

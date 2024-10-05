@@ -8,24 +8,37 @@ scale = 1/obj_controller.map_scale;
 if (x<0) or (x>room_width) or (y<0) or (y>room_height) then exit;
 if (image_alpha=0) then exit;
 
-var coords = [0,0];
+var coords = [24,-24];
 var near_star = instance_nearest(x,y, obj_star);
-
-if (x==near_star.x && y==near_star.y){
-    var coords = fleet_star_draw_offsets();
-}
 
 var within=false;
 var m_dist=point_distance(mouse_x,mouse_y,x+(coords[0]*scale),y+((coords[1])*scale+(12*scale)));
 
 if (obj_controller.zoomed=0){
-    if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
+    if (m_dist<=(16*scale)) then within=1;
 }
 if (obj_controller.zoomed=1){
-    draw_set_color(#3385ff);
-    draw_circle(x,y,12,0);
-    draw_set_alpha(1);
-    if (m_dist<=16) and (!instance_exists(obj_ingame_menu)) then within=1;
+    within = true;
+    if (m_dist<=24){
+        within=1;      
+    } 
+}
+if (within){
+    if (mouse_check_button_pressed(mb_left) && obj_controller.menu==0 && !selected){
+        alarm[3]=1;
+    }  
+} else {
+    if (mouse_check_button_pressed(mb_left)){
+        if (selected){
+            if (instance_exists(obj_fleet_select)){
+                if !(obj_fleet_select.player_fleet.id == self.id && !obj_fleet_select.currently_entered){
+                    selected=0;
+                }
+            }
+        } else {
+            selected=0;
+        }
+    }
 }
 
 // if (obj_controller.selected!=0) and (selected=1) then within=1;
@@ -81,11 +94,11 @@ if (within=1) or (selected>0){
     if (obj_controller.zoomed) then draw_text_transformed(x,y-48,string_hash_to_newline(ppp),text_size,text_size,0);// was 1.4
     draw_set_halign(fa_left);
 
-    draw_circle(x+(coords[0]*scale),y+(coords[1])*scale,12*scale,0);
+    draw_circle(x+(coords[0]*scale),y+(coords[1]*scale),12*scale,0);
 } else {
     draw_set_color(#3385ff);
     draw_set_alpha(0.5);
-    draw_circle(x+(coords[0]*scale),y+(coords[1])*scale,12*scale,0);
+    draw_circle(x+(coords[0]*scale),y+(coords[1]*scale),12*scale,0);
     draw_set_alpha(1);
 }
 

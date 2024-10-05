@@ -13,7 +13,7 @@ if (action_if_number(obj_saveload, 0, 0) &&
         var allow_click_distance = 20*scale;
         if ((obj_controller.zoomed==0) and (m_dist<allow_click_distance)) or ((obj_controller.zoomed==1) and (m_dist<60)) and (obj_controller.cooldown<=0){
             // This should prevent overlap with fleet object
-            if (mouse_x<=self.x+24) and (mouse_y>=self.y-24){
+            if (mouse_x<=self.x+(24*scale)) and (mouse_y>=self.y-(24*scale)){
 
                 if (obj_controller.zoomed==1){
                     obj_controller.x=self.x;

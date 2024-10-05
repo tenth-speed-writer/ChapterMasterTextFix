@@ -670,8 +670,8 @@ if (obj_controller.selecting_planet!=0){
         }else if (current_button=="Raid"){
             instance_create(x,y,obj_drop_select);
             obj_drop_select.p_target=target;
-            obj_drop_select.sh_target=instance_nearest(x+24,y-24,obj_p_fleet);
-            if (instance_nearest(x+24,y-24,obj_p_fleet).acted>1) then with(obj_drop_select){instance_destroy();}
+            obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
+            if (instance_nearest(x,y,obj_p_fleet).acted>1) then with(obj_drop_select){instance_destroy();}
             obj_controller.cooldown=3000;
         }else if (current_button=="Attack"){
             instance_create(x,y,obj_drop_select);
@@ -679,8 +679,8 @@ if (obj_controller.selecting_planet!=0){
             obj_drop_select.attack=1;
             if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
             if (target.present_fleet[1]>0){
-                obj_drop_select.sh_target=instance_nearest(x+24,y-24,obj_p_fleet);
-                if (instance_nearest(x+24,y-24,obj_p_fleet).acted>=2) then with(obj_drop_select){instance_destroy();}
+                obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
+                if (instance_nearest(x,y,obj_p_fleet).acted>=2) then with(obj_drop_select){instance_destroy();}
             }
             obj_controller.cooldown=3000;
         }else if (current_button=="Purge"){
@@ -689,17 +689,17 @@ if (obj_controller.selecting_planet!=0){
             obj_drop_select.purge=1;
             if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
             if (target.present_fleet[1]>0){
-                obj_drop_select.sh_target=instance_nearest(x+24,y-24,obj_p_fleet);
-                if (instance_nearest(x+24,y-24,obj_p_fleet).acted>0) then with(obj_drop_select){instance_destroy();}
+                obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
+                if (instance_nearest(x,y,obj_p_fleet).acted>0) then with(obj_drop_select){instance_destroy();}
             }
             obj_controller.cooldown=3000;
         }else if (current_button=="Bombard"){
             instance_create(x,y,obj_bomb_select);
             if (instance_exists(obj_bomb_select)){
                 obj_bomb_select.p_target=target;
-                obj_bomb_select.sh_target=instance_nearest(x+24,y-24,obj_p_fleet);
-                if (instance_nearest(x+24,y-24,obj_p_fleet).acted=0) then instance_create(target.x,target.y,obj_temp3);
-                if (instance_nearest(x+24,y-24,obj_p_fleet).acted>0) then with(obj_bomb_select){instance_destroy();}
+                obj_bomb_select.sh_target=instance_nearest(x,y,obj_p_fleet);
+                if (instance_nearest(x,y,obj_p_fleet).acted=0) then instance_create(target.x,target.y,obj_temp3);
+                if (instance_nearest(x,y,obj_p_fleet).acted>0) then with(obj_bomb_select){instance_destroy();}
             }
             obj_controller.cooldown=3000;
         }else if (current_button=="+Recruiting"){
