@@ -72,42 +72,34 @@ function scr_change_menu(specific_area_function){
 
 function scr_in_game_help(){
 	scr_change_menu(function(){
-		if (zoomed==0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
-	        if (scr_hit(xx+1375,yy+7,xx+1480,yy+48)) and (cooldown<=0){
-	        	set_zoom_to_defualt();
-	            if (menu!=17.5) and (onceh==0){
-	                menu=17.5;
-	                
-	                cooldown=8000;
-	                click=1;
-	                hide_banner=0;
-	                instance_activate_object(obj_event_log);
-	                obj_event_log.top=1;
-	                obj_event_log.help=1;
-	            }
-	            if (menu==17.5) and (onceh==0){
-	                menu=0;
-	                
-	                cooldown=8000;
-	                click=1;
-	                hide_banner=0;
-	            }
-	            managing=0;
-	            view_squad=false;
-	            unit_profile=false;
-	        }
-	    }	
-	});
+		with (obj_controller){
+			if (zoomed == 0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
+				set_zoom_to_defualt();
+				if (menu!=17.5){
+					menu=17.5;
+					cooldown=8000;
+					click=1;
+					hide_banner=0;
+					instance_activate_object(obj_event_log);
+					obj_event_log.top=1;
+					obj_event_log.help=1;
+				} else {
+					menu=0;
+					click=1;
+					hide_banner=0;
+				}
+				managing=0;
+				view_squad=false;
+				unit_profile=false;
+			}	
+	}});
 }
 function scr_in_game_menu(){
 	scr_change_menu(function(){
-	    if (zoomed==0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
-	        // Main Menu
-	        if (scr_hit(xx+1485,yy+7,xx+1589,yy+48)){
-	        	set_zoom_to_defualt();
-	            instance_create(0,0,obj_ingame_menu);
-	        }
-	    }
+		if (obj_controller.zoomed==0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
+			// Main Menu
+			instance_create(0,0,obj_ingame_menu);
+		}
 	});
 }
 function scr_toggle_manage(){

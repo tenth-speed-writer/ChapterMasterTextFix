@@ -38,11 +38,11 @@ if (!zoomed && !zui){
     menu_buttons.arm.draw(706,838+y_slide, "Armamentarium")
     menu_buttons.recruit.draw(822,838+y_slide, "Recruitment")
     menu_buttons.fleet.draw(938,838+y_slide, "Fleet")
-    menu_buttons .diplo.draw(1130,838+y_slide, "Diplomacy",1,1,145)
-    menu_buttons .event.draw(1275,838+y_slide, "Event Log",1,1,145)
-    menu_buttons .end_turn.draw(1420,838+y_slide, "End Turn",1,1,145);
-    menu_buttons .help.draw(1485,10, "Help",1,1,145);
-    menu_buttons .menu.draw(1500,10, "Menu",1,1,145);
+    menu_buttons.diplo.draw(1130,838+y_slide, "Diplomacy",1,1,145)
+    menu_buttons.event.draw(1275,838+y_slide, "Event Log",1,1,145)
+    menu_buttons.end_turn.draw(1420,838+y_slide, "End Turn",1,1,145);
+    menu_buttons.help.draw(1360,10, "Help",1,1,145);
+    menu_buttons.menu.draw(1440,10, "Menu",1,1,145);
     
     
     if (y_slide>0) then draw_set_alpha((100-(y_slide*2))/100);
