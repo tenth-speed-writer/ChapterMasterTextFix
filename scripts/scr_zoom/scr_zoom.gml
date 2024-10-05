@@ -4,7 +4,7 @@ global.default_view_height = 900;
 function scr_zoom() {
 
 	// Zooms the view in or out when executed
-
+    set_zoom_to_defualt();
     if (obj_controller.zoomed) {
         obj_controller.zoomed=0;
         view_set_visible(0, true);
