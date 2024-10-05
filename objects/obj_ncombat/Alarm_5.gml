@@ -11,7 +11,7 @@ alarm[8]=999999;
 
 // check for wounded marines here to finish off, if defeated defending
 var roles = obj_ini.role[100];
-
+var ground_mission = (instance_exists(obj_ground_mission));
 if (final_deaths+final_command_deaths>0){
     part1=$"Marines Lost: {final_deaths+final_command_deaths}";
     if(apoth){
@@ -25,7 +25,8 @@ if (final_deaths+final_command_deaths>0){
             part2+=$"{post_units_lost[i]}x {post_unit_lost[i]},";
         }
     }
-    part2=string_delete(part2,string_length(part2)-1,2);part2+=".";i=0;
+    part2=string_delete(part2,string_length(part2)-1,2);
+    part2+=".";i=0;
     
     if (injured>0){newline=part8;scr_newtext();}
     newline=part1;
@@ -37,7 +38,7 @@ if (final_deaths+final_command_deaths>0){
     scr_newtext();
 }
 
-if (instance_exists(obj_ground_mission)){
+if (ground_mission){
 	if (apoth < 0){
 		obj_ground_mission.apothecary_present = apoth;
 	}
@@ -109,7 +110,9 @@ if (post_equipment_lost[1]!=""){
         }
     }
     part7=string_delete(part7,string_length(part7)-1,2);part7+=".";i=0;
-	if (instance_exists(obj_ground_mission)){part7 += "Some may be recoverable"}
+	if (ground_mission){
+        part7 += "Some may be recoverable"
+    }
     newline=part6;
     scr_newtext();
     newline=part7;
@@ -123,7 +126,7 @@ if (total_battle_exp_gain>0){
     newline = $"Marines gained a total of {total_battle_exp_gain} experience";
     scr_newtext();
 }
-if (instance_exists(obj_ground_mission)){
+if (ground_mission){
 	obj_ground_mission.post_equipment_lost = post_equipment_lost
 	obj_ground_mission.post_equipments_lost = post_equipments_lost
 }
@@ -745,7 +748,7 @@ if (endline=0){
 
 if (defeat=1){
 	player_forces=0;
-		if (instance_exists(obj_ground_mission)){
+		if (ground_mission){
 		obj_ground_mission.recoverable_gene_seed = seed_max;
 	}
 	
