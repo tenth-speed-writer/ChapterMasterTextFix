@@ -39,6 +39,7 @@ draw_set_halign(fa_left);
 
 // Order here
 player_fleet = instance_nearest(x,y,obj_p_fleet).id;
+currently_entered = selection_window.currently_entered;
 if (player_fleet.just_left){
     var cancel_button = draw_unit_buttons([player_fleet.x+20, player_fleet.y-10], "X",[1,1], c_red,, fnt_40k_30b, 1);
 
@@ -47,6 +48,7 @@ if (player_fleet.just_left){
     }
 
     if (point_and_click(cancel_button)){
+        show_debug_message("cancel fleet")
         with (player_fleet){
             cancel_fleet_movement();
         }

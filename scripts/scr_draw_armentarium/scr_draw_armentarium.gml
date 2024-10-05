@@ -168,9 +168,9 @@ function calculate_research_points(turn_end=false){
                 forge_points-=floor(forge_veh_maintenance.small_vehicles);
             }
         }
-        if (player_forges>0){
-            forge_points += 5*player_forges;
-            forge_string += $"Forges: +{5*player_forges}#";
+        if (player_forge_data.player_forges>0){
+            forge_points += 5*player_forge_data.player_forges;
+            forge_string += $"Forges: +{5*player_forge_data.player_forges}#";
         }
         forge_points = floor(forge_points);
         var tech_test, charisma_test, piety_test, met_non_heretic, heretics_pursuade_chances, new_pursuasion;
@@ -309,6 +309,40 @@ function scr_forge_item(item){
     scr_popup("Forge Completed",$"{forge_queue[i].name} X{forge_queue[i].count} construction finished {quality_string}","","");
 }
 
+function scr_advance_research(research){
+    if (research.name[0]=="research"){
+        var tier_depth = array_length(research.name[2]);
+        var tier_names=research.name[2];
+        if (tier_depth==1){
+            production_research[$ tier_names[0]][0]++;
+        } else if (tier_depth==2){
+            production_research[$ tier_names[0]][1][$ tier_names[1]][0]++;
+        } else if (tier_depth == 3){
+            production_research[$ tier_names[0]][1][$ tier_names[1]][1][$ tier_names[2]][0]++;
+        }
+    }    
+}
+
+function scr_evaluate_forge_item_completion(item){
+    if (is_string(item.name)){
+        var vehicles = ["Rhino","Predator","Land Raider","Whirlwind","Land Speeder"];
+        var is_vehicle =  array_contain(vehicles,item.name);
+        if (!is_vehicle){
+            scr_forge_item(item.name);
+        } else {
+            repeat(item.count){
+                var vehicle = scr_add_vehicle(item.name,9,"standard","standard","standard","standard","standard");
+                var build_loc = array_random(player_forge_data.vehicle_hanger);
+                obj_ini.veh_loc[vehicle[0]][vehicle[1]] = build_loc[0];
+                obj_ini.veh_wid[vehicle[0]][vehicle[1]] = build_loc[1];
+                obj_ini.veh_lid[vehicle[0]][vehicle[1]] = 0;
+            }
+            scr_popup("Forge Completed",$"{item.name} X{item.count} construction finished Vehicles Waiting at hanger on {build_loc[0]} {build_loc[1]}","","");
+        }                      
+    } else if (is_array(item.name)){
+        scr_advance_research(item);
+    }
+}
 function forge_queue_logic(){
     if (forge_points>0){
         var reduction_points = forge_points;
@@ -317,27 +351,9 @@ function forge_queue_logic(){
             for (var i=0;i<forging_length;i++){
                 if (forge_queue[i].forge_points<=reduction_points){
                     reduction_points-=forge_queue[i].forge_points;
-                    if (is_string(forge_queue[i].name)){
-                        var vehicles = ["Rhino","Predator","Land Raider","Whirlwind","Land Speeder"];
-                        var is_vehicle =  array_contain(vehicles,forge_queue[i].name);
-                        if (!is_vehicle){
-                            scr_forge_item(forge_queue[i].name);
-                        } else {
-                            scr_add_vehicle(forge_queue[i].name,9,"standard","standard","standard","standard","standard");
-                        }                      
-                    } else if (is_array(forge_queue[i].name)){
-                        if (forge_queue[i].name[0]=="research"){
-                            var tier_depth = array_length(forge_queue[i].name[2]);
-                            var tier_names=forge_queue[i].name[2];
-                            if (tier_depth==1){
-                                production_research[$ tier_names[0]][0]++;
-                            } else if (tier_depth==2){
-                                production_research[$ tier_names[0]][1][$ tier_names[1]][0]++;
-                            } else if (tier_depth == 3){
-                                production_research[$ tier_names[0]][1][$ tier_names[1]][1][$ tier_names[2]][0]++;
-                            }
-                        }
-                    }
+
+                    scr_evaluate_forge_item_completion(forge_queue[i]);
+
                     array_delete(forge_queue, i, 1);
                     i--;
                     forging_length--;
@@ -917,7 +933,7 @@ function scr_draw_armentarium(){
         var forge_text = $"Forge point production per turn: {forge_points}#";
         // draw_sprite_ext(spr_forge_points_icon,0,xx+359+string_width(forge_text), yy+410,0.3,0.3,0,c_white,1);
         forge_text += $"Chapter total {obj_ini.role[100, 16]}s: {temp[36]}#";
-        forge_text += $"Planetary Forges in operation: {obj_controller.player_forges}#";
+        forge_text += $"Planetary Forges in operation: {obj_controller.player_forge_data.player_forges}#";
         forge_text += $"Master Craft Forge Chance: {master_craft_chance}%#    Assign techmarines to forges to increase Master Craft Chance";
         // forge_text += $"A total of {obj_ini.role[100, 16]}s assigned to Forges: {var}#";
         draw_text_ext(xx+359, yy+410, string_hash_to_newline(forge_text),-1,670);

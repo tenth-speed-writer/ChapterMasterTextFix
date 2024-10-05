@@ -447,7 +447,7 @@ function scr_end_turn(){
 	            if (instance_exists(obj_en_fleet)){obj_en_fleet.alarm[1]=1;}
 	            if (instance_exists(obj_crusade)){obj_crusade.alarm[0]=2;}
 
-	            player_forges=0;
+	            player_forge_data.player_forges=0;
 	            requisition+=income;
 	            scr_income();
 	            gene_tithe-=1;

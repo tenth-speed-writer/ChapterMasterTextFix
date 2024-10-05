@@ -4,6 +4,8 @@ escort = 0;
 frigate = 0;
 capital = 0;
 selection_window = new data_slate();
+//TODO make this a built in part of the data_slate object
+selection_window.currently_entered=false;
 currently_entered = false;
 fleet_minimized=false;
 fleet_all=true;
@@ -173,5 +175,5 @@ selection_window.inside_method = function(){
 	        }			        
 	    }
 	}
-    currently_entered = scr_hit([xx,yy, xx+width, yy+selection_window.height]);
+    selection_window.currently_entered = scr_hit([xx,yy, xx+width, yy+selection_window.height]);
 }

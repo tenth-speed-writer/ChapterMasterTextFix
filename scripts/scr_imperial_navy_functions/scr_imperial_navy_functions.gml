@@ -232,22 +232,14 @@ function navy_attack_player_world(){
 	}
 
 }
-
-function fleet_remaining_guard_ratio(){
-	var maxi=0,curr=0,i=0;
+function fleet_max_guard(){
+	var maxi=0, i=0;
 	for (i=1;i<array_length(capital_imp);i++){
 	    if (capital_max_imp[i]>0) {
 	    	if (capital_number>i){
 	    		capital_max_imp[i]=0;
 	    	} else if (capital_number<=i){
 	    		maxi+=capital_max_imp[i];
-	    	}
-	    }
-	    if (capital_imp[i]>0){ 
-	      	if (capital_number<=i){
-	    		if (!guardsmen_unloaded){
-	    			curr+=capital_imp[i];
-	    		}
 	    	}
 	    }
 	}
@@ -259,6 +251,31 @@ function fleet_remaining_guard_ratio(){
 	    		maxi+=frigate_max_imp[i];
 	    	}
 	    }
+	}
+	for (i=1;i<array_length(escort_imp);i++){
+	    if (escort_max_imp[i]>0) {
+	    	if (escort_number>i){
+	    		escort_max_imp[i]=0;
+	    	} else if (escort_number<=i){
+	    		maxi+=escort_max_imp[i];
+	    	}
+	    }
+	}
+	return maxi;
+}
+
+function fleet_remaining_guard_ratio(){
+	var maxi=0,curr=0,i=0;
+	for (i=1;i<array_length(capital_imp);i++){
+	    if (capital_imp[i]>0){ 
+	      	if (capital_number<=i){
+	    		if (!guardsmen_unloaded){
+	    			curr+=capital_imp[i];
+	    		}
+	    	}
+	    }
+	}
+	for (i=1;i<array_length(frigate_imp);i++){
 	    if (frigate_imp[i]>0){
 	      	if (frigate_number<=i){
 	    		if (!guardsmen_unloaded){
@@ -269,13 +286,6 @@ function fleet_remaining_guard_ratio(){
 	}
 
 	for (i=1;i<array_length(escort_imp);i++){
-	    if (escort_max_imp[i]>0) {
-	    	if (escort_number>i){
-	    		escort_max_imp[i]=0;
-	    	} else if (escort_number<=i){
-	    		maxi+=escort_max_imp[i];
-	    	}
-	    }
 	    if (escort_imp[i]>0){
 	      	if (escort_number<=i){
 	    		if (!guardsmen_unloaded){
@@ -284,7 +294,7 @@ function fleet_remaining_guard_ratio(){
 	    	}
 	    }
 	}
-
+	var maxi = fleet_max_guard();
 	guardsmen_ratio=1;
 	if (guardsmen_unloaded=0) then guardsmen_ratio=curr/maxi;
 	return 	guardsmen_ratio;

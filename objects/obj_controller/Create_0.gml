@@ -568,7 +568,10 @@ master_craft_chance = 0;
 tech_status = "Cult Mechanicus";
 forge_string="";
 forge_queue=[];
-player_forges = 0;
+player_forge_data = {
+    player_forges : 0,
+    vehicle_hanger : [],
+}
 selection_data=false;
 selections = [];
 production_research = {

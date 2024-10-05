@@ -49,6 +49,8 @@ All notable changes to this project will be documented in this file.
 - Requisition points reward for winning battles, depending on the strength of the enemy that you fought.
 	- Code-wise it's just a simple table with static rewards. I can't bother with more.
 - Genestealer cults now have names.
+- medium and larger forges now have the option to have vehicle hangers built allowing vehicles to be built at the forge
+	- built vehicels will spawn at locations with said hangers
 ### Changed:
 - Stars will no longer spawn on top of each other.
 - Player should now be able to move camera closer to the edge of the screen.
@@ -102,6 +104,7 @@ All notable changes to this project will be documented in this file.
 - Hopefully fixed company view sometimes not coming up.
 - Max artifact count is increased to 50.
 - Inquisitor should no longer try inspect fleets heading out of system.
+- player will now be able to build vehicles in the forge correctly
 
 ### Under The Hood:
 - Warp travel route grading support.

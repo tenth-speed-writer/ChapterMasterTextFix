@@ -411,6 +411,7 @@ if (navy && action=="") {
         
 	        if (cr>0) and (that=0) and (!player_war){// Get back onboard
 	            var new_capacity;
+	            var maxi = fleet_max_guard();
 	            new_capacity=orbiting.p_guardsmen[1]+orbiting.p_guardsmen[2]+orbiting.p_guardsmen[3]+orbiting.p_guardsmen[4]/maxi;
             	
             	for (var i=0;i<max(capital_number,frigate_number,escort_number);i++){

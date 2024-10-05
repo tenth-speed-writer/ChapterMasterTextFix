@@ -642,7 +642,10 @@ function scr_enemy_ai_e() {
                     if ((obj_controller.turn / build_rate) = round(obj_controller.turn / build_rate)) and(p_lasers[run] > ml) then p_lasers[run] += 1;
                     if ((obj_controller.turn / build_rate2) = round(obj_controller.turn / build_rate2)) and(p_fortified[run] < 5) then p_fortified[run] += 1;
                     if (monestary.forge>0){
-                        obj_controller.player_forges += sqr(monestary.forge_data.size);
+                        obj_controller.player_forge_data.player_forges += sqr(monestary.forge_data.size);
+                        if (monestary.forge_data.vehicle_hanger){
+                            array_push(obj_controller.player_forge_data.vehicle_hanger,[name,run]);
+                        }
                     }
                 }
             }            
@@ -673,7 +676,10 @@ function scr_enemy_ai_e() {
                     }
                     if (upgrade.built<=obj_controller.turn && upgrade_type == P_features.Secret_Base){
                         if (upgrade.forge > 0){
-                            obj_controller.player_forges+=sqr(upgrade.forge_data.size);
+                            obj_controller.player_forge_data.player_forges+=sqr(upgrade.forge_data.size);
+                            if (monestary.upgrade.vehicle_hanger){
+                                array_push(obj_controller.player_forge_data.vehicle_hanger,[name,run]);
+                            }                            
                         }
                     }
                 }

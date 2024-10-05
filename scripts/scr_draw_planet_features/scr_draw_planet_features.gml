@@ -78,14 +78,33 @@ function feature_selected(Feature) constructor{
 					destroy=true;
 
 				}
+				//TODO move over to using the draw button object ot streamline this
+				var next_position = [xx+10, yy+95];
 				if (feature.size<3){
 					var upgrade_cost = 2000 * feature.size;
-					if (point_and_click(draw_unit_buttons([xx+10, yy+95], $"Upgrade Forge ({upgrade_cost} req)",[1,1],c_red)) && obj_controller.requisition>=upgrade_cost){
+					var last_button = draw_unit_buttons(next_position, $"Upgrade Forge ({upgrade_cost} req)",[1,1],c_red);
+					next_position = [last_button[0], last_button[3]];
+					if (point_and_click(last_button) && obj_controller.requisition>=upgrade_cost){
 						obj_controller.requisition -=  upgrade_cost;
 						feature.size++;
 						worker_capacity*=2;
 					}
 				}
+				if (feature.size>1 && !feature.vehicle_hanger){
+					var upgrade_cost = 3000;
+					var build_coords = draw_unit_buttons(next_position, $"Build Vehicle Hanger({upgrade_cost} req)",[1,1],c_red);
+					if (scr_hit(build_coords)){
+						tooltip_draw("Required to Build Vehicles in the Forge")
+					}
+					if (point_and_click(build_coords) && obj_controller.requisition>=upgrade_cost){
+						feature.vehicle_hanger=1;
+						obj_controller.requisition -=  upgrade_cost;
+						array_push(obj_controller.player_forge_data.vehicle_hanger,[obj_controller.selected.name,obj_controller.selecting_planet]);
+					}					
+				} else if(feature.vehicle_hanger){
+					draw_text(next_position[0], next_position[1], "Forge has a vehicle hanger")
+					//TODO somthing if the forge has a hanger
+				}		
 				break;
 			case P_features.Necron_Tomb:
 

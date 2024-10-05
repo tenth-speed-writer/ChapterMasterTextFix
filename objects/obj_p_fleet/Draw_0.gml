@@ -8,8 +8,11 @@ scale = 1/obj_controller.map_scale;
 if (x<0) or (x>room_width) or (y<0) or (y>room_height) then exit;
 if (image_alpha=0) then exit;
 
-var coords = [24,-24];
+var coords = [0,0];;
 var near_star = instance_nearest(x,y, obj_star);
+if (x==near_star.x && y==near_star.y){
+    var coords = [24,-24];
+}
 
 var within=false;
 var m_dist=point_distance(mouse_x,mouse_y,x+(coords[0]*scale),y+((coords[1])*scale+(12*scale)));

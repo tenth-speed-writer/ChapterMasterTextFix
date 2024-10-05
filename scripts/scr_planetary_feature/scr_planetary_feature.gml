@@ -39,6 +39,7 @@ function player_forge() constructor{
 	size = 1;
 	techs_working = 0;
 	f_type = P_features.Forge;
+	vehicle_hanger=0;
 }
 
 // Function creates a new struct planet feature of a  specified type
