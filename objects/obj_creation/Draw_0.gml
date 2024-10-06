@@ -1253,7 +1253,7 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
-            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
+            draw_sprite(tester_helm, complex_depth_selection, preview_box.x1,preview_box.y1 + 8);
         }                 
         shader_set_uniform_f_array(colour_to_find1, body_colour_find );       
         shader_set_uniform_f_array(colour_to_set1, body_colour_replace );
