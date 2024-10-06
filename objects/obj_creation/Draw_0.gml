@@ -1162,6 +1162,7 @@ if (slide=4){
     var draw_sprites = [spr_mk7_colors, spr_mk4_colors,spr_mk5_colors,spr_beakie_colors,spr_mk8_colors,spr_mk3_colors, spr_terminator3_colors];
     var draw_hem = [spr_generic_sgt_mk7, spr_generic_sgt_mk4,spr_generic_sgt_mk5,spr_generic_sgt_mk6,spr_generic_sgt_mk8,spr_generic_sgt_mk3, spr_generic_terminator_sgt];
     
+<<<<<<< HEAD
     var preview_box = {
         x1: 444,
         y1: 252,
@@ -1182,6 +1183,21 @@ if (slide=4){
         if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
     }
     draw_rectangle_color_simple(preview_box.x1,preview_box.y1,preview_box.x2,preview_box.y2,1,38144);
+=======
+	var boxx1 = 444; var boxw = 167; var boxx2 = boxx1 + boxw;
+	var boxy1 = 252; var boxh = 232; var boxy2 = boxy1 + boxh;
+	draw_sprite_stretched(spr_creation_arrow,0,boxx1,boxy1,32,32);// Left Arrow
+    draw_sprite_stretched(spr_creation_arrow,1,boxx2-32,boxy1,32,32);// Right Arrow 
+    if (point_and_click([boxx1,boxy1,boxx1+32,boxy1+32])){
+        test_sprite++;
+        if (test_sprite==array_length(draw_sprites)) then test_sprite=0;
+    }   
+    if (point_and_click([boxx2-32,boxy1,boxx2, boxy1+32])){
+        test_sprite--;
+        if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
+    }
+    draw_rectangle_color_simple(boxx1,boxy1,boxx2,boxy2,1,38144);
+>>>>>>> 1a453b940c442e62f88bba9cf95f800196e7280a
     if( shader_is_compiled(sReplaceColor)){
         shader_set(sReplaceColor);
         
@@ -1203,6 +1219,7 @@ if (slide=4){
         //Rejoice!
         tester_sprite = draw_sprites[test_sprite];
         tester_helm = draw_hem[test_sprite];
+<<<<<<< HEAD
         if (col_special=0) then draw_sprite(tester_sprite,10,preview_box.x1,preview_box.y1 + 8);
         if (col_special=1) then draw_sprite(tester_sprite,11,preview_box.x1,preview_box.y1 + 8);
         if (col_special>=2) then draw_sprite(tester_sprite,12,preview_box.x1,preview_box.y1 + 8);
@@ -1218,6 +1235,23 @@ if (slide=4){
         }
         if (trim=0) and (col_special<=1) then draw_sprite(tester_sprite,4,preview_box.x1,preview_box.y1 + 8);
         if (trim=0) and (col_special>=2) then draw_sprite(tester_sprite,5,preview_box.x1,preview_box.y1 + 8);
+=======
+        if (col_special=0) then draw_sprite(tester_sprite,10,boxx1,boxy1 + 8);
+        if (col_special=1) then draw_sprite(tester_sprite,11,boxx1,boxy1 + 8);
+        if (col_special>=2) then draw_sprite(tester_sprite,12,boxx1,boxy1 + 8);
+        
+        draw_sprite(tester_sprite,col_special,boxx1,boxy1 + 8);
+        if (col_special<=1){
+            draw_sprite(tester_sprite,6,boxx1,boxy1 + 8);
+            draw_sprite(tester_sprite,8,boxx1,boxy1 + 8);
+        }
+        if (col_special>=2){
+            draw_sprite(tester_sprite,6,boxx1,boxy1 + 8);
+            draw_sprite(tester_sprite,9,boxx1,boxy1 + 8);
+        }
+        if (trim=0) and (col_special<=1) then draw_sprite(tester_sprite,4,boxx1,boxy1 + 8);
+        if (trim=0) and (col_special>=2) then draw_sprite(tester_sprite,5,boxx1,boxy1 + 8);
+>>>>>>> 1a453b940c442e62f88bba9cf95f800196e7280a
         //TODO this can be imprved but for now it's fit for purpose
         if (complex_selection=="Sergeant Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.sgt.helm_primary;
@@ -1228,7 +1262,11 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
+<<<<<<< HEAD
             draw_sprite(tester_helm, complex_depth_selection, preview_box.x1,preview_box.y1 + 8);
+=======
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
+>>>>>>> 1a453b940c442e62f88bba9cf95f800196e7280a
         }
         else if (complex_selection=="Veteran Sergeant Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.vet_sgt.helm_primary;
@@ -1239,7 +1277,11 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
+<<<<<<< HEAD
             draw_sprite(tester_helm, complex_depth_selection, preview_box.x1,preview_box.y1 + 8);
+=======
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
+>>>>>>> 1a453b940c442e62f88bba9cf95f800196e7280a
         }
         else if (complex_selection=="Captain Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.captain.helm_primary;
@@ -1250,7 +1292,11 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
+<<<<<<< HEAD
             draw_sprite(tester_helm, complex_depth_selection, preview_box.x1,preview_box.y1 + 8);
+=======
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
+>>>>>>> 1a453b940c442e62f88bba9cf95f800196e7280a
         } else if (complex_selection=="Veteran Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.veteran.helm_primary;
             var sgt_col_2 = complex_livery_data.veteran.helm_secondary;
