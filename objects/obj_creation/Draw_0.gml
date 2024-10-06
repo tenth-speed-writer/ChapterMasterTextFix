@@ -1376,6 +1376,7 @@ if (slide=4){
             }
             if (point_and_click(button_cords)){
                 cooldown=8000;
+                instance_destroy(obj_creation_popup);
                 var pp=instance_create(0,0,obj_creation_popup);
                 pp.type=i+1;
             }
@@ -1555,6 +1556,7 @@ if (slide=4){
             }
             if (point_and_click(button_cords)){
                 cooldown=8000;
+                instance_destroy(obj_creation_popup);
                 var pp=instance_create(0,0,obj_creation_popup);
                 pp.type=cur_button.type;
                 pp.role = cur_button.role
@@ -1629,12 +1631,13 @@ if (slide=4){
                 if (custom<2) then draw_set_alpha(0.5);
                 yyy+=spacing;draw_set_color(38144);draw_rectangle(xxx,yyy,1150,yyy+20,0);
                 draw_set_color(0);draw_text(xxx,yyy,string_hash_to_newline(role[c,role_id]));
-                if (scr_hit(xxx,yyy,1150,yyy+20)) and (!instance_exists(obj_creation_popup)){
+                if (scr_hit(xxx,yyy,1150,yyy+20)){
                     if (custom=2) then draw_set_alpha(0.2);
                     if (custom<2) then draw_set_alpha(0.1);draw_set_color(c_white);draw_rectangle(xxx,yyy,1150,yyy+20,0);
                     draw_set_alpha(1);tooltip=string(role[c,role_id])+" Settings";
                     tooltip2="Click to open the settings for this unit.";
                     if (mouse_left>=1) and (custom>0) and (cooldown<=0) and (custom=2){
+                        instance_destroy(obj_creation_popup);
                         var pp=instance_create(0,0,obj_creation_popup);
                         pp.type=role_id+100;
                         cooldown=8000;
