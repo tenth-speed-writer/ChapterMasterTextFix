@@ -143,6 +143,8 @@ function calculate_research_points(turn_end=false){
             }
             tech_locations[i] = techs[i].marine_location();
         }
+        var used_points = apothecary_simple();
+        forge_points-=used_points;
         if (forge_master>-1){
             obj_controller.master_of_forge = techs[forge_master];
         }

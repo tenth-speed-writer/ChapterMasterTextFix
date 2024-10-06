@@ -748,6 +748,7 @@
     {"id":{"name":"spr_battle_block2","path":"sprites/spr_battle_block2/spr_battle_block2.yy",},},
     {"id":{"name":"spr_weapon_storm2","path":"sprites/spr_weapon_storm2/spr_weapon_storm2.yy",},},
     {"id":{"name":"spr_rg_mk7_helm","path":"sprites/spr_rg_mk7_helm/spr_rg_mk7_helm.yy",},},
+    {"id":{"name":"scr_apothecarium","path":"scripts/scr_apothecarium/scr_apothecarium.yy",},},
     {"id":{"name":"spr_pa_arms","path":"sprites/spr_pa_arms/spr_pa_arms.yy",},},
     {"id":{"name":"scr_complex_colour_kit","path":"scripts/scr_complex_colour_kit/scr_complex_colour_kit.yy",},},
     {"id":{"name":"spr_ws_mk6_helm","path":"sprites/spr_ws_mk6_helm/spr_ws_mk6_helm.yy",},},
