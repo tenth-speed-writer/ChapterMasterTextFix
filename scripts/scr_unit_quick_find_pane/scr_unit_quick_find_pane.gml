@@ -282,9 +282,9 @@ function scr_unit_quick_find_pane() constructor{
 		} else if (view_area == "missions"){
 			draw_set_color(c_white);
 			draw_set_halign(fa_center);
-		    draw_text(80, 50, "Location");
-		    draw_text(160, 50, "Mission");
-		    draw_text(310, 50, "Time Remaining");
+		    draw_text(xx+80, yy+50, "Location");
+		    draw_text(xx+160, yy+50, "Mission");
+		    draw_text(xx+290, yy+50, "Time Remaining");
 		    var i = 0;
 		    while(i<array_length(mission_log) && (90+(20*i)+12 +20)<main_panel.height)		
 			{
