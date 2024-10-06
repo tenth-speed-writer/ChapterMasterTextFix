@@ -232,7 +232,6 @@ if (slate4>0){
 }
 
 
-/* */
 
 var yar;yar=0;
 
@@ -257,7 +256,7 @@ if (slide>=2){
     }
     
     draw_set_color(0);
-    draw_rectangle(436,74,436+128,74+128,0);
+    // draw_rectangle(436,74,436+128,74+128,0);
     // if (icon<=20) then draw_sprite_stretched(spr_icon,icon,436,74,128,128);
     if (icon<=20) then scr_image("creation",icon,436,74,128,128);
     if (icon>20) then draw_sprite_stretched(spr_icon_chapters,icon-19,436,74,128,128);
@@ -332,7 +331,7 @@ if (slide>=2){
     
 }
 
-
+/* Chapter Naming, Points assignment, advantages/disadvantages */
 if (slide=2){
     draw_set_color(38144);
     draw_set_font(fnt_40k_30b);
@@ -527,8 +526,14 @@ if (slide=2){
             }
         }
         draw_set_alpha(1);
-        if (scr_hit(436,564,631,583)){tooltip="Chapter Advantages";tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";}
-        if (scr_hit(810,564,1030,583)){tooltip="Chapter Disadvantages";tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";}
+        if (scr_hit(436,564,631,583)){
+            tooltip="Chapter Advantages";
+            tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";
+        }
+        if (scr_hit(810,564,1030,583)){
+            tooltip="Chapter Disadvantages";
+            tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";
+        }
     }else if (popup="icons"){
         draw_set_alpha(1);
         draw_set_color(0);
@@ -541,17 +546,19 @@ if (slide=2){
         
         draw_set_font(fnt_40k_30b);
         draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select an Icon"),0.6,0.6,0);
-        draw_text_transformed(800,687,string_hash_to_newline("Cancel"),0.6,0.6,0);
+        draw_text_transformed(800,211,"Select an Icon",0.6,0.6,0);
+        draw_text_transformed(800,687,"Cancel",0.6,0.6,0);
         
         var cw,ch;
         cw=string_width(string_hash_to_newline("Cancel"))*0.6;
         ch=string_height(string_hash_to_newline("Cancel"))*0.6;
         
         if (scr_hit(800,687,800+cw,687+ch)){
-            draw_set_color(c_white);draw_set_alpha(0.25);
+            draw_set_color(c_white);
+            draw_set_alpha(0.25);
             draw_text_transformed(800,687,string_hash_to_newline("Cancel"),0.6,0.6,0);
-            draw_set_color(38144);draw_set_alpha(1);
+            draw_set_color(38144);
+            draw_set_alpha(1);
             
             if (mouse_left=1) and (cooldown<=0){
                 cooldown=8000;
@@ -808,7 +815,7 @@ if (slide=2){
     
 }
 
-/* */
+/* Homeworld, Flagship, Psychic discipline, Aspirant Trial */
 
 var yar;yar=0;
 
@@ -1138,7 +1145,7 @@ if (slide=3){
 
 
 
-/* */
+/* Livery, Roles */
 
 
 if (slide=4){
@@ -1154,17 +1161,20 @@ if (slide=4){
     draw_text_color_simple(800,80,string_hash_to_newline(string(chapter)),38144);
     var draw_sprites = [spr_mk7_colors, spr_mk4_colors,spr_mk5_colors,spr_beakie_colors,spr_mk8_colors,spr_mk3_colors, spr_terminator3_colors];
     var draw_hem = [spr_generic_sgt_mk7, spr_generic_sgt_mk4,spr_generic_sgt_mk5,spr_generic_sgt_mk6,spr_generic_sgt_mk8,spr_generic_sgt_mk3, spr_generic_terminator_sgt];
-    if (custom>1) then draw_sprite_stretched(spr_creation_arrow,0,444-10,252,32,32);// Left Arrow
-    if (custom>1) then draw_sprite_stretched(spr_creation_arrow,1,444+157+2,242,32,32);// Right Arrow 
-    if (point_and_click([444-10,252,470,280])){
+    
+	var boxx1 = 444; var boxw = 167; var boxx2 = boxx1 + boxw;
+	var boxy1 = 252; var boxh = 232; var boxy2 = boxy1 + boxh;
+	draw_sprite_stretched(spr_creation_arrow,0,boxx1,boxy1,32,32);// Left Arrow
+    draw_sprite_stretched(spr_creation_arrow,1,boxx2-32,boxy1,32,32);// Right Arrow 
+    if (point_and_click([boxx1,boxy1,boxx1+32,boxy1+32])){
         test_sprite++;
         if (test_sprite==array_length(draw_sprites)) then test_sprite=0;
     }   
-    if (point_and_click([444+157+2,242, 450+175, 270])){
+    if (point_and_click([boxx2-32,boxy1,boxx2, boxy1+32])){
         test_sprite--;
         if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
     }
-    draw_rectangle_color_simple(444,252,444+167,252+232,1,38144);
+    draw_rectangle_color_simple(boxx1,boxy1,boxx2,boxy2,1,38144);
     if( shader_is_compiled(sReplaceColor)){
         shader_set(sReplaceColor);
         
@@ -1186,21 +1196,21 @@ if (slide=4){
         //Rejoice!
         tester_sprite = draw_sprites[test_sprite];
         tester_helm = draw_hem[test_sprite];
-        if (col_special=0) then draw_sprite(tester_sprite,10,444,252);
-        if (col_special=1) then draw_sprite(tester_sprite,11,444,252);
-        if (col_special>=2) then draw_sprite(tester_sprite,12,444,252);
+        if (col_special=0) then draw_sprite(tester_sprite,10,boxx1,boxy1 + 8);
+        if (col_special=1) then draw_sprite(tester_sprite,11,boxx1,boxy1 + 8);
+        if (col_special>=2) then draw_sprite(tester_sprite,12,boxx1,boxy1 + 8);
         
-        draw_sprite(tester_sprite,col_special,444,252);
+        draw_sprite(tester_sprite,col_special,boxx1,boxy1 + 8);
         if (col_special<=1){
-            draw_sprite(tester_sprite,6,444,252);
-            draw_sprite(tester_sprite,8,444,252);
+            draw_sprite(tester_sprite,6,boxx1,boxy1 + 8);
+            draw_sprite(tester_sprite,8,boxx1,boxy1 + 8);
         }
         if (col_special>=2){
-            draw_sprite(tester_sprite,6,444,252);
-            draw_sprite(tester_sprite,9,444,252);
+            draw_sprite(tester_sprite,6,boxx1,boxy1 + 8);
+            draw_sprite(tester_sprite,9,boxx1,boxy1 + 8);
         }
-        if (trim=0) and (col_special<=1) then draw_sprite(tester_sprite,4,444,252);
-        if (trim=0) and (col_special>=2) then draw_sprite(tester_sprite,5,444,252);
+        if (trim=0) and (col_special<=1) then draw_sprite(tester_sprite,4,boxx1,boxy1 + 8);
+        if (trim=0) and (col_special>=2) then draw_sprite(tester_sprite,5,boxx1,boxy1 + 8);
         //TODO this can be imprved but for now it's fit for purpose
         if (complex_selection=="Sergeant Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.sgt.helm_primary;
@@ -1211,7 +1221,7 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
-            draw_sprite(tester_helm, complex_depth_selection, 444,252);
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
         }
         else if (complex_selection=="Veteran Sergeant Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.vet_sgt.helm_primary;
@@ -1222,7 +1232,7 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
-            draw_sprite(tester_helm, complex_depth_selection, 444,252);
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
         }
         else if (complex_selection=="Captain Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.captain.helm_primary;
@@ -1233,7 +1243,7 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
-            draw_sprite(tester_helm, complex_depth_selection, 444,252);
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
         } else if (complex_selection=="Veteran Markers" && complex_livery){
             var sgt_col_1 = complex_livery_data.veteran.helm_primary;
             var sgt_col_2 = complex_livery_data.veteran.helm_secondary;
@@ -1243,14 +1253,18 @@ if (slide=4){
             shader_set_uniform_f_array(colour_to_find2, [200/255,0/255,0/255]);
             shader_set_uniform_f(colour_to_set2, col_r[sgt_col_2]/255, col_g[sgt_col_2]/255, col_b[sgt_col_2]/255);
             shader_set_uniform_f(colour_to_set4, col_r[lens_col]/255, col_g[lens_col]/255, col_b[lens_col]/255);
-            draw_sprite(tester_helm, complex_depth_selection, 444,252);
+            draw_sprite(tester_helm, complex_depth_selection, boxx1,boxy1 + 8);
         }                 
         shader_set_uniform_f_array(colour_to_find1, body_colour_find );       
         shader_set_uniform_f_array(colour_to_set1, body_colour_replace );
         shader_set_uniform_f_array(colour_to_find2, secondary_colour_find );       
         shader_set_uniform_f_array(colour_to_set2, secondary_colour_replace ); 
-        shader_set_uniform_f_array(colour_to_set4, lens_colour_replace );              
-        draw_sprite(spr_weapon_colors,0,444,252);
+        shader_set_uniform_f_array(colour_to_set4, lens_colour_replace );
+		if(tester_sprite == spr_terminator3_colors){
+			draw_sprite(spr_weapon_colors,0,444 - 12,252 + 5);
+		} else {
+			draw_sprite(spr_weapon_colors,0,444,252);	
+		}
         shader_reset();
         
     }else{
@@ -1806,7 +1820,7 @@ if (slide=4){
     
 }
 
-/* */
+/* Gene Seed Mutations, Disposition */
 
 
 if (slide=5){
@@ -1825,14 +1839,11 @@ if (slide=5){
     draw_text_transformed(580,118,string_hash_to_newline("Successor Chapters: "+string(successors)),0.6,0.6,0);
     draw_set_font(fnt_40k_14b);
     
-    
-    draw_line(445,200,1125,200);
-    draw_line(445,201,1125,201);
-    draw_line(445,202,1125,202);
+    draw_rectangle(445, 200, 1125, 202, true);
     
     draw_set_font(fnt_40k_30b);
     draw_text_transformed(503,210,string_hash_to_newline("Gene-Seed Mutations"),0.6,0.6,0);
-    if (mutations>mutations_selected) then draw_text_transformed(585,230,string_hash_to_newline("Select "+string(mutations-mutations_selected)+" More"),0.5,0.5,0);
+    if (mutations>mutations_selected) then draw_text_transformed(585,230,$"Select {mutations-mutations_selected} More",0.5,0.5,0);
     
     var x1,y1,spac=34;
     
@@ -1933,7 +1944,7 @@ if (slide=5){
             if (mutation_data.data){
                 mutation_data.data=0;
                 mutations_selected-=mutation_data.mutation_points;
-                if (struct_exists(mutation_data, disposition)){
+                if (struct_exists(mutation_data, "disposition")){
                    for (var s=0;s<array_length(mutation_data.disposition);s++){
                         disposition[mutation_data.disposition[s][0]] -= mutation_data.disposition[s][1];
                    }
@@ -1942,7 +1953,7 @@ if (slide=5){
             else if (!mutation_data.data) and (mutations>mutations_selected){
                 mutation_data.data=1;
                 mutations_selected+=mutation_data.mutation_points;
-                if (struct_exists(mutation_data, disposition)){
+                if (struct_exists(mutation_data, "disposition")){
                    for (var s=0;s<array_length(mutation_data.disposition);s++){
                         disposition[mutation_data.disposition[s][0]] += mutation_data.disposition[s][1];
                    }
@@ -2009,15 +2020,7 @@ if (slide=5){
     
 }
 
-/* */
-
-
-
-
-
-
-
-
+/* Chapter Master */
 
 if (slide=6){
     draw_set_color(38144);
