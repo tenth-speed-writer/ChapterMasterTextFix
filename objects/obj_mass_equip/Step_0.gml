@@ -58,18 +58,15 @@ if (engage=true){
                      if (is_string(unit.gear(true))){
 						unit.update_gear(req_gear);
                      }
-               
-                    
+                                  
                     // ** Start Mobility Items **
-                    if (unit.mobility_item()!=req_mobi) and (string_count("&",obj_ini.mobi[co][i])=0){
+                    if (unit.mobility_item()!=req_mobi){
                         var stop_mobi=false;
-                    
-                        if (unit_armour.has_tags(["terminator","dreadnought"]))then stop_mobi=true;
-                        if (stop_mobi=true) and (obj_ini.mobi[co][i]!=""){
+                        if (unit_armour.has_tags(["terminator","dreadnought"])){
                         	unit.update_mobility_item("");
-						} else {
-							unit.update_mobility_item(req_mobi);
-						}                       
+                        } else {
+                        	unit.update_mobility_item(req_mobi);
+                        }                     
                     }                   
                 // ** End role check **
 				}
@@ -190,13 +187,15 @@ if (refresh=true) and (obj_controller.settings>0){
                 }
                 
                 if (req_gear!=""){
-                    if (string_count("&",obj_ini.gear[co][i])=0){if (obj_ini.gear[co][i]=req_gear) then have_gear_num+=1;}
-                    if (string_count("&",obj_ini.gear[co][i])>0) then have_gear_num+=1;
+                    if (string_count("&",obj_ini.gear[co][i])=0){
+                    	if (obj_ini.gear[co][i]=req_gear) then have_gear_num+=1;
+                    }
                 }
                 
                 if (req_mobi!=""){
-                    if (string_count("&",obj_ini.mobi[co][i])=0){if (obj_ini.mobi[co][i]=req_mobi) then have_mobi_num+=1;}
-                    if (string_count("&",obj_ini.mobi[co][i])>0) then have_mobi_num+=1;
+                    if (string_count("&",obj_ini.mobi[co][i])=0){
+                    	if (obj_ini.mobi[co][i]=req_mobi) then have_mobi_num+=1;
+                    }
                 }
             }
             if (obj_ini.role[co][i]=obj_ini.role[100,role]){

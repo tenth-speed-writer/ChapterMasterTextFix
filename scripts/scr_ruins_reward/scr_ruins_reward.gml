@@ -95,9 +95,12 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	        wen3=choose(1);
 	    }
 		else if (ruins_type=4){
-			wep1=choose("MK4 Maximus");wen1=choose(2,3);
-	        wep2=choose("MK6 Corvus");wen2=choose(4,5,6);
-	        wep3=choose("MK8 Errant");wen3=choose(1,2);
+			wep1=choose("MK4 Maximus");
+			wen1=choose(2,3);
+	        wep2=choose("MK6 Corvus");
+	        wen2=choose(4,5,6);
+	        wep3=choose("MK8 Errant");
+	        wen3=choose(1,2);
 	    }
 	    else if (ruins_type=5){
 	        wep1=choose("Eviscerator","Underslung Flamer");
@@ -127,7 +130,7 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 			wen1=choose(1,2);
 	        wep2=choose("Company Standard");
 	        wen2=choose(1);
-	        wep3=choose("Master Servo Arms");
+	        wep3=choose("Servo-harness");
 	        wen3=choose(1);
 	    }
 		
@@ -190,7 +193,7 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	// star_system.p_feature[planet]="Ancient Ruins|";
 
 	}
-	if (instance_exists(obj_temp4)){
-		instance_destroy(obj_temp4);
+	if (instance_exists(obj_ground_mission)){
+		instance_destroy(obj_ground_mission);
 	}
 }

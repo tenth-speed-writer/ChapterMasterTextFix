@@ -70,16 +70,11 @@ if (battles>0) and (current_battle<=battles){
     var ii, xx, yy, good;
     ii=0;good=0;
     
-    with(obj_star){if (name=obj_turn_end.battle_location[obj_turn_end.current_battle]) then instance_create(x,y,obj_temp3);}
+    var battle_star_collect = star_by_name(battle_location[current_battle]);
     
-    if (instance_exists(obj_temp3)){
-        ii=instance_nearest(obj_temp3.x,obj_temp3.y,obj_star);
-        if (instance_exists(ii)){
-            if (ii.name=battle_location[current_battle]) then good=1;
-            // ii.present_fleets-=1;
-        }
+    if (battle_star_collect!="none"){
+        good=1;
     }
-    with(obj_temp3){instance_destroy();}
     
     /*repeat(200){
         if (good=0){
@@ -95,7 +90,9 @@ if (battles>0) and (current_battle<=battles){
     
     if (good=1){// trying to find the star
         instance_activate_object(obj_star);
-        obj_controller.x=ii.x;obj_controller.y=ii.y;show=current_battle;
+        obj_controller.x=ii.x;
+        obj_controller.y=ii.y;
+        show=current_battle;
         
         if (battle_world[current_battle]=-50){
             strin[1]=string(round(battle_pobject[current_battle].capital_number));

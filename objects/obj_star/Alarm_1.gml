@@ -111,7 +111,7 @@ for(var i=1; i<=4; i++){
         p_eldar[i]=6;
         owner = eFACTION.Eldar;
         p_owner[1]=6;
-        buddy=0;
+        warp_lanes=[];
         x2=0;
     }
     // p_guardsmen[i]=0;
@@ -121,7 +121,7 @@ for(var i=1; i<=4; i++){p_guardsmen[i]=0;}
 
 var fleet, system_fleet=0,capital=0,frigate=0,escort=0;
 // Create Imperium Fleet
-if (owner == eFACTION.Imperium) or (owner == eFACTION.Ork) or (owner == eFACTION.Mechanicus){
+if (owner == eFACTION.Imperium || owner == eFACTION.Ork || owner == eFACTION.Mechanicus){
     for(var g=1; g<=4; g++){
         switch (p_type[g]) {
             case "Hive":
@@ -152,7 +152,7 @@ if (owner == eFACTION.Imperium) or (owner == eFACTION.Ork) or (owner == eFACTION
     if (escort<0) then escort=0;
     
     if (system_fleet>0){                                                      // DISABLED FOR TESTING FLEET COMBAT
-        fleet=instance_create(x,y-32,obj_en_fleet);
+        fleet=instance_create(x,y,obj_en_fleet);
         fleet.owner = eFACTION.Imperium;
         
         fleet.capital_number=capital;
@@ -211,7 +211,7 @@ if (owner == eFACTION.Tau){
         escort=floor(random_range(5,12));
     }
     if (system_fleet>0){
-        fleet=instance_create(x-24,y-24,obj_en_fleet);
+        fleet=instance_create(x,y,obj_en_fleet);
         fleet.owner = eFACTION.Tau;
         // Create ships here
         fleet.sprite_index=spr_fleet_tau;

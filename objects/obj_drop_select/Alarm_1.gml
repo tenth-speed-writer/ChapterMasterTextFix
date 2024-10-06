@@ -85,12 +85,10 @@ repeat(11){co+=1;i=0;
                 
                 if (unit.role()=obj_ini.role[100][4]) then l_terminators+=1;
                 if (unit.role()=obj_ini.role[100][6]) then l_dreads+=1;
-                if (unit.role()=obj_ini.role[100][14]) then l_chaplains+=1;
-                if (unit.role()=obj_ini.role[100,17]) then l_psykers+=1;
-                if (unit.role()="Codiciery") then l_psykers+=1;
-                if (unit.role()="Lexicanum") then l_psykers+=1;
-                if (unit.role()=obj_ini.role[100][15]) then l_apothecaries+=1;
-                if (unit.role()=obj_ini.role[100][16]) then l_techmarines+=1;
+                if (unit.IsSpecialist("chap", true)) then l_chaplains+=1;
+                if (unit.IsSpecialist("libs", true)) then l_psykers+=1;
+                if (unit.IsSpecialist("apoth", true)) then l_apothecaries+=1;
+                if (unit.IsSpecialist("forge", true)) then l_techmarines+=1;
             }
         }
     }

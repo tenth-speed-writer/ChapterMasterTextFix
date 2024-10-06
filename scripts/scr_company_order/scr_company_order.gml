@@ -48,14 +48,18 @@ function scr_company_order(company) {
 				} else{
 					create_squad(new_squad_type, company, false);
 				}
+				var sorted_units = 0;
 				for (i=0;i<role_number;i++){
 					unit = TTRPG[company,squadless[$ role][i]];
 					if (unit.squad != "none"){
 						array_delete(squadless[$ role], i ,1);
+						sorted_units++;
 						i--;
 						role_number--;
 					}
 				}
+				//this is to catch any potential infinite loops where by squads dont get formed and the role number dosnt derease
+				if (sorted_units==0) then break;
 			}
 
 		}
@@ -143,12 +147,19 @@ function scr_company_order(company) {
 
 				if (struct_exists(squadless,wanted_roles[r])){
 					if (!squad.fulfilled){
+
 						if (struct_exists(squad.required,wanted_roles[r])){
+
 							while (array_length(squadless[$ wanted_roles[r]])>0) and (squad.required[$ wanted_roles[r]] > 0){
+
 								array_push(squad.members,[company,squadless[$ wanted_roles[r]][0]]);
+
 								TTRPG[co,squadless[$ wanted_roles[r]][0]].squad=i;
+
 								array_delete(squadless[$ wanted_roles[r]],0,1);
+
 								squad.required[$ wanted_roles[r]]--;
+								
 								squad.space[$ wanted_roles[r]]--;
 							}
 						}
@@ -293,6 +304,7 @@ function scr_company_order(company) {
 				unit.company = co;
 				unit.marine_number = i;
 				unit.movement_after_math();
+				delete temp_struct[co][i];
 			}
 	}
 /*	i=0;repeat(300){i+=1;

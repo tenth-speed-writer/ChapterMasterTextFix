@@ -24,7 +24,9 @@ enum P_features {
 			Arsenal,
 			Gene_Vault,
 			Forge,
-			Gene_Stealer_Cult
+			Gene_Stealer_Cult,
+			Mission,
+			Ork_Stronghold
 
 	};
 	
@@ -37,6 +39,7 @@ function player_forge() constructor{
 	size = 1;
 	techs_working = 0;
 	f_type = P_features.Forge;
+	vehicle_hanger=0;
 }
 
 // Function creates a new struct planet feature of a  specified type
@@ -55,6 +58,7 @@ function new_planet_feature(feature_type, other_data={}) constructor{
 		planet_display = "Genestealer Cult";
 		cult_age = 0;
 		hiding=true;
+		name = global.name_generator.generate_genestealer_cult_name();		
 		break;
 		case P_features.Necron_Tomb:
 		awake = 0;
@@ -223,12 +227,6 @@ function new_planet_feature(feature_type, other_data={}) constructor{
 		player_hidden = 1;
 		planet_display= "Ork Warboss";
 		Warboss = "alive"
-		kill_warboss = function(){
-			f_type = P_features.Victory_Shrine
-			planet_display= $"{obj_controller.faction_leader[eFACTION.Ork]} Death Place";
-			Warboss = "dead";
-			parade = false;
-		}
 		break;
 	case P_features.Monastery:
 		planet_display="Fortress Monastary";

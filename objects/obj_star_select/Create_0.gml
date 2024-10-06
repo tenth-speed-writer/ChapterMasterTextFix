@@ -5,8 +5,6 @@ loading=0;
 loading_name="";
 alarm[0]=1;
 debug=0;
-
-population=0;
 guard=0;
 pdf=0;
 fortification=0;
@@ -14,10 +12,12 @@ corruption=0;
 ork=0;
 tau=0;
 chaos=0;
-torpedo=scr_item_count("Cyclonic Torpedo");
+torpedo = scr_item_count("Cyclonic Torpedo");
 
-feature="";
-garrison="";
+feature= "";
+garrison= "";
+population = false;
+
 garrison_data_slate = new data_slate();
 garrison_data_slate.title = "Garrison Report"
 main_data_slate = new data_slate();
@@ -28,7 +28,7 @@ button2="";
 button3="";
 button4="";
 button5="";
-        
+button_manager = new unit_button_object();
 shutter_1 = new shutter_button();
 shutter_2 = new shutter_button();
 shutter_3 = new shutter_button();

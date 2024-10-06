@@ -3,6 +3,7 @@ function base_inquis_fleet (){
     frigate_number=1;
     sprite_index=spr_fleet_inquisition;
     image_index=0;
+    warp_able=true;
     var roll=irandom(100)+1;
     inquisitor = 0;
     trade_goods="Inqis";
@@ -93,7 +94,7 @@ function new_inquisitor_inspection(){
 	var inspection_set = false;
 	var target_system = "none";
 	var new_inquis_fleet;
-    if (obj_ini.fleet_type==1){
+    if (obj_ini.fleet_type==ePlayerBase.home_world){
     	var monestary_system = "none";
         // If player does not own their homeworld than do a fleet inspection instead
         var player_stars = [];
@@ -118,7 +119,7 @@ function new_inquisitor_inspection(){
 
               //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_star.x,target_star.y);            
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
 
 
             with (new_inquis_fleet){
@@ -133,7 +134,7 @@ function new_inquisitor_inspection(){
             obj_controller.last_world_inspection=obj_controller.turn;
         }
     }
-    if  (obj_ini.fleet_type!=1 || !inspection_set){
+    if  (obj_ini.fleet_type = ePlayerBase.home_world || !inspection_set){
         // If player does not own their homeworld than do a fleet inspection instead
 
         var target_player_fleet = get_largest_player_fleet();
@@ -142,7 +143,7 @@ function new_inquisitor_inspection(){
             //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_player_fleet.x,target_player_fleet.y);
 
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
             var obj;
             with (new_inquis_fleet){
             	base_inquis_fleet();

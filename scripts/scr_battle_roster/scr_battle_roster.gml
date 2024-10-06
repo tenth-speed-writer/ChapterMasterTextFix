@@ -75,7 +75,7 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
 
                 //Normal and other battle cases checks go here
                 else if (okay >= 0) {
-                    if (instance_exists(obj_temp4)) { //Exploring ruins ambush case
+                    if (instance_exists(obj_ground_mission)) { //Exploring ruins ambush case
                         if (deploying_unit.loc[company][v] == required_location) and(unit.planet_location == _target_location) and(deploying_unit.hp[company][v] > 0) {
                             okay = 1;
                         } else {

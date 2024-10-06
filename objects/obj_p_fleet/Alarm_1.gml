@@ -42,7 +42,7 @@ else if (action="move") or (action="crusade1") or (action="crusade2") or (action
     
     
     if (action_eta=0) and (action="crusade1"){
-        var dr;dr=point_direction(room_width/2,room_height/2,x,y);
+        var dr=point_direction(room_width/2,room_height/2,x,y);
         action_x=x+lengthdir_x(600,dr);
         action_y=y+lengthdir_y(600,dr);
         action="crusade2";
@@ -52,7 +52,14 @@ else if (action="move") or (action="crusade1") or (action="crusade2") or (action
     if (action_eta=0) and (action="crusade2"){
         with(obj_star){
             if (owner>5) then instance_deactivate_object(id);
-            if (instance_nearest(x,y,obj_en_fleet).owner>5) and (point_distance(x,y,instance_nearest(x,y,obj_en_fleet).x,instance_nearest(x,y,obj_en_fleet).y)<50) then instance_deactivate_object(id);
+            var enemies = false;
+            for(var i=6;i<13;i++){
+                if (instance_exists(scr_orbiting_fleet(i))){
+                    enemies =true;
+                    break;
+                }
+            }
+            if (enemies) then instance_deactivate_object(id);
         }
         var ret=instance_nearest(x,y,obj_star);
         action_x=ret.x;
@@ -86,8 +93,8 @@ else if (action="move") or (action="crusade1") or (action="crusade2") or (action
         if (steh.owner = eFACTION.Tau) and (obj_controller.faction_defeated[8]=0) and (obj_controller.known[eFACTION.Tau]=0) then obj_controller.known[eFACTION.Tau]=1;
         
         action="";
-        x=action_x+24;
-        y=action_y-24;
+        x=action_x;
+        y=action_y;
         action_x=0;
         action_y=0;
         

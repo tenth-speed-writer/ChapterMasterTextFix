@@ -59,7 +59,7 @@ for(var i=0; i<30; i++){
 }
 
 with(obj_temp_inq){
-    var ii=0,nav=instance_create(x+24,y-24,obj_en_fleet);
+    var ii=0,nav=instance_create(x,y,obj_en_fleet);
     nav.owner=eFACTION.Imperium;
     nav.navy=1;
     
@@ -69,6 +69,7 @@ with(obj_temp_inq){
     nav.home_x=x;nav.home_y=y;
     nav.orbiting=instance_nearest(x,y,obj_star);
     nav.orbiting.present_fleet[eFACTION.Imperium] += 1;
+    nav.warp_able=true;
     
     nav.image_speed=0;
     ii+=nav.capital_number-1;

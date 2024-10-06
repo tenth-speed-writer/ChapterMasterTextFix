@@ -1,4 +1,4 @@
-
+set_zoom_to_defualt();
 var co,i;co=-1;
 repeat(15){co+=1;i=-1;
     repeat(401){i+=1;
@@ -221,7 +221,7 @@ en_important_dudes=0;
 
 // 
 
-attacker=0;// 0 is defensive
+defending=true;// 1 is defensive
 dropping=0;// 0 is was on ground
 attacking=0;// 1 means attacked from space/local
 time=floor(random(24))+1;
@@ -234,7 +234,8 @@ enemy_eldar=0;if (string_count("Enemy: Eldar",obj_ini.strin)>0) then enemy_eldar
 enemy_fallen=0;if (string_count("Enemy: Fallen",obj_ini.strin)>0) then enemy_fallen=1;
 enemy_orks=0;if (string_count("Enemy: Orks",obj_ini.strin)>0) then enemy_orks=1;
 enemy_tau=0;if (string_count("Enemy: Tau",obj_ini.strin)>0) then enemy_tau=1;
-enemy_tyranids=0;
+enemy_tyranids=0;if (string_count("Enemy: Tyranids",obj_ini.strin)>0) then enemy_tyranids=1;
+enemy_necrons=0;if (string_count("Enemy: Necrons",obj_ini.strin)>0) then enemy_necrons=1;
 lightning=0;if (string_count("Lightning",obj_ini.strin)>0) then lightning=1;
 siege=0;if (string_count("Siege",obj_ini.strin)>0) then siege=1;
 slow=0;if (string_count("Purposeful",obj_ini.strin)>0) then slow=1;
@@ -266,8 +267,9 @@ if (enemy_fallen=1) and (enemy=10){global_attack=global_attack*1.1;global_defens
 if (enemy_orks=1) and (enemy=7){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
 if (enemy_tau=1) and (enemy=8){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
 if (enemy_tyranids=1) and (enemy=9){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
+if (enemy_necrons=1) and (enemy=13){global_attack=global_attack*1.1;global_defense=global_defense*1.1;}
 
-if (siege=1) and (enemy_fortified>=3) and (attacker=1) then global_attack=global_attack*1.2;
+if (siege=1) and (enemy_fortified>=3) and (defending=false) then global_attack=global_attack*1.2;
 
 
 if (slow=1){global_attack-=0.1;global_defense+=0.2;}

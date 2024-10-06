@@ -116,61 +116,7 @@ function scr_enemy_ai_c() {
 
 
 	// This is the ork landing code
-	var boat, kay, temp5, temp6, temp7;
-	boat=0;kay=0;temp5=0;temp6=0;temp7=0;
-
-	instance_activate_object(obj_en_fleet);
-	boat=instance_nearest(x,y,obj_en_fleet);
-
-	var aler=0;
-
-	if (present_fleet[1]+present_fleet[2]=0) and (present_fleet[7]>0) and (boat.owner = eFACTION.Ork) and (boat.action=="") and (planets>0){
-	    var landi,t1,l;
-	    landi=0;t1=0;l=0;
-    
-	    repeat(4){
-	    	l+=1;
-	    	if (t1=0) and (p_tyranids[l]>0) then t1=l;
-	    }
-	    if (t1>0) then p_tyranids[t1]-=1;
-    
-	    if (planets>=1) and (p_type[1]!="Dead") and ((p_guardsmen[1]+p_pdf[1]+p_player[1]+p_traitors[1]+p_tau[1]>0) or ((p_owner[1]!=7) and (p_orks[1]<=0))) then landi=1;
-	    if (planets>=2) and (p_type[2]!="Dead") and ((p_guardsmen[2]+p_pdf[2]+p_player[2]+p_traitors[2]+p_tau[2]>0) or ((p_owner[2]!=7) and (p_orks[2]<=0))) then landi=1;
-	    if (planets>=3) and (p_type[3]!="Dead") and ((p_guardsmen[3]+p_pdf[3]+p_player[3]+p_traitors[3]+p_tau[3]>0) or ((p_owner[3]!=7) and (p_orks[3]<=0))) then landi=1;
-	    if (planets>=4) and (p_type[4]!="Dead") and ((p_guardsmen[4]+p_pdf[4]+p_player[4]+p_traitors[4]+p_tau[4]>0) or ((p_owner[4]!=7) and (p_orks[4]<=0))) then landi=1;
-    
-    
-	    var i;i=5;
-    
-	    if (landi=1) then repeat(4){i-=1;
-	        if (p_type[i]!="Dead") and (p_orks[i]<4) and (i<=planets) and (instance_exists(boat)){
-	            p_orks[i]+=max(2,floor(boat.image_index*0.8));
-            
-
-	            if (boat.trade_goods=="WL7"){
-	            	array_push(p_feature[i], new new_planet_feature(P_features.OrkWarboss));
-	            	p_orks[i]=6;
-	            }
-
-            
-	            if (p_orks[i]>6) then p_orks[i]=6;
-	            with(boat){instance_destroy();}
-	            aler=1;
-	        }
-	    }
-    
-	if (aler>0) then scr_alert("green","owner","Ork ships have crashed across the "+string(name)+" system.",x,y);
-
-
-	}// End landing portion of code
-
-
-
-	if (kay>0) and (kay!=50){       // Think this was generating problems
-	    with(boat){instance_destroy();}
-	}// End landing portion of code
-
-
+	ork_fleet_arrive_target();
 
 
 
@@ -230,9 +176,11 @@ function scr_enemy_ai_c() {
 	                }
                 
 	                if (contin=2){
-	                    fleet=instance_nearest(x-32,y,obj_en_fleet);
-	                    if (fleet.owner != eFACTION.Chaos) or (point_distance(x-32,y,fleet.x,fleet.y)>5) or (fleet.action!="") then contin=3;
-	                    if (fleet.owner = eFACTION.Chaos) and (point_distance(x-32,y,fleet.x,fleet.y)<=5) and (fleet.action="") and (contin!=3){
+	                    fleet=scr_orbiting_fleet(eFACTION.Chaos);
+	                    if (fleet=="none"){
+	                    	contin=3;
+	                    }
+	                    else if (fleet.action=="") and (contin!=3){
 	                        // Increase ship number for this object?
 	                        if (rando<=20){// was 25
 	                            rando=choose(1,2,2,3,3,3,3);
@@ -259,14 +207,16 @@ function scr_enemy_ai_c() {
 	                                    if (stue2.planets=1) and (stue2.p_type[1]="Dead") then goood=0;
 	                                }
 	                            }
-	                            fleet.action_x=stue2.x;fleet.action_y=stue2.y;fleet.alarm[4]=1;
+	                            fleet.action_x=stue2.x;
+	                            fleet.action_y=stue2.y;
+	                            fleet.alarm[4]=1;
 	                            instance_activate_object(obj_star);
 	                        }
 	                    }
 	                }
 	                if (contin=3) and (rando<=25) and ((obj_controller.chaos_fleets+15)<instance_number(obj_star)){// Create a fleet
 	                    // fleet=instance_create
-	                    fleet=instance_create(x-32,y,obj_en_fleet);
+	                    fleet=instance_create(x,y,obj_en_fleet);
 	                    fleet.owner = eFACTION.Chaos;
 	                    fleet.sprite_index=spr_fleet_chaos;
 	                    fleet.image_index=1;
@@ -291,9 +241,9 @@ function scr_enemy_ai_c() {
 	var boat, kay, temp5, temp6, temp7;
 	boat=0;kay=0;temp5=0;temp6=0;temp7=0;
 
-	boat=instance_nearest(x-32,y,obj_en_fleet);
+	boat=scr_orbiting_fleet(eFACTION.Chaos);
 
-	if (present_fleet[10]>0) and (present_fleet[1]+present_fleet[2]=0) and (boat.owner = eFACTION.Chaos) and (boat.action="") and (owner != eFACTION.Chaos) and (planets>0){
+	if (present_fleet[10]>0) and (present_fleet[1]+present_fleet[2]=0) and (boat.owner != "none") and (owner != eFACTION.Chaos) and (planets>0){
 
 	var i;i=0;
 	    repeat(5){
@@ -326,10 +276,10 @@ function scr_enemy_ai_c() {
 	var boat, kay, temp5, temp6, temp7, boat_dist;
 	boat=0;kay=0;temp5=0;temp6=0;temp7=0;boat_dist=999;
 
-	boat=instance_nearest(x-32,y,obj_en_fleet);
-	if (instance_exists(boat)){boat_dist=point_distance(x,y,boat.x,boat.y);}
-	var aler;aler=0;
-	if (present_fleet[10]>0) and (present_fleet[1]+present_fleet[2]=0) and (boat.owner = eFACTION.Chaos) and (boat.action="") and (planets>0) and (boat_dist<=40){
+	boat=scr_orbiting_fleet(eFACTION.Chaos);
+
+	var aler=0;
+	if (present_fleet[10]>0) and (present_fleet[1]+present_fleet[2]=0) and (boat!="none") and (planets>0) and (boat_dist<=40){
 
 	    var ii,gud;ii=0;gud=0;
 	    repeat(4){ii+=1;if (gud=0){if (planets>=ii) and (p_type[ii]!="Dead") and (p_owner[ii]!=10) then gud=ii;}}
@@ -408,9 +358,10 @@ function scr_enemy_ai_c() {
 	                }
                 
 	                if (contin=2){
-	                    fleet=instance_nearest(x-24,y-24,obj_en_fleet);
-	                    if (fleet.owner != eFACTION.Tau) or (point_distance(x-24,y-24,fleet.x,fleet.y)>5) or (fleet.action!="") then contin=3;
-	                    if (fleet.owner = eFACTION.Tau) and (point_distance(x-24,y-24,fleet.x,fleet.y)<=5) and (fleet.action="") and (contin!=3){
+	                	fleet=scr_orbiting_fleet(eFACTION.Tau);
+
+	                    if (fleet=="none") then contin=3;
+	                    if (fleet!="none") and (contin!=3){
 	                        // Increase ship number for this object?
 	                        if (rando<=10) and (fleet.image_index<5){
 	                            rando=choose(1,2,2,3,3,3,3);
@@ -461,7 +412,7 @@ function scr_enemy_ai_c() {
 	                    }
 	                }
 	                if (contin=3) and (rando<=25) and (obj_controller.tau_fleets<(obj_controller.tau_stars+1)){// Create a fleet
-	                    fleet=instance_create(x-24,y-24,obj_en_fleet);
+	                    fleet=instance_create(x,y,obj_en_fleet);
 	                    fleet.owner = eFACTION.Tau;
 	                    fleet.sprite_index=spr_fleet_tau;
 	                    fleet.image_index=1;
@@ -485,10 +436,10 @@ function scr_enemy_ai_c() {
 
 	// Tyranids here
 	var i=0;
-	repeat(4){i+=1;
+	repeat(planets){i+=1;
 	    if (p_tyranids[i]>=5) and (planets>=i) and (p_player[i]+p_orks[i]+p_guardsmen[i]+p_pdf[i]+p_chaos[i]=0){
-	        var ship;ship=instance_nearest(x,y+32,obj_en_fleet);
-	        if (point_distance(x,y+32,ship.x,ship.y)<5) and (ship.owner = eFACTION.Tyranids) and (ship.capital_number>0) and (p_type[i]!="Dead") and (array_length(p_feature[i])!=0){
+	        var ship=scr_orbiting_fleet(eFACTION.Tyranids);
+	        if (ship!="none") and (ship.capital_number>0) and (p_type[i]!="Dead") and (array_length(p_feature[i])!=0){
 	            if (planet_feature_bool(p_feature[i], P_features.Reclamation_pools) ==1){
 	                p_tyranids[i]=0;
 	                if (p_type[i]="Death") or (p_type[i]="Hive") then ship.capital_number+=choose(0,1,1);

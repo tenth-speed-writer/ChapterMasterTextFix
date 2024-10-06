@@ -572,17 +572,15 @@ if (mouse_x>=xx+1465) and (mouse_y>=yy+499) and (mouse_x<xx+1577) and (mouse_y<y
 
 
 // if ((mouse_x>=xx+240) and (mouse_x<=xx+387) and (type!=88)) or (((type=9) or (type=9.1)) and (mouse_x>=xx+240+420) and (mouse_x<xx+387+420)){
-if ((type=9.1)) and (mouse_x>=xx+240+420) and (mouse_x<xx+387+420){
-    if ((type=9.1)) and (cooldown<=0){
-        giveto=0;
+if (type=9.1) and (mouse_x>=xx+240+420) and (mouse_x<xx+387+420) and (cooldown<=0){
 
-        if (mouse_y>=yy+325) and (mouse_y<yy+342){
-            obj_controller.cooldown=8000;
-            instance_destroy();
-            exit;
-        }
+    if (mouse_y>=yy+325) and (mouse_y<yy+342){
+        obj_controller.cooldown=8000;
+        instance_destroy();
+        exit;
+    }
 
-        if (giveto>0) and (type=9.1){
+    if (giveto>0) {
             var r1,r2,cn;r2=0;cn=obj_controller;
             r1=floor(random(cn.stc_wargear_un+cn.stc_vehicles_un+cn.stc_ships_un))+1;
 
@@ -637,8 +635,6 @@ if ((type=9.1)) and (mouse_x>=xx+240+420) and (mouse_x<xx+387+420){
 			}
             instance_destroy();
 			exit;
-        }
-
     }
 }
 
