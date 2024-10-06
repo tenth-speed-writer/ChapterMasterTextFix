@@ -98,6 +98,7 @@ function scr_in_game_menu(){
 	scr_change_menu(function(){
 		if (obj_controller.zoomed==0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
 			// Main Menu
+			set_zoom_to_defualt();
 			instance_create(0,0,obj_ingame_menu);
 		}
 	});
