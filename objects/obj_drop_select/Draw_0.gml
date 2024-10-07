@@ -25,7 +25,7 @@ draw_set_font(fnt_40k_30b);
 // xx=view_xview[0]+545;yy=view_yview[0]+212;
 draw_set_halign(fa_left);draw_set_color(c_gray);
 var attack_type = attack ? "Attacking" : "Raiding"
-if (attack=0) then draw_text_transformed(xx+545,yy+212,$"{attack_type} ({planet_numeral_name(planet_number, p_target)} )",0.6,0.6,0);
+draw_text_transformed(xx+545,yy+212,$"{attack_type} ({planet_numeral_name(planet_number, p_target)} )",0.6,0.6,0);
 
 
 draw_set_color(c_gray);
