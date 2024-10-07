@@ -84,9 +84,9 @@ if (refresh_raid!=0){
                     
                     if (unit.role()="Chapter Master") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;master=0;}
                     if (unit.IsSpecialist("chap", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;chaplains-=1}
-                    if (unit.role()="Master of the Apothecarion") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;apothecaries-=1;}
-                    if (unit.role()="Chief "+string(obj_ini.role[100,17])) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
-                    if (unit.role()="Forge Master") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;techmarines-=1;}
+                    if (unit.IsSpecialist("apoth", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;apothecaries-=1;}
+                    if (unit.IsSpecialist("libs", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
+                    if (unit.IsSpecialist("forge", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;techmarines-=1;}
                     
                     if (unit.role()=obj_ini.role[100,17]) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
                     if (unit.role()="Codiciery") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
