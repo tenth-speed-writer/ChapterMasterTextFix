@@ -97,6 +97,8 @@ function calculate_full_chapter_spread(turn_end=true){
 	}
 	return [tech_spread,apoth_spread,unit_spread]	
 }
+
+
 function apothecary_simple(turn_end=true){
 	var  unit;
 	var spreads = calculate_full_chapter_spread();
@@ -223,7 +225,7 @@ function apothecary_simple(turn_end=true){
 			                    };
 		                    
 			                    new_name="Slaughtersong";
-		                    
+		                    	//TODO extract ot it's own area
 			                    obj_ini.ship[last_ship]=new_name;
 			                    obj_ini.ship_uid[last_ship]=floor(random(99999999))+1;
 			                    obj_ini.ship_owner[last_ship]=1;
