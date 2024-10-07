@@ -125,16 +125,16 @@ function scr_purge_world(star, planet, action_type, action_score) {
 	        heres_after=heres_before-sci2;
 	        if (pop_before>0) and (pop_after=0) then heres_after=0;
 
-	        var nid_influence = star.p_influence[eFACTION.Tyranids];
-	        if (planet_feature_bool(p_feature[i], P_features.Gene_Stealer_Cult)){
-				var cult = return_planet_features(p_feature[i], P_features.Gene_Stealer_Cult)[0];
+	        var nid_influence = star.p_influence[planet][eFACTION.Tyranids];
+	        if (planet_feature_bool(star.p_feature[planet], P_features.Gene_Stealer_Cult)){
+				var cult = return_planet_features(star.p_feature[planet], P_features.Gene_Stealer_Cult)[0];
 				if (cult.hiding){
 					
 				}
 			} else {
 	        	if (nid_influence>25){
 	        		txt1 += "Scores of mutant offspring from a genestealer infestation are burnt, while the situation is grave the mutants appear to lack the organisation of a true cult";
-	        		adjust_influence(eFACTION.Tyranids, -10, battle_planet);
+	        		adjust_influence(eFACTION.Tyranids, -10, planet, star);
 	        	}
 	        }
 	        if (star.p_large[planet]=0) then pop_after=round(pop_after);    
