@@ -1235,8 +1235,8 @@ function scr_ui_manage() {
 	                                var vehicle =display_unit[q];
 	                                vehic_size =scr_unit_size("",ma_role[q],true);
 	                                if ((sh_cargo[sel]+vehic_size)<=sh_cargo_max[sel]) and (man_sel[q]!=0){
-	                                    var start_ship=obj_ini.veh_lid;
-	                                    var start_planet=obj_ini.veh_wid;
+	                                    var start_ship=obj_ini.veh_lid[vehicle[0]][vehicle[1]];
+	                                    var start_planet=obj_ini.veh_wid[vehicle[0]][vehicle[1]];
 	                                    ma_loc[q]=sh_name[sel];
 	                                    ma_lid[q]=sh_ide[sel];
 	                                    ma_wid[q]=0;
