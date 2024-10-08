@@ -363,9 +363,9 @@ if((file_exists("chaptersave#1.ini")=true) and (chapter_made=1)){
 		chapter_master_melee21 = ini_read_real("Creation","chapter_master_melee",chapter_master_melee);
 		chapter_master_ranged21= ini_read_string("Creation","master_ranged",chapter_master_ranged);
 		chapter_master_specialty21=ini_read_string("Creation","master_specialty",chapter_master_specialty);
-		adv21=[1,2,3,4];
-		dis21=[1,2,3,4];
-		for(var i =1;i<=4;i++){
+		adv21=[1,2,3,4,5,6,7,8];
+		dis21=[1,2,3,4,5,6,7,8];
+		for(var i =1;i<=8;i++){
 			
 			adv21[i]=ini_read_string("Creation","adv21"+string(i),"")
 			dis21[i]=ini_read_string("Creation","dis21"+string(i),"")
@@ -385,8 +385,8 @@ ini_close();
 
 
 else if (file_exists("chaptersave#1.ini")=false){
- adv21 = [1,2,3,4]
- dis21 =[1,2,3,4]
+ adv21 = [1,2,3,4,5,6,7,8]
+ dis21 =[1,2,3,4,5,6,7,8]
  disposition21 = [1,2,3,4,5,6,7]
  founding21=4;
  
@@ -669,6 +669,7 @@ advantage[i]="Melee Enthusiasts";
 advantage_tooltip[i]="Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.";i+=1;
 advantage[i]="Venerable Ancients";
 advantage_tooltip[i]="Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service ";i+=1;
+
 i+=1;
 advantage[i]="Cancel";advantage_tooltip[i]="";
 

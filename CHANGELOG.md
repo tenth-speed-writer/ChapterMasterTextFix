@@ -21,6 +21,28 @@ All notable changes to this project will be documented in this file.
     - everything that a normal player doesn't need to know.
 ----------------------------------
 
+
+## [0.9.3.1]
+
+### Changed:
+- Infernus pistol melee burden is now 0, like on other pistols.
+
+### Fixed:
+- Crashes: 
+	- Upon ending turn, when forge items complete (`scr_evaluate_forge_item_completion`).
+	- (Probably fixed) After battle (`obj_centerline_Step_0`).
+	- Mid-battle caused by enunit rework (`obj_enunit_Alarm_0`).
+	- Upon ending turn (`obj_en_fleet_Alarm_1`).
+	- When purging planets (`scr_purge_world`).
+	- When using select all (ships) before battle.
+	- Chaplain duplication on drop select causing a crash (yet again).
+- Select All and Select (role) on the company view are now working properly.
+- Land raiders/land speeders being not buildable.
+- Zooming affecting attack/raid window.
+- Crafters advantage not affecting crafter trait rate, due to typo.
+- Aspirant duplication on drop select and a related crash.
+- (Maybe fixed?) Player fleet being unselectable.
+
 ## [0.9.3.0]
 
 ### New:
@@ -51,6 +73,7 @@ All notable changes to this project will be documented in this file.
 - Genestealer cults now have names.
 - Medium and larger forges now have the option to have vehicle hangers built, allowing vehicles to be built at the forge.
 	- Built vehicles will spawn at locations with said hangers.
+
 ### Changed:
 - Stars will no longer spawn on top of each other.
 - Player should now be able to move camera closer to the edge of the screen.
@@ -83,6 +106,7 @@ All notable changes to this project will be documented in this file.
 	- Techmarines now have eye attachments.
 	- Edited Servo-arm and Servo-harness sprites.
 	- Star sprites edited. Black backgrounds removed and slight blur is applied, to reduce jaggedness.
+
 ### Fixed:
 - Crashes: 
 	- Caused Inquisitors snooping on player bases.

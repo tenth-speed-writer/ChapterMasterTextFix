@@ -670,12 +670,14 @@ if (obj_controller.selecting_planet!=0){
         }else if (current_button=="Raid"){
             instance_create(x,y,obj_drop_select);
             obj_drop_select.p_target=target;
+            obj_drop_select.planet_number = obj_controller.selecting_planet;
             obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
             if (instance_nearest(x,y,obj_p_fleet).acted>1) then with(obj_drop_select){instance_destroy();}
             obj_controller.cooldown=3000;
         }else if (current_button=="Attack"){
             instance_create(x,y,obj_drop_select);
             obj_drop_select.p_target=target;
+            obj_drop_select.planet_number = obj_controller.selecting_planet;
             obj_drop_select.attack=1;
             if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
             if (target.present_fleet[1]>0){
@@ -687,6 +689,7 @@ if (obj_controller.selecting_planet!=0){
             instance_create(x,y,obj_drop_select);
             obj_drop_select.p_target=target;
             obj_drop_select.purge=1;
+            obj_drop_select.planet_number = obj_controller.selecting_planet;
             if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
             if (target.present_fleet[1]>0){
                 obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
