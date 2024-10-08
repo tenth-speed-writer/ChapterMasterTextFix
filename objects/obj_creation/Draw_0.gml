@@ -43,11 +43,18 @@ if (slate4>0){
         draw_text_transformed(440,363,"Existing Chapters",0.75,0.75,0);
         draw_text_transformed(440,593,string_hash_to_newline("Other"),0.75,0.75,0);
 		draw_text_transformed(440,463,string_hash_to_newline("Custom Chapters"),0.75,0.75,0);
+
+        var founding_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.FOUNDING});
+        var successor_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.SUCCESSOR});
+        var custom_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.CUSTOM});
+        var other_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.NON_CANON});
+
         
+        /** * Founding Chapters */
         var x2,y2,i,new_hover,tool;
         x2=441;y2=167;i=1;new_hover=highlight;tool=0;
-        
-        repeat(9){
+        for(var c = 0; c < array_length(founding_chapters); c++){
+            i = founding_chapters[c].id;
             
             draw_sprite(spr_creation_icon,0,x2,167);
             scr_image("creation",i,x2,167,48,48);
@@ -60,15 +67,22 @@ if (slate4>0){
                 draw_rectangle(x2,167,x2+48,167+48,0);
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
-                    cooldown=8000;chapter=chapter_id[i];scr_chapter_new(chapter);
-                    if (chapter!="nopw_nopw"){icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter;}
+                    cooldown=8000;
+                    chapter_name=founding_chapters[c].name;
+                    if (!founding_chapters[c].disabled){
+                        scr_chapter_new(chapter_name);
+                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                    }
                 }
             }
-            i+=1;x2+=53;
+            x2+=53;
         }
         
-        x2=441;y2=397;i=10;new_hover=highlight;
-        repeat(7){
+        /** * Successor Chapters */
+        x2=441;y2=397;new_hover=highlight;
+        for(var c = 0; c < array_length(successor_chapters); c++){
+            i = successor_chapters[c].id;
+            
         
             draw_sprite(spr_creation_icon,0,x2,397);
             // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
@@ -80,17 +94,24 @@ if (slate4>0){
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,397,x2+48,397+48,0);
                 draw_set_alpha(slate4/30);
+                //Click
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
-                    cooldown=8000;chapter=chapter_id[i];scr_chapter_new(chapter);
-                    if (chapter!="nopw_nopw"){icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter;}
+                    cooldown=8000;
+                    chapter_name=successor_chapters[c].name;
+                    if (!successor_chapters[c].disabled){
+                        scr_chapter_new(chapter_name);
+                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                    }
                 }
             }
-            i+=1;x2+=53;
+            x2+=53;
         }
         
-		x2=441;y2=497;i=21;new_hover=highlight;
-		
-  repeat(1){
+        /** * Custom Chapters */
+		x2=441;y2=497;new_hover=highlight;
+        for(var c = 0; c < array_length(custom_chapters); c++){
+            i = custom_chapters[c].id;
+
             draw_sprite(spr_creation_icon,0,x2,497);
             // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
 			if(file_exists("chaptersave#1.ini")){
@@ -105,29 +126,31 @@ if (slate4>0){
             if (mouse_x>=x2) and (mouse_y>=497) and (mouse_x<x2+48) and (mouse_y<497+48) and (slate4>=30){
 				
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
-                if (goto_slide!=2){highlight=i;tool=1;}
+                if (goto_slide!=2){highlight=custom_chapters[c].id;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,497,x2+48,497+48,0);
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0){
 					if(chapter_made=1){
 					
-					cooldown=8000;chapter = chapter_id[21];
+					cooldown=8000;chapter_name = custom_chapters[c].name;
 					change_slide=1;goto_slide=2;
 					scr_chapter_new(chapter21)};
 					
 					if (chapter_made = 0 ){
 						cooldown=8000;
 						change_slide=1;goto_slide=2;
-						custom=2;scr_chapter_random(0);}
+						custom=2;scr_chapter_random(0);
+                    }
                    
                 }
             }
-            i+=1;x2+=53;
-  }
-		
-        x2=441;y2=627;i=17;new_hover=highlight;
-        repeat(4){
+            x2+=53;
+        }
+        /** * Other Chapters */
+        x2=441;y2=627;new_hover=highlight;
+        for(var c = 0; c < array_length(other_chapters); c++){
+            i = other_chapters[c].id;
         
             draw_sprite(spr_creation_icon,0,x2,y2);
             // draw_sprite_stretched(spr_icon,i,x2,y2,48,48);
@@ -139,12 +162,17 @@ if (slate4>0){
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
+                //Click
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
-                    cooldown=8000;chapter=chapter_id[i];scr_chapter_new(chapter);
-                    if (chapter!="nopw_nopw"){icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter;}
+                    cooldown=8000;
+                    chapter_name=other_chapters[c].name;
+                    if (!other_chapters[c].disabled){
+                        scr_chapter_new(chapter_name);
+                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                    }
                 }
             }
-            i+=1;x2+=53;
+            x2+=53;
         }
         
         x2+=53;i=1001;
@@ -217,8 +245,11 @@ if (slate4>0){
             draw_set_halign(fa_left);
             
             if (highlight<=25){
-                tooltip=chapter_id[highlight];
-                tooltip2=chapter_tooltip[highlight];
+                var chap = all_chapters[highlight];
+                show_debug_message(chap);
+                tooltip=chap.name;
+                if(chap.progenitor != 0) {tooltip += "  - Progenitor Chapter: " + all_chapters[chap.progenitor].name};
+                tooltip2=chap.tooltip;
             }
             if (highlight=1001) then tooltip="Custom";
             if (highlight=1002) then tooltip="Randomize";
@@ -340,15 +371,15 @@ if (slide=2){
     obj_cursor.image_index=0;
     
     if (name_bad=1) then draw_set_color(c_red);
-    if (text_selected!="chapter") or (custom!=2) then draw_text(800,80,string_hash_to_newline(string(chapter)));
+    if (text_selected!="chapter") or (custom!=2) then draw_text(800,80,string_hash_to_newline(string(chapter_name)));
     if (custom=2){
-        if (text_selected="chapter") and (text_bar>30) then draw_text(800,80,string_hash_to_newline(string(chapter)));
-        if (text_selected="chapter") and (text_bar<=30) then draw_text(805,80,string_hash_to_newline(string(chapter)+"|"));
-        if (scr_text_hit(800,80,true,chapter)){
+        if (text_selected="chapter") and (text_bar>30) then draw_text(800,80,string_hash_to_newline(string(chapter_name)));
+        if (text_selected="chapter") and (text_bar<=30) then draw_text(805,80,string_hash_to_newline(string(chapter_name)+"|"));
+        if (scr_text_hit(800,80,true,chapter_name)){
             obj_cursor.image_index=2;
-            if (cooldown<=0) and (mouse_left>=1){text_selected="chapter";cooldown=8000;keyboard_string=chapter;}
+            if (cooldown<=0) and (mouse_left>=1){text_selected="chapter";cooldown=8000;keyboard_string=chapter_name;}
         }
-        if (text_selected="chapter") then chapter=keyboard_string;
+        if (text_selected="chapter") then chapter_name=keyboard_string;
         draw_set_alpha(0.75);draw_rectangle(580,80,1020,118,1);draw_set_alpha(1);
     }
     
@@ -827,7 +858,7 @@ if (slide=3){
     tooltip="";tooltip2="";
     obj_cursor.image_index=0;
     
-    draw_text(800,80,string_hash_to_newline(string(chapter)));
+    draw_text(800,80,string_hash_to_newline(string(chapter_name)));
     
     draw_set_color(38144);
     draw_line(445,200,1125,200);
@@ -1158,7 +1189,7 @@ if (slide=4){
     tooltip="";tooltip2="";
     obj_cursor.image_index=0;
 
-    draw_text_color_simple(800,80,string_hash_to_newline(string(chapter)),38144);
+    draw_text_color_simple(800,80,string_hash_to_newline(string(chapter_name)),38144);
     var draw_sprites = [spr_mk7_colors, spr_mk4_colors,spr_mk5_colors,spr_beakie_colors,spr_mk8_colors,spr_mk3_colors, spr_terminator3_colors];
     var draw_hem = [spr_generic_sgt_mk7, spr_generic_sgt_mk4,spr_generic_sgt_mk5,spr_generic_sgt_mk6,spr_generic_sgt_mk8,spr_generic_sgt_mk3, spr_generic_terminator_sgt];
     
@@ -1842,7 +1873,7 @@ if (slide=5){
     tooltip="";tooltip2="";
     obj_cursor.image_index=0;
     
-    draw_text(800,80,string_hash_to_newline(string(chapter)));
+    draw_text(800,80,string_hash_to_newline(string(chapter_name)));
 
 
     draw_set_color(38144);draw_set_halign(fa_left);

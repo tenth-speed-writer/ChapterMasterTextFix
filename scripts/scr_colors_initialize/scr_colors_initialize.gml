@@ -81,9 +81,9 @@ function scr_colors_initialize() {
 
 	global.colors_count = array_length(colors_array);
     for (var i = 0; i < global.colors_count; i++) {
-        col[i] = colors_array[i][0];
-        col_r[i] = colors_array[i][1];
-        col_g[i] = colors_array[i][2];
-        col_b[i] = colors_array[i][3];
+        obj_creation.col[i] = colors_array[i][0];
+        obj_creation.col_r[i] = colors_array[i][1];
+        obj_creation.col_g[i] = colors_array[i][2];
+        obj_creation.col_b[i] = colors_array[i][3];
     }
 }

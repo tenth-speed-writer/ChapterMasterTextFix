@@ -492,7 +492,7 @@ function scr_initialize_custom() {
 
 	// show_message(instance_number(obj_controller));
 
-	global.chapter_name = obj_creation.chapter;
+	global.chapter_name = obj_creation.chapter_name;
 	global.founding = obj_creation.founding;
 	global.founding_secret = "";
 	global.game_seed = floor(random(99999999)) + string_to_integer(global.chapter_name) + string_to_integer(obj_creation.chapter_master_name);
@@ -544,7 +544,7 @@ function scr_initialize_custom() {
 
 	home_name = obj_creation.homeworld_name;
 	obj_creation.restart_home_name = home_name;
-	chapter_name = obj_creation.chapter;
+	chapter_name = obj_creation.chapter_name;
 	// fortress_name="";
 	flagship_name = obj_creation.flagship_name;
 	obj_creation.restart_flagship_name = flagship_name;
@@ -4057,7 +4057,7 @@ function scr_initialize_custom() {
 			penitent_current = 1;
 			penitent_end = obj_creation.strength * 5;
 
-			if (obj_creation.chapter = "Lamenters") {
+			if (obj_creation.chapter_name = "Lamenters") {
 				penitent_max = 600;
 				penitent_end = 600;
 				// obj_controller.loyalty=50;obj_controller.loyalty_hidden=50;
