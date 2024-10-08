@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed:
 - crash from building forges at secret lairs
 - crash from fleets arriving at player fleets trying to trade
+- tooltips will now always draw as the top layer
 
 ### Changed:
 - hide settings that currently don't do anything
