@@ -1,4 +1,5 @@
 function draw_unit_buttons(position, text,size_mod=[1.5,1.5],colour=c_gray,_halign=fa_center, font=fnt_40k_14b, alpha_mult=1){
+	// TODO: fix halign usage
 	// Store current state of all global vars
 	var cur_alpha = draw_get_alpha();
 	var cur_font = draw_get_font();
@@ -7,7 +8,7 @@ function draw_unit_buttons(position, text,size_mod=[1.5,1.5],colour=c_gray,_hali
 	var cur_valign = draw_get_valign();
 
 	draw_set_font(font);
-	draw_set_halign(_halign);
+	draw_set_halign(fa_center);
 	draw_set_color(colour);
 	draw_set_valign(fa_middle);
 
@@ -18,9 +19,9 @@ function draw_unit_buttons(position, text,size_mod=[1.5,1.5],colour=c_gray,_hali
 		var y2 = position[3];
 	} else {
 		var text_width = string_width(string_hash_to_newline(text))*size_mod[0];
-		var text_height =string_height(string_hash_to_newline(text))*size_mod[1];
-		var x2 = position[0]+text_width+8
-		var y2 = position[1]+text_height+6;
+		var text_height = string_height(string_hash_to_newline(text))*size_mod[1];
+		var x2 = position[0]+text_width+(text_width*0.06);
+		var y2 = position[1]+text_height+(text_height*0.1);
 	}
 	draw_set_alpha(1*alpha_mult);
 	// draw_set_color(c_black);
