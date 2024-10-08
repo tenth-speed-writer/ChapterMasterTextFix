@@ -186,7 +186,7 @@ if (max_ships>0)and (instance_exists(obj_star_select)){
 
     
     if (sel!=""){
-        bombard_button = draw_unit_buttons([bomb_window.x2-110, bomb_window.y2-40],"Bombard!",[1,1],38144,fa_center,fnt_40k_14b)
+        bombard_button = draw_unit_buttons([bomb_window.x2-110, bomb_window.y2-40],"Bombard!",[1,1],38144,fa_center,fnt_40k_14b);
     }
     var cancel_button = draw_unit_buttons([bomb_window.x2-180, bomb_window.y2-40],"Cancel",[1,1],38144,fa_center,fnt_40k_14b);
     if (obj_controller.cooldown<=0){
@@ -201,8 +201,6 @@ if (max_ships>0)and (instance_exists(obj_star_select)){
 var ship_index=0,why=0,num="";
 var buttonSpacingX = 106; // adjust as needed
 var buttonSpacingY = 21; // adjust as needed
-var alpha = 1;
-var ship_button_pos;
 // Iterate over the 6 rows
 for (var row = 0; row < 6; row++) {
     // Iterate over the 4 columns in each row
@@ -213,20 +211,15 @@ for (var row = 0; row < 6; row++) {
         }
         // Check if ship_index is still within range
         if (ship_index < array_length(ship)) && ship[ship_index] != "" {
-            // If the ship at the current index is 0, set the drawing alpha to 0.35
-            if (ship_all[ship_index] == 0) {
-                var alpha = (0.5);
-            }
             // Delete the string from the 20th character onwards
             num = string_delete(ship[ship_index], 20, 999);
             // Calculate button position based on row and column
             var buttonX = bomb_window.x1 + 20 + col * buttonSpacingX;
             var buttonY = bomb_window.y1 + 110 + row * buttonSpacingY;
             // Draw the unit buttons
-            ship_button_pos = draw_unit_buttons([buttonX, buttonY, buttonX+105, buttonY+20], string_truncate(num, 200), [1,1], ship_all[ship_index]?38144:c_red, fa_center, fnt_40k_10,alpha)
-            if point_and_click(ship_button_pos){
+            if point_and_click(draw_unit_buttons([buttonX, buttonY, buttonX+105, buttonY+20], string_truncate(num, 200), [1,1], ship_all[ship_index]?38144:c_red, fa_center, fnt_40k_10, ship_all[ship_index] ? 1: 0.5)){
                 ship_all[ship_index] = !ship_all[ship_index];
-                ships_selected = ship_all[ship_index] ?ships_selected+1: ships_selected-1;
+                ships_selected = ship_all[ship_index] ? ships_selected++: ships_selected--;
             }
             ship_index++; // Increment the ship index after each iteration            
         }

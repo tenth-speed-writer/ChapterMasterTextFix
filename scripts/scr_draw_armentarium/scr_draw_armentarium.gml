@@ -55,7 +55,7 @@ function drop_down(selection, draw_x, draw_y, options,open_marker){
 				var roll_down_offset=4+string_height(selection);
 				for (var col = 0;col<array_length(options);col++){
 					if (options[col]==selection) then continue;
-					draw_unit_buttons([draw_x , draw_y+roll_down_offset],options[col],[1,1],c_red);
+					draw_unit_buttons([draw_x , draw_y+roll_down_offset],options[col],[1,1],c_red,,,,true);
 					if (mouse_check_button_pressed(mb_left) && 
 						point_in_rectangle(
 								mouse_x,
