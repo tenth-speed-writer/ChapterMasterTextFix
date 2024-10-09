@@ -676,7 +676,9 @@ function fleet_arrival_logic(){
                 if (stue2.planets=1) and (stue2.p_type[1]="Dead") then goood=0;
                 }
             }
-        action_x=stue2.x;action_y=stue2.y;alarm[4]=1;// stue.present_fleets-=1;
+        action_x=stue2.x;
+        action_y=stue2.y;
+        alarm[4]=1;// stue.present_fleets-=1;
         instance_activate_object(obj_star);
     }
     
