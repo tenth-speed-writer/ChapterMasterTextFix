@@ -1,0 +1,285 @@
+{
+    "chapter": {
+        "id": 1,
+        "name": "Dark Angels",
+        "points": 150,
+        "founding": 0, // The id of the founding chapter, 0 for unknown or none
+        "icon": 1, // in \images\creation\creation_icons.png, the index from the left, 0 being blank square and 1 being dark angels etc
+        "icon_name": "da", // ? dunno what this is used for yet
+        "fleet_type": 1, // 1= Homeworld, 2 = Fleet based, 3 = Penitent
+        "strength": 10, // 1-10
+        "purity": 8, // 1-10
+        "stability": 10, // 1-10
+        "cooperation": 5, // 1-10
+        "homeworld_exists": 1, // 1 = true
+        "recruiting_exists": 1, // 1 = true
+        "homeworld_rule": 1, // 1 = Govenor, 2 = Countries, 3 = Personal Rule
+        "aspirant_trial": "SURVIVAL", // ? need to find the best way to do this
+        "advantages": [ //TODO something with these after rework of adv organisation
+            "",
+            "Enemy: Fallen",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "disadvantages": [
+            "",
+            "Never Forgive",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "colors": {
+            "main": "Caliban Green",
+            "secondary": "Caliban Green",
+            "pauldron_r": "Caliban Green", // todo update refs for new names
+            "pauldron_l": "Caliban Green",
+            "trim": "Grey",
+            "lens": "Red",
+            "weapon": "Dark Red",
+            "special": 0, // 0 - normal, 1 - Breastplate, 2 - Vertical, 3 - Quadrant
+            "trim_on": 0 // 0 no, 1 yes for special trim colours // todo update ref for new name
+        },
+        "names": {
+            "hchaplain": "Sapphon",
+            "clibrarian": "Ezekial",
+            "fmaster": "Sepharon",
+            "hapothecary": "Razaek",
+            "honorcapt": "Belial",
+            "watchmaster": "Sammael",
+            "arsenalmaster": "Astoran",
+            "admiral": "Korahael",
+            "marchmaster": "Balthazar",
+            "ritesmaster": "Araphil",
+            "victualler": "Ezekiah",
+            "lordexec": "Molochi",
+            "relmaster": "Xerophus",
+            "recruiter": "Ranaeus"
+        },
+        "battle_cry": "Repent!  For tomorow you may die",
+        "equal_specialists": 0,
+        "load_to_ships": {
+            "escort_load": 2, // 0 no, 2 yes, 1 doesnt do anything :)
+            "split_scouts": 0, // 0 no, 1 yes
+            "split_vets": 0 // 0 no, 1 yes
+        },
+        "successors": 9, //total number of successor chapters
+        "mutations": {
+            "preomnor": 0,
+            "voice": 0,
+            "doomed": 0,
+            "lyman": 0,
+            "omophagea": 0,
+            "ossmodula": 0,
+            "membrane": 0,
+            "zygote": 0,
+            "betchers": 0,
+            "catalepsean": 0,
+            "secretions": 0,
+            "occulobe": 0,
+            "mucranoid": 0
+        },
+        "disposition": [ // todo maybe convert to struct
+            0, // nothing
+            0, // Progenitor faction
+            65, // Imperium
+            60, // Admech
+            60, //Inquisition
+            60, // Ecclesiarchy
+            50, // Astartes
+            0 // nothing
+        ],
+        "chapter_master": {
+            "name": "Azrael",
+            "specialty": 2, //1 Leader, 2 Champion, 3 Psyker,
+            "melee": 5, // 1 twin power fists ... 8 force staff
+            "ranged": 4 // 1 boltstorm gauntlets ... 7 storm shield
+        },
+        "company_titles": [
+            "",
+            "Deathwing",
+            "Ravenwing",
+            "The Unmerciful",
+            "The Feared",
+            "The Unrelenting",
+            "The Resolute",
+            "The Unbowed",
+            "The Wrathful",
+            "The Remorseless",
+            "The Redeemed"
+        ],
+        /** 
+            * Provide a place to change the default name and equipment preferences of roles for this chapter
+            * 
+            */
+        "custom_roles": {
+            "honour_guard": {
+                "name": "Deathwing Knight",
+                "wep1": "Mace of Absolution"
+            },
+            "captain": {
+                "name": "Master",
+                "wep1": "Power Sword"
+            }
+        },
+        "custom_squads": {
+            "terminator_squad": [
+                // Terminator Sergeant
+                [
+                    "veteran_sergeant",
+                    {
+                        "max": 1,
+                        "min": 1,
+                        "role": "Deathwing Sergeant",
+                        "loadout": {
+                            "required": {
+                                "wep1": [
+                                    "Power Sword",
+                                    1
+                                ]
+                            }
+                        }
+                    }
+                ],
+                // Terminator
+                [
+                    "terminator",
+                    {
+                        "max": 4,
+                        "min": 2,
+                        "role": "Deathwing Terminator",
+                        "loadout": {
+                            "required": {
+                                "wep1": [
+                                    "",
+                                    0
+                                ],
+                                "wep2": [
+                                    "Storm Bolter",
+                                    3
+                                ]
+                            },
+                            "option": {
+                                "wep1": [
+                                    [
+                                        [
+                                            "Power Fist",
+                                            "Chainfist"
+                                        ],
+                                        4
+                                    ]
+                                ],
+                                "wep2": [
+                                    [
+                                        [
+                                            "Heavy Flamer",
+                                            "Heavy Flamer",
+                                            "Heavy Flamer",
+                                            "Assault Cannon",
+                                            "Assault Cannon",
+                                            "Plasma Cannon"
+                                        ],
+                                        1
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                [
+                    "type_data",
+                    {
+                        "display_data": "Deathwing Terminator Squad",
+                        "formation_options": [
+                            "terminator",
+                            "veteran",
+                            "assault",
+                            "devastator",
+                            "scout",
+                            "tactical"
+                        ]
+                    }
+                ]
+            ],
+            "terminator_assault_squad": [
+                // Assault Terminator Sergeant
+                [
+                    "veteran_sergeant",
+                    {
+                        "max": 1,
+                        "min": 1,
+                        "role": "Deathwing Sergeant",
+                        "loadout": {
+                            "required": {
+                                "wep1": [
+                                    "Thunder Hammer",
+                                    1
+                                ],
+                                "wep2": [
+                                    "Storm Shield",
+                                    1
+                                ]
+                            }
+                        }
+                    }
+                ],
+                // Assault Terminator
+                [
+                    "terminator",
+                    {
+                        "max": 4,
+                        "min": 2,
+                        "role": "Deathwing Terminator",
+                        "loadout": {
+                            "required": {
+                                "wep1": [
+                                    "Thunder Hammer",
+                                    1
+                                ],
+                                "wep2": [
+                                    "Storm Shield",
+                                    1
+                                ]
+                            },
+                            "option": {
+                                "wep1": [
+                                    [
+                                        [
+                                            "Lightning Claw"
+                                        ],
+                                        3,
+                                        {
+                                            "wep2": "Lightning Claw"
+                                        }
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                [
+                    "type_data",
+                    {
+                        "display_data": "Deathwing Terminator Squad",
+                        "formation_options": [
+                            "terminator",
+                            "veteran",
+                            "assault",
+                            "devastator",
+                            "scout",
+                            "tactical"
+                        ]
+                    }
+                ]
+            ]
+        }
+    }
+}

@@ -33,6 +33,9 @@ global.load=0;
 skip=false;
 premades=true;
 
+/// Opt in/out of loading from json vs hardcoded for specific chapters, this way i dont have to do all in one go to test
+use_chapter_object = 0;
+
 complex_livery=false;
 complex_selection = "sgt";
 complex_depth_selection = 0;
@@ -85,7 +88,7 @@ points=0;maxpoints=100;
 fleet_type=1;
 strength=5;cooperation=5;
 purity=5;stability=5;
-var i;i=-1;repeat(6){i+=1;adv[i]="";adv_num[i]=0;dis[i]="";dis_num[i]=0;} ///todo something with this  garbage
+var i;i=-1;repeat(10){i+=1;adv[i]="";adv_num[i]=0;dis[i]="";dis_num[i]=0;} ///todo something with this  garbage
 homeworld="Temperate";homeworld_name=global.name_generator.generate_star_name();
 recruiting="Death";recruiting_name=global.name_generator.generate_star_name();
 flagship_name=global.name_generator.generate_imperial_ship_name();
@@ -244,10 +247,10 @@ all_chapters = [
 
 global.chapters_count = array_length(all_chapters);
 
-test_chap = all_chapters[CHAPTERS.BLOOD_ANGELS];
-show_debug_message(test_chap);
-test_chap2 = all_chapters[CHAPTERS.BLACK_TEMPLARS];
-show_debug_message(test_chap2);
+// test_chap = all_chapters[CHAPTERS.BLOOD_ANGELS];
+// show_debug_message(test_chap);
+// test_chap2 = all_chapters[CHAPTERS.BLACK_TEMPLARS];
+// show_debug_message(test_chap2);
 
 /** 
  * * Not all Chapters are implemented yet, disable the ones that arent, remove a line if the chapter gets made

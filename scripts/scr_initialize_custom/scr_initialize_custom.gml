@@ -18,7 +18,6 @@ enum Role {
 	SERGEANT = 18,
 	VETERAN_SERGEANT = 19
 }
-
 function complex_livery_default(){
 	return {
 		sgt : {
@@ -456,9 +455,33 @@ function progenitor_map(){
 	return "";
 }
 
+function trial_map(trial_name){
+	switch(trial_name){
+		case "BLOOD_DUEL":
+			return eTrials.BLOODDUEL;
+		case "SURVIVAL":
+			return eTrials.SURVIVAL;
+		case "APPRENTICESHIP":
+			return eTrials.APPRENTICESHIP;
+		case "CHALLENGE":
+			return eTrials.CHALLENGE;
+		case "EXPOSURE":
+			return eTrials.EXPOSURE;
+		case "HUNTING":
+			return eTrials.HUNTING;
+		case "KNOWLEDGE":
+			return eTrials.KNOWLEDGE;
+		default: 
+			return eTrials.BLOODDUEL;
+	}
+}
+
 function scr_initialize_custom() {
 
+	show_debug_message("Executing scr_initialize_custom");
+	show_debug_message($"Using chapter object? {obj_creation.use_chapter_object}");
 
+	
 	progenitor = obj_creation.founding;
 	successors = obj_creation.successors;
 	homeworld_rule = obj_creation.homeworld_rule;
@@ -530,7 +553,7 @@ function scr_initialize_custom() {
 			"Raven Guard",
 			"Alpha Legion"
 		]
-		global.founding_secret = legions[irandom(17)];
+		global.founding_secret = legions[irandom(array_length(legions))];
 	}
 
 
@@ -1355,7 +1378,7 @@ function scr_initialize_custom() {
 		sergeant: role[100][18],
 		veteran_sergeant: role[100][19],
 	}
-
+	
 	var weapon_lists = {
 		heavy_weapons: ["Heavy Bolter", "Heavy Bolter", "Heavy Bolter", "Heavy Bolter", "Missile Launcher", "Missile Launcher", "Multi-Melta", "Lascannon"],
 		special_weapons: ["Flamer", "Flamer", "Flamer", "Meltagun", "Meltagun", "Plasma Gun"],
@@ -1871,6 +1894,38 @@ function scr_initialize_custom() {
 			}],
 		]
 	};
+
+	show_debug_message($"squads object for chapter {chapter_name}");
+	show_debug_message($"{st}");
+
+
+	if(obj_creation.use_chapter_object && true){
+		var custom_squads = global.chapter_creation_object.custom_squads;
+		show_debug_message($"custom roles {custom_squads}");
+		if(array_length(struct_get_names(custom_squads)) != 0){
+			var names = struct_get_names(st);
+			show_debug_message($"names {names}");
+			for(var n = 0; n < array_length(names); n++){
+				var squad_name = names[n];
+				show_debug_message($"matched squad name name {squad_name}");
+
+				if(struct_exists(custom_squads, squad_name)){
+					var custom_squad = struct_get(custom_squads, squad_name);
+					show_debug_message($"overwriting squad layout for {squad_name}")
+					show_debug_message($"{custom_squad}")
+					show_debug_message($"is struct? {is_struct(custom_squad)}");
+					show_debug_message($"is string? {is_string(custom_squad)}");
+
+
+					variable_struct_set(st, squad_name, custom_squad);
+				}
+			}
+		}
+	}
+
+	show_debug_message($"roles object for chapter {chapter_name} after setting from obj");
+	show_debug_message($"{st}");
+
 	if (global.chapter_name == "Salamanders") or (array_contains(obj_creation.adv, "Crafters")) { //salamanders squads
 		variable_struct_set(st, "assault_squad", [
 			[roles.assault, {
@@ -2129,7 +2184,7 @@ function scr_initialize_custom() {
 			}]
 		])
 
-	if (global.chapter_name == "Dark Angels") {
+	if (global.chapter_name == "Dark Angels" && false) {
 		variable_struct_set(st, "terminator_squad", [
 			// Terminator Sergeant
 			[roles.veteran_sergeant, {
@@ -2222,7 +2277,7 @@ function scr_initialize_custom() {
 	}
 
 
-	for (i = 0; i <= 20; i++;) {
+	for (i = 0; i <= 20; i++) {
 		if (role[100, i] != "") then scr_start_allow(i, "wep1", wep1[100, i]);
 		if (role[100, i] != "") then scr_start_allow(i, "wep2", wep2[100, i]);
 		if (role[100, i] != "") then scr_start_allow(i, "mobi", mobi[100, i]);
@@ -2532,7 +2587,7 @@ function scr_initialize_custom() {
 		loc[company, 3] = home_name;
 		role[company, 3] = "Master of Sanctity";
 		wep1[company, 3] = wep1[101, 14];
-		name[company, 3] = obj_creation.hchaplain;
+		name[company, 3] = high_chaplain_name;
 		wep2[company, 3] = "Plasma Pistol";
 		armour[company, 3] = "Artificer Armour";
 		gear[company, 3] = gear[101, 14];

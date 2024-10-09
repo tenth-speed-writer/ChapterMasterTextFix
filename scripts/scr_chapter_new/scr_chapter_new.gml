@@ -1,7 +1,7 @@
 function scr_chapter_new(argument0) {
 
 	// argument0 = chapter
-
+	obj_creation.use_chapter_object = 0; // for the new json testing
 
 	var i;i=-1;
 	repeat(21){i+=1;world[i]="";world_type[i]="";world_feature[i]="";}
@@ -37,53 +37,135 @@ function scr_chapter_new(argument0) {
 
 	chapter="nopw_nopw";
 
+	if (argument0="Dark Angels"){
+		obj_creation.use_chapter_object = 1;
 
+		#region old data
+		// founding="N/A";points=150;
+	    // selected_chapter=1;chapter=argument0;icon=1;icon_name="da";founding=0;fleet_type=1;strength=10;purity=8;stability=10;cooperation=5;
+	    // homeworld="Dead";homeworld_name="The Rock";recruiting="Death";recruiting_name="Kimmeria";
+	    // homeworld_exists=1;recruiting_exists=1;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;
+	    // adv[1]="Enemy: Fallen";dis[1]="Never Forgive";
+	    // // Pauldron2: Left, Pauldron: Right
+	    // color_to_main="Caliban Green";color_to_secondary="Caliban Green";color_to_trim="Grey";
+	    // color_to_pauldron="Caliban Green";color_to_pauldron2="Caliban Green";color_to_lens="Red";
+	    // color_to_weapon="Dark Red";col_special=0;trim=0;
 
-
-
-
-	if (argument0="Dark Angels"){founding="N/A";points=150;
-	    selected_chapter=1;chapter=argument0;icon=1;icon_name="da";founding=0;fleet_type=1;strength=10;purity=8;stability=10;cooperation=5;
-	    homeworld="Dead";homeworld_name="The Rock";recruiting="Death";recruiting_name="Kimmeria";
-	    homeworld_exists=1;recruiting_exists=1;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;
-	    adv[1]="Enemy: Fallen";dis[1]="Never Forgive";
-	    // Pauldron2: Left, Pauldron: Right
-	    color_to_main="Caliban Green";color_to_secondary="Caliban Green";color_to_trim="Grey";
-	    color_to_pauldron="Caliban Green";color_to_pauldron2="Caliban Green";color_to_lens="Red";
-	    color_to_weapon="Dark Red";col_special=0;trim=0;
-	    hchaplain="Sapphon";clibrarian="Ezekial";fmaster="Sepharon";hapothecary="Razaek";
-		honorcapt="Belial";watchmaster="Sammael";arsenalmaster="Astoran";admiral="Korahael";marchmaster="Balthazar";
-		ritesmaster="Araphil";victualler="Ezekiah";lordexec="Molochi";relmaster="Xerophus";recruiter="Ranaeus";
-	    battle_cry="Repent!  For tomorow you may die";
-	    equal_specialists=0;load_to_ships=[2,0,0];successors=9;
-	    mutations=0;mutations_selected=0;
-	    preomnor=0;voice=0;doomed=0;lyman=0;omophagea=0;ossmodula=0;membrane=0;
-	    zygote=0;betchers=0;catalepsean=0;secretions=0;occulobe=0;mucranoid=0;
-	    // disposition[1]=0;// Prog
-	    disposition[2]=65;disposition[3]=60;disposition[4]=60;disposition[5]=60;
-	    disposition[6]=50;// Astartes
-	    disposition[7]=0;// Reserved
-	    chapter_master_name="Azreal";chapter_master_specialty=2;
-	    chapter_master_melee=5;chapter_master_ranged=4;
+	    // hchaplain="Sapphon";clibrarian="Ezekial";fmaster="Sepharon";hapothecary="Razaek";
+		// honorcapt="Belial";watchmaster="Sammael";arsenalmaster="Astoran";admiral="Korahael";marchmaster="Balthazar";
+		// ritesmaster="Araphil";victualler="Ezekiah";lordexec="Molochi";relmaster="Xerophus";recruiter="Ranaeus";
+	    // battle_cry="Repent!  For tomorow you may die";
+	    // equal_specialists=0;load_to_ships=[2,0,0];successors=9;
+	    // mutations=0;mutations_selected=0;
+	    // preomnor=0;voice=0;doomed=0;lyman=0;omophagea=0;ossmodula=0;membrane=0;
+	    // zygote=0;betchers=0;catalepsean=0;secretions=0;occulobe=0;mucranoid=0;
+	    // // disposition[1]=0;// Prog
+	    // disposition[2]=65;disposition[3]=60;disposition[4]=60;disposition[5]=60;
+	    // disposition[6]=50;// Astartes
+	    // disposition[7]=0;// Reserved
+	    // chapter_master_name="Azreal";chapter_master_specialty=2;
+	    // chapter_master_melee=5;chapter_master_ranged=4;
 		
-	    company_title[1]="Deathwing";
-	    company_title[2]="Ravenwing";
-	    company_title[3]="The Unmerciful";
-		company_title[4]="The Feared";
-		company_title[5]="The Unrelenting";
-		company_title[6]="The Resolute";
-		company_title[7]="The Unbowed";
-		company_title[8]="The Wrathful";
-		company_title[9]="The Remorseless";
-		company_title[10]="The Redeemed";
+	    // company_title[1]="Deathwing";
+	    // company_title[2]="Ravenwing";
+	    // company_title[3]="The Unmerciful";
+		// company_title[4]="The Feared";
+		// company_title[5]="The Unrelenting";
+		// company_title[6]="The Resolute";
+		// company_title[7]="The Unbowed";
+		// company_title[8]="The Wrathful";
+		// company_title[9]="The Remorseless";
+		// company_title[10]="The Redeemed";
 		
-		for(i=100;i<=102;i++){
-		// role[i,1]="Supreme Grand Master";
-		role[i,5]="Master";
-		wep1[i,5]="Power Sword";
-		role[i,2]="Deathwing Knight"
+		// for(i=100;i<=102;i++){
+		// // role[i,1]="Supreme Grand Master";
+		// role[i,5]="Master";
+		// wep1[i,5]="Power Sword";
+		// role[i,2]="Deathwing Knight"
 	
+		// }
+		#endregion
+
+        var file_loader = new JsonFileListLoader();
+		var json_property_name ="chapter";
+		var chapter_id = CHAPTERS.DARK_ANGELS;
+
+
+        var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", json_property_name);
+		var chapter_obj = load_result.value.chapter;
+		global.chapter_creation_object = chapter_obj;
+
+		var chapter_object = global.chapter_creation_object;
+		obj_creation.founding = chapter_object.founding;
+		obj_creation.successors = chapter_object.successors;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.chapter_name = chapter_object.name;
+
+		obj_creation.icon = chapter_object.icon;
+		obj_creation.icon_name = chapter_object.icon_name;
+		obj_creation.fleet_type = chapter_object.fleet_type;
+		obj_creation.strength = chapter_object.strength;
+		obj_creation.purity = chapter_object.purity;
+		obj_creation.stability = chapter_object.stability;
+		obj_creation.cooperation = chapter_object.cooperation;
+		obj_creation.homeworld_exists = chapter_object.homeworld_exists;
+		obj_creation.recruiting_exists = chapter_object.recruiting_exists;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
+		obj_creation.adv = chapter_object.advantages;
+		obj_creation.dis = chapter_object.disadvantages;
+
+		obj_creation.color_to_main = chapter_object.colors.main;
+		obj_creation.color_to_secondary = chapter_object.colors.secondary;
+		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
+		obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
+		obj_creation.color_to_trim = chapter_object.colors.trim;
+		obj_creation.color_to_lens = chapter_object.colors.lens;
+		obj_creation.color_to_weapon = chapter_object.colors.weapon;
+		obj_creation.col_special = chapter_object.colors.special;
+		obj_creation.trim = chapter_object.colors.trim_on;
+
+		obj_creation.hchaplain = chapter_object.names.hchaplain;
+		obj_creation.clibrarian = chapter_object.names.clibrarian;
+		obj_creation.fmaster = chapter_object.names.fmaster;
+		obj_creation.hapothecary = chapter_object.names.hapothecary;
+		obj_creation.honorcapt = chapter_object.names.honorcapt;
+		obj_creation.watchmaster = chapter_object.names.watchmaster;
+		obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
+		obj_creation.admiral = chapter_object.names.admiral;
+		obj_creation.marchmaster = chapter_object.names.marchmaster;
+		obj_creation.ritesmaster = chapter_object.names.ritesmaster;
+		obj_creation.victualler = chapter_object.names.victualler;
+		obj_creation.lordexec = chapter_object.names.lordexec;
+		obj_creation.relmaster = chapter_object.names.relmaster;
+		obj_creation.recruiter  = chapter_object.names.recruiter;
+
+		obj_creation.battle_cry = chapter_object.battle_cry;
+
+		var load =chapter_object.load_to_ships;
+		obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
+		obj_creation.equal_specialists = chapter_object.equal_specialists;
+		
+		obj_creation.mutations = 0;
+		struct_foreach(chapter_object.mutations, function(key, val){
+			struct_set(obj_creation, key, val);
+			if(val == 1) {
+				obj_creation.mutations += 1;
+			}
+		});
+
+		obj_creation.disposition = chapter_object.disposition;
+
+		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
+		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
+		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
+		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
+
+		obj_creation.company_title = chapter_object.company_titles;
+		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
+			company_title[i] = chapter_object.company_titles[i];
 		}
+
 	}
 if (argument0="White Scars"){founding="N/A";points=150;
 	    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
@@ -711,7 +793,7 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
 
 
 	var i,a;i=0;a=0;
-	repeat(4){a+=1;i=0;
+	repeat(8){a+=1;i=0;
 	    repeat(40){i+=1;
 	        if (adv[a]!="") and (advantage[i]=adv[a]) then adv_num[a]=i;
 	        if (dis[a]!="") and (disadvantage[i]=dis[a]) then dis_num[a]=i;

@@ -246,7 +246,7 @@ if (slate4>0){
             
             if (highlight<=25){
                 var chap = all_chapters[highlight];
-                show_debug_message(chap);
+                // show_debug_message(chap);
                 tooltip=chap.name;
                 if(chap.progenitor != 0) {tooltip += "  - Progenitor Chapter: " + all_chapters[chap.progenitor].name};
                 tooltip2=chap.tooltip;
@@ -1065,7 +1065,7 @@ if (slide=3){
         draw_sprite(spr_creation_check,yar,445,576);
         if (point_and_click([445,576,445+32,576+32])) and (custom>1) and (homeworld_rule!=3){cooldown=8000;homeworld_rule=3;}
         if (scr_hit(445,576,670,576+32)){
-            tooltip="Planetary Governer";
+            tooltip="Personal Rule";
             tooltip2="You personally take the rule of the Planetary Governer, ruling over your homeworld with an iron fist.  Your every word and directive, be they good or bad, are absolute law.";
         }
     }
