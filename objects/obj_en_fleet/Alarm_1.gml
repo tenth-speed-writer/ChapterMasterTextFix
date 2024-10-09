@@ -461,6 +461,7 @@ if (navy && action=="") {
 	// Go to recruiting grounds
 	if ((guardsmen_unloaded=0) and (guardsmen_ratio<0.5) and ((trade_goods=""))) or (trade_goods="recr"){// determine what sort of planet is needed
 		var maxi = fleet_max_guard();
+		var curr = fleet_guard_current();
 	    var guard_wanted=maxi-curr,planet_needed=0;
 	    if (guard_wanted<=50000) then planet_needed=1;// Pretty much any
 	    if (guard_wanted>50000) then planet_needed=2;// Feudal and up
@@ -551,8 +552,7 @@ if (navy && action=="") {
 	            }
 	        }
         
-	        var guard_wanted=0;
-	        guard_wanted=fleet_max_guard()-curr;
+	        var guard_wanted=fleet_max_guard()-fleet_guard_current();
         
 	        // if (orbiting.p_population[that]<guard_wanted) and (orbiting.p_large[that]=0) then trade_goods="";
 	        if (orbiting.p_population[that]>guard_wanted) or (orbiting.p_large[that]=1){

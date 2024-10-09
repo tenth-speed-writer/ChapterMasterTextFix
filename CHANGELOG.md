@@ -20,7 +20,18 @@ All notable changes to this project will be documented in this file.
 - here go changes that are important only to other collaborators.
     - everything that a normal player doesn't need to know.
 ----------------------------------
+## [0.9.3.2]
 
+### Fixed:
+- crash from building forges at secret lairs
+- crash from fleets arriving at player fleets trying to trade
+- tooltips will now always draw as the top layer
+- crash from guard attempting to recruit new guard
+- ship occupancy sometimes breaking
+- crash from moving vehicles possibly fixed and being monitored
+
+### Changed:
+- hide settings that currently don't do anything
 
 ## [0.9.3.1]
 
