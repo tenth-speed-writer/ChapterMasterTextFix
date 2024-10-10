@@ -104,7 +104,7 @@ function JsonFileListLoader() constructor {
             debugl($"Could not load data from {relative_file_path}: {_ex}.");
             result.value = {}; // do not return incomplete/invalid data
         } finally {
-            if (is_undefined(file_buffer) == false) {
+            if (is_undefined(file_buffer) == false && file_buffer != -1) {
                 buffer_delete(file_buffer);
             }
         }

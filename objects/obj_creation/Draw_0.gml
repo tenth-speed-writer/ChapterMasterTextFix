@@ -70,8 +70,12 @@ if (slate4>0){
                     cooldown=8000;
                     chapter_name=founding_chapters[c].name;
                     if (!founding_chapters[c].disabled){
-                        scr_chapter_new(chapter_name);
-                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        if(scr_chapter_new(chapter_name)){
+                            icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        } else {
+                            // Chapter is borked
+                        }
+
                     }
                 }
             }
@@ -132,20 +136,19 @@ if (slate4>0){
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0){
 					if(chapter_made=1){
-					
-					cooldown=8000;chapter_name = custom_chapters[c].name;
-					change_slide=1;goto_slide=2;
-					scr_chapter_new(chapter21)};
-					
-					if (chapter_made = 0 ){
-						cooldown=8000;
-						change_slide=1;goto_slide=2;
-						custom=2;scr_chapter_random(0);
+                        cooldown=8000;chapter_name = custom_chapters[c].name;
+                        change_slide=1;goto_slide=2;
+                        scr_chapter_new(chapter21);
+                        
+                        if (chapter_made = 0 ){
+                            cooldown=8000;
+                            change_slide=1;goto_slide=2;
+                            custom=2;scr_chapter_random(0);
+                        }
                     }
-                   
                 }
+                x2+=53;
             }
-            x2+=53;
         }
         /** * Other Chapters */
         x2=441;y2=627;new_hover=highlight;
@@ -177,7 +180,6 @@ if (slate4>0){
         
         x2+=53;i=1001;
         repeat(2){
-        
             draw_sprite(spr_creation_icon,0,x2,y2);
             draw_sprite_stretched(spr_icon_chapters,i-1001,x2,y2,48,48);
             
@@ -256,9 +258,6 @@ if (slate4>0){
             if (highlight=1001) then tooltip2="Create your own customized Chapter, deciding the origins, strength, and weaknesses.  Custom Chapters are weaker than Founding Chapters.";
             if (highlight=1002) then tooltip2="Randomly generate a Chapter to play.  The origins, strength, and weaknesses are all random.  Random Chapters are normally weaker than Founding Chapters. ";
         }
-        
-        
-        
     }
 }
 
