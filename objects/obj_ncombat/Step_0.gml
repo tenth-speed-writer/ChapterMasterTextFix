@@ -40,7 +40,10 @@ if ((fugg>=60) or (fugg2>=60)) and (messages_shown=0) and (messages_to_show=8) a
         if (obj_ncombat.enemy=6){
             if ((enemy_forces<=0) or (!instance_exists(obj_enunit))) and (defeat_message=0){defeat_message=1;newline="Enemy Forces Defeated";timer_maxspeed=0;timer_speed=0;started=2;instance_activate_object(obj_pnunit);}
         }
-        messages_shown=105;done=1;scr_newtext();timer_stage=5;exit;
+        messages_shown=105;
+        done=1;
+        scr_newtext();
+        timer_stage=5;exit;
     }
     exit;
 }

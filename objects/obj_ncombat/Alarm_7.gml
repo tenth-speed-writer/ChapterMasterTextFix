@@ -97,21 +97,30 @@ if (string_count("cs_meeting",battle_special)>0){
 
 
 
-var i,that;i=0;that=0;
-repeat(50){if (that=0){i+=1;if (post_equipment_lost[i]="Company Standard") then that=i;}}
-if (that!=0){repeat(post_equipments_lost[that]){scr_loyalty("Lost Standard","+");}}
+var i=0,that=0;
+repeat(50){
+    if (that=0){
+        i+=1;
+        if (post_equipment_lost[i]="Company Standard") then that=i;
+    }
+}
+if (that!=0){
+    repeat(post_equipments_lost[that]){
+        scr_loyalty("Lost Standard","+");
+    }
+}
 
 if (battle_special="ruins") or (battle_special="ruins_eldar"){
     instance_activate_object(obj_ground_mission);
     obj_ground_mission.defeat=defeat;
-    obj_ground_mission.alarm[7]=1;
+    obj_ground_mission.explore_feature.scr_ruins_combat_end();
 }
-
-
-if (battle_special="WL10_reveal") or (battle_special="WL10_later"){var moar,ox,oy;
+else if (battle_special="WL10_reveal") or (battle_special="WL10_later"){var moar,ox,oy;
     with(obj_temp8){instance_destroy();}
     
-    if (chaos_angry>=5){if (string_count("|CPF|",obj_controller.useful_info)=0) then obj_controller.useful_info+="|CPF|";}
+    if (chaos_angry>=5){
+        if (string_count("|CPF|",obj_controller.useful_info)=0) then obj_controller.useful_info+="|CPF|";
+    }
     
     if (battle_special="WL10_reveal"){
         instance_create(battle_object.x,battle_object.y,obj_temp8);
@@ -264,7 +273,8 @@ obj_controller.command-=final_command_deaths;
 instance_activate_all();
 
 if (scr_role_count("Chapter Master","")=0){
-    obj_controller.alarm[7]=1;if (global.defeat<=1) then global.defeat=1;
+    obj_controller.alarm[7]=1;
+    if (global.defeat<=1) then global.defeat=1;
     if (enemy=1) or (enemy=2) or (enemy=5) then global.defeat=3;
 }
 
@@ -283,7 +293,8 @@ if ((dropping=1) or (attacking=1)) and (string_count("_attack",battle_special)=0
 }
 if ((dropping+attacking=0)) and (string_count("_attack",battle_special)=0) and (string_count("mech",battle_special)=0) and (string_count("ruins",battle_special)=0) and (battle_special!="ship_demon") and (string_count("cs_meeting",battle_special)=0){
     var yeehaw1;
-    yeehaw1=0;yeehaw1=obj_turn_end.battle_object[obj_turn_end.current_battle];
+    yeehaw1=0;
+    yeehaw1=obj_turn_end.battle_object[obj_turn_end.current_battle];
     if (string_count("ruins",battle_special)=0) then yeehaw1.p_player[obj_turn_end.battle_world[obj_turn_end.current_battle]]-=world_size;
     if (defeat=1) then yeehaw1.p_player[obj_turn_end.battle_world[obj_turn_end.current_battle]]=0;
     

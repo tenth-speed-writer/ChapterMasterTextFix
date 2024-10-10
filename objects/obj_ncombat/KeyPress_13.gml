@@ -23,7 +23,9 @@ if (started=3){
     instance_activate_all();
     instance_activate_object(obj_pnunit);
     instance_activate_object(obj_enunit);
-    if (instance_exists(obj_pnunit)){obj_pnunit.alarm[6]=1;}
+    if (instance_exists(obj_pnunit)){
+        obj_pnunit.alarm[6]=1;
+    }
     
     alarm[7]=2;
     fix_timer=15;

@@ -234,6 +234,13 @@ repeat(51){
     i+=1;item_name[i]="";
 }
 
+move_to_next_stage = function(){
+    return (scr_hit(0,0, room_width, room_height) ||
+        press_exclusive(vk_enter) ||
+        press_exclusive(vk_space) ||
+        press_exclusive(vk_enter));
+}
+
 
 calculate_equipment_needs =  function (){
      var i=0,rall="",all_good=0;

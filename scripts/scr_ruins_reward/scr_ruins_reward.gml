@@ -157,8 +157,7 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	    pop.estimate=gene;
 	}
 	else if (loot="bunker"){// Bunker
-	    var gene,pop;gene=floor(random_range(20,40))+1;
-	    pop=instance_create(0,0,obj_popup);
+	    var gene=floor(random_range(20,40))+1,pop=instance_create(0,0,obj_popup);;
 	    pop.image="ruins_bunker";
 	    pop.title="Ancient Ruins: Bunker Network";
 	    pop.text="Your battle brothers have found several entrances into an ancient bunker network.  Its location has been handed over to the PDF.  The planet's defense rating has increased to ";

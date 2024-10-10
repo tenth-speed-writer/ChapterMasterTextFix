@@ -34,6 +34,8 @@ All notable changes to this project will be documented in this file.
 - custom formations not loading correctly upon save load
 - artifact arrays making some artifacts unusable
 - ork fleets will no longer death stack
+- fix crash from deprecated onceh variable
+- added fail safes to stop crash when viewing some planetary features
 
 ### Changed:
 - hide settings that currently don't do anything
@@ -42,6 +44,9 @@ All notable changes to this project will be documented in this file.
 - Introduction of a bug log file message_log.log
 - introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end
 
+
+### Under The Hood:
+- large volume of things wrapped in try_and_report_loop
 
 
 ## [0.9.3.1]

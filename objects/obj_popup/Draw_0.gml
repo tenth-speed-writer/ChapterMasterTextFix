@@ -689,30 +689,30 @@ if (zoom=0) and (type=6) and (instance_exists(obj_controller)){
     show_name=o_wep1;
     if (a_wep1!="") then show_name=a_wep1;
     if (o_wep1!="") then draw_text(xx+1014,yy+215,string_hash_to_newline(show_name));
-    else draw_text(xx+1014,yy+215,string_hash_to_newline("(None)"));
+    else draw_text(xx+1014,yy+215,"(None)");
     
     show_name=o_wep2;
     if (a_wep2!="") then show_name=a_wep2;
     if (o_wep2!="") then draw_text(xx+1014,yy+235,string_hash_to_newline(string(show_name)));
-    else draw_text(xx+1014,yy+235,string_hash_to_newline("(None)"));
+    else draw_text(xx+1014,yy+235,"(None)");
     
     show_name=o_armour;
     if (a_armour!="") then show_name=a_armour;
     if (o_armour!="") then draw_text(xx+1014,yy+255,string_hash_to_newline(string(show_name)));
-    else draw_text(xx+1014,yy+255,string_hash_to_newline("(None)"));
+    else draw_text(xx+1014,yy+255,"(None)");
     
     show_name=o_gear;
     if (a_gear!="") then show_name=a_gear;
     if (o_gear!="") then draw_text(xx+1014,yy+275,string_hash_to_newline(string(show_name)));
-    else draw_text(xx+1014,yy+275,string_hash_to_newline("(None)"));
+    else draw_text(xx+1014,yy+275,"(None)");
     
     show_name=o_mobi;
     if (a_mobi!="") then show_name=a_mobi;
     if (o_mobi!="") then draw_text(xx+1014,yy+295,string_hash_to_newline(string(show_name)));
-    else draw_text(xx+1014,yy+295,string_hash_to_newline("(None)"));
+    else draw_text(xx+1014,yy+295,"(None)");
     
     draw_text(xx+1296,yy+195,string_hash_to_newline("After"));
-    draw_text(xx+1296.5,yy+195.5,string_hash_to_newline("After"));
+    draw_text(xx+1296.5,yy+195.5,"After");
     
     draw_set_color(c_gray);
     if (n_good1=0) then draw_set_color(255);
