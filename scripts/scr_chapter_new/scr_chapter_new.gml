@@ -3,6 +3,7 @@ function scr_chapter_new(argument0) {
 
 	// argument0 = chapter
 	obj_creation.use_chapter_object = 0; // for the new json testing
+	var chapter_id = CHAPTERS.UNKNOWN;
 
 	var i;i=-1;
 	repeat(21){i+=1;world[i]="";world_type[i]="";world_feature[i]="";}
@@ -37,7 +38,6 @@ function scr_chapter_new(argument0) {
 	}i=100;
 
 	chapter="nopw_nopw";
-	var chapter_id = CHAPTERS.UNKNOWN;
 
 	if (argument0=="Dark Angels" || argument0 == CHAPTERS.DARK_ANGELS){
 		obj_creation.use_chapter_object = 1;
@@ -98,7 +98,7 @@ function scr_chapter_new(argument0) {
 
 	var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", json_property_name);
 	if(!load_result.is_success){
-		
+
 	}
 	global.chapter_creation_object = load_result.value.chapter;
 	var chapter_object = global.chapter_creation_object;
