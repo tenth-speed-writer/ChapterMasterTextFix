@@ -458,6 +458,7 @@ function progenitor_map(){
 function trial_map(trial_name){
 	switch(trial_name){
 		case "BLOOD_DUEL":
+		case "BLOODDUEL":
 			return eTrials.BLOODDUEL;
 		case "SURVIVAL":
 			return eTrials.SURVIVAL;

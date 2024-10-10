@@ -1,3 +1,4 @@
+/// @mixin
 function scr_chapter_new(argument0) {
 
 	// argument0 = chapter
@@ -36,9 +37,11 @@ function scr_chapter_new(argument0) {
 	}i=100;
 
 	chapter="nopw_nopw";
+	var chapter_id = CHAPTERS.UNKNOWN;
 
-	if (argument0="Dark Angels"){
+	if (argument0=="Dark Angels" || argument0 == CHAPTERS.DARK_ANGELS){
 		obj_creation.use_chapter_object = 1;
+		chapter_id = CHAPTERS.DARK_ANGELS;
 
 		#region old data
 		// founding="N/A";points=150;
@@ -86,88 +89,91 @@ function scr_chapter_new(argument0) {
 		// }
 		#endregion
 
-        var file_loader = new JsonFileListLoader();
-		var json_property_name ="chapter";
-		var chapter_id = CHAPTERS.DARK_ANGELS;
-
-
-        var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", json_property_name);
-		var chapter_obj = load_result.value.chapter;
-		global.chapter_creation_object = chapter_obj;
-
-		var chapter_object = global.chapter_creation_object;
-		obj_creation.founding = chapter_object.founding;
-		obj_creation.successors = chapter_object.successors;
-		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-		obj_creation.chapter_name = chapter_object.name;
-
-		obj_creation.icon = chapter_object.icon;
-		obj_creation.icon_name = chapter_object.icon_name;
-		obj_creation.fleet_type = chapter_object.fleet_type;
-		obj_creation.strength = chapter_object.strength;
-		obj_creation.purity = chapter_object.purity;
-		obj_creation.stability = chapter_object.stability;
-		obj_creation.cooperation = chapter_object.cooperation;
-		obj_creation.homeworld_exists = chapter_object.homeworld_exists;
-		obj_creation.recruiting_exists = chapter_object.recruiting_exists;
-		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-		obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
-		obj_creation.adv = chapter_object.advantages;
-		obj_creation.dis = chapter_object.disadvantages;
-
-		obj_creation.color_to_main = chapter_object.colors.main;
-		obj_creation.color_to_secondary = chapter_object.colors.secondary;
-		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
-		obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
-		obj_creation.color_to_trim = chapter_object.colors.trim;
-		obj_creation.color_to_lens = chapter_object.colors.lens;
-		obj_creation.color_to_weapon = chapter_object.colors.weapon;
-		obj_creation.col_special = chapter_object.colors.special;
-		obj_creation.trim = chapter_object.colors.trim_on;
-
-		obj_creation.hchaplain = chapter_object.names.hchaplain;
-		obj_creation.clibrarian = chapter_object.names.clibrarian;
-		obj_creation.fmaster = chapter_object.names.fmaster;
-		obj_creation.hapothecary = chapter_object.names.hapothecary;
-		obj_creation.honorcapt = chapter_object.names.honorcapt;
-		obj_creation.watchmaster = chapter_object.names.watchmaster;
-		obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
-		obj_creation.admiral = chapter_object.names.admiral;
-		obj_creation.marchmaster = chapter_object.names.marchmaster;
-		obj_creation.ritesmaster = chapter_object.names.ritesmaster;
-		obj_creation.victualler = chapter_object.names.victualler;
-		obj_creation.lordexec = chapter_object.names.lordexec;
-		obj_creation.relmaster = chapter_object.names.relmaster;
-		obj_creation.recruiter  = chapter_object.names.recruiter;
-
-		obj_creation.battle_cry = chapter_object.battle_cry;
-
-		var load =chapter_object.load_to_ships;
-		obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
-		obj_creation.equal_specialists = chapter_object.equal_specialists;
-		
-		obj_creation.mutations = 0;
-		struct_foreach(chapter_object.mutations, function(key, val){
-			struct_set(obj_creation, key, val);
-			if(val == 1) {
-				obj_creation.mutations += 1;
-			}
-		});
-
-		obj_creation.disposition = chapter_object.disposition;
-
-		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
-		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
-		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
-		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
-
-		obj_creation.company_title = chapter_object.company_titles;
-		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
-			company_title[i] = chapter_object.company_titles[i];
-		}
 
 	}
-if (argument0="White Scars"){founding="N/A";points=150;
+
+	// todo this chunk can go at the bottom of the file after the if/elses once its all working 
+	var file_loader = new JsonFileListLoader();
+	var json_property_name ="chapter";
+
+	var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", json_property_name);
+	if(!load_result.is_success){
+		
+	}
+	global.chapter_creation_object = load_result.value.chapter;
+	var chapter_object = global.chapter_creation_object;
+	
+	obj_creation.founding = chapter_object.founding;
+	obj_creation.successors = chapter_object.successors;
+	obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+	obj_creation.chapter_name = chapter_object.name;
+
+	obj_creation.icon = chapter_object.icon;
+	obj_creation.icon_name = chapter_object.icon_name;
+	obj_creation.fleet_type = chapter_object.fleet_type;
+	obj_creation.strength = chapter_object.strength;
+	obj_creation.purity = chapter_object.purity;
+	obj_creation.stability = chapter_object.stability;
+	obj_creation.cooperation = chapter_object.cooperation;
+	obj_creation.homeworld_exists = chapter_object.homeworld_exists;
+	obj_creation.recruiting_exists = chapter_object.recruiting_exists;
+	obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+	obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
+	obj_creation.adv = chapter_object.advantages;
+	obj_creation.dis = chapter_object.disadvantages;
+
+	obj_creation.color_to_main = chapter_object.colors.main;
+	obj_creation.color_to_secondary = chapter_object.colors.secondary;
+	obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
+	obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
+	obj_creation.color_to_trim = chapter_object.colors.trim;
+	obj_creation.color_to_lens = chapter_object.colors.lens;
+	obj_creation.color_to_weapon = chapter_object.colors.weapon;
+	obj_creation.col_special = chapter_object.colors.special;
+	obj_creation.trim = chapter_object.colors.trim_on;
+
+	obj_creation.hchaplain = chapter_object.names.hchaplain;
+	obj_creation.clibrarian = chapter_object.names.clibrarian;
+	obj_creation.fmaster = chapter_object.names.fmaster;
+	obj_creation.hapothecary = chapter_object.names.hapothecary;
+	obj_creation.honorcapt = chapter_object.names.honorcapt;
+	obj_creation.watchmaster = chapter_object.names.watchmaster;
+	obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
+	obj_creation.admiral = chapter_object.names.admiral;
+	obj_creation.marchmaster = chapter_object.names.marchmaster;
+	obj_creation.ritesmaster = chapter_object.names.ritesmaster;
+	obj_creation.victualler = chapter_object.names.victualler;
+	obj_creation.lordexec = chapter_object.names.lordexec;
+	obj_creation.relmaster = chapter_object.names.relmaster;
+	obj_creation.recruiter  = chapter_object.names.recruiter;
+
+	obj_creation.battle_cry = chapter_object.battle_cry;
+
+	var load =chapter_object.load_to_ships;
+	obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
+	obj_creation.equal_specialists = chapter_object.equal_specialists;
+	
+	obj_creation.mutations = 0;
+	struct_foreach(chapter_object.mutations, function(key, val){
+		struct_set(obj_creation, key, val);
+		if(val == 1) {
+			obj_creation.mutations += 1;
+		}
+	});
+
+	obj_creation.disposition = chapter_object.disposition;
+
+	obj_creation.chapter_master_name = chapter_object.chapter_master.name;
+	obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
+	obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
+	obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
+
+	obj_creation.company_title = chapter_object.company_titles;
+	for(var i = 0; i < array_length(chapter_object.company_titles); i++){
+		company_title[i] = chapter_object.company_titles[i];
+	}
+
+if (argument0=="White Scars"){founding="N/A";points=150;
 	    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
 	    homeworld="Feudal";homeworld_name="Chogoris";
 	    homeworld_exists=1;recruiting_exists=0;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;discipline="rune Magick";

@@ -5,7 +5,7 @@ function set_chapter_arti_data(){
     artifacts=0;
     menu_artifact=-1;
     unused_artifacts = 0;
-    for (var i=1;i<array_length(obj_ini.artifact);i++){
+    for (var i=0;i<array_length(obj_ini.artifact);i++){
         if (obj_ini.artifact[i] != ""){
             if (menu_artifact==-1) then menu_artifact=i;
             artifacts++;
@@ -102,14 +102,17 @@ function scr_librarium(){
                 artifact_gift = new shutter_button();
                 artifact_destroy = new shutter_button();  
                 if  (menu_artifact>=1){     	
-                	while (menu_artifact>=1){
+                	while (menu_artifact>=0){
                 		menu_artifact--;
                         if (obj_ini.artifact[menu_artifact] != "") then break;
                 	}
                 }
-                if (menu_artifact==0){
+                if (menu_artifact==-1){
                     for (var i=29;i>0;i--){
-                        if (obj_ini.artifact[i] != "") then menu_artifact=i;
+                        if (obj_ini.artifact[i] != ""){
+                            menu_artifact=i;
+                            break;
+                        }
                     }                    
             	}
             }
@@ -128,8 +131,11 @@ function scr_librarium(){
                 }
 
                 if (menu_artifact==30){
-                    for (var i=1;i<30;i++){
-                         if (obj_ini.artifact[i] != "") then menu_artifact=i;
+                    for (var i=0;i<30;i++){
+                         if (obj_ini.artifact[i] != ""){
+                            menu_artifact=i;
+                            break;
+                        }
                     }
                 }
             }

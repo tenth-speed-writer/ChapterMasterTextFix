@@ -255,8 +255,9 @@ function scr_unit_quick_find_pane() constructor{
 			    	any_hover=true;
     			    if (hover_count==10){
     			    	hover_item = new hover_box();
-    			    	hover_item.relative_x = (mouse_x-xx+(10-10));
-    			    	hover_item.relative_y = (mouse_y-(yy+90+(20*i)));
+    			    	var mouse_consts = return_mouse_consts()
+    			    	hover_item.relative_x = (mouse_consts[0]-xx+(10-10));
+    			    	hover_item.relative_y = (mouse_consts[1]-(yy+90+(20*i)));
     			    	hover_item.root_item=i;
     			    }
     			}

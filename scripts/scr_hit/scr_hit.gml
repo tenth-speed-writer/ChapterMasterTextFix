@@ -40,3 +40,8 @@ function return_mouse_consts_tooltip(){
 	var consts = return_mouse_consts();
 	return [consts[0]+20, consts[1]]
 }
+
+
+
+
+
