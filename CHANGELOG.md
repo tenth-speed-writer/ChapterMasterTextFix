@@ -29,9 +29,20 @@ All notable changes to this project will be documented in this file.
 - crash from guard attempting to recruit new guard
 - ship occupancy sometimes breaking
 - crash from moving vehicles possibly fixed and being monitored
+- error log obj_controller.x=ii.x; when arriving at ork fleet
+- attempt to fix squad view screen bugging and not appearing fix status to be determined following play testing
+- custom formations not loading correctly upon save load
+- artifact arrays making some artifacts unusable
+- ork fleets will no longer death stack
 
 ### Changed:
 - hide settings that currently don't do anything
+
+### New:
+- Introduction of a bug log file message_log.log
+- introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end
+
+
 
 ## [0.9.3.1]
 
