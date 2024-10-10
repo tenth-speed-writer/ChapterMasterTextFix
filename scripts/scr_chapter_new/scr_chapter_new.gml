@@ -3,6 +3,7 @@ function scr_chapter_new(argument0) {
 
 	// argument0 = chapter
 	obj_creation.use_chapter_object = 0; // for the new json testing
+	var chapter_id = CHAPTERS.UNKNOWN;
 
 	var i;i=-1;
 	repeat(21){i+=1;world[i]="";world_type[i]="";world_feature[i]="";}
@@ -37,7 +38,6 @@ function scr_chapter_new(argument0) {
 	}i=100;
 
 	chapter="nopw_nopw";
-	var chapter_id = CHAPTERS.UNKNOWN;
 
 	if (argument0=="Dark Angels" || argument0 == CHAPTERS.DARK_ANGELS){
 		obj_creation.use_chapter_object = 1;
@@ -93,14 +93,7 @@ function scr_chapter_new(argument0) {
 	}
 
 	// todo this chunk can go at the bottom of the file after the if/elses once its all working 
-	var file_loader = new JsonFileListLoader();
-	var json_property_name ="chapter";
-
-	var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", json_property_name);
-	if(!load_result.is_success){
-		
-	}
-	global.chapter_creation_object = load_result.value.chapter;
+	
 	var chapter_object = global.chapter_creation_object;
 	
 	obj_creation.founding = chapter_object.founding;
@@ -173,6 +166,7 @@ function scr_chapter_new(argument0) {
 		company_title[i] = chapter_object.company_titles[i];
 	}
 
+	#region V1 Chapter Initialised factions
 if (argument0=="White Scars"){founding="N/A";points=150;
 	    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
 	    homeworld="Feudal";homeworld_name="Chogoris";
@@ -683,6 +677,9 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
     
 	    stage=6;
 	}
+	#endregion
+
+	#region Custom Chapter
 	//generates custom chapter if it exists
 	if (argument0=chapter21){
 		points=100;
@@ -771,6 +768,7 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
 			dis[i]=dis21[i];
 		}
 	}
+	#endregion
 
 	/*
 	if (h=1) then it="Power Fists";
@@ -812,3 +810,42 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
 
 
 }
+/* wip
+function chapter_object() constructor {
+	founding = CHAPTERS.UNKNOWN;
+ 	successors = 0;
+ 	homeworld_rule = 0;
+ 	name = "";
+ icon
+ icon_name
+ fleet_type
+ strength
+ purity
+ stability
+ cooperation
+ homeworld_exists
+ recruiting_exists
+ homeworld_rule
+ advantages
+ disadvantages
+ colors;
+
+ names
+ battle_cry
+	
+ disposition
+
+ company_titles
+	/// @param {Enum.CHAPTERS} chapter_id 
+	/// @returns {self} chapter_object
+	function load_from_json(chapter_id){
+		var file_loader = new JsonFileListLoader();
+
+		var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", "chapter");
+		if(!load_result.is_success){
+			throw("Something borked major");
+		}
+		self = load_result.value.chapter;
+	}
+}
+	*/
