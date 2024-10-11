@@ -609,7 +609,7 @@ if (image="ancient_ruins" && woopwoopwoop && move_to_next_stage()) {
         if (ruins_battle=0){
             var obj=obj_ground_mission.obj;
             instance_activate_object(obj_star);
-            scr_ruins_reward(star_by_name(obj_ground_mission.battle_loc),obj_ground_mission.battle_loc,obj_ground_mission.explore_feature);
+            scr_ruins_reward(star_by_name(obj_ground_mission.battle_loc),obj_ground_mission.num,obj_ground_mission.explore_feature);
             instance_destroy();
             exit;
         }
