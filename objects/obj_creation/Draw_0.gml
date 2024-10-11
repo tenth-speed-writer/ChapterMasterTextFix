@@ -248,7 +248,6 @@ if (slate4>0){
             
             if (highlight<=25){
                 var chap = all_chapters[highlight];
-                // show_debug_message(chap);
                 tooltip=chap.name;
                 if(chap.progenitor != 0) {tooltip += "  - Progenitor Chapter: " + all_chapters[chap.progenitor].name};
                 tooltip2=chap.tooltip;

@@ -1,13 +1,14 @@
 /// @description Constructor for loading Chapter data from JSON and providing type completion
 function chapter_data() constructor {
-	/// @type {Enum.CHAPTERS} 
+	id = CHAPTERS.UNKNOWN;
+	name = "";
+	points = 0;
 	founding = CHAPTERS.UNKNOWN;
-	/// @desc total number of successor chapters
  	successors = 0;
  	homeworld_rule = 0;
- 	name = "";
 	icon = 0;
 	icon_name = "";
+	aspirant_trial = eTrials.BLOODDUEL;
 	fleet_type = FLEET_TYPE.NONE;
 	strength = 0;
 	purity = 0;
@@ -18,9 +19,50 @@ function chapter_data() constructor {
 	homeworld_rule = HOMEWORLD_RULE.NONE;
 	advantages = [];
 	disadvantages = [];
-	colors = {};
-	names = {};
-	mutations = {};
+	colors = {
+		main: "Grey",
+		secondary: "Grey",
+		pauldron_r: "Grey",
+		pauldron_l: "Grey",
+		trim: "Grey",
+		lens: "Grey",
+		weapon: "Grey",
+		/// 0 - normal, 1 - Breastplate, 2 - Vertical, 3 - Quadrant
+		special: 0,
+		/// 0 no, 1 yes for special trim colours
+		trim_on: 0,
+	};
+	names = {
+		hchaplain: "",
+		clibrarian: "",
+		fmaster: "",
+		hapothecary: "",
+		honorcapt: "",
+		watchmaster: "",
+		arsenalmaster: "",
+		admiral: "",
+		marchmaster: "",
+		ritesmaster: "",
+		victualler: "",
+		lordexec: "",
+		relmaster: "",
+		recruiter: "",
+	};
+	mutations = {
+		preomnor: 0,
+		voice: 0,
+		doomed: 0,
+		lyman: 0,
+		omophagea: 0,
+		ossmodula: 0,
+		membrane: 0,
+		zygote: 0,
+		betchers: 0,
+		catalepsean: 0,
+		secretions: 0,
+		occulobe: 0,
+		mucranoid: 0,
+	};
 	battle_cry = "For the Emperor!";
 	equal_specialists = 0;
 	load_to_ships = {
@@ -28,14 +70,16 @@ function chapter_data() constructor {
 		split_scouts: 0,
 		split_vets: 0,
 	};
-
+	/// @type {Array<Real>} 
 	disposition = [];
+	/// @type {Array<String>} 
 	company_titles = [];
 	chapter_master = {
 		name: "",
 		melee: 0,
 		ranged: 0,
-		specialty: CM_SPECIALTY.NONE
+		specialty: CM_SPECIALTY.NONE,
+		traits: []
 	};
 
 	/// @desc Returns true if loaded successfully, false if not. Should probably crash the game if false
@@ -60,7 +104,7 @@ function chapter_data() constructor {
 	}
 }
 
-/// @mixin
+/// @mixin obj_creation
 function scr_chapter_new(argument0) {
 
 	// argument0 = chapter
@@ -104,11 +148,6 @@ function scr_chapter_new(argument0) {
 	if (argument0=="Dark Angels" || argument0 == CHAPTERS.DARK_ANGELS){
 		obj_creation.use_chapter_object = 1;
 		chapter_id = CHAPTERS.DARK_ANGELS;
-		var chapter_obj = new chapter_data();
-		chapter_obj.load_from_json(chapter_id);
-		
-		global.chapter_creation_object = chapter_obj;
-		
 
 		#region old data
 		// founding="N/A";points=150;
@@ -163,15 +202,6 @@ function scr_chapter_new(argument0) {
 		// ! Intentionally making this fail for testing purposes
 		obj_creation.use_chapter_object = 1;
 		chapter_id = CHAPTERS.WHITE_SCARS;
-		var chapter_obj = new chapter_data();
-		var successfully_loaded = chapter_obj.load_from_json(chapter_id);
-		if(!successfully_loaded){
-			debugl ($"No json file exists for chapter id {chapter_id} and name {argument0}");
-			return false;
-		}
-
-		global.chapter_creation_object = chapter_obj;
-
 		#region data
 		// founding="N/A";points=150;
 		//     selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
@@ -212,81 +242,109 @@ function scr_chapter_new(argument0) {
 		#endregion
 	}
 
-	// todo this chunk can go at the bottom of the file after the if/elses once its all working 
-	
-	var chapter_object = global.chapter_creation_object;
-	
-	// * All of this obj_creation setting is just to keep things working 
-	obj_creation.founding = chapter_object.founding;
-	obj_creation.successors = chapter_object.successors;
-	obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-	obj_creation.chapter_name = chapter_object.name;
+	if(obj_creation.use_chapter_object == 1){
 
-	obj_creation.icon = chapter_object.icon;
-	obj_creation.icon_name = chapter_object.icon_name;
-	obj_creation.fleet_type = chapter_object.fleet_type;
-	obj_creation.strength = chapter_object.strength;
-	obj_creation.purity = chapter_object.purity;
-	obj_creation.stability = chapter_object.stability;
-	obj_creation.cooperation = chapter_object.cooperation;
-	obj_creation.homeworld_exists = chapter_object.homeworld_exists;
-	obj_creation.recruiting_exists = chapter_object.recruiting_exists;
-	obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-	obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
-	obj_creation.adv = chapter_object.advantages;
-	obj_creation.dis = chapter_object.disadvantages;
-
-	obj_creation.color_to_main = chapter_object.colors.main;
-	obj_creation.color_to_secondary = chapter_object.colors.secondary;
-	obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
-	obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
-	obj_creation.color_to_trim = chapter_object.colors.trim;
-	obj_creation.color_to_lens = chapter_object.colors.lens;
-	obj_creation.color_to_weapon = chapter_object.colors.weapon;
-	obj_creation.col_special = chapter_object.colors.special;
-	obj_creation.trim = chapter_object.colors.trim_on;
-
-	obj_creation.hchaplain = chapter_object.names.hchaplain;
-	obj_creation.clibrarian = chapter_object.names.clibrarian;
-	obj_creation.fmaster = chapter_object.names.fmaster;
-	obj_creation.hapothecary = chapter_object.names.hapothecary;
-	obj_creation.honorcapt = chapter_object.names.honorcapt;
-	obj_creation.watchmaster = chapter_object.names.watchmaster;
-	obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
-	obj_creation.admiral = chapter_object.names.admiral;
-	obj_creation.marchmaster = chapter_object.names.marchmaster;
-	obj_creation.ritesmaster = chapter_object.names.ritesmaster;
-	obj_creation.victualler = chapter_object.names.victualler;
-	obj_creation.lordexec = chapter_object.names.lordexec;
-	obj_creation.relmaster = chapter_object.names.relmaster;
-	obj_creation.recruiter  = chapter_object.names.recruiter;
-
-	obj_creation.battle_cry = chapter_object.battle_cry;
-
-	var load =chapter_object.load_to_ships;
-	obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
-	obj_creation.equal_specialists = chapter_object.equal_specialists;
-	
-	obj_creation.mutations = 0;
-	struct_foreach(chapter_object.mutations, function(key, val){
-		struct_set(obj_creation, key, val);
-		if(val == 1) {
-			obj_creation.mutations += 1;
+		var chapter_obj = new chapter_data();
+		var successfully_loaded = chapter_obj.load_from_json(chapter_id);
+		if(!successfully_loaded){
+			var issue = $"No json file exists for chapter id {chapter_id} and name {argument0}";
+			debugl (issue);
+			scr_popup("Error Loading Chapter", issue, "debug");
+			return false;
 		}
-	});
 
-	obj_creation.disposition = chapter_object.disposition;
+		global.chapter_creation_object = chapter_obj;
 
-	obj_creation.chapter_master_name = chapter_object.chapter_master.name;
-	obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
-	obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
-	obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
 
-	obj_creation.company_title = chapter_object.company_titles;
-	for(var i = 0; i < array_length(chapter_object.company_titles); i++){
-		company_title[i] = chapter_object.company_titles[i];
+		// todo this chunk can go at the bottom of the file after the if/elses once its all working 
+		
+		var chapter_object = global.chapter_creation_object;
+		
+		// * All of this obj_creation setting is just to keep things working 
+		obj_creation.founding = chapter_object.founding;
+		obj_creation.successors = chapter_object.successors;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.chapter_name = chapter_object.name;
+
+		obj_creation.icon = chapter_object.icon;
+		obj_creation.icon_name = chapter_object.icon_name;
+		obj_creation.fleet_type = chapter_object.fleet_type;
+		obj_creation.strength = chapter_object.strength;
+		obj_creation.purity = chapter_object.purity;
+		obj_creation.stability = chapter_object.stability;
+		obj_creation.cooperation = chapter_object.cooperation;
+		obj_creation.homeworld_exists = chapter_object.homeworld_exists;
+		obj_creation.recruiting_exists = chapter_object.recruiting_exists;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
+		obj_creation.adv = chapter_object.advantages;
+		obj_creation.dis = chapter_object.disadvantages;
+
+		obj_creation.color_to_main = chapter_object.colors.main;
+		obj_creation.color_to_secondary = chapter_object.colors.secondary;
+		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
+		obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
+		obj_creation.color_to_trim = chapter_object.colors.trim;
+		obj_creation.color_to_lens = chapter_object.colors.lens;
+		obj_creation.color_to_weapon = chapter_object.colors.weapon;
+		obj_creation.col_special = chapter_object.colors.special;
+		obj_creation.trim = chapter_object.colors.trim_on;
+
+		obj_creation.hchaplain = chapter_object.names.hchaplain;
+		obj_creation.clibrarian = chapter_object.names.clibrarian;
+		obj_creation.fmaster = chapter_object.names.fmaster;
+		obj_creation.hapothecary = chapter_object.names.hapothecary;
+		obj_creation.honorcapt = chapter_object.names.honorcapt;
+		obj_creation.watchmaster = chapter_object.names.watchmaster;
+		obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
+		obj_creation.admiral = chapter_object.names.admiral;
+		obj_creation.marchmaster = chapter_object.names.marchmaster;
+		obj_creation.ritesmaster = chapter_object.names.ritesmaster;
+		obj_creation.victualler = chapter_object.names.victualler;
+		obj_creation.lordexec = chapter_object.names.lordexec;
+		obj_creation.relmaster = chapter_object.names.relmaster;
+		obj_creation.recruiter  = chapter_object.names.recruiter;
+
+		obj_creation.battle_cry = chapter_object.battle_cry;
+
+		var load =chapter_object.load_to_ships;
+		obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
+		obj_creation.equal_specialists = chapter_object.equal_specialists;
+		
+		obj_creation.mutations = 0;
+		struct_foreach(chapter_object.mutations, function(key, val){
+			struct_set(obj_creation, key, val);
+			if(val == 1) {
+				obj_creation.mutations += 1;
+			}
+		});
+
+		obj_creation.disposition = chapter_object.disposition;
+
+		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
+		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
+		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
+		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
+
+		obj_creation.company_title = chapter_object.company_titles;
+		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
+			company_title[i] = chapter_object.company_titles[i];
+		}
+
+		obj_creation.flagship_name = chapter_object.flagship_name;
+		obj_creation.extra_ships = chapter_object.extra_ships;
+		obj_creation.extra_specialists = chapter_object.extra_specialists;
+		obj_creation.extra_marines = chapter_object.extra_marines;
+		obj_creation.extra_vehicles = chapter_object.extra_vehicles;
+
+		obj_creation.custom_roles = chapter_object.custom_roles;
+
+
+
+		maxpoints=chapter_object.points;
+
+		return true;
 	}
-
 
 
 	#region V1 Chapter Initialised factions

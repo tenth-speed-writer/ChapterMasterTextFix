@@ -101,7 +101,12 @@
             "name": "Azrael",
             "specialty": 2, //1 Leader, 2 Champion, 3 Psyker,
             "melee": 5, // 1 twin power fists ... 8 force staff
-            "ranged": 4 // 1 boltstorm gauntlets ... 7 storm shield
+            "ranged": 4, // 1 boltstorm gauntlets ... 7 storm shield
+            // All chapter masters have the trait `Lead by Example` by default
+            "traits": [
+                "old_guard",
+                "melee_enthusiast"
+            ]
         },
         "company_titles": [
             "",
@@ -116,6 +121,66 @@
             "The Remorseless",
             "The Redeemed"
         ],
+        "flagship_name": "Invincible Reason",
+        /**
+        * * Default fleet composition
+        * * Homeworld 
+        * - 2 Battle Barges, 8 Strike cruisers, 7 Gladius, 3 Hunters
+        * * Fleet based and Penitent 
+        * - 4 Battle Barges, 3 Strike Cruisers, 7 Gladius, 3 Hunters
+        * 
+        * use negative numbers to subtract ships
+        */
+        "extra_ships": {
+            "battle_barges": 1,
+            "gladius": 0,
+            "strike_cruisers": 0,
+            "hunters": 0
+        },
+        /**
+        * * Default HQ Layout (Does not include company specialists)
+        * - 8 Chaplains, 8 Techmarines, 8 Apothecary, 2 Epistolary (librarian), 
+        * - 2 Codiciery, 4 Lexicanum
+        * * Default Company specialists (divided based on `load_to_ships.split_vets` setting)
+        * - 20 Terminators, 85 Veterans, 20 Devastators, 20 Assault
+        * Use negative numbers to subtract
+        * Stacks with advantages/disadvantages
+        */
+        "extra_specialists": {
+            "chaplains": 4,
+            "techmarines": 0,
+            "apothecary": 0,
+            "epistolary": 0,
+            "codiciery": 0,
+            "lexicanum": 0,
+            "terminator": 80,
+            "assault": 0,
+            "veteran": -80,
+            "devastator": 0
+        },
+        /**
+        * * Default Marine strength
+        * - 100 marines per company
+        * use negative numbers to subtract
+        * Stacks with strength for non-founding chapters
+        */
+        "extra_marines": {
+            "second": 0,
+            "third": 0,
+            "fourth": 0,
+            "fifth": 0,
+            "sixth": 0,
+            "seventh": 0,
+            "eighth": 0,
+            "ninth": 0,
+            "tenth": 0
+        },
+        "extra_vehicles": {
+            "rhino": 0,
+            "whirlwind": 0,
+            "predator": 0,
+            "land_raider": 0
+        },
         /** 
             * Provide a place to change the default name and equipment preferences of roles for this chapter
             * 
@@ -134,7 +199,7 @@
             "terminator_squad": [
                 // Terminator Sergeant
                 [
-                    "veteran_sergeant",
+                    "Veteran Sergeant",
                     {
                         "max": 1,
                         "min": 1,
@@ -151,7 +216,7 @@
                 ],
                 // Terminator
                 [
-                    "terminator",
+                    "Terminator",
                     {
                         "max": 4,
                         "min": 2,
@@ -212,7 +277,7 @@
             "terminator_assault_squad": [
                 // Assault Terminator Sergeant
                 [
-                    "veteran_sergeant",
+                    "Veteran Sergeant",
                     {
                         "max": 1,
                         "min": 1,
@@ -233,7 +298,7 @@
                 ],
                 // Assault Terminator
                 [
-                    "terminator",
+                    "Terminator",
                     {
                         "max": 4,
                         "min": 2,

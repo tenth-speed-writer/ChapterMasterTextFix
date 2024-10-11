@@ -477,6 +477,7 @@ function trial_map(trial_name){
 	}
 }
 
+/// @mixin obj_ini
 function scr_initialize_custom() {
 
 	show_debug_message("Executing scr_initialize_custom");
@@ -490,7 +491,7 @@ function scr_initialize_custom() {
 
 	// Initializes all of the marine/vehicle/ship variables for the chapter.
 
-	techs = 8;
+	techmarines = 8;
 	apothecary = 8;
 	epistolary = 2;
 	codiciery = 2;
@@ -627,73 +628,88 @@ function scr_initialize_custom() {
 		// obj_controller.fleet_type="Homeworld";
 	}
 
+	/**
+	* * Default fleet composition
+	* * Homeworld 
+	* - 2 Battle Barges, 8 Strike cruisers, 7 Gladius, 3 Hunters
+	* * Fleet based and Penitent 
+	* - 4 Battle Barges, 3 Strike Cruisers, 7 Gladius, 3 Hunters
+	*/
 	if (obj_creation.custom = 0) {
+		flagship_name = obj_creation.flagship_name;
 		if (obj_creation.fleet_type != 1) {
-			flagship_name = obj_creation.flagship_name;
-			battle_barges = 1;
-			strike_cruisers = 6;
+			battle_barges = 4;
+			strike_cruisers = 3;
 			gladius = 7;
 			hunters = 3;
-
-			if (global.chapter_name = "Soul Drinkers") then gladius -= 4;
-			strike_cruisers -= 3;
-			battle_barges += 1;
-
 		}
 		if (obj_creation.fleet_type = 1) {
 			strike_cruisers = 8;
 			gladius = 7;
 			hunters = 3;
+		}
 
-			if (global.chapter_name = "Raven Guard") {
-				flagship_name = "Avenger"
+		if(obj_creation.use_chapter_object == 1){
+			// json loading
+			battle_barges = battle_barges + obj_creation.extra_ships.battle_barges;
+			strike_cruisers = strike_cruisers + obj_creation.extra_ships.strike_cruisers;
+			gladius = gladius + obj_creation.extra_ships.gladius;
+			hunters = hunters + obj_creation.extra_ships.hunters;
+		} else {
+			// hardcoded mode 
+			if (obj_creation.fleet_type != 1) {
+				if (global.chapter_name = "Soul Drinkers") then gladius -= 4;
 			}
-			if (global.chapter_name = "Salamanders") {
-				flagship_name = "Flamewrought";
+			if (obj_creation.fleet_type = 1) {
+				if (global.chapter_name = "Raven Guard") {
+					flagship_name = "Avenger"
+				}
+				if (global.chapter_name = "Salamanders") {
+					flagship_name = "Flamewrought";
+				}
+
+				if (global.chapter_name = "Ultramarines") {
+					flagship_name = "Laurels of Victory";
+				}
+
+				if (global.chapter_name = "Imperial Fists") {
+					flagship_name = "Spear of Vengeance";
+					battle_barges += 1;
+				}
+
+				if (global.chapter_name = "Crimson Fists") {
+					flagship_name = "Throne's Fury";
+					battle_barges -= 1;
+					gladius -= 3;
+					strike_cruisers -= 4
+				}
+
+				if (global.chapter_name = "Dark Angels") {
+					flagship_name = "Invincible Reason";
+					battle_barges++;
+
+				}
+				if (global.chapter_name = "Black Templars") {
+					flagship_name = "Eternal Crusader";
+
+				}
+				if (global.chapter_name = "Minotaurs") {
+					flagship_name = "Daedelos Krata";
+
+				}
 			}
-
-			if (global.chapter_name = "Ultramarines") {
-				flagship_name = "Laurels of Victory";
-			}
-
-			if (global.chapter_name = "Imperial Fists") {
-				flagship_name = "Spear of Vengeance";
-				battle_barges += 1;
-			}
-
-			if (global.chapter_name = "Crimson Fists") {
-				flagship_name = "Throne's Fury";
-				battle_barges -= 1;
-				gladius -= 3;
-				strike_cruisers -= 4
-			}
-
-			if (global.chapter_name = "Dark Angels") {
-				flagship_name = "Invincible Reason";
-				battle_barges++;
-
-			}
-			if (global.chapter_name = "Black Templars") {
-				flagship_name = "Eternal Crusader";
-
-			}
-			if (global.chapter_name = "Minotaurs") {
-				flagship_name = "Daedelos Krata";
-
+			if (obj_creation.fleet_type = 3) {
+				if (global.chapter_name = "Lamenters") {
+					strike_cruisers = 2;
+					gladius = 2;
+					hunters = 1;
+					battle_barges = 0;
+				}
+				if (global.chapter_name = "Blood Ravens") {
+					battle_barges = 1;
+				}
 			}
 		}
-		if (obj_creation.fleet_type = 3) {
-			if (global.chapter_name = "Lamenters") {
-				strike_cruisers = 2;
-				gladius = 2;
-				hunters = 1;
-				battle_barges = 0;
-			}
-			if (global.chapter_name = "Blood Ravens") {
-				battle_barges = 1;
-			}
-		}
-		if (global.chapter_name != "Lamenters") and(global.chapter_name != "Doom Benefactors") and(global.chapter_name != "Blood Ravens") then battle_barges += 2;
 	}
 
 	var i = -1;
@@ -738,7 +754,7 @@ function scr_initialize_custom() {
 	var total_ship_count = battle_barges + strike_cruisers + gladius + hunters;
 	for (f = 1; f <= total_ship_count; f++) {
 		for (j = 1; j <= 30; j++) {
-			if (ship_uid[f] = ship_uid[j]) and(f != j) then ship_uid[j] = floor(random(99999999)) + 1;
+			if (ship_uid[f] == ship_uid[j]) and(f != j) then ship_uid[j] = floor(random(99999999)) + 1;
 		}
 	}
 
@@ -786,8 +802,6 @@ function scr_initialize_custom() {
 	millenium = 41;
 
 	var company = 0;
-	var chaap = 8,
-		whirlwind;
 	var second = 100,
 		third = 100,
 		fourth = 100,
@@ -797,15 +811,17 @@ function scr_initialize_custom() {
 		eighth = 100,
 		ninth = 100,
 		tenth = 100;
-	var assault = 20,
-		siege = 0,
+	var siege = 0,
 		temp1 = 0,
 		intolerant = 0;
 	var k, i, v;
 	k = 0;
 	i = 0;
 	v = 0;
-	var techs = 8,
+
+	/* Default Specialists */
+	var chaplains = 8,
+	 	techmarines = 8,
 		techmarines_per_company = 1,
 		apothecary = 8,
 		epistolary = 2,
@@ -813,11 +829,12 @@ function scr_initialize_custom() {
 		lexicanum = 4,
 		terminator = 20,
 		veteran = 85,
+		assault = 20,
 		devastator = 20;
 
+	var whirlwind = 4;
 
-	whirlwind = 4;
-
+	/* Used for summing total count */
 	specials = 0;
 	firsts = 0;
 	seconds = 0;
@@ -855,7 +872,7 @@ function scr_initialize_custom() {
 	var chapter_option, o, psyky;
 	psyky = 0;
 	if (array_contains(obj_creation.adv, "Tech-Brothers")) {
-		techs += 4;
+		techmarines += 4;
 		tenth -= 4;
 	}
 	if (array_contains(obj_creation.adv, "Melee Enthusiasts")) {
@@ -866,7 +883,7 @@ function scr_initialize_custom() {
 		siege = 1;
 	}
 	if (array_contains(obj_creation.adv, "Crafters")) {
-		techs += 2;
+		techmarines += 2;
 		terminator += 5;
 		tenth -= 5;
 	}
@@ -892,12 +909,12 @@ function scr_initialize_custom() {
 		tenth += 4;
 	}
 	if (array_contains(obj_creation.dis, "Sieged")) {
-		techs -= 4;
+		techmarines -= 4;
 		epistolary -= 1;
 		codiciery -= 1;
 		lexicanum -= 2;
 		apothecary -= 4;
-		chaap -= 4;
+		chaplains -= 4;
 		terminator -= 10;
 		veteran -= 50;
 		second -= 30;
@@ -927,11 +944,11 @@ function scr_initialize_custom() {
 	}
 
 	if (array_contains(obj_creation.dis, "Tech-Heresy")) {
-		techs -= 4;
+		techmarines -= 4;
 		tenth += 4;
 	}
 	if (array_contains(obj_creation.adv, "Reverent Guardians")) {
-		chaap += 4;
+		chaplains += 4;
 		tenth -= 4;
 	}
 	
@@ -1048,14 +1065,14 @@ function scr_initialize_custom() {
 			tenth -= 40;
 			break;
 		case "Blood Angels":
-			chaap += 4;
+			chaplains += 4;
 			apothecary += 4;
 			epistolary += 1;
 			codiciery += 1;
 			lexicanum += 2;
 			break;
 		case "Dark Angels":
-			chaap += 4;
+			chaplains += 4;
 			veteran = 5;
 			terminator = 100;
 			break;
@@ -1066,8 +1083,8 @@ function scr_initialize_custom() {
 			seventh = 0;
 			sixth = 0;
 			fifth = 0;
-			techs = 4;
-			chaap = 4;
+			techmarines = 4;
+			chaplains = 4;
 			apothecary = 4;
 			epistolary = 3;
 			codiciery = 3;
@@ -1103,7 +1120,7 @@ function scr_initialize_custom() {
 			tenth += 60;
 			break;
 		case "Iron Hands":
-			chaap = 0;
+			chaplains = 0;
 			techmarines_per_company += 1;
 			break;
 	}
@@ -1357,6 +1374,26 @@ function scr_initialize_custom() {
 		armour[100, i] = obj_creation.armour[100, i];
 		gear[100, i] = obj_creation.gear[100, i];
 		mobi[100, i] = obj_creation.mobi[100, i];
+	}
+	
+	if(obj_creation.use_chapter_object){
+		var c_roles = obj_creation.custom_roles;
+		if(struct_exists(c_roles, "honour_guard")){
+			if (struct_exists(c_roles.honour_guard, "name")){
+				role[100][Role.HONOUR_GUARD] = c_roles.honour_guard.name;
+			}
+			if(struct_exists(c_roles.honour_guard, "wep1")){
+				wep1[100][Role.HONOUR_GUARD] = c_roles.honour_guard.wep1;
+			}
+		}
+		if(struct_exists(c_roles, "captain")){
+			if (struct_exists(c_roles.captain, "name")){
+				role[100][Role.CAPTAIN] = c_roles.captain.name;
+			}
+			if(struct_exists(c_roles.honour_guard, "wep1")){
+				wep1[100][Role.CAPTAIN] = c_roles.captain.wep1;
+			}
+		}
 	}
 
 	var roles = {
@@ -1916,6 +1953,8 @@ function scr_initialize_custom() {
 					show_debug_message($"{custom_squad}")
 					show_debug_message($"is struct? {is_struct(custom_squad)}");
 					show_debug_message($"is string? {is_string(custom_squad)}");
+					show_debug_message($"is array? {is_array(custom_squad)}");
+
 
 
 					variable_struct_set(st, squad_name, custom_squad);
@@ -2269,6 +2308,10 @@ function scr_initialize_custom() {
 	}
 
 	var squad_names = struct_get_names(st);
+	show_debug_message($" {squad_names}");
+	show_debug_message($"^^^ Squad names");
+	
+
 	for (var st_iter = 0; st_iter < array_length(squad_names); st_iter++) {
 		var s_group = st[$squad_names[st_iter]];
 		squad_types[$squad_names[st_iter]] = {};
@@ -2678,7 +2721,7 @@ function scr_initialize_custom() {
 	}
 
 	// Techmarines in the armoury
-	repeat(techs) {
+	repeat(techmarines) {
 		k += 1;
 		commands += 1;
 		man_size += 1;
@@ -2845,7 +2888,7 @@ function scr_initialize_custom() {
 	}
 
 	// Chaplains in Reclusium
-	repeat(chaap) {
+	repeat(chaplains) {
 		k += 1;
 		commands += 1;
 		man_size += 1;
