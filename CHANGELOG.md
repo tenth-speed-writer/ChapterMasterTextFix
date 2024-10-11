@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - Introduction of a bug log file message_log.log, located in `AppData\Local\Chapter Master`.
 - Introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end.
 - Maximum advantage/disadvantage count is now 8.
+- New cheat - "ruinspopulate" to put an ancient ruins on every planet.
 
 ### Fixed:
 - Crash from building forges at secret lairs.
@@ -41,7 +42,8 @@ All notable changes to this project will be documented in this file.
 - Artifact arrays making some artifacts unusable.
 - Ork fleets will no longer death stack.
 - Role settings on the creation screen being click through.
-- Probably some other bugs/crashes that we forgot to put here.
+- Crash from deprecated onceh variable.
+- Added fail safes to stop crash when viewing some planetary features.
 
 ### Changed:
 - Hidden game settings that currently don't do anything.
