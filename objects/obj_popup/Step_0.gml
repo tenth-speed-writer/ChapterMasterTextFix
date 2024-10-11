@@ -546,16 +546,18 @@ if (image="geneseed_lab"){
 }
 
 
-if (image="ancient_ruins" && woopwoopwoop && move_to_next_stage) {
+if (image="ancient_ruins" && woopwoopwoop && move_to_next_stage()) {
     instance_deactivate_all(true);
     instance_activate_object(obj_ground_mission);
     instance_activate_object(obj_popup);
     var _explore_feature = obj_ground_mission.explore_feature;
     _explore_feature.suprise_attack();
+    woopwoopwoop=0;
+    show_debug_message("ruins combat");
     instance_destroy(self.id);
     instance_destroy();
     exit;
-}else if (image="ancient_ruins") and (option1!=""){
+}else if (image="ancient_ruins" && option1!="" && instance_exists(obj_ground_mission)){
     if (press=1){// Begin
 		var _ruins = obj_ground_mission.explore_feature;
         var ruins_battle=0,ruins_fact=0,ruins_disp=0,ruins_reward=0,dice,battle_threat=0;
@@ -578,10 +580,10 @@ if (image="ancient_ruins" && woopwoopwoop && move_to_next_stage) {
             if (dice>60) and (dice<=90) then battle_threat=2;
             if (dice>90) and (dice<=99) then battle_threat=3;
             
-            if (_ruins.ruins_race=1) or (_ruins.ruins_race=2) or (_ruins.ruins_race=10) then ruins_battle=choose(10,10,10,10,11,11,12);
-            if (_ruins.ruins_race=5) then ruins_battle=10;
-            if (_ruins.ruins_race=6) then ruins_battle=choose(6,6,10,10,10,12);
-            
+            if (_ruins.ruins_race==1) or (_ruins.ruins_race=2) or (_ruins.ruins_race=10) then ruins_battle=choose(10,10,10,10,11,11,12);
+            if (_ruins.ruins_race==5) then ruins_battle=10;
+            if (_ruins.ruins_race==6) then ruins_battle=choose(6,6,10,10,10,12);
+            if (ruins_battle==1) then ruins_battle = choose(6,10, 12);
             obj_ground_mission.ruins_race=_ruins.ruins_race;
             obj_ground_mission.ruins_battle=ruins_battle;
             obj_ground_mission.battle_threat=battle_threat;
@@ -607,7 +609,7 @@ if (image="ancient_ruins" && woopwoopwoop && move_to_next_stage) {
         if (ruins_battle=0){
             var obj=obj_ground_mission.obj;
             instance_activate_object(obj_star);
-            scr_ruins_reward(obj,obj_ground_mission.num,obj_controller.current_planet_feature);
+            scr_ruins_reward(star_by_name(obj_ground_mission.battle_loc),obj_ground_mission.battle_loc,obj_ground_mission.explore_feature);
             instance_destroy();
             exit;
         }

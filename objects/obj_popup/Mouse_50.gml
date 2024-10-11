@@ -10,8 +10,6 @@ if (instance_exists(obj_fleet)) then exit;
 if (obj_controller.scrollbar_engaged!=0) then exit;
 if (cooldown>0) then exit;
 
-if (woopwoopwoop=1){woopwoopwoop=2;exit;}
-
 if (battle_special>0){
     alarm[0]=1;
     cooldown=10;exit;

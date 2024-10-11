@@ -5,7 +5,7 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	//if there is gear from previoulsy killed marines retrieve instead of a standard reward
 	if (_ruins.unrecovered_items != false){
 		_ruins.recover_from_dead();
-	} else{
+	} else {
 
 	// star_system: world object
 	// planet: planet
@@ -172,7 +172,7 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	    pop.image="ruins_fort";
 	    pop.title="Ancient Ruins: Fortress";
 	    pop.planet = planet;
-	    pop.feature = _feature;
+	    pop.feature = _ruins;
 	    pop.star_system = star_system;
 	    pop.text="Praise the Emperor! We have found a massive, ancient fortress in needs of repairs. The gun batteries are rusted, and the walls are covered in moss with huge hole in it. Such a pity that such a majestic building is now a pale shadow of its former glory.  It is possible to repair the structure.  What is thy will?";
 	    pop.option1="Repair the fortress to boost defenses.  (1000 Req)";
@@ -191,8 +191,5 @@ function scr_ruins_reward(star_system, planet, _ruins) {
 	_ruins.ruins_explored();
 	// star_system.p_feature[planet]="Ancient Ruins|";
 
-	}
-	if (instance_exists(obj_ground_mission)){
-		instance_destroy(obj_ground_mission);
 	}
 }

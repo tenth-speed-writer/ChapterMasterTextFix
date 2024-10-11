@@ -438,5 +438,5 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
         }
     }
 
-    try_and_report_loop("battle roster collection",func(required_location, _target_location, _is_planet));
+    try_and_report_loop("battle roster collection",func, false,[required_location, _target_location, _is_planet]);
 }

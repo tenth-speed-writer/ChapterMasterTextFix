@@ -42,7 +42,9 @@ function scr_ruins_suprise_attack_player(){
     obj_ncombat.attacking=0;
     obj_ncombat.enemy=obj_ground_mission.ruins_battle;
     obj_ncombat.threat=obj_ground_mission.battle_threat;
-    obj_ncombat.formation_set=1;	
+    obj_ncombat.formation_set=1;
+    instance_destroy(obj_popup);
+    instance_destroy(obj_star_select);	
 }
 //spawn point for starship
 function scr_ruins_find_starship (){
@@ -214,12 +216,13 @@ function scr_ruins_combat_end(){
 	ruins_battle = choose(6,7,9,10,11,12);
 
 	_star=star_by_name(obj_ground_mission.battle_loc);
+	var location_id = obj_ground_mission.loc;
 	var _battle_threat = obj_ground_mission.battle_threat;
-	if (defeat=0){
+	if (obj_ground_mission.defeat=0){
 	    //TODO centralise d100 rolls
 	    var dice=irandom(100)+1;
 	    if (scr_has_adv("Shitty Luck")) then dice+=10;
-	    if (dice<(obj_ground_mission._battle_threat*10)){
+	    if (dice<(_battle_threat*10)){
 	        if (ruins_race=5){
 	            obj_controller.disposition[5]+=2;
 	            
@@ -241,7 +244,7 @@ function scr_ruins_combat_end(){
 	        }
 	    }
 	}
-	else if (defeat=1){
+	else if (obj_ground_mission.defeat=1){
 	    var dice=irandom(100)+1;
 	    if (scr_has_adv("Shitty Luck")) then dice+=10;
 	    if (dice<(_battle_threat*10)){
@@ -254,16 +257,16 @@ function scr_ruins_combat_end(){
 	    }
 	    var pop=instance_create(0,0,obj_popup);
 	    if (ruins_battle=10){
-	        _star.p_traitors[num]=_battle_threat+1;
-	        _star.p_heresy[num]+=10;
+	        _star.p_traitors[location_id]=_battle_threat+1;
+	        _star.p_heresy[location_id]+=10;
 	}
 	    else if (ruins_battle=11){
-	        _star.p_traitors[num]=_battle_threat+1;
-	        _star.p_heresy[num]+=25;
+	        _star.p_traitors[location_id]=_battle_threat+1;
+	        _star.p_heresy[location_id]+=25;
 	    }
 	    else if (ruins_battle=12){
-	        _star.p_demons[num]=_battle_threat+1;
-	        _star.p_heresy[num]+=40;
+	        _star.p_demons[location_id]=_battle_threat+1;
+	        _star.p_heresy[location_id]+=40;
 	    }
 	    
 	    pop.title="Ancient Ruins";
@@ -297,6 +300,6 @@ function scr_ruins_combat_end(){
 	}
 
 
-	if (defeat=0) then scr_ruins_reward(_star,num,obj_controller.current_planet_feature);
+	if (obj_ground_mission.defeat=0) then scr_ruins_reward(_star,location_id,self);
 
 }

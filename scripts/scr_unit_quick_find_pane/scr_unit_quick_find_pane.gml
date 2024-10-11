@@ -869,6 +869,7 @@ function planet_selection_action(){
 					        // Ancient Ruins
 							scr_check_for_ruins_exploration(sel_plan, target); 
 							instance_destroy();
+							exit;
 						}	                	
 	                }                
 	            }

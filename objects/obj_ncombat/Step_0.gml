@@ -1,7 +1,7 @@
 
 if (fadein>-30) then fadein-=1;
 if (cd>=0) then cd-=1;
-if (fix_timer>=0) then fix_timer-=1;
+if (click_stall_timer>=0) then click_stall_timer-=1;
 // if (done>=1) then done+=1;
 
 
