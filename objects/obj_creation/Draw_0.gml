@@ -103,8 +103,11 @@ if (slate4>0){
                     cooldown=8000;
                     chapter_name=successor_chapters[c].name;
                     if (!successor_chapters[c].disabled){
-                        scr_chapter_new(chapter_name);
-                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        if(scr_chapter_new(chapter_name)){
+                            icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        } else {
+                            // borked
+                        }
                     }
                 }
             }
@@ -170,8 +173,11 @@ if (slate4>0){
                     cooldown=8000;
                     chapter_name=other_chapters[c].name;
                     if (!other_chapters[c].disabled){
-                        scr_chapter_new(chapter_name);
-                        icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        if(scr_chapter_new(chapter_name)){
+                            icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                        } else {
+                            // borked
+                        }
                     }
                 }
             }
@@ -506,7 +512,7 @@ if (slide=2){
             var draw_string = adv_num[i]==0?"[+]":"[-] "+adv[i];
             draw_text(adv_txt.x1,adv_txt.y1+(i*adv_txt.h), draw_string);
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
-                if (points+20>maxpoints) and (adv_num[i]=0) and (popup=""){
+                if (points+20>maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }

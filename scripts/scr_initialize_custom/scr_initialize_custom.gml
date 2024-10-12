@@ -644,6 +644,7 @@ function scr_initialize_custom() {
 			hunters = 3;
 		}
 		if (obj_creation.fleet_type = 1) {
+			battle_barges = 2;
 			strike_cruisers = 8;
 			gladius = 7;
 			hunters = 3;
@@ -711,6 +712,9 @@ function scr_initialize_custom() {
 			}
 		}
 	}
+	var ship_summary_str = $"Ships: bb: {battle_barges} sc: {strike_cruisers} g: {gladius} h: {hunters}"
+	debugl(ship_summary_str);
+	show_debug_message(ship_summary_str);
 
 	var i = -1;
 	v = 0;
@@ -1378,43 +1382,80 @@ function scr_initialize_custom() {
 	
 	if(obj_creation.use_chapter_object){
 		var c_roles = obj_creation.custom_roles;
-		if(struct_exists(c_roles, "honour_guard")){
-			if (struct_exists(c_roles.honour_guard, "name")){
-				role[100][Role.HONOUR_GUARD] = c_roles.honour_guard.name;
-			}
-			if(struct_exists(c_roles.honour_guard, "wep1")){
-				wep1[100][Role.HONOUR_GUARD] = c_roles.honour_guard.wep1;
-			}
-		}
-		if(struct_exists(c_roles, "captain")){
-			if (struct_exists(c_roles.captain, "name")){
-				role[100][Role.CAPTAIN] = c_roles.captain.name;
-			}
-			if(struct_exists(c_roles.honour_guard, "wep1")){
-				wep1[100][Role.CAPTAIN] = c_roles.captain.wep1;
+		var possible_custom_roles = [
+			["chapter_master", Role.CHAPTER_MASTER],
+			["honour_guard",Role.HONOUR_GUARD],
+			["veteran",Role.VETERAN],
+			["terminator",Role.TERMINATOR],
+			["captain",Role.CAPTAIN],
+			["dreadnought",Role.DREADNOUGHT],
+			["champion",Role.CHAMPION],
+			["tactical",Role.TACTICAL],
+			["devastator",Role.DEVASTATOR],
+			["assault",Role.ASSAULT],
+			["ancient",Role.ANCIENT],
+			["scout",Role.SCOUT],
+			["chaplain",Role.CHAPLAIN],
+			["apothecary",Role.APOTHECARY],
+			["techmarine",Role.TECHMARINE],
+			["librarian",Role.LIBRARIAN],
+			["sergeant",Role.SERGEANT],
+			["veteran_sergeant",Role.VETERAN_SERGEANT],
+		];
+		var possible_custom_attributes = [
+			"name", "wep1", "wep2", "mobi","gear","armour"
+		]
+		/**
+		 * check whether the json structure exists to populate custom role names and 
+		 * attributes then set them using the map above 
+		 * role[100] is the 'default role name' storage spot, or something
+		 */
+		for(var c = 0; c < array_length(possible_custom_roles); c++){
+			if(struct_exists(c_roles, possible_custom_roles[c][0])){
+				var c_rolename = possible_custom_roles[c][0];
+				var c_roleid = possible_custom_roles[c][1];
+				for(var a = 0; a < array_length(possible_custom_attributes); a++){
+					var attribute = possible_custom_attributes[a];
+					if(struct_exists(c_roles[$ c_rolename], attribute)){
+						var value = c_roles[$ c_rolename][$ attribute];
+						var dbg_m = $"role {c_roleid} {c_rolename} updated {attribute} to {typeof(value)} {value}";
+						debugl(dbg_m);
+						show_debug_message(dbg_m);
+						switch (attribute){
+							case "name": role[100][c_roleid] = value; break;
+							case "wep1": wep1[100][c_roleid] = value; break;
+							case "wep2": wep2[100][c_roleid] = value; break;
+							case "armour": armour[100][c_roleid] = value; break;
+							case "gear": gear[100][c_roleid] = value; break;
+							case "mobi": mobi[100][c_roleid] = value; break;
+						}
+						// array_set_value(obj_ini[attribute][100][c_roleid], value);
+						// [$attribute][100][c_roleid] = value;
+					}
+				}
 			}
 		}
 	}
 
 	var roles = {
-		chapter_master: role[100][1],
-		honour_guard: role[100][2],
-		veteran: role[100][3],
-		terminator: role[100][4],
-		captain: role[100][5],
-		dreadnought: role[100][6],
-		champion: role[100][7],
-		tactical: role[100][8],
-		devastator: role[100][9],
-		assault: role[100][10],
-		ancient: role[100][11],
-		scout: role[100][12],
-		chaplain: role[100][14],
-		apothecary: role[100][15],
-		techmarine: role[100][16],
-		librarian: role[100][17],
-		sergeant: role[100][18],
-		veteran_sergeant: role[100][19],
+		chapter_master: role[100][Role.CHAPTER_MASTER],
+		honour_guard: role[100][Role.HONOUR_GUARD],
+		veteran: role[100][Role.VETERAN],
+		terminator: role[100][Role.TERMINATOR],
+		captain: role[100][Role.CAPTAIN],
+		dreadnought: role[100][Role.DREADNOUGHT],
+		champion: role[100][Role.CHAMPION],
+		tactical: role[100][Role.TACTICAL],
+		devastator: role[100][Role.DEVASTATOR],
+		assault: role[100][Role.ASSAULT],
+		ancient: role[100][Role.ANCIENT],
+		scout: role[100][Role.SCOUT],
+		chaplain: role[100][Role.CHAPLAIN],
+		apothecary: role[100][Role.APOTHECARY],
+		techmarine: role[100][Role.TECHMARINE],
+		librarian: role[100][Role.LIBRARIAN],
+		sergeant: role[100][Role.SERGEANT],
+		veteran_sergeant: role[100][Role.VETERAN_SERGEANT],
 	}
 	
 	var weapon_lists = {
@@ -1435,11 +1476,12 @@ function scr_initialize_custom() {
 	}
 	/*
 		squad guidance
-			define a role that can exist in a squad by defining [<role>, {
-															"max":<maximum number of this role allowed in squad>
-															"min":<minimum number of this role required in squad>
-															}
-														]
+			define a role that can exist in a squad by defining 
+			[<role>, {
+				"max":<maximum number of this role allowed in squad>
+				"min":<minimum number of this role required in squad>
+				}
+			]
 			by adding "loadout" as a key to the role struct e.g {"min":1,"max":1,"loadout":{}}
 				a default or optional loadout can be created for the given role in the squad
 			"loadout" has two possible keys "required" and "option"
@@ -1458,6 +1500,9 @@ function scr_initialize_custom() {
 	}
 	if (global.chapter_name == "Iron Hands" || obj_ini.progenitor == 6) {
 		squad_name = "Clave";
+	}
+	if(obj_creation.use_chapter_object){
+		squad_name = obj_creation.squad_name;
 	}
 	squad_types = {};
 	var st = {
@@ -1933,12 +1978,12 @@ function scr_initialize_custom() {
 		]
 	};
 
-	show_debug_message($"squads object for chapter {chapter_name}");
-	show_debug_message($"{st}");
+	// show_debug_message($"squads object for chapter {chapter_name}");
+	// show_debug_message($"{st}");
 
 
 	if(obj_creation.use_chapter_object && true){
-		var custom_squads = global.chapter_creation_object.custom_squads;
+		var custom_squads = obj_creation.custom_squads;
 		show_debug_message($"custom roles {custom_squads}");
 		if(array_length(struct_get_names(custom_squads)) != 0){
 			var names = struct_get_names(st);
@@ -1963,8 +2008,8 @@ function scr_initialize_custom() {
 		}
 	}
 
-	show_debug_message($"roles object for chapter {chapter_name} after setting from obj");
-	show_debug_message($"{st}");
+	// show_debug_message($"roles object for chapter {chapter_name} after setting from obj");
+	// show_debug_message($"{st}");
 
 	if (global.chapter_name == "Salamanders") or (array_contains(obj_creation.adv, "Crafters")) { //salamanders squads
 		variable_struct_set(st, "assault_squad", [
@@ -2308,8 +2353,8 @@ function scr_initialize_custom() {
 	}
 
 	var squad_names = struct_get_names(st);
-	show_debug_message($" {squad_names}");
-	show_debug_message($"^^^ Squad names");
+	// show_debug_message($" {squad_names}");
+	// show_debug_message($"^^^ Squad names");
 	
 
 	for (var st_iter = 0; st_iter < array_length(squad_names); st_iter++) {

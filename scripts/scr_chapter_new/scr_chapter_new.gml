@@ -199,46 +199,45 @@ function scr_chapter_new(argument0) {
 	}
 		if (argument0=="White Scars" || argument0 == CHAPTERS.WHITE_SCARS){
 
-		// ! Intentionally making this fail for testing purposes
-		obj_creation.use_chapter_object = 1;
+		obj_creation.use_chapter_object = 0;
 		chapter_id = CHAPTERS.WHITE_SCARS;
 		#region data
-		// founding="N/A";points=150;
-		//     selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
-		//     homeworld="Feudal";homeworld_name="Chogoris";
-		//     homeworld_exists=1;recruiting_exists=0;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;discipline="rune Magick";
-		// 	adv[1]="Lightning Warriors";adv[2]="Brothers, All";adv[3]="Melee Enthusiasts";dis[1]="Splintered";
-		//     // Pauldron2: Left, Pauldron: Right
-		//     color_to_main="White";color_to_secondary="White";color_to_trim="Red";
-		//     color_to_pauldron="White";color_to_pauldron2="White";color_to_lens="Red";
-		//     color_to_weapon="Black";col_special=0;
-		//     hapothecary="Ogholei";hchaplain="Jaghorin";clibrarian="Saghai";fmaster="Khamkar";
-		// 	honorcapt="Jurga";watchmaster="Khajog";arsenalmaster="Kor'sarro";admiral="Joghaten";
-		// 	marchmaster="Suboden";ritesmaster="Seglei";victualler="Dorghai";lordexec="Vorgha";relmaster="Khadajei";
-		// 	recruiter="Jodagha";
-		//     battle_cry="For the Emperor and the Khan!";// monastery_name="Quan Zhou";master_name=
-		//     equal_specialists=0;load_to_ships=[2,0,0];successors=12;
-		//     mutations=0;mutations_selected=0;
-		//     preomnor=0;voice=0;doomed=0;lyman=0;omophagea=0;ossmodula=0;membrane=0;
-		//     zygote=0;betchers=0;catalepsean=0;secretions=0;occulobe=0;mucranoid=0;
-		//     // disposition[1]=0;// Prog
-		//     disposition[2]=50;disposition[3]=50;disposition[4]=50;disposition[5]=50;
-		//     disposition[6]=65;// Astartes
-		//     disposition[7]=0;// Reserved
-		//     chapter_master_name="Jubal Khan";chapter_master_melee=5;
-		//     chapter_master_ranged=3;chapter_master_specialty=1;
-		//     company_title[1]="The Spearpoint Brotherhood";company_title[2]="The Firefist Brotherhood";company_title[3]="The Eagle Brotherhood";
-		//     company_title[4]="The Tulwar Brotherhood";company_title[5]="The Stormwrath Brotherhood";company_title[6]="The Hawkeye Brotherhood";
-		// 	company_title[7]="The Plainstalker Brotherhood";company_title[8]="The Bloodrider Brotherhood";company_title[9]="The Stormbolt Brotherhood";
-		// 	company_title[10]="The Windspeaker Brotherhood";
+		founding="N/A";points=150;
+		    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
+		    homeworld="Feudal";homeworld_name="Chogoris";
+		    homeworld_exists=1;recruiting_exists=0;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;discipline="rune Magick";
+			adv[1]="Lightning Warriors";adv[2]="Brothers, All";adv[3]="Melee Enthusiasts";dis[1]="Splintered";
+		    // Pauldron2: Left, Pauldron: Right
+		    color_to_main="White";color_to_secondary="White";color_to_trim="Red";
+		    color_to_pauldron="White";color_to_pauldron2="White";color_to_lens="Red";
+		    color_to_weapon="Black";col_special=0;
+		    hapothecary="Ogholei";hchaplain="Jaghorin";clibrarian="Saghai";fmaster="Khamkar";
+			honorcapt="Jurga";watchmaster="Khajog";arsenalmaster="Kor'sarro";admiral="Joghaten";
+			marchmaster="Suboden";ritesmaster="Seglei";victualler="Dorghai";lordexec="Vorgha";relmaster="Khadajei";
+			recruiter="Jodagha";
+		    battle_cry="For the Emperor and the Khan!";// monastery_name="Quan Zhou";master_name=
+		    equal_specialists=0;load_to_ships=[2,0,0];successors=12;
+		    mutations=0;mutations_selected=0;
+		    preomnor=0;voice=0;doomed=0;lyman=0;omophagea=0;ossmodula=0;membrane=0;
+		    zygote=0;betchers=0;catalepsean=0;secretions=0;occulobe=0;mucranoid=0;
+		    // disposition[1]=0;// Prog
+		    disposition[2]=50;disposition[3]=50;disposition[4]=50;disposition[5]=50;
+		    disposition[6]=65;// Astartes
+		    disposition[7]=0;// Reserved
+		    chapter_master_name="Jubal Khan";chapter_master_melee=5;
+		    chapter_master_ranged=3;chapter_master_specialty=1;
+		    company_title[1]="The Spearpoint Brotherhood";company_title[2]="The Firefist Brotherhood";company_title[3]="The Eagle Brotherhood";
+		    company_title[4]="The Tulwar Brotherhood";company_title[5]="The Stormwrath Brotherhood";company_title[6]="The Hawkeye Brotherhood";
+			company_title[7]="The Plainstalker Brotherhood";company_title[8]="The Bloodrider Brotherhood";company_title[9]="The Stormbolt Brotherhood";
+			company_title[10]="The Windspeaker Brotherhood";
 			
-		// 	i=99;repeat(3){i+=1;
-		// 	role[i,2]="Keshig";wep1[i,2]="Power Sword";wep2[i,2]="Bolter";armour[i,2]="Terminator Armour";
-		// 	role[i,5]="Khan";wep1[i,5]="Power Sword"
-		// 	role[i,15]="Emchi";
-		// 	role[i,17]="Stormseer";
+			i=99;repeat(3){i+=1;
+			role[i,2]="Keshig";wep1[i,2]="Power Sword";wep2[i,2]="Bolter";armour[i,2]="Terminator Armour";
+			role[i,5]="Khan";wep1[i,5]="Power Sword"
+			role[i,15]="Emchi";
+			role[i,17]="Stormseer";
 			
-		// 	}
+			}
 		#endregion
 	}
 
@@ -256,94 +255,6 @@ function scr_chapter_new(argument0) {
 		global.chapter_creation_object = chapter_obj;
 
 
-		// todo this chunk can go at the bottom of the file after the if/elses once its all working 
-		
-		var chapter_object = global.chapter_creation_object;
-		
-		// * All of this obj_creation setting is just to keep things working 
-		obj_creation.founding = chapter_object.founding;
-		obj_creation.successors = chapter_object.successors;
-		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-		obj_creation.chapter_name = chapter_object.name;
-
-		obj_creation.icon = chapter_object.icon;
-		obj_creation.icon_name = chapter_object.icon_name;
-		obj_creation.fleet_type = chapter_object.fleet_type;
-		obj_creation.strength = chapter_object.strength;
-		obj_creation.purity = chapter_object.purity;
-		obj_creation.stability = chapter_object.stability;
-		obj_creation.cooperation = chapter_object.cooperation;
-		obj_creation.homeworld_exists = chapter_object.homeworld_exists;
-		obj_creation.recruiting_exists = chapter_object.recruiting_exists;
-		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
-		obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
-		obj_creation.adv = chapter_object.advantages;
-		obj_creation.dis = chapter_object.disadvantages;
-
-		obj_creation.color_to_main = chapter_object.colors.main;
-		obj_creation.color_to_secondary = chapter_object.colors.secondary;
-		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
-		obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
-		obj_creation.color_to_trim = chapter_object.colors.trim;
-		obj_creation.color_to_lens = chapter_object.colors.lens;
-		obj_creation.color_to_weapon = chapter_object.colors.weapon;
-		obj_creation.col_special = chapter_object.colors.special;
-		obj_creation.trim = chapter_object.colors.trim_on;
-
-		obj_creation.hchaplain = chapter_object.names.hchaplain;
-		obj_creation.clibrarian = chapter_object.names.clibrarian;
-		obj_creation.fmaster = chapter_object.names.fmaster;
-		obj_creation.hapothecary = chapter_object.names.hapothecary;
-		obj_creation.honorcapt = chapter_object.names.honorcapt;
-		obj_creation.watchmaster = chapter_object.names.watchmaster;
-		obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
-		obj_creation.admiral = chapter_object.names.admiral;
-		obj_creation.marchmaster = chapter_object.names.marchmaster;
-		obj_creation.ritesmaster = chapter_object.names.ritesmaster;
-		obj_creation.victualler = chapter_object.names.victualler;
-		obj_creation.lordexec = chapter_object.names.lordexec;
-		obj_creation.relmaster = chapter_object.names.relmaster;
-		obj_creation.recruiter  = chapter_object.names.recruiter;
-
-		obj_creation.battle_cry = chapter_object.battle_cry;
-
-		var load =chapter_object.load_to_ships;
-		obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
-		obj_creation.equal_specialists = chapter_object.equal_specialists;
-		
-		obj_creation.mutations = 0;
-		struct_foreach(chapter_object.mutations, function(key, val){
-			struct_set(obj_creation, key, val);
-			if(val == 1) {
-				obj_creation.mutations += 1;
-			}
-		});
-
-		obj_creation.disposition = chapter_object.disposition;
-
-		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
-		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
-		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
-		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
-
-		obj_creation.company_title = chapter_object.company_titles;
-		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
-			company_title[i] = chapter_object.company_titles[i];
-		}
-
-		obj_creation.flagship_name = chapter_object.flagship_name;
-		obj_creation.extra_ships = chapter_object.extra_ships;
-		obj_creation.extra_specialists = chapter_object.extra_specialists;
-		obj_creation.extra_marines = chapter_object.extra_marines;
-		obj_creation.extra_vehicles = chapter_object.extra_vehicles;
-
-		obj_creation.custom_roles = chapter_object.custom_roles;
-
-
-
-		maxpoints=chapter_object.points;
-
-		return true;
 	}
 
 
@@ -932,7 +843,97 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
 	*/
 
 
+	if(obj_creation.use_chapter_object){
+		
+		// todo this chunk can go at the bottom of the file after the if/elses once its all working 
+		
+		var chapter_object = global.chapter_creation_object;
+		
+		// * All of this obj_creation setting is just to keep things working 
+		obj_creation.founding = chapter_object.founding;
+		obj_creation.successors = chapter_object.successors;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.chapter_name = chapter_object.name;
 
+		obj_creation.icon = chapter_object.icon;
+		obj_creation.icon_name = chapter_object.icon_name;
+		obj_creation.fleet_type = chapter_object.fleet_type;
+		obj_creation.strength = chapter_object.strength;
+		obj_creation.purity = chapter_object.purity;
+		obj_creation.stability = chapter_object.stability;
+		obj_creation.cooperation = chapter_object.cooperation;
+		obj_creation.homeworld_exists = chapter_object.homeworld_exists;
+		obj_creation.recruiting_exists = chapter_object.recruiting_exists;
+		obj_creation.homeworld_rule = chapter_object.homeworld_rule;
+		obj_creation.aspirant_trial = trial_map(chapter_object.aspirant_trial);
+		obj_creation.adv = chapter_object.advantages;
+		obj_creation.dis = chapter_object.disadvantages;
+
+		obj_creation.color_to_main = chapter_object.colors.main;
+		obj_creation.color_to_secondary = chapter_object.colors.secondary;
+		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
+		obj_creation.color_to_pauldron2 = chapter_object.colors.pauldron_l;
+		obj_creation.color_to_trim = chapter_object.colors.trim;
+		obj_creation.color_to_lens = chapter_object.colors.lens;
+		obj_creation.color_to_weapon = chapter_object.colors.weapon;
+		obj_creation.col_special = chapter_object.colors.special;
+		obj_creation.trim = chapter_object.colors.trim_on;
+
+		obj_creation.hchaplain = chapter_object.names.hchaplain;
+		obj_creation.clibrarian = chapter_object.names.clibrarian;
+		obj_creation.fmaster = chapter_object.names.fmaster;
+		obj_creation.hapothecary = chapter_object.names.hapothecary;
+		obj_creation.honorcapt = chapter_object.names.honorcapt;
+		obj_creation.watchmaster = chapter_object.names.watchmaster;
+		obj_creation.arsenalmaster = chapter_object.names.arsenalmaster;
+		obj_creation.admiral = chapter_object.names.admiral;
+		obj_creation.marchmaster = chapter_object.names.marchmaster;
+		obj_creation.ritesmaster = chapter_object.names.ritesmaster;
+		obj_creation.victualler = chapter_object.names.victualler;
+		obj_creation.lordexec = chapter_object.names.lordexec;
+		obj_creation.relmaster = chapter_object.names.relmaster;
+		obj_creation.recruiter  = chapter_object.names.recruiter;
+
+		obj_creation.battle_cry = chapter_object.battle_cry;
+
+		var load = chapter_object.load_to_ships;
+		obj_creation.load_to_ships = [load.escort_load, load.split_scouts, load.split_vets];
+		obj_creation.equal_specialists = chapter_object.equal_specialists;
+		
+		obj_creation.mutations = 0;
+		struct_foreach(chapter_object.mutations, function(key, val){
+			struct_set(obj_creation, key, val);
+			if(val == 1) {
+				obj_creation.mutations += 1;
+			}
+		});
+
+		obj_creation.disposition = chapter_object.disposition;
+
+		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
+		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
+		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
+		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
+
+		obj_creation.company_title = chapter_object.company_titles;
+		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
+			company_title[i] = chapter_object.company_titles[i];
+		}
+
+		obj_creation.flagship_name = chapter_object.flagship_name;
+		obj_creation.extra_ships = chapter_object.extra_ships;
+		obj_creation.extra_specialists = chapter_object.extra_specialists;
+		obj_creation.extra_marines = chapter_object.extra_marines;
+		obj_creation.extra_vehicles = chapter_object.extra_vehicles;
+
+		obj_creation.squad_name = chapter_object.squad_name;
+		obj_creation.custom_roles = chapter_object.custom_roles;
+		obj_creation.custom_squads = chapter_object.custom_squads;
+
+		points = chapter_object.points;
+		maxpoints=chapter_object.points;
+
+	}
 
 
 
