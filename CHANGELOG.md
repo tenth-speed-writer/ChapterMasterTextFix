@@ -24,10 +24,16 @@ All notable changes to this project will be documented in this file.
 ## [0.9.3.2]
 
 ### New:
-- Introduction of a bug log file message_log.log, located in `AppData\Local\Chapter Master`.
+- Introduction of a bug log file `message_log.log`, located in `AppData\Local\Chapter Master`.
 - Introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end.
 - Maximum advantage/disadvantage count is now 8.
 - New cheat - "ruinspopulate" to put an ancient ruins on every planet.
+
+### Changed:
+- Hidden game settings that currently don't do anything.
+- Normal Dreadnoughts have 600 as max age at chapter generation.
+- Artifacts now have more relevant stat info in their descriptions.
+- Artifact equip buttons are different now.
 
 ### Fixed:
 - Crash from building forges at secret lairs.
@@ -44,14 +50,12 @@ All notable changes to this project will be documented in this file.
 - Role settings on the creation screen being click through.
 - Crash from deprecated onceh variable.
 - Added fail safes to stop crash when viewing some planetary features.
-
-### Changed:
-- Hidden game settings that currently don't do anything.
-- Normal Dreadnoughts have 600 as max age at chapter generation.
+- Artifact screen text overlap, broken strings are fixed.
 
 ### Under The Hood:
 - `scr_has_adv` and `scr_has_disadv` functions.
 - New error handling method - `try_and_report_loop`, described [>here<](https://discord.com/channels/714022226810372107/1121959429546455050/1293597133093470269).
+- Partly refactored artifact equip popup.
 
 ## [0.9.3.1]
 
