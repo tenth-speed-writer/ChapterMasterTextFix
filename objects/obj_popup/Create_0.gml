@@ -56,6 +56,7 @@ units=0;
 min_exp=0;
 cooldown=20;
 all_good=0;
+prev_selected = 0;
 
 new_target=0;
 

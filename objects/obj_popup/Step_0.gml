@@ -748,8 +748,6 @@ if (type=6){// Equipment
 }
 
 if (type=8){
-    var arti = obj_ini.artifact_struct[obj_controller.menu_artifact];
-    if (array_contains(["mobility","gear", "armour"],arti.determine_base_type())) then target_role=5; 
     all_good=0;
     if (target_role>0) and (target_comp!=-1) and (units=1) then all_good=1;
 }
