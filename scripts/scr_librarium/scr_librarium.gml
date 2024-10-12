@@ -252,16 +252,25 @@ function scr_librarium(){
                     }
                     var base_type = cur_arti.determine_base_type();
                     if (arti_data && base_type!="device"){
-                        if (base_type=="weapon") { // Weapon
-
+                        if (arti_data.armour_value != 0) {
+                            tip2 += $"{arti_data.armour_value} Armour#";
+                        }
+                        if (arti_data.attack != 0) {
                             tip2 = $"{arti_data.attack} Damage#";
-                            tip2 += $"{arti_data.ammo} Ammunition#";
-
                         }
-                        else if (base_type=="armour") { // Armour
-                            tip2 = $"{arti_data.armour_value} Armour Value";
+                        if (arti_data.hp_mod != 0) {
+                            tip2 += $"{arti_data.hp_mod}% Health Bonus#";
                         }
-                        else if (base_type=="gear") { // Gear
+                        if (arti_data.melee_mod != 0) {
+                            tip2 += $"{arti_data.melee_mod}% Melee Bonus#";
+                        }
+                        if (arti_data.ranged_mod != 0) {
+                            tip2 += $"{arti_data.ranged_mod}% Ranged Bonus#";
+                        }
+                        if (arti_data.damage_resistance_mod != 0) {
+                            tip2 += $"{arti_data.damage_resistance_mod}% Resistance Bonus#";
+                        }
+                        if (base_type=="gear") { // Gear
                             tip2 = tooltip_other;
                         }
                     }
