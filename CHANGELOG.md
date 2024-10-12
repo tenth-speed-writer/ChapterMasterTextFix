@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - Introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end.
 - Maximum advantage/disadvantage count is now 8.
 - New cheat - "ruinspopulate" to put an ancient ruins on every planet.
+- Carcharodons are now playable.
 
 ### Changed:
 - Hidden game settings that currently don't do anything.
