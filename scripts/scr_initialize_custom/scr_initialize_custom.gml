@@ -3116,7 +3116,7 @@ function scr_initialize_custom() {
 		mobi[company][k] = mobi[101, 3];
 	}
 
-	for (i = 0; i = 2; if scr_has_adv("Venerable Ancients") i += 1 ) {
+	repeat(scr_has_adv("Venerable Ancients") ? 3 : 2) {
 		k += 1;
 		commands += 1;
 		TTRPG[company][k] = new TTRPG_stats("chapter", company, k, "dreadnought");
@@ -3287,8 +3287,9 @@ function scr_initialize_custom() {
 			// temp1-=1;
 
 			// if (company=2){dready=1;
-			if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready =+ 1;
 			dready = 1;
+			if (scr_has_disadv("Sieged")) or (obj_creation.custom = 0) then dready =+ 1;
+			if (scr_has_adv("Venerable Ancients")) then dready += 1;
 			rhinoy = 8;
 			whirly = whirlwind;
 			speedy = 2;
@@ -3306,7 +3307,7 @@ function scr_initialize_custom() {
 				company_unit3 = "devastator";
 				dready = 1;
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
+				if (scr_has_disadv("Sieged")) or (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3320,7 +3321,7 @@ function scr_initialize_custom() {
 				company_unit3 = "devastator";
 				dready = 1;
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2; 
+				if (scr_has_disadv("Sieged")) or (obj_creation.custom = 0) then dready += 1; 
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3334,7 +3335,7 @@ function scr_initialize_custom() {
 				company_unit3 = "devastator";
 				dready = 1;
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
+				if (scr_has_disadv("Sieged")) or (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3348,7 +3349,7 @@ function scr_initialize_custom() {
 				company_unit3 = "devastator";
 				dready = 1;
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready += 2;
+				if (scr_has_disadv("Sieged")) or (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
@@ -3362,7 +3363,7 @@ function scr_initialize_custom() {
 				company_unit3 = "";
 				dready = 1;
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready += 2;
+				if (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 0;
@@ -3375,7 +3376,7 @@ function scr_initialize_custom() {
 				company_unit3 = "";
 				dready = 1
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (obj_creation.custom = 0) then dready = 2;
+				if (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 8;
 				whirly = 0;
 				speedy = 8;
@@ -3388,7 +3389,7 @@ function scr_initialize_custom() {
 				company_unit3 = "";
 				dready = 1
 				if scr_has_adv("Venerable Ancients") then dready += 1;
-				if (obj_creation.custom = 0) then dready = 2;
+				if (obj_creation.custom = 0) then dready += 1;
 				rhinoy = 2;
 				whirly = 0;
 				speedy = 2;
@@ -3400,8 +3401,8 @@ function scr_initialize_custom() {
 				company_unit2 = "";
 				company_unit3 = "";
 				dready = 1
-				if scr_has_adv("Venerable Ancients") then dready += 2;
-				if (obj_creation.custom = 0) then dready = 2;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (obj_creation.custom = 0) then dready += 1;
 
 				rhinoy = 2;
 				whirly = 0;
