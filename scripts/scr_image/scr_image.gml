@@ -10,6 +10,61 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 
 	if (!instance_exists(obj_img)) then exit;
 
+	/// First attempt at the new method
+		/* 
+	img_cache: {
+		"creation/chapters": [somesprite1, somesprite2, ...];
+	}
+	*/
+	if(string_count("/", argument0) > 0){
+		var old_alpha = draw_get_alpha();
+		var old_color = draw_get_color();
+		var drawing_sprite;
+		var cache_arr_exists = struct_exists(obj_img.image_cache, argument0);
+		if(!cache_arr_exists){
+			variable_struct_set(obj_img.image_cache, argument0, []);
+		}
+	
+		var existing_sprite = -1;
+		try {
+			existing_sprite = array_get(obj_img.image_cache[$argument0], argument1);
+			if(argument1 != 0 && existing_sprite == 0){
+				existing_sprite = -1; // blank spots in the array show up as 0s which is taken by the credits sprite so yea
+			}
+		} catch (_ex){}
+		
+		if(sprite_exists(existing_sprite)){
+			drawing_sprite = existing_sprite;
+		} else {
+			var folders = string_replace_all(argument0, "/", "\\");
+			var dir = $"{working_directory}\\images\\{folders}\\{argument1}.png";
+			if(file_exists(dir)){
+				drawing_sprite = sprite_add(dir,1, false,false,0,0);
+				array_insert(obj_img.image_cache[$argument0], argument1, drawing_sprite);
+			} else {
+				debugl($"No directory/file found matching {dir}");
+			}
+		}
+		if(!sprite_exists(drawing_sprite)){
+			debugl($"No drawing sprite exists from args {argument0} id {argument1}");
+			draw_set_alpha(1);draw_set_color(0);
+	        draw_rectangle(argument2,argument3,argument2+argument4,argument3+argument5,0);
+	        draw_set_color(c_red);
+	        draw_rectangle(argument2,argument3,argument2+argument4,argument3+argument5,1);
+	        draw_rectangle(argument2+1,argument3+1,argument2+argument4-1,argument3+argument5-1,1);
+	        draw_rectangle(argument2+2,argument3+2,argument2+argument4-2,argument3+argument5-2,1);
+	        draw_line_width(argument2+1.5,argument3+1.5,argument2+argument4-1.5,argument3+argument5-1.5,3);
+	        draw_line_width(argument2+argument4-1.5,argument3+1.5,argument2+1.5,argument3+argument5-1.5,3);
+	        draw_set_color(c_black);
+			return;
+		}
+		draw_sprite_stretched(drawing_sprite,argument1,argument2,argument3,argument4,argument5);
+
+		draw_set_alpha(old_alpha);
+	    draw_set_color(old_color);
+		return;
+	}
+
 
 
 
@@ -224,7 +279,7 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
     
 	    if (single_image=true){
 	        if (argument0="creation") and (file_exists(working_directory + "\\images\\creation\\creation_icons.png")){
-	            creation[1]=sprite_add(working_directory + "\\images\\creation\\creation_icons.png",23,false,false,0,0);creation_exists[1]=true;creation_good=true;
+	            creation[1]=sprite_add(working_directory + "\\images\\creation\\creation_icons.png",24,false,false,0,0);creation_exists[1]=true;creation_good=true;
 	        }
 	        if (argument0="diplomacy_icon") and (file_exists(working_directory + "\\images\\diplomacy\\diplomacy_icons.png")){
 	            diplomacy_icon[1]=sprite_add(working_directory + "\\images\\diplomacy\\diplomacy_icons.png",28,false,false,0,0);diplomacy_icon_exists[1]=true;diplomacy_icon_good=true;

@@ -3,9 +3,12 @@ function chapter_data() constructor {
 	id = CHAPTERS.UNKNOWN;
 	name = "";
 	points = 0;
+	flavor = "";
+	origin = CHAPTER_ORIGIN.NONE;
 	founding = CHAPTERS.UNKNOWN;
- 	successors = 0;
- 	homeworld_rule = 0;
+	successors = 0;
+	homeworld_rule = 0;
+	splash = 0;
 	icon = 0;
 	icon_name = "";
 	aspirant_trial = eTrials.BLOODDUEL;
@@ -144,6 +147,13 @@ function scr_chapter_new(argument0) {
 	}i=100;
 
 	chapter="nopw_nopw";
+
+	for(var c = 0; c < array_length(obj_creation.all_chapters); c++){
+		if(obj_creation.all_chapters[c].json == true){
+			obj_creation.use_chapter_object = 1;
+			chapter_id = obj_creation.all_chapters[c].id;
+		}
+	}
 
 	if (argument0=="Dark Angels" || argument0 == CHAPTERS.DARK_ANGELS){
 		obj_creation.use_chapter_object = 1;

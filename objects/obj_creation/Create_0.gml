@@ -168,7 +168,7 @@ enum CHAPTERS {
     SALAMANDERS,
     RAVEN_GUARD,
 
-    BLACK_TEMPLARS,
+    BLACK_TEMPLARS = 10,
     MINOTAURS,
     BLOOD_RAVENS,
     CRIMSON_FISTS,
@@ -176,7 +176,7 @@ enum CHAPTERS {
     CARCHARODONS,
     SOUL_DRINKERS,
 
-    ANGRY_MARINES,
+    ANGRY_MARINES = 17,
     EMPERORS_NIGHTMARE,
     STAR_KRAKENS,
     CONSERVATORS,
@@ -196,7 +196,7 @@ enum CHAPTER_ORIGIN {
 }
 
 /**
- * @description chapter constructor
+ * @description chapter constructor. This is just for the main menu bit, the full data comes in scr_chapter_new
  * @param {Enum.CHAPTERS} _id e.g. CHAPTERS.DARK_ANGELS
  * @param {Enum.CHAPTER_ORIGIN} _origin e.g. CHAPTER_ORIGIN.FOUNDING 
  * @param {String} _name e.g. "Dark Angels" 
@@ -210,6 +210,9 @@ function chapter(_id, _origin,_progenitor, _name , _tooltip) constructor {
     progenitor = _progenitor;
     tooltip = _tooltip;
     disabled = false;
+    json = false;
+    icon = _id;
+    splash = _id;
 }
 
 // For new additions, as long as the order in the array is the same as the enum order,
@@ -244,6 +247,35 @@ all_chapters = [
     // new chapter(CHAPTERS.CUSTOM_5, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter",),
 ]
 // for now the extra custom chapters are messing with the UI too much
+
+var missing_splash = 100;
+var custom_splash = 98;
+all_chapters[CHAPTERS.EMPERORS_NIGHTMARE].splash = missing_splash;
+all_chapters[CHAPTERS.CARCHARODONS].splash = missing_splash;
+all_chapters[CHAPTERS.CONSERVATORS].splash = missing_splash;
+all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
+
+
+
+// Load from files to overwrite hardcoded ones
+for(var c = 0; c < 100; c++){
+    var json_chapter = new chapter_data();
+    var success =json_chapter.load_from_json(c); 
+    if(success){
+        all_chapters[c] = new chapter(
+            json_chapter.id,
+            json_chapter.origin,
+            json_chapter.founding,
+            json_chapter.name,
+            json_chapter.flavor,
+        );
+        all_chapters[c].json = true;
+        all_chapters[c].icon = json_chapter.icon;
+        all_chapters[c].icon = json_chapter.splash;
+
+
+    }
+}
 
 global.chapters_count = array_length(all_chapters);
 

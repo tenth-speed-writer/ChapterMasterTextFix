@@ -2,6 +2,8 @@
     "chapter": {
         "id": 1,
         "name": "Dark Angels",
+        "flavor": "The Dark Angels claim complete allegiance and service to the Emperor of Mankind, though their actions and secret goals seem to run counter to this- above all other things they strive to atone for an ancient crime of betrayal.",
+        "origin": 1, // 1 - Founding, 2 -successor, 3 - Other/non-canon/fanmade, 4 - Custom
         "points": 150,
         "founding": 0, // The id of the founding chapter, 0 for unknown or none
         "icon": 1, // in \images\creation\creation_icons.png, the index from the left, 0 being blank square and 1 being dark angels etc
@@ -381,5 +383,5 @@
 }
 /*
 * * not working list 
-* artefacts 
+* artefacts, extra specialists, extra marines
 */

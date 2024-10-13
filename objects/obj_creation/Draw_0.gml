@@ -90,7 +90,7 @@ if (slate4>0){
         
             draw_sprite(spr_creation_icon,0,x2,397);
             // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
-            scr_image("creation",i,x2,397,48,48);
+            scr_image("creation",successor_chapters[c].icon,x2,397,48,48);
             
             if (mouse_x>=x2) and (mouse_y>=397) and (mouse_x<x2+48) and (mouse_y<397+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
@@ -212,17 +212,22 @@ if (slate4>0){
             draw_set_alpha(min(slate4/30,highlighting/30));
             if (change_slide>0) then draw_set_alpha(1);
             
+            if (highlight=1001) then scr_image("creation/chapters",98,0,68,374,713);
+            if (highlight=1002) then scr_image("creation/chapters",99,0,68,374,713);
+            if( highlight <= array_length(all_chapters)){
+                var splash_chapter = all_chapters[highlight];
+                scr_image("creation/chapters", splash_chapter.splash,0,68,374,713);
+            }
+
+            // if (highlight<=9) then scr_image("main_splash",highlight-1,0,68,374,713);
+            // if (highlight>9) and (highlight<=16) and (highlight!=15) then scr_image("existing_splash",highlight-10,0,68,374,713);
+            // if (highlight=15) then scr_image("other_splash",6,0,68,374,713);
+            // if (highlight=17) then scr_image("other_splash",0,0,68,374,713);
+            // if (highlight=18) then scr_image("other_splash",6,0,68,374,713);
+            // if (highlight=19) then scr_image("other_splash",2,0,68,374,713);
+            // if (highlight=20) then scr_image("other_splash",6,0,68,374,713);
             
-            if (highlight<=9) then scr_image("main_splash",highlight-1,0,68,374,713);
-            if (highlight>9) and (highlight<=16) and (highlight!=15) then scr_image("existing_splash",highlight-10,0,68,374,713);
-            if (highlight=15) then scr_image("other_splash",6,0,68,374,713);
-            if (highlight=17) then scr_image("other_splash",0,0,68,374,713);
-            if (highlight=18) then scr_image("other_splash",6,0,68,374,713);
-            if (highlight=19) then scr_image("other_splash",2,0,68,374,713);
-            if (highlight=20) then scr_image("other_splash",6,0,68,374,713);
             
-            if (highlight=1001) then scr_image("other_splash",4,0,68,374,713);
-            if (highlight=1002) then scr_image("other_splash",5,0,68,374,713);
             
             /*if (highlight<=9) then draw_sprite(spr_creation_founding,highlight-1,0,68);
             if (highlight>9) and (highlight<=16) and (highlight!=15) then draw_sprite(spr_creation_existing,highlight-10,0,68);

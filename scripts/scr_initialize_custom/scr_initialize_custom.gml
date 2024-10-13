@@ -1054,7 +1054,31 @@ function scr_initialize_custom() {
 	}
 
 
+	if(obj_creation.use_chapter_object){
+		var c_specialists = obj_creation.extra_specialists;
+		var c_specialist_names = struct_get_names(c_specialists);
+		for(var s = 0; s < array_length(c_specialist_names); s++){
+			var s_name = c_specialist_names[s];
+			var s_val = struct_get(c_specialists, s_name);
+			show_debug_message($"updating specialist {s_name} with {typeof(s_val)} {s_val})");
+			switch (s_name){
+				case "chaplains": chaplains = chaplains + real(s_val); break;
+				case "techmarines": techmarines  = techmarines  + real(s_val); break;
+				case "apothecary": apothecary = apothecary  + real(s_val); break;
+				case "epistolary": epistolary = epistolary  + real(s_val); break;
+				case "codiciery": codiciery  = codiciery + real(s_val); break;
+				case "lexicanum": lexicanum  = lexicanum + real(s_val); break;
+				case "terminator": terminator  = terminator + real(s_val); break;
+				case "assault": assault = assault + real(s_val); break;
+				case "veteran": veteran = veteran + real(s_val); break;
+				case "devastator": devastator = devastator + real(s_val); break;
+			}
+		}
+	}
 
+
+
+	//hardcoded method
 	switch (global.chapter_name) {
 		case "Salamanders":
 			veteran += 20;
@@ -1076,6 +1100,7 @@ function scr_initialize_custom() {
 			lexicanum += 2;
 			break;
 		case "Dark Angels":
+			break;
 			chaplains += 4;
 			veteran = 5;
 			terminator = 100;
@@ -1140,8 +1165,6 @@ function scr_initialize_custom() {
 		// if (global.chapter_name="Lamenters") then terminator=0;
 		// tenth-=1;
 	}
-
-
 
 
 	icon = obj_creation.icon;
@@ -1984,10 +2007,10 @@ function scr_initialize_custom() {
 
 	if(obj_creation.use_chapter_object && true){
 		var custom_squads = obj_creation.custom_squads;
-		show_debug_message($"custom roles {custom_squads}");
+		// show_debug_message($"custom roles {custom_squads}");
 		if(array_length(struct_get_names(custom_squads)) != 0){
 			var names = struct_get_names(st);
-			show_debug_message($"names {names}");
+			// show_debug_message($"names {names}");
 			for(var n = 0; n < array_length(names); n++){
 				var squad_name = names[n];
 				show_debug_message($"matched squad name name {squad_name}");
@@ -1996,12 +2019,6 @@ function scr_initialize_custom() {
 					var custom_squad = struct_get(custom_squads, squad_name);
 					show_debug_message($"overwriting squad layout for {squad_name}")
 					show_debug_message($"{custom_squad}")
-					show_debug_message($"is struct? {is_struct(custom_squad)}");
-					show_debug_message($"is string? {is_string(custom_squad)}");
-					show_debug_message($"is array? {is_array(custom_squad)}");
-
-
-
 					variable_struct_set(st, squad_name, custom_squad);
 				}
 			}
