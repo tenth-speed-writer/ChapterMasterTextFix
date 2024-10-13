@@ -298,8 +298,12 @@ if (slide>=2){
     draw_set_color(0);
     // draw_rectangle(436,74,436+128,74+128,0);
     // if (icon<=20) then draw_sprite_stretched(spr_icon,icon,436,74,128,128);
-    if (icon<=20) then scr_image("creation",icon,436,74,128,128);
-    if (icon>20) then draw_sprite_stretched(spr_icon_chapters,icon-19,436,74,128,128);
+    if(icon == 22){
+        scr_image("creation/chapters/icons", icon, 436,74,128,128);
+    } else {
+        if (icon<=20) then scr_image("creation",icon,436,74,128,128);
+        if (icon>20) then draw_sprite_stretched(spr_icon_chapters,icon-19,436,74,128,128);
+    }
     
     obj_cursor.image_index=0;
     if (scr_hit(436,74,436+128,74+128)) and (popup=""){obj_cursor.image_index=1;
