@@ -14,14 +14,14 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
         var _popup_header = $"Your game just encountered an error ({dev_marker}) :(";
         var _popup_message = $"Please, do the following: \n\n\n1) Find the following folder on your PC: C:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\n2) Find the latest error_log file (last numbers are hours minutes seconds). \n\n3) Create a bug report on the bug-report-forum in our Chapter Master Discord server. \n\n3) Attach the error_log file to your bug report. \n\n\nThank you :)";
 
-        // if (turn_end || instance_exists(obj_turn_end) ){
-        //     scr_popup(_popup_header, _popup_message, "debug");
-        // } else {
+        if (turn_end || instance_exists(obj_turn_end) ){
+            scr_popup(_popup_header, _popup_message, "debug");
+        } else {
             pip = instance_create(0,0,obj_popup);
             pip.title = _popup_header;
             pip.text = _popup_message;
             pip.image = "debug"
-        // }
+        }
 
         var _formatted_stacktrace = "";
         // Loop through the array
