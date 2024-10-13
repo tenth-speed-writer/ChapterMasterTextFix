@@ -1,4 +1,3 @@
-var xx, yy;
 xx = __view_get(e__VW.XView, 0) + x;
 yy = __view_get(e__VW.YView, 0) + y;
 
@@ -27,7 +26,7 @@ draw_text_ext(xx + 150, yy + 7, string_hash_to_newline(question), 18, 260);
 if (scr_hit(xx + 19, yy + 46, xx + 280, yy + 70)) {
     if (instance_exists(obj_cursor)) obj_cursor.image_index = 2;
 } else {
-    if (instance_exists(obj_cursor)) obj_cursor.image_index = 1;
+    if (instance_exists(obj_cursor)) obj_cursor.image_index = 0;
 }
 
 draw_set_font(fnt_40k_14);
@@ -54,7 +53,7 @@ if (scr_hit(cancel_button.x1, cancel_button.y1, cancel_button.x2, cancel_button.
     draw_set_color(c_white);
     draw_rectangle(xx + 26, yy + 103, xx + 126, yy + 123, 0);
     if (instance_exists(obj_cursor)) obj_cursor.image_index = 1;
-    if (mouse_check_button_pressed(mb_left)) {
+    if (mouse_check_button_pressed(mb_left) && obj_controller.cooldown <= 0) {
         instance_destroy();
     }
 }
@@ -75,7 +74,7 @@ if (scr_hit(accept_button.x1, accept_button.y1, accept_button.x2, accept_button.
     draw_set_color(c_white);
     draw_rectangle(xx + 175, yy + 103, xx + 275, yy + 123, 0);
     if (instance_exists(obj_cursor)) obj_cursor.image_index = 1;
-    if (mouse_check_button_pressed(mb_left)) {
+    if (mouse_check_button_pressed(mb_left) && obj_controller.cooldown <= 0) {
         execute = true;
     }
 }

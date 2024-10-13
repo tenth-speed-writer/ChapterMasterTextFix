@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "get_diag_string",
+  "name": "scr_get_diag_integer",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "name": "Sys",
+    "path": "folders/Scripts/Sys.yy",
   },
 }

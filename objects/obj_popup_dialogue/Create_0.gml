@@ -1,13 +1,15 @@
-var xx, yy;
 xx = __view_get(e__VW.XView, 0) + x;
 yy = __view_get(e__VW.YView, 0) + y;
 
+obj_controller.cooldown = 8000;
 question="";
 inputting="";
 blink = 0;
 execute=false;
 target="";
 target2="";
+input_type = 0; // 0 for anything, 1 for cheats, 2 for real
+maximum=0;
 cancel_button={
     x1: xx + 26,
     y1: yy + 103,
