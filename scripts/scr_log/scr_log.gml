@@ -33,12 +33,13 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
             }
         }
 
-        var _full_message = $"{_exception.longMessage}\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
+        var _line_break = "############################################################################################";
+        var _full_message = $"{_line_break}\n{_exception.longMessage}\nIn:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}\n{_line_break}";
+
         log_into_file(_full_message);
         clipboard_set_text(string(_full_message));
-        show_debug_message( "--------------------------------------------------------------");
-        show_debug_message( "Unhandled exception:\n" + string(_full_message) );
-        show_debug_message( "--------------------------------------------------------------"); 
+    
+        show_debug_message(_full_message);
     }
 }
 
@@ -52,14 +53,16 @@ exception_unhandled_handler(function(_exception) {
             _formatted_stacktrace += "\n";
         }
     }
-    var _full_message = $"{_exception.longMessage}\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
+
+    var _line_break = "############################################################################################";
+    var _full_message = $"{_line_break}\n{_exception.longMessage}\nIn:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}\n{_line_break}";
 
     log_into_file(_full_message);
-    clipboard_set_text(string(_full_message));
+    clipboard_set_text(_full_message);
 
-    show_debug_message( "--------------------------------------------------------------");
-    show_debug_message( "Unhandled exception:\n" + string(_full_message) );
-    show_debug_message( "--------------------------------------------------------------");
+    show_debug_message(_line_break);
+    show_debug_message( "Unhandled exception!");
+    show_debug_message(_full_message);
 
     var _player_message = $"Your game just encountered an error :( \n\nThe error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
     show_message(_player_message);
