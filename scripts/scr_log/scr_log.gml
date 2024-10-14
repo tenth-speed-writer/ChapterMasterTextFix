@@ -6,7 +6,7 @@ function log_into_file(_message) {
 }
 
 
-function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[]){
+function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[], catch_custom){
     try{
         method_call(func,args);
     } catch (_exception){
