@@ -12,21 +12,29 @@ settings_window_data=ini_read_string("Settings","window_data","fullscreen");
 ini_close();
 
 window_data=string(window_get_x())+"|"+string(window_get_y())+"|"+string(window_get_width())+"|"+string(window_get_height())+"|";
-window_old=window_data;if (window_get_fullscreen()=1){window_old="fullscreen";window_data="fullscreen";}
-restarted=0;custom_icon=0;
+window_old=window_data;
+if (window_get_fullscreen()=1){
+	window_old="fullscreen";
+	window_data="fullscreen";
+}
+restarted=0;
+custom_icon=0;
 
 
 audio_stop_all();
 audio_play_sound(snd_diboz,0,true);
 audio_sound_gain(snd_diboz, 0, 0);
-var nope;nope=0;if (master_volume=0) or (music_volume=0) then nope=1;
-if (nope!=1){audio_sound_gain(snd_diboz,0.25*master_volume*music_volume,2000);}
+var nope=0;
+if (master_volume=0) or (music_volume=0) then nope=1;
+if (nope!=1){
+	audio_sound_gain(snd_diboz,0.25*master_volume*music_volume,2000);
+}
 
 global.load=0;
 
 skip=false;
 premades=true;
-livery_picker = new colour_item(100,200);
+livery_picker = new colour_item(100,230);
 livery_picker.scr_unit_draw_data();
 complex_livery=false;
 complex_selection = "sgt";
@@ -72,22 +80,31 @@ role_names_all="";
 chapter="Unnamed";
 chapter_string="Unnamed";
 chapter_year=0;
-icon=1;icon_name="da";custom=0;
+icon=1;
+icon_name="da";
+custom=0;
 founding=1;
 chapter_tooltip="";
-points=0;maxpoints=100;
+points=0;
+maxpoints=100;
 fleet_type=1;
-strength=5;cooperation=5;
-purity=5;stability=5;
+strength=5;
+cooperation=5;
+purity=5;
+stability=5;
+
 for(var i=0; i<16; i++){
     adv[i]="";
     adv_num[i]=0;
     dis[i]="";
     dis_num[i]=0;
 }
-var i;i=-1;repeat(10){i+=1;}
-homeworld="Temperate";homeworld_name=global.name_generator.generate_star_name();
-recruiting="Death";recruiting_name=global.name_generator.generate_star_name();
+var i = 9;
+
+homeworld="Temperate";
+homeworld_name=global.name_generator.generate_star_name();
+recruiting="Death";
+recruiting_name=global.name_generator.generate_star_name();
 flagship_name=global.name_generator.generate_imperial_ship_name();
 recruiting_exists=1;
 homeworld_exists=1;
@@ -97,8 +114,8 @@ discipline="default";
 
 battle_cry="For the Emperor";
 
-main_color=1;secondary_color=1;trim_color=1;
-pauldron2_color=1;pauldron_color=1;// Left/Right pauldron
+main_color=1;secondary_color=1;main_trim=1;
+left_pauldron=1;right_pauldron=1;// Left/Right pauldron
 lens_color=1;weapon_color=1;col_special=0;trim=1;
 skin_color=0;
 
@@ -264,9 +281,9 @@ if((file_exists("chaptersave#1.ini")=true) and (chapter_made=1)){
 		
 		color_to_main21= ini_read_string("Controller","main_color","Red");
 	    color_to_secondary21= ini_read_string("Controller","secondary_color","Red");
-	    color_to_trim21 = ini_read_string("Controller","trim_color","Red");
-	   color_to_pauldron2_21 = ini_read_string("Controller","pauldron2_color","Red");
-	    color_to_pauldron21 = ini_read_string("Controller","pauldron_color","Red")
+	    color_to_trim21 = ini_read_string("Controller","main_trim","Red");
+	   color_to_pauldron2_21 = ini_read_string("Controller","left_pauldron","Red");
+	    color_to_pauldron21 = ini_read_string("Controller","right_pauldron","Red")
 	   color_to_lens21 = ini_read_string("Controller","lens_color","Lime");
 	   color_to_weapon21 = ini_read_string("Controller","weapon_color","Red");
 	   col_special21 = ini_read_real("Controller","col_special",col_special);
@@ -866,15 +883,19 @@ if (skip=true){
     
     purity=5;
     
-    /*main_color=5;secondary_color=5;trim_color=2;
-    pauldron2_color=5;// Left pauldron
-    pauldron_color=5;// Right pauldron
+    /*main_color=5;secondary_color=5;main_trim=2;
+    left_pauldron=5;// Left pauldron
+    right_pauldron=5;// Right pauldron
     lens_color=7;weapon_color=2;col_special=0;*/
     
-    main_color=7;secondary_color=5;trim_color=5;
-    pauldron2_color=5;// Left pauldron
-    pauldron_color=5;// Right pauldron
-    lens_color=6;weapon_color=4;col_special=0;
+    main_color=7;
+    secondary_color=5;
+    main_trim=5;
+    left_pauldron=5;// Left pauldron
+    right_pauldron=5;// Right pauldron
+    lens_color=6;
+    weapon_color=4;
+    col_special=0;
     
     scr_chapter_new("Doom Benefactors");
 }
@@ -911,9 +932,9 @@ scr_colors_initialize();
 
 	pauldron_colour_find=[255/255,255/255,0/255];
 	pauldron_colour_replace=[
-		col_r[pauldron_color]/255,
-		col_g[pauldron_color]/255,
-		col_b[pauldron_color]/255,
+		col_r[right_pauldron]/255,
+		col_g[right_pauldron]/255,
+		col_b[right_pauldron]/255,
 
 	];
 
@@ -931,18 +952,18 @@ scr_colors_initialize();
 	colour_to_set5 = shader_get_uniform(sReplaceColor, "f_Replace5");
 	trim_colour_find=[255/255,0/255,255/255];
 	trim_colour_replace=[
-		col_r[trim_color]/255,
-		col_g[trim_color]/255,
-		col_b[trim_color]/255,
+		col_r[main_trim]/255,
+		col_g[main_trim]/255,
+		col_b[main_trim]/255,
 	];
 
 	colour_to_find6 = shader_get_uniform(sReplaceColor, "f_Colour6");
 	colour_to_set6 = shader_get_uniform(sReplaceColor, "f_Replace6");
 	pauldron2_colour_find=[250/255,250/255,250/255];
 	pauldron2_colour_replace=[
-		col_r[pauldron2_color]/255,
-		col_g[pauldron2_color]/255,
-		col_b[pauldron2_color]/255,
+		col_r[left_pauldron]/255,
+		col_g[left_pauldron]/255,
+		col_b[left_pauldron]/255,
 
 	];
 

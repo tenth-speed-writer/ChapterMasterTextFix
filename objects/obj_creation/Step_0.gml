@@ -120,10 +120,10 @@ if (change_slide==35) or (change_slide==36) or (chapter=="Doom Benefactors") or 
         battle_cry="For the Emperor";
         main_color=1;
         secondary_color=1;
-        trim_color=1;
+        main_trim=1;
         // Left/Right pauldron
-        pauldron2_color=1;
-        pauldron_color=1;
+        left_pauldron=1;
+        right_pauldron=1;
         lens_color=1;
         weapon_color=1;
         col_special=0;
@@ -229,7 +229,7 @@ if (color_to_trim!=""){
         if (color_to_trim=col[q]) and (good=0){
             good=q;
             color_to_trim="";
-            trim_color=q;
+            main_trim=q;
         }
     }
 }
@@ -239,7 +239,7 @@ if (color_to_pauldron!=""){
         if (color_to_pauldron=col[q]) and (good=0){
             good=q;
             color_to_pauldron="";
-            pauldron_color=q;
+            right_pauldron=q;
         }
     }
 }
@@ -249,7 +249,7 @@ if (color_to_pauldron2!=""){
         if (color_to_pauldron2=col[q]) and (good=0){
             good=q;
             color_to_pauldron2="";
-            pauldron2_color=q;
+            left_pauldron=q;
         }
     }
 }

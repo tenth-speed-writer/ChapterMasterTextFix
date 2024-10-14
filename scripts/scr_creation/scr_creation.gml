@@ -23,9 +23,9 @@ function scr_creation(argument0) {
 	    if (argument0=3.5){
 	        if (color_to_main!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_main=col[q]) and (good=0){good=q;color_to_main="";main_color=q;}}}
 	        if (color_to_secondary!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_secondary=col[q]) and (good=0){good=q;color_to_secondary="";secondary_color=q;}}}
-	        if (color_to_trim!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_trim=col[q]) and (good=0){good=q;color_to_trim="";trim_color=q;}}}
-	        if (color_to_pauldron!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron=col[q]) and (good=0){good=q;color_to_pauldron="";pauldron_color=q;}}}
-	        if (color_to_pauldron2!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron2=col[q]) and (good=0){good=q;color_to_pauldron2="";pauldron2_color=q;}}}
+	        if (color_to_trim!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_trim=col[q]) and (good=0){good=q;color_to_trim="";main_trim=q;}}}
+	        if (color_to_pauldron!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron=col[q]) and (good=0){good=q;color_to_pauldron="";right_pauldron=q;}}}
+	        if (color_to_pauldron2!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron2=col[q]) and (good=0){good=q;color_to_pauldron2="";left_pauldron=q;}}}
 	        if (color_to_lens!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_lens=col[q]) and (good=0){good=q;color_to_lens="";lens_color=q;}}}
 	        if (color_to_weapon!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_weapon=col[q]) and (good=0){good=q;color_to_weapon="";weapon_color=q;}}}
 	    }

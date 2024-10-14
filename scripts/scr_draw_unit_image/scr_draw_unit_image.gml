@@ -26,37 +26,6 @@ enum UnitSpecialColours {
     Gold,
 }
 
-
-function colour_item() constructor{
-    function scr_unit_draw_data(){
-        map_colour = {
-            left_leg_lower : 0,
-            left_leg_upper : 0,
-            left_leg_knee : 0,
-            left_right_lower : 0,
-            left_right_upper : 0,
-            left_right_knee : 0,
-            metallic_trim : 0,
-            right_trim : 0,
-            left_trim : 0,
-            left_chest : 0,
-            right_chest : 0,
-            left_thorax : 0,
-            right_thorax : 0, 
-            left_pauldron : 0,
-            right_pauldron: 0,
-            left_head : 0,
-            right_head: 0,                       
-        }
-    }
-    static set_legs_solid = function(col){
-        var legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
-        for (var i=0 ;i<array_length(legs);i++){
-            map_colour[legs[i]] = col;
-        }
-    }
-}
-
 function unit_image(unit_surface) constructor{
     u_surface = unit_surface;
     static draw = function (xx, yy, _background=false){
@@ -893,7 +862,7 @@ function scr_draw_unit_image(_background=false){
                     }
 
                 } else if (unit_armour=="MK7 Aquila" || unit_armour="Power Armour"){
-                    specific_armour_sprite = spr_mk7_colors;
+                    specific_armour_sprite = spr_mk7_complex;
                     specific_helm = spr_generic_sgt_mk7;
                     if (progenitor_map()=="Dark Angels"){
                         specific_helm = false;
@@ -1013,7 +982,20 @@ function scr_draw_unit_image(_background=false){
 
                 // Draw torso
                 if (!armour_bypass){
-                    draw_sprite(armour_sprite,specialist_colours,x_surface_offset,y_surface_offset);
+                    if (specific_armour_sprite == spr_mk7_complex){
+                        shader_set(full_livery_shader);
+                        var spot_names = struct_get_names(obj_ini.full_livery);
+                        for (var i=0;i<array_length(spot_names);i++){
+                            var colour = obj_ini.full_livery[$ spot_names[i]];
+                            var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];
+                            shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
+                        }                        
+                        draw_sprite(specific_armour_sprite,1,x_surface_offset,y_surface_offset)
+                        shader_reset();
+                        shader_set(sReplaceColor);
+                    } else{                   
+                        draw_sprite(armour_sprite,specialist_colours,x_surface_offset,y_surface_offset);
+                    }
                     // Draw additional torso decals
 
                     if (array_contains(["MK3 Iron Armour", "MK6 Corvus", "MK7 Aquila", "MK8 Errant"], unit_armour)){
@@ -1028,7 +1010,7 @@ function scr_draw_unit_image(_background=false){
                         }
                     }
                     // Draw pauldron trim
-                    if (specific_armour_sprite != "none"){
+                    else if (specific_armour_sprite != "none"){
                         if (pauldron_trim==0 && specialist_colours<=1) then draw_sprite(specific_armour_sprite,4,x_surface_offset,y_surface_offset);
                         if (pauldron_trim==0 && specialist_colours>=2) then draw_sprite(specific_armour_sprite,5,x_surface_offset,y_surface_offset);
                     }

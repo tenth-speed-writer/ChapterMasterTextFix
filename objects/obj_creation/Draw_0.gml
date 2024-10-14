@@ -1159,6 +1159,7 @@ if (slide=4){
         test_sprite--;
         if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
     }
+    draw_text(100, 200, "Full Livery");
     livery_picker.draw_base();
     draw_rectangle_color_simple(preview_box.x1,preview_box.y1,preview_box.x2,preview_box.y2,1,38144);
     if( shader_is_compiled(sReplaceColor)){

@@ -32,6 +32,7 @@ function colour_item(xx,yy) constructor{
             right_muzzle: 0,
             eye_lense :0,                                
         }
+        return map_colour;
     }
 
     static image_location_maps = {
@@ -42,30 +43,46 @@ function colour_item(xx,yy) constructor{
             right_leg_upper : [43,107, 73,139],
             right_leg_knee : [35,138, 58,160],
             metallic_trim : [70,53, 100,70],
-            right_trim :  0,
-            left_trim : 0,
+
+            right_trim :  [-100,31,string_width("R Trim"), string_height("R Trim")],
+            left_trim : [-150,31,string_width("R Trim"), string_height("R Trim")],
+
             left_chest : [84,72, 108,92],
             right_chest : [50,73, 82,103],
+
             left_thorax : 0,
             right_thorax : 0, 
+
             left_pauldron :[114,31, 150,67],
             right_pauldron: [19,31, 43,71],
+
             left_head : [81,15, 94,30],	
             right_head: [68,15, 81,31],	
+
             left_muzzle: [82,32, 90,42],	
             right_muzzle: [73,32, 82,42],	
+
             eye_lense :0,
+
             left_arm : 0,
             left_hand : 0,
+
             right_arm : 0,
             right_hand : 0,                                
     }
+
     static lower_left = ["left_leg_lower","left_leg_upper","left_leg_knee"];
+
     static lower_right = ["right_leg_lower","right_leg_upper","right_leg_knee"];
+
     static upper_left =  ["left_chest","left_arm","left_hand"]; 
+
     static chest =  ["left_chest", "right_chest"];
-    static upper_right = ["right_chest","right_arm","right_hand"];    
+
+    static upper_right = ["right_chest","right_arm","right_hand"];   
+
     static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
+
     static head_set = ["left_head", "right_head","left_muzzle", "right_muzzle"];
 
     static set_pattern = function(col, pattern){
@@ -85,6 +102,8 @@ function colour_item(xx,yy) constructor{
     			}
     		}
     	}
+        image_location_maps.right_trim = draw_unit_buttons([xx-100, yy+31], "R Trim");
+        image_location_maps.left_trim = draw_unit_buttons([xx+150, yy+31], "L Trim");
 
 		shader_set(full_livery_shader);
 		var spot_names = struct_get_names(map_colour);
@@ -92,7 +111,7 @@ function colour_item(xx,yy) constructor{
 			var colour = map_colour[$ spot_names[i]];
 			var colour_set = [obj_creation.col_r[colour]/255, obj_creation.col_g[colour]/255, obj_creation.col_b[colour]/255];
 			shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
-		}		
+		}
 		//draw_sprite(sprite_index, 0, x, y);
 		draw_sprite(spr_mk7_complex, 0, xx, yy);
 		draw_sprite(spr_mk7_complex, 2, xx, yy);  	
@@ -100,7 +119,9 @@ function colour_item(xx,yy) constructor{
 		draw_sprite(spr_mk7_complex, 1, xx, yy);	
     	//draw_sprite(xx,yy,2,spr_mk7_full_colour);
     	//draw_sprite(xx,yy,3,spr_mk7_full_colour);
-    	shader_reset();    
+    	shader_reset();
+
+
     	var map_names = struct_get_names(image_location_maps);
     	for (var i=0;i<array_length(map_names);i++){
     		if (!is_array(image_location_maps[$map_names[i]])) then continue;

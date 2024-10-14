@@ -44,9 +44,9 @@ function scr_restart_variables(saved_game) {
     
 	    obj_restart_vars.restart_main_color=obj_creation.main_color;
 	    obj_restart_vars.restart_secondary_color=obj_creation.secondary_color;
-	    obj_restart_vars.restart_trim_color=obj_creation.trim_color;
-	    obj_restart_vars.restart_pauldron2_color=obj_creation.pauldron2_color;
-	    obj_restart_vars.restart_pauldron_color=obj_creation.pauldron_color;
+	    obj_restart_vars.restart_trim_color=obj_creation.main_trim;
+	    obj_restart_vars.restart_pauldron2_color=obj_creation.left_pauldron;
+	    obj_restart_vars.restart_pauldron_color=obj_creation.right_pauldron;
 	    obj_restart_vars.restart_lens_color=obj_creation.lens_color;
 	    obj_restart_vars.restart_weapon_color=obj_creation.weapon_color;
 	    obj_restart_vars.restart_col_special=obj_creation.col_special;
@@ -742,9 +742,9 @@ function scr_restart_variables(saved_game) {
     
 	    main_color=obj_restart_vars.restart_main_color;
 	    secondary_color=obj_restart_vars.restart_secondary_color;
-	    trim_color=obj_restart_vars.restart_trim_color;
-	    pauldron2_color=obj_restart_vars.restart_pauldron2_color;
-	    pauldron_color=obj_restart_vars.restart_pauldron_color;
+	    main_trim=obj_restart_vars.restart_trim_color;
+	    left_pauldron=obj_restart_vars.restart_pauldron2_color;
+	    right_pauldron=obj_restart_vars.restart_pauldron_color;
 	    lens_color=obj_restart_vars.restart_lens_color;
 	    weapon_color=obj_restart_vars.restart_weapon_color;
 	    col_special=obj_restart_vars.restart_col_special;

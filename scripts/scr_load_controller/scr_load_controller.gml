@@ -380,7 +380,7 @@ function scr_load_controller(save_id){
 		obj_controller.secondary_color = tempa2;
 		obj_ini.secondary_color = tempa2;
 
-		tempa = ini_read_string("Controller", "trim_color", "Error");
+		tempa = ini_read_string("Controller", "main_trim", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -390,10 +390,10 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.trim_color = tempa2;
-		obj_ini.trim_color = tempa2;
+		obj_controller.main_trim = tempa2;
+		obj_ini.main_trim = tempa2;
 
-		tempa = ini_read_string("Controller", "pauldron2_color", "Error");
+		tempa = ini_read_string("Controller", "left_pauldron", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -403,10 +403,10 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.pauldron2_color = tempa2;
-		obj_ini.pauldron2_color = tempa2;
+		obj_controller.left_pauldron = tempa2;
+		obj_ini.left_pauldron = tempa2;
 
-		tempa = ini_read_string("Controller", "pauldron_color", "Error");
+		tempa = ini_read_string("Controller", "right_pauldron", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -416,8 +416,8 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.pauldron_color = tempa2;
-		obj_ini.pauldron_color = tempa2;
+		obj_controller.right_pauldron = tempa2;
+		obj_ini.right_pauldron = tempa2;
 
 		tempa = ini_read_string("Controller", "lens_color", "Error");
 		tempa2 = 0;
