@@ -199,8 +199,8 @@ enum CHAPTER_ORIGIN {
  * @description chapter constructor. This is just for the main menu bit, the full data comes in scr_chapter_new
  * @param {Enum.CHAPTERS} _id e.g. CHAPTERS.DARK_ANGELS
  * @param {Enum.CHAPTER_ORIGIN} _origin e.g. CHAPTER_ORIGIN.FOUNDING 
- * @param {String} _name e.g. "Dark Angels" 
  * @param {Enum.CHAPTERS} _progenitor This chapter's founding chapter, if one exits. Use 0 if none.
+ * @param {String} _name e.g. "Dark Angels" 
  * @param {String} _tooltip e.g. "Some extremely lore friendly backstory"
  */
 function chapter(_id, _origin,_progenitor, _name , _tooltip) constructor {
@@ -240,7 +240,7 @@ all_chapters = [
     new chapter(CHAPTERS.EMPERORS_NIGHTMARE, CHAPTER_ORIGIN.NON_CANON,0, "Emperor’s Nightmare","The Emperor's Nightmare bear the curse of a bizarre mutation within their gene-seed. The Catalepsean Node is in a state of decay and thus do not sleep for months at a time until falling asleep suddenly. They prefer shock and awe tactics with stealth."),
     new chapter(CHAPTERS.STAR_KRAKENS, CHAPTER_ORIGIN.NON_CANON,0, "Star Krakens","In darkness, they dwell in The Deep. The Star Krakens stand divided in individual companies but united in the form of the Ten-Flag Council. They utilize boarding tactics and are the sole guardians of the ancient sensor array called “The Lighthouse”."),
     new chapter(CHAPTERS.CONSERVATORS, CHAPTER_ORIGIN.NON_CANON,0, "Conservators","Hailing from the Asharn Marches and having established their homeworld on the planet Dekara, these proud sons of Dorn suffer from an extreme lack of supplies, Ork raids, and more. Though under strength and lacking equipment, they managed to forge an interstellar kingdom loyal to both Emperor and Imperium."),
-    new chapter(CHAPTERS.CUSTOM_1, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter",),
+    new chapter(CHAPTERS.CUSTOM_1, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter", "")
     // new chapter(CHAPTERS.CUSTOM_2, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter",),
     // new chapter(CHAPTERS.CUSTOM_3, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter",),
     // new chapter(CHAPTERS.CUSTOM_4, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter",),
@@ -260,7 +260,7 @@ all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
 // Load from files to overwrite hardcoded ones
 for(var c = 0; c < 100; c++){
     var json_chapter = new chapter_data();
-    var success =json_chapter.load_from_json(c); 
+    var success = json_chapter.load_from_json(c); 
     if(success){
         all_chapters[c] = new chapter(
             json_chapter.id,
@@ -271,7 +271,7 @@ for(var c = 0; c < 100; c++){
         );
         all_chapters[c].json = true;
         all_chapters[c].icon = json_chapter.icon;
-        all_chapters[c].icon = json_chapter.splash;
+        all_chapters[c].splash = json_chapter.splash;
 
 
     }

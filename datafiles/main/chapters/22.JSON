@@ -6,7 +6,7 @@
         "origin": 2, // 1 - Founding, 2 -successor, 3 - Other/non-canon/fanmade, 4 - Custom
         "points": 150,
         "founding": 0, // The id of the founding chapter, 0 for unknown or none
-        "splash": 8, // this will get reworked
+        "splash": 22, // this will get reworked
         "icon": 22, // in \images\creation\creation_icons.png, the index from the left, 0 being blank square and 1 being dark angels etc
         "icon_name": "rs", // ? dunno what this is used for yet but the icon breaks if you dont use it 
         "fleet_type": 1, // 1= Homeworld, 2 = Fleet based, 3 = Penitent
@@ -20,7 +20,7 @@
         "aspirant_trial": "APPRENTICESHIP", // ? need to find the best way to do this
         "advantages": [ //TODO something with these after rework of adv organisation
             "", //"Medicae Primacy", Must be merged following "adv-4" to actually work
-            "Enemy:Fallen",
+            "Enemy: Fallen",
             "",
             "",
             "",
@@ -177,7 +177,7 @@
         * `custom_roles` should be used for specialist/leadership type roles, 
         * for combat roles, `custom_squads` should probably? be used instead 
         */
-        "custom_roles": [],
+        // "custom_roles": {},
         /**
         * * Custom squad roles, loadouts and formations
         * When companies are made, squads are formed based on these rules: 
@@ -207,7 +207,7 @@
                 - gear: special equipment needed for certain roles, like a Roasrius or Narthecium
         *   - type_data: names the squad, allows certain formations ? idk what that does yet
         */
-        "custom_squads": [],
+        // "custom_squads": [],
         "squad_name": "Squad"
     }
 }

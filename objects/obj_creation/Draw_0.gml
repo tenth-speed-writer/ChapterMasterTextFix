@@ -39,10 +39,17 @@ if (slate4>0){
         
         draw_set_font(fnt_40k_30b);
         draw_set_halign(fa_left);
-        draw_text_transformed(440,133,"Founding Chapters",0.75,0.75,0);
-        draw_text_transformed(440,363,"Existing Chapters",0.75,0.75,0);
-        draw_text_transformed(440,593,string_hash_to_newline("Other"),0.75,0.75,0);
-		draw_text_transformed(440,463,string_hash_to_newline("Custom Chapters"),0.75,0.75,0);
+        icon_gap_y = 34;
+        icon_gap_x = 53;
+        founding_y = 133;
+        successor_y = 250;
+        custom_y = 463;
+        other_y = 593
+
+        draw_text_transformed(440,founding_y,"Founding Chapters",0.75,0.75,0);
+        draw_text_transformed(440,successor_y,"Existing Chapters",0.75,0.75,0);
+		draw_text_transformed(440,custom_y,string_hash_to_newline("Custom Chapters"),0.75,0.75,0);
+        draw_text_transformed(440,other_y,string_hash_to_newline("Other"),0.75,0.75,0);
 
         var founding_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.FOUNDING});
         var successor_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.SUCCESSOR});
@@ -50,21 +57,22 @@ if (slate4>0){
         var other_chapters = array_filter(all_chapters, function(item){ return item.origin == CHAPTER_ORIGIN.NON_CANON});
 
         
+
         /** * Founding Chapters */
         var x2,y2,i,new_hover,tool;
-        x2=441;y2=167;i=1;new_hover=highlight;tool=0;
+        x2=441;y2=founding_y + icon_gap_y;i=1;new_hover=highlight;tool=0;
         for(var c = 0; c < array_length(founding_chapters); c++){
             i = founding_chapters[c].id;
             
             draw_sprite(spr_creation_icon,0,x2,167);
-            scr_image("creation",i,x2,167,48,48);
+            scr_image("creation/chapters/icons", founding_chapters[c].icon,x2,y2,48,48);
             // draw_sprite_stretched(spr_icon,i,x2,167,48,48);
             
-            if (mouse_x>=x2) and (mouse_y>=167) and (mouse_x<x2+48) and (mouse_y<167+48) and (slate4>=30){
+            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
-                draw_rectangle(x2,167,x2+48,167+48,0);
+                draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
                     cooldown=8000;
@@ -79,24 +87,24 @@ if (slate4>0){
                     }
                 }
             }
-            x2+=53;
+            x2+=icon_gap_x;
         }
         
         /** * Successor Chapters */
-        x2=441;y2=397;new_hover=highlight;
+        x2=441;y2=successor_y + icon_gap_y;new_hover=highlight;
         for(var c = 0; c < array_length(successor_chapters); c++){
             i = successor_chapters[c].id;
-            
-        
-            draw_sprite(spr_creation_icon,0,x2,397);
+                    
+            draw_sprite(spr_creation_icon,0,x2,y2);
             // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
-            scr_image("creation",successor_chapters[c].icon,x2,397,48,48);
+            scr_image("creation/chapters/icons",successor_chapters[c].icon,x2,y2,48,48);
+
             
-            if (mouse_x>=x2) and (mouse_y>=397) and (mouse_x<x2+48) and (mouse_y<397+48) and (slate4>=30){
+            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
-                draw_rectangle(x2,397,x2+48,397+48,0);
+                draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
                 //Click
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
@@ -111,15 +119,15 @@ if (slate4>0){
                     }
                 }
             }
-            x2+=53;
+            x2+=icon_gap_x;
         }
         
         /** * Custom Chapters */
-		x2=441;y2=497;new_hover=highlight;
+		x2=441;y2=custom_y + icon_gap_y;new_hover=highlight;
         for(var c = 0; c < array_length(custom_chapters); c++){
             i = custom_chapters[c].id;
 
-            draw_sprite(spr_creation_icon,0,x2,497);
+            draw_sprite(spr_creation_icon,0,x2,y2);
             // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
 			if(file_exists("chaptersave#1.ini")){
 			ini_open("chaptersave#1.ini")
@@ -128,14 +136,14 @@ if (slate4>0){
 			}
 			else{ icon21=1
 			}
-            scr_image("creation",icon21,x2,497,48,48);
+            scr_image("creation",icon21,x2,y2,48,48);
             
-            if (mouse_x>=x2) and (mouse_y>=497) and (mouse_x<x2+48) and (mouse_y<497+48) and (slate4>=30){
+            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
 				
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=custom_chapters[c].id;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
-                draw_rectangle(x2,497,x2+48,497+48,0);
+                draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0){
 					if(chapter_made=1){
@@ -150,17 +158,19 @@ if (slate4>0){
                         }
                     }
                 }
-                x2+=53;
+                x2+=icon_gap_x;
             }
         }
+
         /** * Other Chapters */
-        x2=441;y2=627;new_hover=highlight;
+        x2=441;y2=other_y + icon_gap_y;new_hover=highlight;
         for(var c = 0; c < array_length(other_chapters); c++){
             i = other_chapters[c].id;
         
             draw_sprite(spr_creation_icon,0,x2,y2);
             // draw_sprite_stretched(spr_icon,i,x2,y2,48,48);
-            scr_image("creation",i,x2,y2,48,48);
+            scr_image("creation/chapters/icons",other_chapters[c].icon,x2,y2,48,48);
+
             
             if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
@@ -181,7 +191,7 @@ if (slate4>0){
                     }
                 }
             }
-            x2+=53;
+            x2+=icon_gap_x;
         }
         
         x2+=53;i=1001;
@@ -212,11 +222,11 @@ if (slate4>0){
             draw_set_alpha(min(slate4/30,highlighting/30));
             if (change_slide>0) then draw_set_alpha(1);
             
-            if (highlight=1001) then scr_image("creation/chapters",98,0,68,374,713);
-            if (highlight=1002) then scr_image("creation/chapters",99,0,68,374,713);
+            if (highlight=1001) then scr_image("creation/chapters/splash",98,0,68,374,713);
+            if (highlight=1002) then scr_image("creation/chapters/splash",99,0,68,374,713);
             if( highlight <= array_length(all_chapters)){
                 var splash_chapter = all_chapters[highlight];
-                scr_image("creation/chapters", splash_chapter.splash,0,68,374,713);
+                scr_image("creation/chapters/splash", splash_chapter.splash,0,68,374,713);
             }
 
             // if (highlight<=9) then scr_image("main_splash",highlight-1,0,68,374,713);
@@ -301,8 +311,9 @@ if (slide>=2){
     if(icon == 22){
         scr_image("creation/chapters/icons", icon, 436,74,128,128);
     } else {
-        if (icon<=20) then scr_image("creation",icon,436,74,128,128);
-        if (icon>20) then draw_sprite_stretched(spr_icon_chapters,icon-19,436,74,128,128);
+        if (custom = 0) then scr_image("creation/chapters/icons",icon,436,74,128,128);
+        if (custom = 1 && icon >22) then draw_sprite_stretched(spr_icon_chapters,icon21-21,436,74,128,128);
+        if (custom = 1 && icon <=22) then scr_image("creation/chapters/icons",icon21,436,74,128,128);
     }
     
     obj_cursor.image_index=0;
@@ -345,7 +356,7 @@ if (slide>=2){
         
             draw_set_alpha(0.33);
             // if (founding<10) then draw_sprite_stretched(spr_icon,founding,1164-128,74,128,128);
-            if (founding<10) then scr_image("creation",founding,1164-128,74,128,128);
+            if (founding<10) then scr_image("creation/chapters/icons",founding,1164-128,74,128,128);
             if (founding=10) then draw_sprite_stretched(spr_icon_chapters,0,1164-128,74,128,128);
             draw_set_alpha(1);
             
@@ -655,8 +666,8 @@ if (slide=2){
                 
                 // draw_rectangle(x3,y3,x3+96,y3+96,0);
                 // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
-                if (ic<=20) then scr_image("creation",ic,x3,y3,96,96);
-                if (ic>20) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-19,x3,y3,96,96);
+                if (ic<=22) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
+                if (ic>22) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-21,x3,y3,96,96);
                 if (ic>76) and (obj_cuicons.spr_custom[ic-76]>0) and (obj_cuicons.spr_custom_icon[ic-76]!=-1){
                     draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-76],0,x3,y3,96,96);
                 }
@@ -664,8 +675,8 @@ if (slide=2){
                 if (scr_hit(x3,y3,x3+96,y3+96)){
                     draw_set_blend_mode(bm_add);draw_set_alpha(0.25);draw_set_color(16119285);
                     // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
-                    if (ic<=20) then scr_image("creation",ic,x3,y3,96,96);
-                    if (ic>20) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-19,x3,y3,96,96);
+                    if (ic<=22) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
+                    if (ic>22) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-21,x3,y3,96,96);
                     if (ic>76) and (obj_cuicons.spr_custom[ic-76]>0) and (obj_cuicons.spr_custom_icon[ic-76]!=-1){
                         draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-76],0,x3,y3,96,96);
                     }

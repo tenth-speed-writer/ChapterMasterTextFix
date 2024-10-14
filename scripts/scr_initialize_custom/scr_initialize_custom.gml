@@ -1403,7 +1403,7 @@ function scr_initialize_custom() {
 		mobi[100, i] = obj_creation.mobi[100, i];
 	}
 	
-	if(obj_creation.use_chapter_object){
+	if(obj_creation.use_chapter_object && struct_exists(obj_creation, "custom_roles")){
 		var c_roles = obj_creation.custom_roles;
 		var possible_custom_roles = [
 			["chapter_master", Role.CHAPTER_MASTER],
@@ -2005,7 +2005,7 @@ function scr_initialize_custom() {
 	// show_debug_message($"{st}");
 
 
-	if(obj_creation.use_chapter_object && true){
+	if(obj_creation.use_chapter_object && struct_exists(obj_creation, "custom_squads") && true){
 		var custom_squads = obj_creation.custom_squads;
 		// show_debug_message($"custom roles {custom_squads}");
 		if(array_length(struct_get_names(custom_squads)) != 0){

@@ -37,7 +37,7 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 			drawing_sprite = existing_sprite;
 		} else {
 			var folders = string_replace_all(argument0, "/", "\\");
-			var dir = $"{working_directory}\\images\\{folders}\\{argument1}.png";
+			var dir = $"{working_directory}\\images\\{folders}\\{string(argument1)}.png";
 			if(file_exists(dir)){
 				drawing_sprite = sprite_add(dir,1, false,false,0,0);
 				array_insert(obj_img.image_cache[$argument0], argument1, drawing_sprite);
@@ -58,7 +58,7 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 	        draw_set_color(c_black);
 			return;
 		}
-		draw_sprite_stretched(drawing_sprite,argument1,argument2,argument3,argument4,argument5);
+		draw_sprite_stretched(drawing_sprite,1,argument2,argument3,argument4,argument5);
 
 		draw_set_alpha(old_alpha);
 	    draw_set_color(old_color);

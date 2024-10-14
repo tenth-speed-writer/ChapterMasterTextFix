@@ -58,10 +58,10 @@ if (!zoomed && !zui){
     // Handles icon for normal chapters
     if (string_count("custom",obj_ini.icon_name)==0){
         var icon_sprite=spr_icon,icc=obj_ini.icon;
-        if (icc<=20) then scr_image("creation",icc,1451+new_banner_x,73,141,141);
-        if (icc>20){
+        if (icc<=22) then scr_image("creation/chapters/icons",icc,1451+new_banner_x,73,141,141);
+        if (icc>22){
             icon_sprite=spr_icon_chapters;
-            icc-=19;
+            icc-=21;
             draw_sprite(icon_sprite,icc,1451+new_banner_x,73);
         }
     }

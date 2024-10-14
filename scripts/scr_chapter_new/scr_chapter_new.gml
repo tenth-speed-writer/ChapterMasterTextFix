@@ -149,7 +149,7 @@ function scr_chapter_new(argument0) {
 	chapter="nopw_nopw";
 
 	for(var c = 0; c < array_length(obj_creation.all_chapters); c++){
-		if(obj_creation.all_chapters[c].json == true){
+		if(argument0 == obj_creation.all_chapters[c].name && obj_creation.all_chapters[c].json == true){
 			obj_creation.use_chapter_object = 1;
 			chapter_id = obj_creation.all_chapters[c].id;
 		}
@@ -937,8 +937,12 @@ if (argument0="Crimson Fists"){founding="N/A";points=150;
 		obj_creation.extra_vehicles = chapter_object.extra_vehicles;
 
 		obj_creation.squad_name = chapter_object.squad_name;
-		obj_creation.custom_roles = chapter_object.custom_roles;
-		obj_creation.custom_squads = chapter_object.custom_squads;
+		if(struct_exists(chapter_object, "custom_roles")){
+			obj_creation.custom_roles = chapter_object.custom_roles;
+		}
+		if(struct_exists(chapter_object, "custom_squads")){
+			obj_creation.custom_squads = chapter_object.custom_squads;
+		}
 
 		points = chapter_object.points;
 		maxpoints=chapter_object.points;
