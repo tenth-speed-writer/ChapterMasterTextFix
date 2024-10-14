@@ -123,7 +123,7 @@ function colour_item(xx,yy) constructor{
 		draw_sprite(spr_mk7_complex_backpack, 0, xx, yy);
 		draw_sprite(spr_mk7_complex, 2, xx, yy);  	
 		draw_sprite(spr_mk7_complex, 3, xx, yy); 		
-		draw_sprite(spr_mk7_complex, 1, xx, yy);	
+		draw_sprite(spr_mk7_complex, 0, xx, yy);	
     	//draw_sprite(xx,yy,2,spr_mk7_full_colour);
     	//draw_sprite(xx,yy,3,spr_mk7_full_colour);
     	shader_reset();
