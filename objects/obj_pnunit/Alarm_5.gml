@@ -171,7 +171,7 @@ i=0;
             var eqp_chance, dece;
             eqp_chance=50;
             dece=floor(random(100))+1;
-            if (obj_ncombat.attacker=1) then eqp_chance-=10;
+            if (obj_ncombat.defending=false) then eqp_chance-=10;
             if (obj_ncombat.dropping=1) then eqp_chance-=20;
             if (obj_ncombat.dropping=1) and (obj_ncombat.defeat=1) then dece=9999;
             if (marine_dead[i]=2) or (destroy=2) then dece=9999;

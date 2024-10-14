@@ -4,7 +4,7 @@ if (!instance_exists(obj_cuicons)){
     instance_create(0,0,obj_cuicons);
 }
 
-global.version="0.9.1.0";
+global.version="0.9.3.2";
 global.game_seed=0;
 global.cheat_req=false;
 global.cheat_gene=false;
@@ -133,9 +133,9 @@ tim4=0;
 tim5=0;
 
 
-
-
-
+var _log_file = file_text_open_write("message_log.log");
+file_text_write_string(_log_file, "Message log:" + "\n");
+file_text_close(_log_file);
 
 
 /* */

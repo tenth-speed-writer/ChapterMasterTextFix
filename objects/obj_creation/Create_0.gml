@@ -69,7 +69,6 @@ target_gear=0;
 tab=0;
 role_names_all="";
 
-// 
 chapter="Unnamed";
 chapter_string="Unnamed";
 chapter_year=0;
@@ -80,7 +79,13 @@ points=0;maxpoints=100;
 fleet_type=1;
 strength=5;cooperation=5;
 purity=5;stability=5;
-var i;i=-1;repeat(6){i+=1;adv[i]="";adv_num[i]=0;dis[i]="";dis_num[i]=0;}
+for(var i=0; i<16; i++){
+    adv[i]="";
+    adv_num[i]=0;
+    dis[i]="";
+    dis_num[i]=0;
+}
+var i;i=-1;repeat(10){i+=1;}
 homeworld="Temperate";homeworld_name=global.name_generator.generate_star_name();
 recruiting="Death";recruiting_name=global.name_generator.generate_star_name();
 flagship_name=global.name_generator.generate_imperial_ship_name();
@@ -195,7 +200,7 @@ chapter_id[14]="Lamenters";
 chapter_tooltip[14]="The Lamenter's accursed and haunted legacy seems to taint much of what they have achieved; their victories often become bitter ashes in their hands.  Nearly extinct, they fight their last days on behalf of the common folk in a crusade of endless penitence.";
 
 chapter_id[15]="Carcharodons";
-//chapter_tooltip[15]="Rumored to be Successors of the Raven Guard, these Astartes are known for their sudden attacks and shock assaults. Travelling through the Imperium via self-sufficient Nomad-Predation based fleets, no enemy is safe from the fury of these bloodthirsty Space Marines.";
+chapter_tooltip[15]="Rumored to be Successors of the Raven Guard, these Astartes are known for their sudden attacks and shock assaults. Travelling through the Imperium via self-sufficient Nomad-Predation based fleets, no enemy is safe from the fury of these bloodthirsty Space Marines.";
 
 chapter_id[16]="Soul Drinkers";
 chapter_tooltip[16]="Sharing ancestry of the Black Templars or Crimson fists. As proud sons of Dorn they share the strong void combat traditions, fielding a large amount of Battle Barges. As well as being fearsome in close combat. Whispers of the Ruinous Powers are however quite enticing."
@@ -310,9 +315,9 @@ if((file_exists("chaptersave#1.ini")=true) and (chapter_made=1)){
 		chapter_master_melee21 = ini_read_real("Creation","chapter_master_melee",chapter_master_melee);
 		chapter_master_ranged21= ini_read_string("Creation","master_ranged",chapter_master_ranged);
 		chapter_master_specialty21=ini_read_string("Creation","master_specialty",chapter_master_specialty);
-		adv21=[1,2,3,4];
-		dis21=[1,2,3,4];
-		for(var i =1;i<=4;i++){
+		adv21=[1,2,3,4,5,6,7,8];
+		dis21=[1,2,3,4,5,6,7,8];
+		for(var i =1;i<=8;i++){
 			
 			adv21[i]=ini_read_string("Creation","adv21"+string(i),"")
 			dis21[i]=ini_read_string("Creation","dis21"+string(i),"")
@@ -332,8 +337,8 @@ ini_close();
 
 
 else if (file_exists("chaptersave#1.ini")=false){
- adv21 = [1,2,3,4]
- dis21 =[1,2,3,4]
+ adv21 = [1,2,3,4,5,6,7,8]
+ dis21 =[1,2,3,4,5,6,7,8]
  disposition21 = [1,2,3,4,5,6,7]
  founding21=4;
  
@@ -514,7 +519,7 @@ color_to_pauldron21="Red";
 
     race_21[i,14]=1;
     role_21[i,14]="Chaplain";
-    wep1_21[i,14]="Power Sword";
+    wep1_21[i,14]="Crozius Arcanum";
     wep2_21[i,14]="Bolt Pistol";
     armour_21[i,14]="Power Armour";
     gear_21[i,14]="Rosarius";
@@ -531,7 +536,8 @@ color_to_pauldron21="Red";
     wep1_21[i,16]="Power Axe";
     wep2_21[i,16]="Storm Bolter";
     armour_21[i,16]="Artificer Armour";
-    gear_21[i,16]="Servo Arms";
+    mobi_21[i,16]="Servo-arm";
+    gear_21[i,16]="";
 
     race_21[i,17]=1;
     role_21[i,17]="Librarian";
@@ -567,16 +573,16 @@ repeat(61){i+=1;advantage[i]="";advantage_tooltip[i]="";disadvantage[i]="";dis_t
 i=1;
 advantage[i]="Ambushers";
 advantage_tooltip[i]="Your chapter is especially trained with ambushing foes; they have a bonus to attack during the start of a battle.";i+=1;
-advantage[i]="Battle Cousins";
-advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+//advantage[i]="Battle Cousins";
+//advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 advantage[i]="Boarders";
-advantage_tooltip[i]="Boarding other ships is routine for the chapter.  Your infantry have a bonus to attack when boarding ships.";i+=1;
+advantage_tooltip[i]="Boarding other ships is the specialty of your chapter.  Your chapter is more lethal when boarding ships, have dedicated boarding squads, and two extra strike cruisers.";i+=1;
 advantage[i]="Bolter Drilling";
 advantage_tooltip[i]="Bolter drills are sacred to your chapter; all marines have increased attack with Bolter weaponry.";i+=1;
 advantage[i]="Brothers, All";
-advantage_tooltip[i]="Your chapter places great emphasis on comradely and loyalty.  You start with a well-equip Honour Guard.";i+=1;
-advantage[i]="Comrades in Arms";
-advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+advantage_tooltip[i]="Your chapter places great emphasis on comradely and loyalty.  You start with a well-equipped Honour Guard.";i+=1;
+//advantage[i]="Comrades in Arms";
+//advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 advantage[i]="Crafters";
 advantage_tooltip[i]="Your chapter views artifacts as sacred; you start with better gear and maintain all equipment with more ease.";i+=1;
 advantage[i]="Daemon Binders";
@@ -586,7 +592,7 @@ advantage_tooltip[i]="Eldar are particularly hated by your chapter.  When fighti
 advantage[i]="Enemy: Fallen";
 advantage_tooltip[i]="Chaos Marines are particularly hated by your chapter.  When fighting the traitors damage is increased.";i+=1;
 advantage[i]="Enemy: Necrons";
-advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+advantage_tooltip[i]="Necrons are particularly hated by your chapter.  When fighting Necrons damage is increased.";i+=1;
 advantage[i]="Enemy: Orks";
 advantage_tooltip[i]="Orks are particularly hated by your chapter.  When fighting Orks damage is increased.";i+=1;
 advantage[i]="Enemy: Tau";
@@ -594,9 +600,9 @@ advantage_tooltip[i]="Tau are particularly hated by your chapter.  When fighting
 advantage[i]="Enemy: Tyranids";
 advantage_tooltip[i]="Tyranids are particularly hated by your chapter. A large number of your veterans and marines are tyrannic war veterans and when fighting Tyranids damage is increased.";i+=1;
 advantage[i]="Kings of Space";
-advantage_tooltip[i]="Veterans of naval combat, your ships have bonus offense, defence, and may always be controlled regardless of whether or not the Chapter Master is present.";i+=1;
+advantage_tooltip[i]="Veterans of naval combat, your chapter fleet has bonuses to offense, defence, an additional battle barge, and may always be controlled regardless of whether or not the Chapter Master is present.";i+=1;
 advantage[i]="Lightning Warriors";
-advantage_tooltip[i]="Your marines' only concern in battle is dealing the maximum amount of damage.  Infantry have boosted attack but less defense.";i+=1;
+advantage_tooltip[i]="Your chapter's style of warfare is built around the speedy execution of battle. Infantry have boosted attack at the cost of defense as well as two additional Land speeders and Biker squads";i+=1;
 advantage[i]="Paragon";
 advantage_tooltip[i]="You are a pale shadow of the primarchs.  Larger, stronger, faster, your Chapter Master is on a higher level than most, gaining additional health and combat effectiveness.";i+=1;
 advantage[i]="Psyker Abundance";
@@ -613,6 +619,11 @@ advantage[i]="Slow and Purposeful";
 advantage_tooltip[i]="Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.";i+=1;
 advantage[i]="Melee Enthusiasts";
 advantage_tooltip[i]="Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.";i+=1;
+advantage[i]="Venerable Ancients";
+advantage_tooltip[i]="Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service ";i+=1;
+advantage[i]="Medicae Primacy";
+advantage_tooltip[i]="Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.";i+=1;
+
 i+=1;
 advantage[i]="Cancel";advantage_tooltip[i]="";
 
@@ -771,7 +782,7 @@ repeat(3){i+=1;// First is for the correct slot, second is for default
 
     race[i,14]=1;
     role[i,14]="Chaplain";
-    wep1[i,14]="Power Sword";
+    wep1[i,14]="Crozius Arcanum";
     wep2[i,14]="Bolt Pistol";
     armour[i,14]="Power Armour";
     gear[i,14]="Rosarius";
@@ -788,7 +799,8 @@ repeat(3){i+=1;// First is for the correct slot, second is for default
     wep1[i,16]="Power Axe";
     wep2[i,16]="Storm Bolter";
     armour[i,16]="Artificer Armour";
-    gear[i,16]="Servo Arms";
+    mobi[i,16]="Servo-arm";
+    gear[i,16]="";
 
     race[i,17]=1;
     role[i,17]="Librarian";

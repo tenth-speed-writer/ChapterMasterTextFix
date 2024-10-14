@@ -36,10 +36,6 @@ repeat(100){g+=1;
 // menu=20;
 // diplomacy=-5.3;
 
-/*var i;i=0;
-repeat(100){i+=1;
-    if (recent_type[i]!="") then show_message(string(i)+"] "+string(recent_type[i])+"/"+string(recent_keyword[i])+"/"+string(recent_number[i]));
-}*/
 
 
 // show_message(cooldown);

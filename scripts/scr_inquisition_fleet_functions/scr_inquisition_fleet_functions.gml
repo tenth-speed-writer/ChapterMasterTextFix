@@ -3,6 +3,7 @@ function base_inquis_fleet (){
     frigate_number=1;
     sprite_index=spr_fleet_inquisition;
     image_index=0;
+    warp_able=true;
     var roll=irandom(100)+1;
     inquisitor = 0;
     trade_goods="Inqis";
@@ -93,7 +94,7 @@ function new_inquisitor_inspection(){
 	var inspection_set = false;
 	var target_system = "none";
 	var new_inquis_fleet;
-    if (obj_ini.fleet_type==1){
+    if (obj_ini.fleet_type==ePlayerBase.home_world){
     	var monestary_system = "none";
         // If player does not own their homeworld than do a fleet inspection instead
         var player_stars = [];
@@ -118,7 +119,7 @@ function new_inquisitor_inspection(){
 
               //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_star.x,target_star.y);            
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
 
 
             with (new_inquis_fleet){
@@ -133,7 +134,7 @@ function new_inquisitor_inspection(){
             obj_controller.last_world_inspection=obj_controller.turn;
         }
     }
-    if  (obj_ini.fleet_type!=1 || !inspection_set){
+    if  (obj_ini.fleet_type = ePlayerBase.home_world || !inspection_set){
         // If player does not own their homeworld than do a fleet inspection instead
 
         var target_player_fleet = get_largest_player_fleet();
@@ -142,7 +143,7 @@ function new_inquisitor_inspection(){
             //get the second or third closest planet to launch inquisitor from
             var from_star = distance_removed_star(target_player_fleet.x,target_player_fleet.y);
 
-            new_inquis_fleet=instance_create(from_star.x,from_star.y-24,obj_en_fleet);
+            new_inquis_fleet=instance_create(from_star.x,from_star.y,obj_en_fleet);
             var obj;
             with (new_inquis_fleet){
             	base_inquis_fleet();
@@ -232,12 +233,14 @@ function inquisitor_ship_approaches(){
     var inquis_string;
     var do_alert = false;
     if (string_count("fleet",trade_goods)>0){
-        player_fleet_location = fleets_next_location(target);
-        if (approach_system.name==player_fleet_location.name){
-            inquis_string = $"Our navigators report that an inquisitor's ship is currently warping towards our flagship. It is likely that the inquisitor on board (provided he/she makes it) will attempt to perform an inspection of our flagship.";
-            do_alert = true;
-            if (fleet_has_roles(target, ["Ork Sniper","Flash Git","Ranger"])){
-                inquis_string+=$"Currently, there are non-imperial hirelings within the fleet. It would be wise to at least unload them on a planet below, if we wish to remain in good graces with inquisition, and possibly imperium at large.";
+        var player_fleet_location = fleets_next_location(target);
+        if (player_fleet_location != "none"){
+            if (approach_system.name==player_fleet_location.name){
+                inquis_string = $"Our navigators report that an inquisitor's ship is currently warping towards our flagship. It is likely that the inquisitor on board (provided he/she makes it) will attempt to perform an inspection of our flagship.";
+                do_alert = true;
+                if (fleet_has_roles(target, ["Ork Sniper","Flash Git","Ranger"])){
+                    inquis_string+=$"Currently, there are non-imperial hirelings within the fleet. It would be wise to at least unload them on a planet below, if we wish to remain in good graces with inquisition, and possibly imperium at large.";
+                }
             }
         }
     } else if (approach_system.owner  == eFACTION.Player || system_feature_bool(approach_system.p_feature, P_features.Monastery)){
@@ -323,7 +326,7 @@ if (inspection_type="inspect_world") or (inspection_type="inspect_fleet"){
                    geh=0;
                     i=0;
                     if (obj_ini.artifact[g]!="" && array_contains(player_ships, obj_ini.artifact_sid[g]-500)){
-                        if (artifact_struct[g].inquisition_disprove() && !obj_controller.und_armouries){
+                        if (obj_ini.artifact_struct[g].inquisition_disprove() && !obj_controller.und_armouries){
                             hurr+=8;
                             demonic+=1;
                         }
@@ -332,9 +335,9 @@ if (inspection_type="inspect_world") or (inspection_type="inspect_fleet"){
                 i=0;geh=0;good=0;
                 var unit;
                 if (player_inspection_fleet.hurssy>0) then hurr+=player_inspection_fleet.hurssy;
-            
-                for (var ca=0;ca<11;ca++){
-                    for (var ia=0;ia<500;ia++){
+                var ca, ia;
+                for (ca=0;ca<11;ca++){
+                    for (ia=0;ia<array_length(obj_ini.role[ca]);ia++){
 
                         unit = fetch_unit([ca,ia]);
                         if (unit.name()=="") then continue;

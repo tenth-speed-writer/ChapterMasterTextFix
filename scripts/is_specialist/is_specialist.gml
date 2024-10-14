@@ -138,12 +138,15 @@ function is_specialist(unit_role, type="standard", include_trainee=false) {
 			break;
 		case "chap":
 			specialists = [
-						obj_ini.role[100][14],//techmarine
+						obj_ini.role[100][14],//chaplain
 						"Master of Sanctity",
 			];
 			if (include_trainee){
 				array_push(specialists,  string("{0} Aspirant",obj_ini.role[100][14]));
-			}			
+			}
+			if (global.chapter_name == "Iron Hands"){
+				array_push(specialists, obj_ini.role[100][16]);
+			}	
 			break;
 		case "apoth":
 			specialists = [
@@ -152,7 +155,10 @@ function is_specialist(unit_role, type="standard", include_trainee=false) {
 			];
 			if (include_trainee){
 				array_push(specialists,  string("{0} Aspirant",obj_ini.role[100][15]));
-			}			
+			}	
+			if (global.chapter_name == "Space Wolves"){
+				array_push(specialists, obj_ini.role[100][14]);
+			}		
 			break;
 		case "heads":
 			specialists = role_groups("heads");
@@ -198,10 +204,14 @@ function collect_role_group(group="standard", location="", opposite=false, searc
 	    	add=false;
 			unit=fetch_unit([com,i]);
 			if (unit.name()=="") then continue;
-			if (is_array(group)){
-				is_special_group = unit.IsSpecialist(group[0], group[1]);
+			if (group!="all"){
+				if (is_array(group)){
+					is_special_group = unit.IsSpecialist(group[0], group[1]);
+				} else {
+					is_special_group = unit.IsSpecialist(group);
+				}
 			} else {
-				is_special_group = unit.IsSpecialist(group);
+				is_special_group = true;
 			}
 	        if ((is_special_group && !opposite) || (!is_special_group && opposite)){
 	        	if (location==""){

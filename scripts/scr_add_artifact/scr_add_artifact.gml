@@ -1,8 +1,7 @@
 function find_open_artifact_slot(){
 	var i=0,last_artifact=-1;
-	for (var i=0;i<array_length(obj_ini.artifact)){
+	for (var i=0;i<array_length(obj_ini.artifact);i++){
 		if (last_artifact=-1){
-			i+=1;
 			if (obj_ini.artifact[i]==""){
 				last_artifact=i;
 				break;
@@ -74,7 +73,7 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	    if (rand2<=20){base_type_detail="Rosarius";}
 	    else if (rand2<=45){base_type_detail="Psychic Hood";}
 	    else if (rand2<=80){base_type_detail="Jump Pack";}
-	    else if (rand2<=100){base_type_detail="Servo Arms";}
+	    else if (rand2<=100){base_type_detail="Servo-arm";}
 	}
 
 	if (base_type="Device") and (base_type_detail=""){good=0;
@@ -129,7 +128,7 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	    if (base_type_detail="Bionics") then t5=choose("GOLD","GLOW","RUNE","SOO");// Soothing appearance
 	    if (base_type_detail="Psychic Hood") then t5=choose("FIN","GOLD","BUR","MASK");// fine cloth, gold, ever burning, mask
 	    if (base_type_detail="Jump Pack") then t5=choose("SPIKES","SKRE","WHI","SILENT");// spikes, screaming, white flame, silent
-	    if (base_type_detail="Servo Arms") then t5=choose("GOLD","TENTACLES","GOR","SOO");// gold, tentacles, gorilla build, soothing appearance
+	    if (base_type_detail="Servo-arm" || base_type_detail="Servo-harness") then t5=choose("GOLD","TENTACLES","GOR","SOO");// gold, tentacles, gorilla build, soothing appearance
 	    array_push(tags, t5);
 	}else if (base_type="Device") and (base_type_detail!="Robot"){
 	    t4=choose("GOLD","CRU","GLOW","ADAMANTINE");// skulls, falling angel, thin, tentacle, mindfuck
@@ -170,6 +169,15 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	}
 	// show_message(string(t3));
 
+	if (artifact_location == ""){
+		if (obj_ini.fleet_type=ePlayerBase.home_world){
+			artifact_location = obj_ini.home_name;
+			ship_id = 2;
+		} else {
+			artifact_location = obj_ini.ship[1];
+			ship_id = 501;
+		}
+	}
 	obj_ini.artifact[last_artifact]=base_type_detail;
 	obj_ini.artifact_tags[last_artifact]=tags;
 
@@ -206,8 +214,40 @@ function arti_struct(Index)constructor{
 	static loc = function(){
 		return obj_ini.artifact_loc[index];
 	}
+
+	//combination of what is normally lid and wid
 	static sid = function(){
 		return obj_ini.artifact_sid[index];
+	}
+
+	static can_equip = function(){
+		_can_equip = true;
+		var none_equips = ["Statue", "Casket",  "Chalice", "Robot"]
+		if (array_contains(none_equips, type())){
+			_can_equip = false;
+		}
+		return _can_equip;
+	}
+
+	static ship_id =  function (){
+		return obj_ini.artifact_sid[index]-500;
+	}
+	static location_string = function(){
+		if (sid()>=500){
+			return obj_ini.ship[ship_id()];
+		} else {
+			return $"{loc()} {sid()}";
+		}
+	}
+
+	static is_identifiable = function(){
+		var identifiable = false;
+        if (loc() == obj_ini.home_name) then identifiable = 1;
+        if (sid() >= 500) {
+            if (obj_ini.ship_location[ship_id()] = obj_ini.home_name) then identifiable = 1;
+            if (obj_ini.ship_class[ship_id()]=="Battle Barge") then identifiable = 1;
+        }
+        return identifiable;		
 	}
 	static quality = function(){
 		return obj_ini.artifact_quality[index];
@@ -246,6 +286,24 @@ function arti_struct(Index)constructor{
 		}
 
 	}
+
+	static destroy_arti = function(){
+        if (has_tag("daemonic")){
+            if (ship_id()){
+                var demonSummonChance=irandom(100)+1;
+
+                if (demonSummonChance<=60) and (obj_ini.ship_carrying[ship_id]>0){
+                    instance_create(0,0,obj_ncombat);
+                    obj_ncombat.battle_special="ship_demon";
+                    obj_ncombat.formation_set=1;
+                    obj_ncombat.enemy=10;
+                    obj_ncombat.battle_id=obj_ini.artifact_sid[i]-500;
+                    scr_ship_battle(obj_ini.artifact_sid[i]-500,999);
+                }
+            }
+        }
+	}
+
 	static load_json_data = function(data){
 		 var names = variable_struct_get_names(data);
 		 for (var i = 0; i < array_length(names); i++) {

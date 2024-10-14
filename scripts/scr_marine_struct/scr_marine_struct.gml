@@ -651,6 +651,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	squad = "none";
 	stat_point_exp_marker = 0;
 	bionics=0;
+	favorite=false;
 	spawn_data = other_spawn_data;
 	if (faction=="chapter" && !struct_exists(spawn_data, "recruit_data")){
 		spawn_data.recruit_data = {
@@ -721,7 +722,11 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			if (role() == obj_ini.role[100][12] && new_role!=obj_ini.role[100][12]){
 		  		if (!get_body_data("black_carapace","torso")){
 		  			alter_body("torso", "black_carapace", true);
-		  			stat_boosts({strength:4, constitution:4,dexterity:4})//will decide on if these are needed
+		  			stat_boosts(
+		  				{strength:4, 
+		  				constitution:4,
+		  				dexterity:4
+		  			})//will decide on if these are needed
 		  		}	
 			}
 			if (!is_specialist(role())){//logs changes too and from specialist status
@@ -1244,7 +1249,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					"crafter",
 					[299,298],
 					{
-						advantage:["crafter",[299,297]],
+						advantage:["Crafters",[299,297]],
 						recruit_world_type: [
 							["Forge", -2],
 							["Lava", -2],
@@ -1562,7 +1567,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					qual_string = "exp_low";
 				}  			
 	   		quality=scr_add_item(new_weapon,-1,quality);
-	   		if (quality == "no_item") then return "no_items";
+	   		if (quality == "no_item") then return [false, "no_items"]
 	   		qual_string = quality!=undefined? quality:"standard";
 	    } else {
 	    	viable = false;
@@ -1643,7 +1648,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			if (base_group == "astartes"){
 				ranged_hands_limit = 2
 			} else if base_group == "tech_priest" {
-				ranged_hands_limit = 1+(technology/100);;
+				ranged_hands_limit = 1+(technology/100);
 			}else if base_group == "human" {
 				ranged_hands_limit = 1;
 			}	
@@ -1907,7 +1912,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				}
 			};
 			var basic_wep_string = $"{primary_weapon.name}: {primary_weapon.attack}#";
-			if IsSpecialist("libs"){
+			if IsSpecialist("libs") or has_trait("warp_touched"){
 				if (primary_weapon.has_tag("force") ||_wep2.has_tag("force")){
 					var force_modifier = (((weapon_skill/100) * (psionic/10) * (intelligence/10)) + (experience()/1000)+0.1);
 					primary_weapon.attack *= force_modifier;
@@ -2006,7 +2011,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					return obj_ini.squads[squad].assignment.type;
 				}
 			}
-			if (job!= "none"){
+			if (job != "none"){
 				return job.type;
 			} else {
 				return "none"
@@ -2117,7 +2122,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	static allocate_unit_to_fresh_spawn = function(type="default"){
 		var homestar = "none";
 		var spawn_location_chosen = false;
-	 	if ((type="home") or (type="default")) and (obj_ini.fleet_type==1){
+	 	if ((type="home") or (type="default")) and (obj_ini.fleet_type==ePlayerBase.home_world){
 	        var homestar =  star_by_name(obj_ini.home_name);
 	    } else if (type !="ship"){
 	    	var homestar =  star_by_name(type);	    	
@@ -2143,7 +2148,13 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				load_unit_to_fleet(player_fleet,self);
 				spawn_location_chosen=true;
 			}
-		}			
+			//TODO add more work arounds in case of no valid spawn point
+			if (!spawn_location_chosen){
+				if (player_fleet != "none"){
+
+				}
+			}
+		}		
 	}
 
 
@@ -2184,7 +2195,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		var reasons = {}
 		var points = 0;
 		if (trained_person){
-			var points = technology/10;
+			var points = round(technology / 10);
 			reasons.trained = points;
 		}
 		if (job!="none"){
@@ -2434,8 +2445,9 @@ function jsonify_marine_struct(company, marine){
 	var names = variable_struct_get_names(copy_marine_struct); // get all keys within structure
 	for (var name = 0; name < array_length(names); name++) { //loop through keys to find which ones are methods as they can't be saved as a json string
 		if (!is_method(copy_marine_struct[$ names[name]])){
-			copy_part = DeepCloneStruct(copy_marine_struct[$ names[name]])
+			copy_part = DeepCloneStruct(copy_marine_struct[$ names[name]]);
 			variable_struct_set(new_marine, names[name],copy_part); //if key value is not a method add to copy structure
+			delete copy_part;
 		}
 	}
 	return json_stringify(new_marine);
@@ -2483,11 +2495,35 @@ function pen_and_paper_sim() constructor{
 
 		return [winner, pass_margin];
 	}
+	static evaluate_tags = function(unit, tags){
+		var total_mod = 0,tag;
+		for (var i=0;i<array_length(tags);i++){
+			tag=tags[i];
+			if (tag=="siege"){
+                if (scr_has_adv("Siege Masters")){
+                    total_mod+=10
+                }
+                if (unit.has_trait("siege_master")){
+                	total_mod+=10;
+                }			
+			}
+			else if (tag=="tyranids"){
+				if (scr_has_adv("Enemy: Tyranids")){
+					total_mod+=10
+				}
+				if (unit.has_trait("tyrannic_vet")){
+                	total_mod+=10;
+                }
+			}
+		}
+		return total_mod;
+	}
 
 	static standard_test = function(unit, stat, difficulty_mod=0){
 		var passed =false;
-		var margin=0
-		var random_roll = irandom(99)+1;
+		var margin=0;
+		difficulty_mod+=evaluate_tags(unit, tags);
+		var random_roll = irandom_range(1,100);
 		if (random_roll<unit[$ stat]+difficulty_mod){
 			passed = true;
 			margin = unit[$ stat]+difficulty_mod - random_roll;

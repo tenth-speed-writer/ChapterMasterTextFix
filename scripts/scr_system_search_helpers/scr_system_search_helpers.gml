@@ -23,18 +23,49 @@ function NSystemSearchHelpers() constructor{
 }
 global.SystemHelps = new NSystemSearchHelpers();
 
+function fetch_faction_group(group="imperium_default") {
+	switch(group){
+		case "imperium_default":
+			var imperium =  [
+					eFACTION.Imperium,
+					eFACTION.Mechanicus,
+					eFACTION.Inquisition,
+					eFACTION.Ecclesiarchy
+				];
+			if( obj_controller.faction_status[eFACTION.Imperium]!="War"){
+				array_push (imperium, eFACTION.Player);
+			}
+			break;
+	}
+	return [];
+}
+
 function scr_star_has_planet_with_feature(star, feature){
 	return scr_get_planet_with_feature(star, feature) != -1;
 }
 
-function scr_is_planet_owned_by_allies(star, planet_idx) {
-	if planet_idx < 1 //1 because weird indexing starting at 1 in this game
+function scr_planet_owned_by_group(planet_id, group, star = "none"){
+	if (star == "none"){
+		return array_contains(group, p_owner[planet_id]);
+	} else {
+		var is_in_group = false;
+		with(star){
+			is_in_group = scr_planet_owned_by_group(planet_id, group);
+		}
+		return is_in_group;
+	}
+	return false;
+}
+
+function scr_is_planet_owned_by_allies(star, planet_id) {
+	if( planet_id < 1 ){//1 because weird indexing starting at 1 in this game
 		return false;
-	return array_contains(global.SystemHelps.default_allies, star.p_owner[planet_idx])
+	}
+	return array_contains(global.SystemHelps.default_allies, star.p_owner[planet_id]);
 }
 
 function scr_is_star_owned_by_allies(star) {
-	return array_contains(global.SystemHelps.default_allies, star.owner)
+	return array_contains(global.SystemHelps.default_allies, star.owner);
 }
 
 function scr_get_planet_with_type(star, type){
@@ -101,7 +132,7 @@ function star_by_name(search_name){
 	return "none";
 }
 
-function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3), disclude_hulk=true, disclude_elder=true, disclude_deads=true){
+function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3), disclude_hulk=true, disclude_elder=true, disclude_deads=true, warp_concious=true){
 	var from = instance_nearest(origional_x,origional_y,obj_star);
     for(var i=0; i<star_offset; i++){
         from=instance_nearest(origional_x,origional_y,obj_star);
@@ -126,9 +157,31 @@ function distance_removed_star(origional_x,origional_y, star_offset = choose(2,3
     }
     //from=instance_nearest(origional_x,origional_y,obj_star);
     instance_activate_object(obj_star);
+    //TODO finish this off to make the distance remove more concious of warp lanes
+    /*if (warp_concious){
+    	var options = [from];
+    }*/
     return from;     
 }
-function nearest_star_with_ownership(xx,yy, ownership){
+
+
+function nearest_star_proper(xx,yy) {
+	var i=0;
+	var cur_star;
+	while(i<100){
+		i++;
+		cur_star = instance_nearest(xx,yy, obj_star);
+		if (!cur_star.craftworld && !cur_star.space_hulk){
+			instance_activate_object(obj_star);
+			return cur_star.id;
+		}
+		instance_deactivate_object(cur_star.id);
+	}
+	return "none";
+}
+
+
+function nearest_star_with_ownership(xx,yy, ownership, start_star="none"){
 	var nearest = "none"
 	var total_stars =  instance_number(obj_star);
 	var i=0;
@@ -138,6 +191,12 @@ function nearest_star_with_ownership(xx,yy, ownership){
 	while (nearest=="none" && i<total_stars){
 		i++;
 		var cur_star =  instance_nearest(xx,yy, obj_star);
+		if (start_star!="none"){
+			if (start_star.id == cur_star.id){
+				instance_deactivate_object(cur_star.id);
+				continue;
+			}
+		}
 		if (array_contains(ownership, cur_star.owner)){
 			nearest=cur_star.id;
 		} else {
@@ -148,32 +207,17 @@ function nearest_star_with_ownership(xx,yy, ownership){
 	return nearest;
 }
 
-function adjust_influence(faction, value, planet){
-	p_influence[planet][faction]+=value;
-	var total_influence =  array_reduce(p_influence[planet], array_sum,1);
-	var loop=0;
-	if (total_influence>100){
-		var difference = total_influence-100;
-		while (difference>0 && loop<100){
-			loop++;
-			for (i=0;i<15;i++){
-				if (p_influence[planet][i]>0){
-					p_influence[planet][i]--;
-					difference--;
-				}
-			}
-		}
-	} else if (total_influence<0){
-		while (total_influence<0 && loop<100){
-			loop++;
-			for (i=0;i<15;i++){
-				if (p_influence[planet][i]<0){
-					p_influence[planet][i]++;
-					total_influence++;
-				}
-			}
-		}
+function find_population_doners(doner_to=0){
+    var pop_doner_options = [];
+	with(obj_star){
+		if (obj_star.id == doner_to) then continue;
+	   for (r=1;r<=planets;r++){
+	        if ((p_owner[r]=eFACTION.Imperium) and (p_type[r]=="Hive") and (p_population[r]>0) and (p_large[r])){
+                array_push(pop_doner_options, [id, r]);
+            };
+	    }
 	}
+    return pop_doner_options
 }
 
 function planet_numeral_name(planet, star="none"){
@@ -191,6 +235,18 @@ function new_star_event_marker(colour){
     bob.image_alpha=1;
     bob.image_speed=1;
     bob.color=colour;
+}
+
+function nearest_from_array(xx,yy,list){
+	var _nearest = 0;
+	var nearest_dist = point_distance(xx, yy ,list[_nearest].x, list[_nearest].y)
+	for (var i=1;i<array_length(list);i++){
+		if (point_distance(xx, yy, list[i].x,list[i].y) < nearest_dist){
+			_nearest = i;
+			nearest_dist = point_distance(xx, yy, list[i].x,list[i].y);
+		}
+	}
+	return  _nearest;
 }
 
 function is_dead_star(star="none"){
@@ -251,10 +307,88 @@ function scr_planet_image_numbers(p_type){
 	}
 	return image;
 }
+
+function PlanetData(planet, system) constructor{
+	self.planet = planet;
+	self.system = system;
+	player_disposition = system.dispo[planet];
+	planet_type = system.p_type[planet];
+    operatives = system.p_operatives[planet];
+    features =system.p_feature[planet];
+    current_owner = system.p_owner[planet];
+    origional_owner = system.p_first[planet];
+    population = system.p_population[planet];
+    max_population = system.p_max_population[planet];
+    large_population = system.p_large[planet];
+    secondary_population = system.p_pop[planet];
+    guardsmen = system.p_guardsmen[planet];
+    pdf = system.p_pdf[planet];
+    fortification_level  = system.p_fortified[planet];
+    star_station = system.p_station[planet];
+
+    // Whether or not player forces are on the planet
+    player_forces = system.p_player[planet];
+    defence_lasers = system.p_lasers[planet];
+    defence_silos = system.p_silo[planet];
+    ground_defences = system.p_defenses[planet];
+    upgrades = system.p_upgrades[planet];
+    // v how much of a problem they are from 1-5
+    planet_forces = [
+    	0,
+    	player_forces,
+    	guardsmen,
+    	0,
+    	system.p_sisters[planet],
+    	system.p_eldar[planet],
+    	system.p_orks[planet],
+    	system.p_tau[planet],
+    	system.p_tyranids[planet],
+    	system.p_chaos[planet]+ system.p_demons[planet],
+    	system.p_traitors[planet],
+    	0,
+    	system.p_necrons[planet]
+    ]
+    static xenos_and_heretics = function(){
+    	var xh_force = 0;
+    	for (var i=5;i<array_length(planet_forces)i++){
+    		xh_force += planet_forces[i];
+    	} 
+    	return xh_force;
+    }
+    deamons = system.p_demons[planet];
+    chaos_forces = system.p_chaos[planet];
+
+    requests_help = system.p_halp[planet];
+
+    // current planet heresy
+    corruption = system.p_heresy[planet];
+
+    is_heretic = system.p_hurssy[planet];
+
+    heretic_timer = system.p_hurssy_time[planet];
+
+    secret_corruption = system.p_heresy_secret[planet];
+
+    population_influences = system.p_influence[planet];
+
+    raided_this_turn = system.p_raided[planet];
+    // 
+    governor = system.p_governor[planet];
+
+    problems = system.p_problem[planet];
+    problem_data = system.p_problem_other_data[planet];
+    problem_timers = system.p_timer[planet];
+
+    static marine_training = planet_training_sequence;
+
+}
 //function scr_get_player_fleets() {
 //	var player_fleets = [];
 //	with(obj_p_fleet){
 //		array_push(player_fleets,id);
 //	}
 //	return player_fleets;
+
+
 //}
+

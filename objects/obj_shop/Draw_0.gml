@@ -10,8 +10,9 @@ slate_panel.inside_method = function(){
     var xx=__view_get( e__VW.XView, 0 )+0;
     var yy=__view_get( e__VW.YView, 0 )+0;
     draw_set_halign(fa_left);
-    draw_text(xx+962,yy+159,string_hash_to_newline("Name"));
-    draw_text(xx+962.5,yy+159.5,string_hash_to_newline("Name"));
+    draw_set_font(fnt_40k_14b);
+    draw_text(xx+962,yy+159,"Name");
+    draw_text(xx+962.5,yy+159.5,"Name");
     if (shop!="production"){
         draw_text(xx+1280,yy+159,string_hash_to_newline("Stocked"));
         draw_text(xx+1280.5,yy+159.5,string_hash_to_newline("Stocked"));
@@ -130,7 +131,11 @@ slate_panel.inside_method = function(){
                         }
                         if (item[i]="Rhino") or (item[i]="Predator") or (item[i]="Land Raider") or (item[i]="Whirlwind") or (item[i]="Land Speeder"){
                             if (keyboard_check(vk_shift)){repeat(5){scr_add_vehicle(item[i],target_comp,"standard","standard","standard","standard","standard");}item_stocked[i]+=5;click2=1;}
-                            if (!keyboard_check(vk_shift)){scr_add_vehicle(item[i],target_comp,"standard","standard","standard","standard","standard");item_stocked[i]+=1;click2=1;}
+                            if (!keyboard_check(vk_shift)){
+                                scr_add_vehicle(item[i],target_comp,"standard","standard","standard","standard","standard");
+                                item_stocked[i]+=1;
+                                click2=1;
+                            }
                         }
                         with(obj_ini){scr_vehicle_order(obj_shop.target_comp);}
                         obj_controller.requisition-=cost;
@@ -167,7 +172,7 @@ slate_panel.inside_method = function(){
                     tooltip_show=1;
                 } else {
                     equip_data=gear_weapon_data("any", item[i]);
-                    if (tooltip_overide[i] == 0){
+                    if (!is_string(tooltip_overide[i])){
                         if (is_struct(equip_data)){
                             tooltip=$"{equip_data.item_tooltip_desc_gen()}";
                         }
@@ -193,7 +198,7 @@ slate_panel.inside_method = function(){
 }
 draw_set_color(c_white);
 slate_panel.draw(xx+920, yy+95, 690/850, 0.85);
-draw_set_font(fnt_40k_14);
+draw_set_font(fnt_40k_14b);
 draw_set_color(c_gray);
 draw_set_halign(fa_left);
 
@@ -206,7 +211,7 @@ if (shop=="vehicles"){
 }
 
 draw_set_alpha(1);
-draw_set_font(fnt_40k_14);
+draw_set_font(fnt_40k_14b);
 draw_set_color(0);
 var shop_area="";
 if(tab_buttons.equipment.draw(xx+960,yy+64, "Equipment")){

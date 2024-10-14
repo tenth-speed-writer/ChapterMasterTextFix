@@ -169,6 +169,9 @@ function garrison_force(planet_operatives, turn_end=false, type="garrison")const
 			disposition_modifier = planet_disposition/10
 			time_modifier = time_on_planet/2.5;
 			if (time_modifier>10) then time_modifier = 10;
+			if (!garrison_leader){
+		    	find_leader();
+		    }
 			var final_modifier = 5 + total_garrison/10 - disposition_modifier + time_modifier;
 			if (up_or_down){
 				dispo_change =  garrison_leader.charisma+final_modifier;

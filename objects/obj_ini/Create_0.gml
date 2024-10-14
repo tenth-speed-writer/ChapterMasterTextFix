@@ -71,7 +71,10 @@ repeat(210){i+=1;
          ship_wep_facing[i,s]="";
          ship_wep_condition[i,s]="";
     }
-    ship_capacity[i]=0;ship_carrying[i]=0;ship_contents[i]="";ship_turrets[i]=0;
+    ship_capacity[i]=0;
+    ship_carrying[i]=0;
+    ship_contents[i]="";
+    ship_turrets[i]=0;
 }
 
 var company,v;
@@ -113,6 +116,8 @@ millenium=0;
 company_spawn_buffs = [];
 role_spawn_buffs ={};
 previous_forge_masters = [];
+recruit_trial = 0;
+recruiting_type="Death";
 
 /* if (global.load=0){
     if (obj_creation.custom>0) then scr_initialize_custom();

@@ -587,15 +587,19 @@ function scr_initialize_custom() {
 
 	if (obj_creation.fleet_type != 1) {
 		battle_barges = 1;
+		if (array_contains(obj_creation.adv, "Kings of Space")) battle_barges += 1;
 		strike_cruisers = 6;
+		if (array_contains(obj_creation.adv, "Boarders")) strike_cruisers += 2;
 		gladius = 7;
 		hunters = 3;
 		// obj_controller.fleet_type="Fleet";
 	}
 	if (obj_creation.fleet_type = 1) {
 		strike_cruisers = 8;
+		if (array_contains(obj_creation.adv, "Boarders")) strike_cruisers += 2;
 		gladius = 7;
 		hunters = 3;
+		if (array_contains(obj_creation.adv, "Kings of Space")) battle_barges += 1;
 		// obj_controller.fleet_type="Homeworld";
 	}
 
@@ -826,29 +830,30 @@ function scr_initialize_custom() {
 
 	var chapter_option, o, psyky;
 	psyky = 0;
-	if (array_contains(obj_creation.adv, "Tech-Brothers")) {
-		techs += 4;
-		tenth -= 4;
+	if scr_has_adv("Tech-Brothers") {
+		techs += 6;
+		tenth -= 6;
 	}
-	if (array_contains(obj_creation.adv, "Melee Enthusiasts")) {
+	if scr_has_adv("Melee Enthusiasts") {
 		assault += 10;
+		devastator -= 10;
 	}
-	if (array_contains(obj_creation.adv, "Siege Masters")) {
+	if scr_has_adv("Siege Masters") {
 		siege = 1;
 	}
-	if (array_contains(obj_creation.adv, "Crafters")) {
+	if scr_has_adv("Crafters") {
 		techs += 2;
 		terminator += 5;
 		tenth -= 5;
 	}
-	if (array_contains(obj_creation.adv, "Psyker Abundance")) {
+	if scr_has_adv("Psyker Abundance") {
 		tenth -= 4;
 		epistolary += 1;
 		codiciery += 1;
 		lexicanum += 2;
 		psyky = 1;
 	}
-	if (array_contains(obj_creation.dis, "Psyker Intolerant")) {
+	if scr_has_disadv("Psyker Intolerant") {
 		epistolary = 0;
 		codiciery = 0;
 		lexicanum = 0;
@@ -856,13 +861,13 @@ function scr_initialize_custom() {
 		tenth += 10;
 		intolerant = 1;
 	}
-	if (array_contains(obj_creation.dis, "Fresh Blood")) {
+	if scr_has_disadv("Fresh Blood") {
 		epistolary -= 1;
 		codiciery -= 1;
 		lexicanum -= 2;
 		tenth += 4;
 	}
-	if (array_contains(obj_creation.dis, "Sieged")) {
+	if  scr_has_disadv("Sieged") {
 		techs -= 4;
 		epistolary -= 1;
 		codiciery -= 1;
@@ -884,15 +889,31 @@ function scr_initialize_custom() {
 		siege = 0;
 		devastator = 10;
 	}
+    if	scr_has_adv("Venerable Ancients") {
+		veteran -= 10;
+		second -= 10;
+		third -= 10;
+		fourth -= 10;
+		fifth -= 10;
+		sixth -= 10;
+		seventh -= 10;
+		eighth -= 10;
+		ninth -= 10;
+		tenth -= 10;
+	}
 
-	if (array_contains(obj_creation.dis, "Tech-Heresy")) {
+	if  scr_has_adv ("Tech-Heresy") {
 		techs -= 4;
 		tenth += 4;
 	}
-	if (array_contains(obj_creation.adv, "Reverent Guardians")) {
+	if scr_has_adv ("Reverent Guardians") {
 		chaap += 4;
 		tenth -= 4;
 	}
+	if scr_has_adv("Medicae Primacy") {
+		apothecary += 7;
+	}
+	
 	// if (obj_creation.custom>0) or ((global.chapter_name="Doom Benefactors") and (obj_creation.custom=0)){
 	if ((progenitor >= 1) and(progenitor <= 10)) or((global.chapter_name = "Doom Benefactors") and(obj_creation.custom = 0)) {
 		if (obj_creation.strength <= 4) then ninth = 0;
@@ -1283,8 +1304,8 @@ function scr_initialize_custom() {
 		wep1[i, 16] = "Power Axe";
 		wep2[i, 16] = "Bolt Pistol";
 		armour[i, 16] = "Artificer Armour";
-		gear[i, 16] = "Servo Arms";
-		mobi[i, 16] = "";
+		gear[i, 16] = "";
+		mobi[i, 16] = "Servo-arm";
 
 		role[i, 17] = "Librarian";
 		wep1[i, 17] = "Force Staff";
@@ -1598,7 +1619,7 @@ function scr_initialize_custom() {
 				"role": $"Vanguard {roles.sergeant}",
 				"loadout": {
 					"required": {
-						"wep1": ["Relic Blade", 1],
+						"wep1": ["Thunder Hammer", 1],
 						"wep2": ["Storm Shield", 1],
 						"mobi": ["Jump Pack", 1]
 					},
@@ -1853,7 +1874,7 @@ function scr_initialize_custom() {
 			}],
 		]
 	};
-	if (global.chapter_name == "Salamanders") or(obj_ini.progenitor == 8) { //salamanders squads
+	if (global.chapter_name == "Salamanders") or (array_contains(obj_creation.adv, "Crafters")) { //salamanders squads
 		variable_struct_set(st, "assault_squad", [
 			[roles.assault, {
 				"max": 9,
@@ -1862,6 +1883,7 @@ function scr_initialize_custom() {
 					"required": {
 						"wep1": [wep1[100, 10], 4],
 						"wep2": [wep2[100, 10], 4],
+						"gear": ["Combat Shield", 4]
 					},
 					"option": {
 						"wep1": [
@@ -1906,7 +1928,7 @@ function scr_initialize_custom() {
 			}]
 		])
 	}
-	if (global.chapter_name == "White Scars") or(obj_ini.progenitor == 2) {
+	if (global.chapter_name == "White Scars") or (array_contains(obj_creation.adv, "Lightning Warriors")) {
 		variable_struct_set(st, "bikers", [
 			[roles.tactical, {
 				"max": 9,
@@ -1915,16 +1937,13 @@ function scr_initialize_custom() {
 					"required": {
 						"wep1": [wep1[100, 8], 4],
 						"wep2": [wep2[100, 8], 4],
-						"mobi": ["Bike", 1]
+						"mobi": ["Bike", max]
 					},
 					"option": {
 						"wep1": [
 							[
-								["Plasma Gun", "Storm Bolter", "Flamer", "Meltagun"], 2
+								["Plasma Gun", "Storm Bolter", "Flamer", "Meltagun"], 3
 							],
-							[
-								["Multi-Melta", "Heavy Bolter"], 1
-							]
 						],
 						"wep2": [
 							[
@@ -1961,6 +1980,7 @@ function scr_initialize_custom() {
 				"display_data": $"{roles.tactical} Bike {squad_name}"
 			}]
 		])
+
 		variable_struct_set(st, "tactical_squad", [
 			[roles.tactical, {
 				"max": 9,
@@ -2004,6 +2024,113 @@ function scr_initialize_custom() {
 			}]
 		])
 	}
+	if (global.chapter_name == "Imperial Fists") or (array_contains(obj_creation.adv, "Boarders")) {
+		variable_struct_set(st, "breachers", [
+				[roles.assault, {
+					"max": 9,
+					"min": 4,
+					"loadout": { //assault breacher marine
+						"required": {
+							"wep1":["Chainaxe", 4],
+							"wep2":["Boarding Shield", max],
+							"armour":["MK3 Iron Armour", max],
+							"gear":["Plasma Bomb", 2],
+							"mobi":["", max]
+						},
+						"option": {
+							"wep1": [
+								[
+									["Storm Bolter", "Combiflamer", "Meltagun"], 2,
+								],
+								[
+									["Power Axe", "Power Fist"], 2
+								]
+								
+							]
+									}
+					},
+					"role": $"{roles.assault} Breacher"
+				}],
+				[roles.sergeant, {
+					"max": 1,
+					"min": 1,
+					"loadout": { //sergeant 
+						"required": {
+						"armour":["MK3 Iron Armour", 1],
+						"gear": ["Plasma Bomb", 1]
+						},
+						"option": {
+							"wep1": [
+								[
+									["Power Sword", "Power Axe", "Power Fist", "Thunder Hammer", "Chainsword"], 1
+								]
+							],
+							"wep2": [
+								[
+									["Boarding Shield", "Storm Bolter", "Meltagun"], 1
+								]
+							]
+						}
+					},
+					"role": $"{roles.assault} Breacher {roles.sergeant}"
+				}, ],
+				["type_data", {
+					"display_data": $"{roles.assault} Breacher {squad_name}"
+				}]
+			])
+		}
+		variable_struct_set(st,"assault_squad", [
+			[roles.assault, {
+				"max": 9,
+				"min": 4,
+				"loadout": {
+					"required": {
+						"wep1": [wep1[100, 10], 7],
+						"wep2": [wep2[100, 10], 7],
+					},
+					"option": {
+						"wep1": [
+							[
+								["Eviscerator"], 2
+							],
+						],
+						"wep2": [
+							[
+								["Plasma Pistol", "Flamer"], 2
+							]
+						]
+					}
+				}
+			}],
+			[roles.sergeant, {
+				"max": 1,
+				"min": 1,
+				"role": $"{roles.assault} {roles.sergeant}",
+				"loadout": {
+					"required": {
+						"wep1": ["", 0],
+						"wep2": ["", 0],
+						"gear": ["Combat Shield", 1]
+					},
+					"option": {
+						"wep1": [
+							[
+								weapon_lists.pistols, 1
+							],
+						],
+						"wep2": [
+							[
+								weapon_lists.melee_weapons, 1
+							],
+						],
+					}
+				}
+			}],
+			["type_data", {
+				"display_data": $"{roles.assault} {squad_name}",
+				"formation_options": ["assault"],
+			}]
+		])
 
 	if (global.chapter_name == "Dark Angels") {
 		variable_struct_set(st, "terminator_squad", [
@@ -2316,6 +2443,29 @@ function scr_initialize_custom() {
 			chapter_master.add_trait("still_standing");
 			chapter_master.add_trait("seasoned");
 			break;
+			case "Carcharodons":
+			
+			chapter_master.add_trait("melee_enthusiast")
+			chapter_master.add_trait("slow_and_purposeful");
+			chapter_master.add_trait("ancient");			
+			arti = obj_ini.artifact_struct[last_artifact];
+			arti.name = "Hunger";
+			arti.custom_description = "An artifact Lightning Claw of unknown origin that has an inner maw of adamantium toothed chainblades usually paired with Slake";
+			obj_ini.artifact[last_artifact] = "Lightning Claw";
+			obj_ini.artifact_identified[last_artifact] = 0;
+			arti.bearer = [0, 1];
+			chapter_master_equip.wep1 = last_artifact;
+			
+			arti.name = "Hunger & Slake";
+			arti.custom_description = "An artifact Lightning Claw of unknown origin that has an inner maw of adamantium toothed chainblades usually paired with Hunger";
+			obj_ini.artifact[last_artifact] = "Lightning Claw";
+			obj_ini.artifact_identified[last_artifact] = 0;
+			arti.bearer = [0, 1];
+			chapter_master_equip.wep2 = last_artifact;
+			
+			chapter_master_equip.armour = "Terminator Armour"
+			
+			break;
 		default:
 			chapter_master.add_trait("old_guard");
 
@@ -2342,6 +2492,7 @@ function scr_initialize_custom() {
 			var
 			let = "";
 			letmax = 5;
+			chapter_master.add_trait("warp_touched");
 			chapter_master.psionic = choose(15, 16);
 			switch (obj_creation.discipline) {
 				case "default":
@@ -2376,11 +2527,12 @@ function scr_initialize_custom() {
 	race[company, 2] = 1;
 	loc[company, 2] = home_name;
 	role[company, 2] = "Forge Master";
-	wep1[company, 2] = "Conversion Beam Projector";
+	wep1[company, 2] = "Infernus Pistol";
 	name[company, 2] = obj_creation.fmaster;
-	wep2[company, 2] = "Power Weapon";
+	wep2[company, 2] = "Power Axe";
 	armour[company, 2] = "Artificer Armour";
-	gear[company, 2] = "Master Servo Arms";
+	mobi[company, 2] = "Servo-harness";
+	gear[company, 2] = "";
 	chaos[company, 2] = 0;
 	spawn_unit = TTRPG[company, 2];
 	if (spawn_unit.technology < 40) {
@@ -2510,6 +2662,7 @@ function scr_initialize_custom() {
 		wep1[company][k] = wep1[101, 16];
 		wep2[company][k] = choose_weighted(weapon_weighted_lists.pistols);
 		gear[company][k] = gear[101, 16];
+		mobi[company][k] = mobi[101, 16];
 	}
 
 	// Librarians in the librarium
@@ -2707,11 +2860,7 @@ function scr_initialize_custom() {
 		gear[company][k] = gear[100, 2];
 		mobi[company][k] = mobi[100, 2];
 		// wep1 power sword // wep2 storm bolter default
-		wep1[company][k] = choose_weighted([
-			["Power Sword", 3],
-			["Power Axe", 3],
-			["Relic Blade", 1]
-		]);
+		wep1[company][k] = choose("Power Sword", "Power Axe", "Power Spear");
 		wep2[company][k] = wep2[101, 2];
 		armour[company][k] = armour[101, 2];
 		if (global.chapter_name == "Dark Angels") {
@@ -2965,15 +3114,9 @@ function scr_initialize_custom() {
 		wep2[company][k] = wep2[101, 3];
 		gear[company][k] = gear[101, 3];
 		mobi[company][k] = mobi[101, 3];
-		if (global.chapter_name == "Dark Angels" && company == 1){
-			wep1[company][k] = wep1[101, 4];
-			wep2[company][k] = wep2[101, 4];
-			gear[company][k] = gear[101, 4];
-			mobi[company][k] = mobi[101, 4];
-		}
 	}
 
-	for (i = 0; i < 2; i++) {
+	for (i = 0; i = 2; if scr_has_adv("Venerable Ancients") i += 1 ) {
 		k += 1;
 		commands += 1;
 		TTRPG[company][k] = new TTRPG_stats("chapter", company, k, "dreadnought");
@@ -2982,7 +3125,7 @@ function scr_initialize_custom() {
 		role[company][k] = "Venerable " + string(roles.dreadnought);
 		wep1[company][k] = wep1[101, 6];
 		man_size += 8;
-		wep2[company][k] = wep2[101, 6];
+		wep2[company][k] = "Plasma Cannon";
 		armour[company][k] = "Dreadnought";
 		name[company][k] = global.name_generator.generate_space_marine_name();
 		spawn_unit = TTRPG[company][k]
@@ -3009,6 +3152,7 @@ function scr_initialize_custom() {
 	}
 	var predrelic = 2;
 	if (global.chapter_name = "Iron Hands") then predrelic = 3;
+	if (obj_creation.custom == 1) and (array_contains(obj_creation.adv, "Tech-Brothers")) then predrelic +=2;
 	repeat(predrelic) {
 		v += 1;
 		man_size += 10;
@@ -3065,7 +3209,7 @@ function scr_initialize_custom() {
 			veh_wep1[company, v] = "Twin Linked Heavy Bolter Mount";
 			veh_wep2[company, v] = "Twin Linked Lascannon Sponsons";
 			veh_wep3[company, v] = "HK Missile";
-			veh_upgrade[company, v] = "";
+			veh_upgrade[company, v] = "Heavy Armour";
 			veh_acc[company, v] = "Searchlight";
 		}
 		if (floor(v mod 4) == 3) {
@@ -3143,7 +3287,8 @@ function scr_initialize_custom() {
 			// temp1-=1;
 
 			// if (company=2){dready=1;
-			if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 1;
+			if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready =+ 1;
+			dready = 1;
 			rhinoy = 8;
 			whirly = whirlwind;
 			speedy = 2;
@@ -3160,10 +3305,12 @@ function scr_initialize_custom() {
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
 				dready = 1;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 1;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
+				if scr_has_adv("Lightning Warriors") then speedy += 2; rhinoy -= 2;
 				if (second = 0) then stahp = 1;
 			}
 	
@@ -3171,11 +3318,13 @@ function scr_initialize_custom() {
 				temp1 = (third - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				dready = 1;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2; 
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
+				if (array_contains(obj_creation.adv, "Lightning Warriors")) then speedy += 2; rhinoy -= 2;
 				if (third = 0) then stahp = 1;
 			}
 
@@ -3183,11 +3332,13 @@ function scr_initialize_custom() {
 				temp1 = (fourth - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				dready = 1;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready = 2;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
+				if (array_contains(obj_creation.adv, "Lightning Warriors")) then speedy += 2; rhinoy -= 2;
 				if (fourth = 0) then stahp = 1;
 			}
 
@@ -3195,11 +3346,13 @@ function scr_initialize_custom() {
 				temp1 = (fifth - (assault + devastator));
 				company_unit2 = "assault";
 				company_unit3 = "devastator";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				dready = 1;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready += 2;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 2;
+				if (array_contains(obj_creation.adv, "Lightning Warriors")) then speedy += 2; rhinoy -= 2;
 				if (fifth = 0) then stahp = 1;
 			}
 
@@ -3207,8 +3360,9 @@ function scr_initialize_custom() {
 				temp1 = sixth;
 				company_unit2 = "";
 				company_unit3 = "";
-				// dready=2;
-				if (string_count("Sieged", strin2) > 0) or(obj_creation.custom = 0) then dready += 2;
+				dready = 1;
+				if scr_has_adv("Venerable Ancients") then dready += 1;
+				if (string_count("Sieged", strin2) > 0) or (obj_creation.custom = 0) then dready += 2;
 				rhinoy = 8;
 				whirly = whirlwind;
 				speedy = 0;
@@ -3219,6 +3373,8 @@ function scr_initialize_custom() {
 				temp1 = seventh;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
+				if scr_has_adv("Venerable Ancients") then dready += 1;
 				if (obj_creation.custom = 0) then dready = 2;
 				rhinoy = 8;
 				whirly = 0;
@@ -3230,6 +3386,8 @@ function scr_initialize_custom() {
 				temp1 = eighth;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
+				if scr_has_adv("Venerable Ancients") then dready += 1;
 				if (obj_creation.custom = 0) then dready = 2;
 				rhinoy = 2;
 				whirly = 0;
@@ -3241,7 +3399,10 @@ function scr_initialize_custom() {
 				temp1 = ninth;
 				company_unit2 = "";
 				company_unit3 = "";
+				dready = 1
+				if scr_has_adv("Venerable Ancients") then dready += 2;
 				if (obj_creation.custom = 0) then dready = 2;
+
 				rhinoy = 2;
 				whirly = 0;
 				speedy = 0;
@@ -3717,6 +3878,8 @@ function scr_initialize_custom() {
 				predy = 5;
 				if (global.chapter_name = "Iron Hands") then predy = 2;
 
+				if (obj_creation.custom == 1) and (array_contains(obj_creation.adv, "Tech-Brothers")) then predy -=2;
+
 				repeat(predy) {
 					v += 1;
 					man_size += 10;
@@ -3866,6 +4029,10 @@ function scr_initialize_custom() {
 	if (string_count("Sieged", strin2) = 0) {
 		scr_add_item("Dreadnought", 6);
 		scr_add_item("Close Combat Weapon", 6);
+	}
+	if (array_contains(obj_creation.adv, "Venerable Ancients")) {
+		scr_add_item("Dreadnought", 4);
+		scr_add_item("Close Combat Weapon", 4);
 	}
 
 	// man_size+=80;// bikes

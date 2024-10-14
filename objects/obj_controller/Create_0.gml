@@ -93,6 +93,8 @@ current_eventing="";
 chaos_rating=0;
 chapter_made = 0;
 obj_cuicons.alarm[1]=1; // Clean up custom icons
+map_scale = 1;
+scale_mod = 1;
 
 diplomacy_pathway = "";
 option_selections=[];
@@ -276,8 +278,8 @@ for(var i=100; i<103; i++){
     obj_controller.r_wep1[i,16]="Power Axe";
     obj_controller.r_wep2[i,16]="Storm Bolter";
     obj_controller.r_armour[i,16]="Artificer Armour";
-    obj_controller.r_gear[i,16]="Servo Arms";
-    obj_controller.r_mobi[i,16]="";
+    obj_controller.r_gear[i,16]="";
+    obj_controller.r_mobi[i,16]="Servo-arm";
     
     obj_controller.r_role[i,17]="Librarian";
     obj_controller.r_wep1[i,17]="Force Staff";
@@ -397,19 +399,23 @@ hide_banner=0;
 var xx=__view_get( e__VW.XView, 0 );
 var yy=__view_get( e__VW.YView, 0 );
 menu_buttons = {
-    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1),
-    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1),
-    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2),
-    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2),
-    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2),
+    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("M"),scr_toggle_manage),
+    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("S"),scr_toggle_setting),
+    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("A"),scr_toggle_apothecarion),
+    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("R"),scr_toggle_reclu),
+    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("L"),scr_toggle_lib),
+    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("N"),scr_toggle_armamentarium),
+    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("T"),scr_toggle_recruiting),
+    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("F"),scr_toggle_fleet_area),
+    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D"),scr_toggle_diplomacy),
+    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O"),scr_toggle_event_log),
+    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
+    "help":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,ord("H"),scr_in_game_help),
+    "menu":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,,scr_in_game_menu),
 
 }
+
+instance_create(x,y, obj_planet_map);
 new_button_highlight="";
 // new_button_highlighting=0;
 new_buttons_hide=0;
@@ -430,6 +436,7 @@ unit_bio=false;
 view_squad=false;
 company_report=false;
 company_data = {};
+filter_mode = false;
 pauldron_trim=0;
 last_unit=[0,0];
 ui_coloring=""; 
@@ -510,9 +517,12 @@ fest_feasts=0;
 fest_boozes=0;
 fest_drugses=0;
 
-for(var i=0; i<601; i++){
-    recent_type[i]="";recent_keyword[i]="";recent_turn[i]=0;recent_number[i]=0;
-}recent_happenings=0;
+recent_type=[];
+recent_keyword=[];
+recent_turn=[];
+recent_number = [];
+
+recent_happenings=0;
 
 // Sets up items to be default
 for(var i=0; i<40; i++){
@@ -522,14 +532,14 @@ for(var i=0; i<40; i++){
 }
 // TODO command_set is used for equipement. We should re do this and have an array for all available equipement
 command_set[1]=0;
-command_set[2]=0;
+command_set[2]=1;
 command_set[3]=1;
 command_set[4]=1;
 command_set[5]=1;
 command_set[6]=1;
 command_set[7]=1;
-command_set[8]=0;
-command_set[9]=0;
+command_set[8]=1;
+command_set[9]=1;
 command_set[20]=1;
 command_set[24]=1;
 blandify=0;
@@ -560,7 +570,10 @@ master_craft_chance = 0;
 tech_status = "Cult Mechanicus";
 forge_string="";
 forge_queue=[];
-player_forges = 0;
+player_forge_data = {
+    player_forges : 0,
+    vehicle_hanger : [],
+}
 selection_data=false;
 selections = [];
 production_research = {
@@ -648,7 +661,7 @@ blood_debt=0;
 // ** Sets penitent or blood debt if chapter disadvantage is selected **
 if (instance_exists(obj_ini)){
     var bloo=0;
-    for(var o=1; o<=4; o++){if (obj_ini.dis[o]="Blood Debt") then bloo=1;}
+    if(scr_has_disadv("Blood Debt")) then bloo=1;
 
     penitent=obj_ini.penitent;
     penitent_current=obj_ini.penitent_current;
@@ -803,6 +816,7 @@ recruit_corruption[0]=0;
 recruit_distance[0]=0;
 recruit_training[0]=0;
 recruit_exp[0]=0;
+recruit_data[0]={};
 
 for(var i=0; i<501; i++){
     
@@ -969,12 +983,7 @@ for(var i=0; i<16; i++){
 // 2: Defend        type=1
 // 3: Raid              type=2
 // 4: (New Formation)   type=0
-bat_formation[1]="Attack";
-bat_formation_type[1]=1;
-bat_formation[2]="Defend";
-bat_formation_type[2]=1;
-bat_formation[3]="Raid";
-bat_formation_type[3]=2;
+default_bat_formation();
 // Defaults formations end here
 
 bat_devastator_column=1;
@@ -1326,7 +1335,7 @@ if (instance_exists(obj_ini)){
         weapon_color=obj_ini.weapon_color;
         col_special=obj_ini.col_special;
         trim=obj_ini.trim;
-        recruit_trial=obj_ini.aspirant_trial;
+        recruit_trial=obj_ini.recruit_trial;
         homeworld_rule=obj_ini.homeworld_rule;
         
         scr_colors_initialize();
@@ -1363,13 +1372,13 @@ var xx,yy,me,dist,go,planet;
 global.custom=1;
 
 // ** Sets up base training level and trainees at game start **
-training_apothecary=2;
+training_apothecary=0;
 apothecary_points=0;
 apothecary_aspirant=0;
-training_chaplain=2;
+training_chaplain=0;
 chaplain_points=0;
 chaplain_aspirant=0;
-training_psyker=2;
+training_psyker=0;
 psyker_points=0;
 psyker_aspirant=0;
 training_techmarine=0;
@@ -1377,6 +1386,7 @@ tech_points=0;
 tech_aspirant=0;
 recruiting=0;
 penitorium=0;
+end_turn_insights = {};
 // Redefines training based on chapter
 if (instance_exists(obj_ini)){
     if (string_count("Intolerant",obj_ini.strin2)>0) then training_psyker=0;
@@ -1386,28 +1396,38 @@ if (instance_exists(obj_ini)){
 // 0: none      1: management
 // 11: apothecary       12: chaplain        13: librarium       14: armamentarium
 // ** Sets the star for the chapter ? **
-instance_create(irandom(room_width-400),irandom(room_height-400),obj_star);
+instance_create(irandom_range(400,room_width-400),irandom_range(400,room_height-400),obj_star);
 planet=floor(random(5))+19;
 planet=30*1.5;
 planet=100;
+
 if (is_test_map=true) then planet=20;
 
-
+var xx, yy, nearest_star, repeats;
 mask_index = spr_star
 while(instance_number(obj_star)<planet) {
-    xx = irandom(room_width-200) // dictates how far away from the edge stars spawn
-    yy = irandom(room_height-200)
+    xx = irandom_range(200, room_width-150); // dictates how far away from the edge stars spawn
+    yy = irandom_range(130, room_height-130);
+    nearest_star = instance_nearest(xx, yy, obj_star);
+    repeats = 0;
+    while (point_distance(xx, yy, nearest_star.x,nearest_star.y)<130 && repeats<100){
+        xx = irandom_range(200, room_width-150); // dictates how far away from the edge stars spawn
+        yy = irandom_range(130, room_height-160);
+        repeats++;       
+    }
+    if (repeats!=100){
+        if !place_meeting(xx, yy, obj_star) {
+            instance_create(xx,yy,obj_star);
+        }
+    }
 	
-	if !place_meeting(xx, yy, obj_star) {
-		instance_create(xx,yy,obj_star);
-	}
 }
 mask_index = -1;
 
 fleet_type="";
-if (obj_ini.fleet_type==1) then fleet_type="Fleet";
-if (obj_ini.fleet_type==1) then fleet_type="Homeworld";
-if (obj_ini.fleet_type==3) then fleet_type="Crusade";
+if (obj_ini.fleet_type==ePlayerBase.home_world) then fleet_type="Homeworld";
+if (obj_ini.fleet_type==ePlayerBase.fleet_based) then fleet_type="Fleet";
+if (obj_ini.fleet_type==ePlayerBase.penitent) then fleet_type="Crusade";
 star_names="";
 // ** Sets up the number of enemy factions to appear **
 tau=1; 
@@ -1649,8 +1669,8 @@ glad_names=string_delete(glad_names,vih,1);
 vih=string_pos(",",hunt_names);
 hunt_names=string_delete(hunt_names,vih,1);
 
-if (obj_ini.fleet_type!=1) or (bb==1) then temp[62]+="Your flagship is the Battle Barge "+string(obj_ini.ship[1])+".  ";
-if (obj_ini.fleet_type==1) and (bb>1){
+if (obj_ini.fleet_type != ePlayerBase.home_world) or (bb==1) then temp[62]+="Your flagship is the Battle Barge "+string(obj_ini.ship[1])+".  ";
+if (obj_ini.fleet_type==ePlayerBase.home_world) and (bb>1){
     temp[62]+="There are "+string(bb)+" Battle Barges; "+string(bb_names)+".  ";
 }
 temp[62]+="#";
@@ -1748,3 +1768,5 @@ if (vih>=5){
 remov=string_length(string(temp[65])+string(temp[66])+string(temp[67])+string(temp[68])+string(temp[69]))+1;
 
 action_set_alarm(2, 0);
+
+instance_create(0,0,obj_tooltip );
