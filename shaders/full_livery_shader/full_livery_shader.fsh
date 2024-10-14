@@ -23,6 +23,8 @@ uniform vec3 right_arm;
 uniform vec3 left_hand;
 uniform vec3 right_hand;
 uniform vec3 eye_lense;
+uniform vec3 right_backpack;
+uniform vec3 left_backpack;
 
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
@@ -30,10 +32,13 @@ varying vec4 v_vColour;
 void main()
 {
     vec4 col = texture2D(gm_BaseTexture, v_vTexcoord);
-    if (col.rgb == vec3(0.0,0.0, 128.0/255.0).rgb){
-        col.rgb = left_head.rgb;
+    if (col.rgb == vec3(181.0/255.0,0.0, 255.0/255.0).rgb){
+        col.rgb = right_backpack.rgb;
+    };    
+    if (col.rgb == vec3(104.0/255.0,0.0, 168.0/255.0).rgb){
+        col.rgb = left_backpack.rgb;
     };
-     if (col.rgb == vec3(0.0,0.0, 1.0).rgb){
+   if (col.rgb == vec3(0.0,0.0, 1.0).rgb){
          col.rgb = right_head.rgb;
     };
      if (col.rgb == vec3(128.0/255.0,64.0/255.0, 1.0).rgb){

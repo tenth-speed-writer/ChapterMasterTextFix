@@ -62,28 +62,33 @@ function colour_item(xx,yy) constructor{
             left_muzzle: [82,32, 90,42],	
             right_muzzle: [73,32, 82,42],	
 
-            eye_lense :0,
+            eye_lense : [40,-20,string_width("Lense"), string_height("Lense")],
 
-            left_arm : 0,
-            left_hand : 0,
+            left_arm : [119,67,146,105],
+            left_hand : [128,109,146,123],
 
-            right_arm : 0,
-            right_hand : 0,                                
+            right_arm : [19,67,34,106],
+            right_hand : [18,109,33,134], 
+
+            right_backpack : [32,17,60,38],
+            left_backpack : [97,17,130,38],                            
     }
 
     static lower_left = ["left_leg_lower","left_leg_upper","left_leg_knee"];
 
     static lower_right = ["right_leg_lower","right_leg_upper","right_leg_knee"];
 
-    static upper_left =  ["left_chest","left_arm","left_hand"]; 
+    static upper_left =  ["left_chest","left_arm","left_hand","left_backpack"]; 
 
     static chest =  ["left_chest", "right_chest"];
 
-    static upper_right = ["right_chest","right_arm","right_hand"];   
+    static upper_right = ["right_chest","right_arm","right_hand","right_backpack"];   
 
     static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
 
     static head_set = ["left_head", "right_head","left_muzzle", "right_muzzle"];
+
+    static backpack = ["right_backpack","left_backpack"]
 
     static set_pattern = function(col, pattern){
         for (var i=0 ;i<array_length(pattern);i++){
