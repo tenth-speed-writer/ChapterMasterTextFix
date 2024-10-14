@@ -131,8 +131,6 @@ recruiter=global.name_generator.generate_space_marine_name();		//10th
 
 
 
-
-
 equal_specialists=0;
 load_to_ships=[2,0,0];
 
@@ -288,7 +286,7 @@ global.chapters_count = array_length(all_chapters);
  * * Not all Chapters are implemented yet, disable the ones that arent, remove a line if the chapter gets made
  */
 all_chapters[CHAPTERS.UNKNOWN].disabled = true; //this should always be disabled, it exists for array indexing purposes for now
-all_chapters[CHAPTERS.CARCHARODONS].disabled = true;
+// all_chapters[CHAPTERS.CARCHARODONS].disabled = true;
 all_chapters[CHAPTERS.ANGRY_MARINES].disabled = true;
 all_chapters[CHAPTERS.EMPERORS_NIGHTMARE].disabled = true;
 all_chapters[CHAPTERS.STAR_KRAKENS].disabled = true;

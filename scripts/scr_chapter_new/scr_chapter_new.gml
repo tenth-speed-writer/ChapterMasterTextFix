@@ -880,23 +880,6 @@ if (argument0="Lamenters"){founding=5;points=150;
 	}
 	#endregion
 
-	/*
-	if (h=1) then it="Power Fists";
-	if (h=2) then it="Relic Blade";
-	if (h=3) then it="Master Crafted Thunder Hammer";
-	if (h=4) then it="Master Crafted Power Sword";
-	if (h=5) then it="Master Crafted Power Axe";
-	if (h=6) then it="Master Crafted Eviscerator";
-	if (h=7) then it="Master Crafted Force Staff";
-
-	if (h=1) then it="Integrated Bolters";
-	if (h=2) then it="Infernus Pistol";
-	if (h=3) then it="Plasma Pistol";
-	if (h=4) then it="Plasma Gun";
-	if (h=5) then it="Master Crafted Heavy Bolter";
-	if (h=6) then it="Master Crafted Meltagun";
-	if (h=7) then it="Storm Shield";
-	*/
 
 
 	if(obj_creation.use_chapter_object){
@@ -970,8 +953,9 @@ if (argument0="Lamenters"){founding=5;points=150;
 		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
 		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
 		obj_creation.chapter_master_specialty = chapter_object.chapter_master.specialty;
-
-		obj_creation.company_title = chapter_object.company_titles;
+		if(struct_exists(chapter_object, "company_titles")){
+			obj_creation.company_title = chapter_object.company_titles;
+		}
 		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
 			company_title[i] = chapter_object.company_titles[i];
 		}

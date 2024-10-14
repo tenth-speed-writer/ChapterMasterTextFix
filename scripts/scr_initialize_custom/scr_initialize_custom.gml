@@ -952,7 +952,7 @@ function scr_initialize_custom() {
 		tenth += 4;
 	}
 	if scr_has_adv ("Reverent Guardians") {
-		chaap += 4;
+		chaplains += 4;
 		tenth -= 4;
 	}
 	if scr_has_adv("Medicae Primacy") {

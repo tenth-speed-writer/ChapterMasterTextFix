@@ -112,7 +112,20 @@
                 "harshborn"
             ]
         },
-        "flagship_name": "Auel's Bane",
+        "company_titles": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "flagship_name": "Auels Bane",
         /**
         * * Default fleet composition
         * * Homeworld 
