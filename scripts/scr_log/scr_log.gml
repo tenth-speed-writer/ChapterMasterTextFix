@@ -12,7 +12,7 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
         method_call(func,args);
     } catch (_exception){
         var _popup_header = $"Your game just encountered an error ({dev_marker}) :(";
-        var _popup_message = $"Please, do the following: \n\n\n1) Find the following folder on your PC: C:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\n2) Find the latest error_log file (last numbers are hours minutes seconds). \n\n3) Create a bug report on the bug-report-forum in our Chapter Master Discord server. \n\n3) Attach the error_log file to your bug report. \n\n\nThank you :)";
+        var _popup_message = $"The error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
 
         if (turn_end || instance_exists(obj_turn_end) ){
             scr_popup(_popup_header, _popup_message, "debug");
@@ -33,9 +33,12 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
             }
         }
 
-        var _full_message = $"{_exception.longMessage}\n\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
+        var _full_message = $"{_exception.longMessage}\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
         log_into_file(_full_message);
-        show_debug_message(_full_message);  
+        clipboard_set_text(string(_full_message));
+        show_debug_message( "--------------------------------------------------------------");
+        show_debug_message( "Unhandled exception:\n" + string(_full_message) );
+        show_debug_message( "--------------------------------------------------------------"); 
     }
 }
 
@@ -49,16 +52,16 @@ exception_unhandled_handler(function(_exception) {
             _formatted_stacktrace += "\n";
         }
     }
-    var _full_message = $"{_exception.longMessage}\n\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
+    var _full_message = $"{_exception.longMessage}\nIn script:\n{_exception.script}\n\nStacktrace:\n{_formatted_stacktrace}";
 
     log_into_file(_full_message);
     clipboard_set_text(string(_full_message));
 
     show_debug_message( "--------------------------------------------------------------");
-    show_debug_message( "Unhandled exception " + string(_full_message) );
+    show_debug_message( "Unhandled exception:\n" + string(_full_message) );
     show_debug_message( "--------------------------------------------------------------");
 
-    var _player_message = $"Your game just encountered an error. :( \n\nThe error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
+    var _player_message = $"Your game just encountered an error :( \n\nThe error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
     show_message(_player_message);
 
     return 0;
