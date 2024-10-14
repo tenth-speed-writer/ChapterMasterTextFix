@@ -304,6 +304,7 @@ function scr_draw_unit_image(_background=false){
         var skin_color=obj_ini.skin_color;
         var armour_type = ArmourType.Normal;
         var armour_sprite = spr_weapon_blank;
+        var complex_livery = false;
         var back_type = BackType.None,
             psy_hood = 0,
             skull_mask = 0,
@@ -863,6 +864,7 @@ function scr_draw_unit_image(_background=false){
 
                 } else if (unit_armour=="MK7 Aquila" || unit_armour="Power Armour"){
                     specific_armour_sprite = spr_mk7_complex;
+                    complex_livery = true;
                     specific_helm = spr_generic_sgt_mk7;
                     if (progenitor_map()=="Dark Angels"){
                         specific_helm = false;
@@ -872,6 +874,7 @@ function scr_draw_unit_image(_background=false){
                             robes_bypass = true;
                             robes_hood_bypass = true;
                             armour_bypass = true;
+                            complex_livery = false;
                         }                          
                     }
                 } else if (unit_armour=="MK8 Errant"){
@@ -982,15 +985,9 @@ function scr_draw_unit_image(_background=false){
 
                 // Draw torso
                 if (!armour_bypass){
-                    if (specific_armour_sprite == spr_mk7_complex){
-                        shader_set(full_livery_shader);
-                        var spot_names = struct_get_names(obj_ini.full_livery);
-                        for (var i=0;i<array_length(spot_names);i++){
-                            var colour = obj_ini.full_livery[$ spot_names[i]];
-                            var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];
-                            shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
-                        }                        
-                        draw_sprite(specific_armour_sprite,1,x_surface_offset,y_surface_offset)
+                    if (complex_livery){
+                        setup_complex_livery_shader()                        
+                        draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset)
                         shader_reset();
                         shader_set(sReplaceColor);
                     } else{                   

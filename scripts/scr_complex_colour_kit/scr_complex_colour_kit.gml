@@ -30,7 +30,9 @@ function colour_item(xx,yy) constructor{
             right_head: 0, 
             left_muzzle: 0,
             right_muzzle: 0,
-            eye_lense :0,                                
+            eye_lense :0,  
+            right_backpack : 0,   
+            left_backpack : 0,                           
         }
         return map_colour;
     }
@@ -118,7 +120,7 @@ function colour_item(xx,yy) constructor{
 			shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
 		}
 		//draw_sprite(sprite_index, 0, x, y);
-		draw_sprite(spr_mk7_complex, 0, xx, yy);
+		draw_sprite(spr_mk7_complex_backpack, 0, xx, yy);
 		draw_sprite(spr_mk7_complex, 2, xx, yy);  	
 		draw_sprite(spr_mk7_complex, 3, xx, yy); 		
 		draw_sprite(spr_mk7_complex, 1, xx, yy);	
@@ -142,7 +144,15 @@ function colour_item(xx,yy) constructor{
     	}
     }
 }
-
+function setup_complex_livery_shader(){
+    shader_set(full_livery_shader);
+    var spot_names = struct_get_names(obj_ini.full_livery);
+    for (var i=0;i<array_length(spot_names);i++){
+        var colour = obj_ini.full_livery[$ spot_names[i]];
+        var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];
+        shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
+    }    
+}
 
 function colour_picker(xx,yy) constructor{
 	x=xx;

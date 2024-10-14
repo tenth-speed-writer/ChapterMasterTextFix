@@ -1361,8 +1361,11 @@ if (slide=4){
                 cooldown=8000;
                 var onceh=0;
                 if (cur_button.text!="Trim"){
-                    if (col_special=i+1) and (onceh=0){col_special=0;onceh=1;}
-                    if (col_special!=i+1) and (onceh=0){col_special=i+1;onceh=1;}
+                    if (col_special=i+1){
+                        col_special=0
+                    }else if (col_special!=i+1){
+                        col_special=i+1;
+                    }
                 } else {
                     trim=!trim;
                 }
