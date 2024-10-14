@@ -7,9 +7,7 @@
 
 
 for (var i=0;i<array_length(queue);i++){
-
 	var _tip = queue[i];
-
 	var _tooltip = _tip.tooltip;
 	var _width =_tip.width;
 	var _coords = _tip.coords;
@@ -18,8 +16,11 @@ for (var i=0;i<array_length(queue);i++){
 	var  _header = _tip.header;
 	var _header_font = _tip.header_font;
 	var _force_width = _tip.force_width;
- 
-	var _header_h=0, _header_w=0;
+	var _screen_vpadding = 30;
+	var _screen_hpadding = 60;
+	var _header_h=0;
+	var _header_w=0;
+
 	// Remember global variables
 	var _curr_font = draw_get_font();
 	var _curr_color = draw_get_color();
@@ -28,21 +29,24 @@ for (var i=0;i<array_length(queue);i++){
 
 	draw_set_halign(fa_left);
 	draw_set_alpha(1)
+
 	// Calculate padding and rectangle size
 	var _text_padding_x = 12;
 	var _text_padding_y = 12;
+
 	// Convert hash to newline in strings
 	_header = string_hash_to_newline(string(_header));
 	_tooltip = string_hash_to_newline(string(_tooltip));
+
 	// Set the font for the tooltip text and calculate its size
 	draw_set_font(_font);
-
 	var _text_w = _force_width ? _width: min(string_width(_tooltip), _width);
-
 	var text_h = string_height_ext(_tooltip, DEFAULT_LINE_GAP, _text_w);
+
 	// Calculate rectangle size
 	var _rect_w = _text_w + _text_padding_x * 2;
 	var _rect_h = text_h + _text_padding_y * 2;
+
 	// If a header is provided, calculate its size and adjust the rectangle size
 	if (_header != "") {
 		// Set the font for the header and calculate its size
@@ -57,29 +61,29 @@ for (var i=0;i<array_length(queue);i++){
 		_rect_w = max(_header_w, _text_w) + _text_padding_x * 2;
 		_rect_h += _header_h;
 	}
-	// Get view coordinates
-	var xx = __view_get(e__VW.XView, 0);
-	var yy = __view_get(e__VW.YView, 0);
+
 	// Define tooltip position
 	var _rect_x = _coords[0];
 	var _rect_y = _coords[1];
+
 	// Check if the tooltip goes over the right part of the screen and flip left if so
-	if (_rect_x + _rect_w > xx + __view_get(e__VW.WView, 0) - 20) {
-		_rect_x = _coords[0] - _rect_w - 40;
+	if (_rect_x + _rect_w > __view_get(e__VW.WView, 0) - _screen_hpadding) {
+		_rect_x = _coords[0] - _rect_w - _screen_hpadding;
 	}
+
 	// Check if the tooltip goes over the bottom part of the screen and flip up if so
-	if (_rect_y + _rect_h > yy + __view_get(e__VW.HView, 0) - 60) {
-		_rect_y = _coords[1] - _rect_h - 40;
+	if (_rect_y + _rect_h > __view_get(e__VW.HView, 0) - _screen_vpadding) {
+		_rect_y = max(_screen_vpadding, _coords[1] - _rect_h - _screen_vpadding);
 	}
+
 	// Draw the tooltip background
 	// draw_sprite_ext(spr_tooltip1, 0, _rect_x, _rect_y, x_scale, y_scale, 0, c_white, 1);
 	// draw_sprite_ext(spr_tooltip1, 1, _rect_x, _rect_y, x_scale, y_scale, 0, c_white, 1);
-
-
 	draw_sprite_stretched(spr_data_slate_back, 0, _rect_x, _rect_y, _rect_w, _rect_h);
 	draw_rectangle_color_simple(_rect_x, _rect_y, _rect_w + _rect_x, _rect_h + _rect_y, 1, c_gray);
 	draw_rectangle_color_simple(_rect_x + 1, _rect_y + 1, _rect_w + _rect_x - 1, _rect_h + _rect_y - 1, 1, c_black);
 	draw_rectangle_color_simple(_rect_x + 2, _rect_y + 2, _rect_w + _rect_x - 2, _rect_h + _rect_y - 2, 1, c_gray);
+
 	// Draw header text if it exists
 	if (_header != "") {
 		draw_set_font(_header_font);
@@ -87,10 +91,11 @@ for (var i=0;i<array_length(queue);i++){
 		_rect_y += _header_h + DEFAULT_LINE_GAP; // Adjust y-coordinate for tooltip text
 		_text_padding_y *= 1.6;
 	}
-	// Draw tooltip text
 
+	// Draw tooltip text
 	draw_set_font(_font);
 	draw_text_ext_transformed_colour(_rect_x + _text_padding_x, _rect_y + _text_padding_y, _tooltip, DEFAULT_LINE_GAP, _text_w, 1,1,0, _text_color, _text_color, _text_color, _text_color, 1);
+
 	// Revert global variables
 	draw_set_font(_curr_font);
 	draw_set_color(_curr_color);
