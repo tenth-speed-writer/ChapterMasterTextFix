@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "get_integer2",
+  "name": "scr_ancient_ruins",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Sys",
-    "path": "folders/Scripts/Sys.yy",
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
 }

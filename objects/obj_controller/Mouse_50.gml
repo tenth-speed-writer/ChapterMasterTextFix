@@ -898,32 +898,34 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
         xx+=419;
         // Player Things to Offer
         // Requisition
-        if (scr_hit(xx+342,yy+371,xx+485,yy+422)==true) and (minz!=0) and (cooldown<=0) and (trade_req>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Requisition offered?",trade_req,"m"+string(minz),"Requisition");
-            scr_trade(false);
-        }
-        // Gene-seed
-        if (scr_hit(xx+342,yy+422,xx+485,yy+470)==true) and (minz!=0) and (cooldown<=0) and (trade_gene>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Gene-Seed offered?",trade_gene,"m"+string(minz),"Gene-Seed");
-            scr_trade(false);
-        }
-        // STC Fragment
-        if (scr_hit(xx+342,yy+470,xx+485,yy+517)==true) and (minz!=0) and (cooldown<=0) and (trade_chip>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("STC Fragments offered?",trade_chip,"m"+string(minz),"STC Fragment");
-            scr_trade(false);
-        }
-        // Info Chips
-        if (scr_hit(xx+342,yy+517,xx+485,yy+564)==true) and (minz!=0) and (cooldown<=0) and (trade_info>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Info Chips offered?",trade_info,"m"+string(minz),"Info Chip");
-            scr_trade(false);
+        if (!instance_exists(obj_popup_dialogue)){
+            if (scr_hit(xx+342,yy+371,xx+485,yy+422)==true) and (minz!=0) and (cooldown<=0) and (trade_req>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Requisition offered?",trade_req,"m"+string(minz),"Requisition");
+                scr_trade(false);
+            }
+            // Gene-seed
+            else if (scr_hit(xx+342,yy+422,xx+485,yy+470)==true) and (minz!=0) and (cooldown<=0) and (trade_gene>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Gene-Seed offered?",trade_gene,"m"+string(minz),"Gene-Seed");
+                scr_trade(false);
+            }
+            // STC Fragment
+            else if (scr_hit(xx+342,yy+470,xx+485,yy+517)==true) and (minz!=0) and (cooldown<=0) and (trade_chip>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("STC Fragments offered?",trade_chip,"m"+string(minz),"STC Fragment");
+                scr_trade(false);
+            }
+            // Info Chips
+            if (scr_hit(xx+342,yy+517,xx+485,yy+564)==true) and (minz!=0) and (cooldown<=0) and (trade_info>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Info Chips offered?",trade_info,"m"+string(minz),"Info Chip");
+                scr_trade(false);
+            }
         }
         xx-=419;
         // Remove items buttons

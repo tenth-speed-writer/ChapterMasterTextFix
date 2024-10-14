@@ -201,7 +201,7 @@ function scr_librarium(){
                     if (cur_arti.equipped()) then _can_equip = 0;
 
                      if (artifact_equip.draw_shutter(xx + 385, yy + 740, "EQUIP", 0.3, _can_equip)){
-                        if (_can_equip){
+                        if (_can_equip && !instance_exists(obj_popup)){
                             var pop=instance_create(0,0,obj_popup);
                             pop.type=8;
                             cooldown=8;                            
@@ -210,10 +210,11 @@ function scr_librarium(){
                     }
 
                     if (artifact_gift.draw_shutter(xx + 575, yy + 740, "GIFT", 0.3, true)){
+                        show_debug_message("Clicked");
                         var chick=false;
                         //list of all giftable factions enum numbers
                         var giftable_factions = [eFACTION.Imperium, eFACTION.Mechanicus,eFACTION.Inquisition,eFACTION.Ecclesiarchy,eFACTION.Eldar,eFACTION.Tau]
-                        for (vari=0;i<array_length(giftable_factions);i++){
+                        for (var i = 0; i < array_length(giftable_factions); i++){
                             var gift_faction = giftable_factions[i];
                             if (known[gift_faction] && !faction_defeated[gift_faction]) then chick=true;
                         }
@@ -227,15 +228,14 @@ function scr_librarium(){
                     if (artifact_destroy.draw_shutter(xx + 765, yy + 740, "DESTROY", 0.3, true)){
                         var fun=irandom(100)+1;
                         // Below here cleans up the artifacts
-                        var i=menu_artifact;
 
                         if (menu_artifact==fest_display) then fest_display=0;
 
                         cur_arti.destroy_arti();
 
                         //TODO centralise into function
-                        for (var e=1; e<=array_length(obj_controller.recent_keyword); e++){
-                            if (obj_ini.artifact_tags[i]==obj_controller.recent_keyword[e]){
+                        for (var e = 0; e < array_length(obj_controller.recent_keyword); e++){
+                            if (obj_ini.artifact_tags[menu_artifact]==obj_controller.recent_keyword[e]){
                                 with (obj_controller){
                                     array_delete(recent_keyword, e, 1);
                                     array_delete(recent_type, e, 1);
@@ -247,21 +247,30 @@ function scr_librarium(){
                                 break;
                             }
                         }
-                        delete_artifact(i);                           
+                        delete_artifact(menu_artifact);                           
                         set_chapter_arti_data();      
                     }
                     var base_type = cur_arti.determine_base_type();
                     if (arti_data && base_type!="device"){
-                        if (base_type=="weapon") { // Weapon
-
+                        if (arti_data.armour_value != 0) {
+                            tip2 += $"{arti_data.armour_value} Armour#";
+                        }
+                        if (arti_data.attack != 0) {
                             tip2 = $"{arti_data.attack} Damage#";
-                            tip2 += $"{arti_data.ammo} Ammunition#";
-
                         }
-                        else if (base_type=="armour") { // Armour
-                            tip2 = $"{arti_data.armour_value} Armour Value";
+                        if (arti_data.hp_mod != 0) {
+                            tip2 += $"{arti_data.hp_mod}% Health Bonus#";
                         }
-                        else if (base_type=="gear") { // Gear
+                        if (arti_data.melee_mod != 0) {
+                            tip2 += $"{arti_data.melee_mod}% Melee Bonus#";
+                        }
+                        if (arti_data.ranged_mod != 0) {
+                            tip2 += $"{arti_data.ranged_mod}% Ranged Bonus#";
+                        }
+                        if (arti_data.damage_resistance_mod != 0) {
+                            tip2 += $"{arti_data.damage_resistance_mod}% Resistance Bonus#";
+                        }
+                        if (base_type=="gear") { // Gear
                             tip2 = tooltip_other;
                         }
                     }

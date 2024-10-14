@@ -704,6 +704,8 @@ advantage[i]="Melee Enthusiasts";
 advantage_tooltip[i]="Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.";i+=1;
 advantage[i]="Venerable Ancients";
 advantage_tooltip[i]="Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service ";i+=1;
+advantage[i]="Medicae Primacy";
+advantage_tooltip[i]="Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.";i+=1;
 
 i+=1;
 advantage[i]="Cancel";advantage_tooltip[i]="";
@@ -932,7 +934,6 @@ if (skip=true){
     slate=22;
     slate3=22;
     slate4=50;
-    global.version="500";
     
     change_slide=0;
     slide=6;
