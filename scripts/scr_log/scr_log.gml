@@ -8,11 +8,13 @@ function log_into_file(_message) {
 }
 
 function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[], catch_custom=0, catch_args=[]){
+    #macro ERROR_MESSAGE $"The error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest (sort by time) error_log to your bug report. \n\n\nThank you :)"
+
     try{
         method_call(func,args);
     } catch (_exception){
         var _popup_header = $"Your game just encountered an error ({dev_marker}) :(";
-        var _popup_message = $"The error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
+        var _popup_message = ERROR_MESSAGE;
 
         pip = instance_create(0,0,obj_popup);
         pip.title = _popup_header;
@@ -64,7 +66,7 @@ exception_unhandled_handler(function(_exception) {
     show_debug_message( "Unhandled exception!");
     show_debug_message(_full_message);
 
-    var _player_message = $"Your game just encountered an unhandled error :( \n\nThe error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
+    var _player_message = ERROR_MESSAGE;
     show_message(_player_message);
 
     return 0;
