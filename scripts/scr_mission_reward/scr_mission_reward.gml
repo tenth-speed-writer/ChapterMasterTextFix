@@ -172,6 +172,7 @@ function scr_mission_reward(argument0, argument1, argument2) {
 	            }
 	        }
 	    }
+	    var unit;
 	    if (result="Bionics"){
 	        scr_popup("Mechanicus Mission Completed","The Adeptus Mechanicus have finished experimenting on your marines.  All of your astartes have survived, though they refuse to speak of the experience.  A large amount of additional Bionics have been provided by the Mechanicus as a reward.","mechanicus","");
 	        obj_controller.disposition[3]+=1;var com,i,onceh;onceh=0;com=-1;i=0;
@@ -179,8 +180,9 @@ function scr_mission_reward(argument0, argument1, argument2) {
 	        repeat(11){
 	            if (onceh<10){com+=1;i=0;
 	                repeat(300){i+=1;
+	                	unit = fetch_unit([com,i]);
 	                    if (obj_ini.race[com][i]=1) and (obj_ini.loc[com][i]=argument1.name) and (obj_ini.TTRPG[com][i].planet_location=argument2){onceh+=1;
-	                        obj_ini.hp[com][i]=floor(random_range(2,80))+1;
+	                        unit.update_health(irandom_range(2,80));
 	                        repeat(choose(2,3,4)){obj_ini.TTRPG[com][i].add_bionics()}
 	                    }
 	                }
@@ -189,16 +191,25 @@ function scr_mission_reward(argument0, argument1, argument2) {
 	    }
 	    if (result="Requisition"){
 	        scr_popup("Mechanicus Mission Completed","The Adeptus Mechanicus have finished experimenting on your marines.  All of your astartes have survived, though they refuse to speak of the experience.  200 Requisition has been provided by the Mechanicus as a reward.","mechanicus","");
-	        obj_controller.disposition[3]+=1;obj_controller.requisition+=200;
-	        var com,i,onceh;onceh=0;com=-1;i=0;
-	        repeat(11){
-	            if (onceh<10){com+=1;i=0;
-	                repeat(300){i+=1;
-	                    if (obj_ini.race[com][i]=1) and (obj_ini.loc[com][i]=argument1.name) and (obj_ini.TTRPG[com][i].planet_location=argument2){onceh+=1;
-	                        obj_ini.hp[com][i]=floor(random_range(2,80))+1;
-	                        repeat(choose(2,3,4)){obj_ini.TTRPG[com][i].add_bionics()}
+	        obj_controller.disposition[3]+=1;
+	        obj_controller.requisition+=200;
+	        var found=0,com=-1,i=0,unit;
+	        for (var com=0;com<=10;com++){
+	            if (found<10){
+	                for (i=0;i<=array_length(obj_ini.TTRPG[com]);i++){
+	                	unit = fetch_unit([com,i]);
+	                    if (unit.race()=1) and (obj_ini.loc[com][i]=argument1.name) and (unit.planet_location=argument2){
+	                    	found++;
+	                    	unit.update_loyalty(-30);
+	                        unit.update_health(irandom_range(2,80));
+	                        repeat(choose(2,3,4)){
+	                        	unit.add_bionics();
+	                        }
 	                    }
+	                    if (found>=10) then break;
 	                }
+	            } else {
+	            	break;
 	            }
 	        }
 	    }

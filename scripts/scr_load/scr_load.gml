@@ -396,7 +396,6 @@ function scr_load(save_part, save_id) {
                             if (arc=5) then obj_ini.mobi[coh,mah]=teh;
                         }
                     }
-                    obj_ini.hp[coh,mah]=ini_read_real("Mar","hp"+string(coh)+"."+string(mah),0);
                     obj_ini.experience[coh,mah]=ini_read_real("Mar","exp"+string(coh)+"."+string(mah),0);
                     obj_ini.age[coh,mah]=ini_read_real("Mar","ag"+string(coh)+"."+string(mah),0);
                     obj_ini.spe[coh,mah]=ini_read_string("Mar","spe"+string(coh)+"."+string(mah),"");

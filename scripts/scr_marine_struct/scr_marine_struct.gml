@@ -659,6 +659,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	bionics=0;
 	favorite=false;
 	spawn_data = other_spawn_data;
+	health=0;
 	if (faction=="chapter" && !struct_exists(spawn_data, "recruit_data")){
 		spawn_data.recruit_data = {
 			recruit_world : obj_ini.recruiting_type,
@@ -785,10 +786,10 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return obj_ini.artifact[wep];
 	};	
 	static hp = function(){ 
-		return obj_ini.hp[company][marine_number]; //return current health
+		return health; //return current health
 	};
 	static add_or_sub_health = function(health_augment){
-		obj_ini.hp[company][marine_number]+=health_augment;
+		health+=health_augment;
 	}
 	static healing = function(apoth){
 		if (hp()<=0) then exit;
@@ -818,7 +819,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		update_health(new_health);	
 	}
 	 static update_health = function(new_health){
-	    obj_ini.hp[company][marine_number] = new_health;
+	    health = new_health;
 	 };
 
 	 static hp_portion = function(){
@@ -1404,6 +1405,9 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return obj_ini.race[company][marine_number];
 	};	//get race
 
+	static update_loyalty = function(change_value){
+		loyalty = clamp(loyalty+change_value, 0, 100);
+	}
 	static calculate_death = function(death_threshold = 25, death_random=50,apothecary=true, death_type="normal"){
 		dies = false;
 		death_random += luck;
