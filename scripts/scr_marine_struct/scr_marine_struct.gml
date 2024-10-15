@@ -659,7 +659,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	bionics=0;
 	favorite=false;
 	spawn_data = other_spawn_data;
-	health=0;
+	unit_health=0;
 	if (faction=="chapter" && !struct_exists(spawn_data, "recruit_data")){
 		spawn_data.recruit_data = {
 			recruit_world : obj_ini.recruiting_type,
@@ -786,10 +786,10 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return obj_ini.artifact[wep];
 	};	
 	static hp = function(){ 
-		return health; //return current health
+		return unit_health; //return current unit_health
 	};
 	static add_or_sub_health = function(health_augment){
-		health+=health_augment;
+		unit_health+=health_augment;
 	}
 	static healing = function(apoth){
 		if (hp()<=0) then exit;
@@ -819,7 +819,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		update_health(new_health);	
 	}
 	 static update_health = function(new_health){
-	    health = new_health;
+	    unit_health = new_health;
 	 };
 
 	 static hp_portion = function(){
@@ -862,7 +862,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return max_h;
 	};	
 	static increase_max_health = function(increase){
-		return max_health() + (increase*(1+((constitution - 40)*0.025))); //calculate the effect of health buffs
+		return max_health() + (increase*(1+((constitution - 40)*0.025))); //calculate the effect of unit_health buffs
 	};		
 	// used both to load unit data from save and to add preset base_stats
 	static load_json_data = function(data){							//this also allows us to create a pre set of anysort for a marine
@@ -1515,7 +1515,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	static update_gear = scr_update_unit_gear;
 
 	if (base_group!="none"){
-		update_health(max_health()); //set marine health to max
+		update_health(max_health()); //set marine unit_health to max
 	}
 	   
 	static weapon_one = function(raw=false){
