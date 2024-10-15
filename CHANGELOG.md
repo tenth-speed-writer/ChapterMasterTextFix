@@ -21,10 +21,46 @@ All notable changes to this project will be documented in this file.
     - everything that a normal player doesn't need to know.
 ----------------------------------
 
-## [0.9.3.2]
+## [0.9.3.4]
+
+### Changed:
+- Battle debug (d) now only works with debug mode enabled.
+- Possible fix of some weird stuff in battles, cased by `obj_ini.hp`.
 
 ### Fixed:
-- spelling error in scr_navy_planet_action "prbiting" casuing crash
+- Spelling error in `scr_navy_planet_action` "orbiting" causing crash.
+
+### Under The Hood:
+- `obj_ini.hp[][]` is replaced with `unit.hp()`.
+
+## [0.9.3.3-YYC]
+
+### New:
+- The game is compiled with YYC, which may improve various calculation times and error reporting.
+    - As well as create unknown problems. You're here to test it.
+- Super new and shiny error handling system.
+    - You don't need to know much. When an error appears, you'll be given instructions on what to do.
+
+### Changed:
+- Artifact possession string is on a new line, for clarity.
+- Honour Guard, Veteran, Terminator, Veteran Sergeant, Dreadnought and Venerable Dreadnought age edits.
+- App name is changed to "Chapter Master - Adeptus Dominus", from "Chapter Master Adeptus Dominus 0.9.0.0".
+
+### Fixed:
+- Custom chapter saving with 4+ advantages.
+- Trade input should be fixed and foolproofed against wrong input now.
+- Artifact gifting and destroying.
+- Venerable and normal Dreadnought spawning, with and without equal distribution and/or Venerable Ancients advantage.
+- Mass role equip crash.
+- Apothecaries, Techmarines and Librarians vanishing on drop select if you deselect and select them again.
+- Tooltip going off screen.
+- `ork_ship_production` crash.
+- Inquisition inspection crash.
+
+### Under The Hood:
+- `scr_log` massive overhaul.
+- All constructors that used snake_case are renamed to use PascalCase.
+	- To avoid possible and existing errors with YYC compiler, when a constructor has the same name as some variable.
 
 ## [0.9.3.2]
 
