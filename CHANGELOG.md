@@ -23,6 +23,11 @@ All notable changes to this project will be documented in this file.
 
 ## [0.9.3.2]
 
+### Fixed:
+- spelling error in scr_navy_planet_action "prbiting" casuing crash
+
+## [0.9.3.2]
+
 ### New:
 - Introduction of a bug log file `message_log.log`, located in `AppData\Local\Chapter Master`.
 - Introduction of proper error handling of end turn sequences should vastly reduce crashes for player on turn end and will provide error log codes stored in message_log.log and displayed in to the player at turn end.
