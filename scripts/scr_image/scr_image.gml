@@ -42,10 +42,11 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 				drawing_sprite = sprite_add(dir,1, false,false,0,0);
 				array_insert(obj_img.image_cache[$argument0], argument1, drawing_sprite);
 			} else {
+				drawing_sprite = -1;
 				debugl($"No directory/file found matching {dir}");
 			}
 		}
-		if(!sprite_exists(drawing_sprite)){
+		if(is_undefined(drawing_sprite) || !sprite_exists(drawing_sprite)){
 			debugl($"No drawing sprite exists from args {argument0} id {argument1}");
 			draw_set_alpha(1);draw_set_color(0);
 	        draw_rectangle(argument2,argument3,argument2+argument4,argument3+argument5,0);

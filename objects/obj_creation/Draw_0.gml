@@ -194,6 +194,7 @@ if (slate4>0){
             x2+=icon_gap_x;
         }
         
+        /* Custom + Random*/
         x2+=53;i=1001;
         repeat(2){
             draw_sprite(spr_creation_icon,0,x2,y2);
@@ -308,14 +309,14 @@ if (slide>=2){
     draw_set_color(0);
     // draw_rectangle(436,74,436+128,74+128,0);
     // if (icon<=20) then draw_sprite_stretched(spr_icon,icon,436,74,128,128);
-    if(icon == 22){
-        scr_image("creation/chapters/icons", icon, 436,74,128,128);
-    } else {
-        if (custom = 0) then scr_image("creation/chapters/icons",icon,436,74,128,128);
-        if (custom = 1 && icon >22) then draw_sprite_stretched(spr_icon_chapters,icon21-21,436,74,128,128);
-        if (custom = 1 && icon <=22) then scr_image("creation/chapters/icons",icon21,436,74,128,128);
-    }
     
+    var sprx = 436,
+    spry =74,
+    sprw = 128,
+    sprh = 128;
+
+    draw_sprite_stretched(global.chapter_icon_sprite, global.chapter_icon_frame, sprx, spry, sprw, sprh);
+       
     obj_cursor.image_index=0;
     if (scr_hit(436,74,436+128,74+128)) and (popup=""){obj_cursor.image_index=1;
         tooltip="Chapter Icon";tooltip2="Your Chapter's icon.  Click to edit.";
@@ -660,32 +661,54 @@ if (slide=2){
             }
             
             x3+=110;
-            
-            if (ic<=(76+global.custom_icons)){
+            var builtin_icons = array_length(sprite_get_info(spr_icon_chapters).frames);
+            var normal_and_builtin = global.normal_icons_count + builtin_icons;
+            var total_icons = global.normal_icons_count + builtin_icons + global.custom_icons;
+            // show_debug_message($"total {total_icons} normal {global.normal_icons_count} builtin {builtin_icons} normal+builtin {normal_and_builtin}")
+
+            if (ic<=(total_icons)){
                 // if (ic=21) then ic=23;
                 
                 // draw_rectangle(x3,y3,x3+96,y3+96,0);
-                // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
-                if (ic<=22) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
-                if (ic>22) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-21,x3,y3,96,96);
-                if (ic>76) and (obj_cuicons.spr_custom[ic-76]>0) and (obj_cuicons.spr_custom_icon[ic-76]!=-1){
-                    draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-76],0,x3,y3,96,96);
+                // if (ic<=global.normal_icons_count) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
+                if (ic<=global.normal_icons_count) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
+                if (ic>global.normal_icons_count) and (ic<=normal_and_builtin) then draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count-1,x3,y3,96,96);
+                if (ic>normal_and_builtin) and (obj_cuicons.spr_custom[ic-normal_and_builtin]>0) and (obj_cuicons.spr_custom_icon[ic-normal_and_builtin]!=-1){
+                    draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-normal_and_builtin],0,x3,y3,96,96);
                 }
                 
                 if (scr_hit(x3,y3,x3+96,y3+96)){
                     draw_set_blend_mode(bm_add);draw_set_alpha(0.25);draw_set_color(16119285);
                     // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
-                    if (ic<=22) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
-                    if (ic>22) and (ic<=76) then draw_sprite_stretched(spr_icon_chapters,ic-21,x3,y3,96,96);
-                    if (ic>76) and (obj_cuicons.spr_custom[ic-76]>0) and (obj_cuicons.spr_custom_icon[ic-76]!=-1){
-                        draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-76],0,x3,y3,96,96);
+                    if (ic<=global.normal_icons_count) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
+                    if (ic>global.normal_icons_count) and (ic<=normal_and_builtin) then draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count-1,x3,y3,96,96);
+                    if (ic>normal_and_builtin) and (obj_cuicons.spr_custom[ic-normal_and_builtin]>0) and (obj_cuicons.spr_custom_icon[ic-normal_and_builtin]!=-1){
+                        draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-normal_and_builtin],0,x3,y3,96,96);
                     }
                     draw_set_blend_mode(bm_normal);
-                    draw_set_alpha(1);draw_set_color(38144);
+                    draw_set_alpha(1);
+                    draw_set_color(38144);
                     
                     if (mouse_left=1) and (cooldown<=0){
-                        cooldown=8000;popup="";icon=ic;icon_name="";scr_icon("");
-                        if (ic>76) then custom_icon=ic-76;
+                        cooldown=8000;
+                        popup="";
+                        icon=ic;
+                        icon_name="";
+                        scr_icon("");
+                        if (ic <= global.normal_icons_count){
+                            global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][ic];
+                            global.chapter_icon_frame = 1;
+                        }
+                        if (ic>normal_and_builtin) {
+                            global.chapter_icon_sprite = obj_cuicons.spr_custom_icon[ic-normal_and_builtin];
+                            global.chapter_icon_frame = 0;
+                        }
+                        if (ic>global.normal_icons_count && ic <=normal_and_builtin) {
+                            global.chapter_icon_sprite = spr_icon_chapters;
+                            global.chapter_icon_frame = ic-global.normal_icons_count-1;
+                            custom_icon=ic-global.normal_icons_count-1;
+                        }
+                        // show_debug_message($"ic {ic} custom_icon {custom_icon} icon {icon}")
                         // show_message(string(icon_name));
                     }
                     
@@ -695,7 +718,6 @@ if (slide=2){
                 // draw_text(x3+48,y3+64,string(ic));
                 draw_set_color(38144);
             }
-            
         }
         
         

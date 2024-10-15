@@ -21,6 +21,9 @@ window_data=string(window_get_x())+"|"+string(window_get_y())+"|"+string(window_
 window_old=window_data;if (window_get_fullscreen()=1){window_old="fullscreen";window_data="fullscreen";}
 restarted=0;custom_icon=0;
 
+global.chapter_icon_sprite = spr_icon_chapters;
+global.chapter_icon_frame = 1;
+
 
 audio_stop_all();
 audio_play_sound(snd_diboz,0,true);
@@ -254,7 +257,7 @@ all_chapters[CHAPTERS.CONSERVATORS].splash = missing_splash;
 all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
 
 
-
+global.normal_icons_count = 0;
 // Load from files to overwrite hardcoded ones
 for(var c = 0; c < 100; c++){
     var json_chapter = new chapter_data();
@@ -270,9 +273,10 @@ for(var c = 0; c < 100; c++){
         all_chapters[c].json = true;
         all_chapters[c].icon = json_chapter.icon;
         all_chapters[c].splash = json_chapter.splash;
-
-
     }
+
+    var icon = file_exists($"{working_directory}\\images\\creation\\chapters\\icons\\{c}.png");
+    if(icon) {global.normal_icons_count += 1;}
 }
 
 global.chapters_count = array_length(all_chapters);
