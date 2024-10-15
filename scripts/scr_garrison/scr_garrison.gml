@@ -19,7 +19,7 @@ function disposition_description_chart(dispo){
 }
 
 
-function garrison_force(planet_operatives, turn_end=false, type="garrison")constructor{
+function GarrisonForce(planet_operatives, turn_end=false, type="garrison") constructor{
 	garrison_squads=[];
 	total_garrison = 0;
 	garrison_leader=false;

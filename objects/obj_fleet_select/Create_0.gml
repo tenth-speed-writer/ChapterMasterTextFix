@@ -3,7 +3,7 @@ target = 0;
 escort = 0;
 frigate = 0;
 capital = 0;
-selection_window = new data_slate();
+selection_window = new DataSlate();
 //TODO make this a built in part of the data_slate object
 selection_window.currently_entered=false;
 currently_entered = false;

@@ -220,10 +220,10 @@ function scr_toggle_lib(){
             temp[36]=scr_role_count(obj_ini.role[100][17],"");
             temp[37]=scr_role_count("Codiciery","");
             temp[38]=scr_role_count("Lexicanum","");
-            artifact_equip = new shutter_button();
-            artifact_gift = new shutter_button();
-            artifact_destroy = new shutter_button();
-            artifact_namer = new text_bar_area(xx + 622, yy + 460, 350);
+            artifact_equip = new ShutterButton();
+            artifact_gift = new ShutterButton();
+            artifact_destroy = new ShutterButton();
+            artifact_namer = new TextBarArea(xx + 622, yy + 460, 350);
             set_chapter_arti_data();
         }
         else if (menu==13){

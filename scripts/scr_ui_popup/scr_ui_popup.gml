@@ -63,7 +63,7 @@ function scr_ui_popup() {
 						obj_controller.cooldown = 8000;
 						var base_options = {style: style.tag};
 						obj_temp_build.isnew = 0;
-						array_push(planet_upgrades, new new_planet_feature(P_features.Secret_Base, base_options));
+						array_push(planet_upgrades, new NewPlanetFeature(P_features.Secret_Base, base_options));
 					}
 				}
 		
@@ -136,7 +136,7 @@ function scr_ui_popup() {
 			                    obj_controller.cooldown=8000;obj_controller.requisition-=tcost;
 			                    if (r=1){
 			                    	s_base.forge=1;
-			                    	s_base.forge_data = new player_forge();
+			                    	s_base.forge_data = new PlayerForge();
 			                    }
 			                    else if (r==2){s_base.hippo=1;}
 			                    else if (r==3){s_base.beastarium=1}
@@ -318,7 +318,7 @@ function scr_ui_popup() {
 	            draw_set_alpha(1);
             
 	            if (obj_controller.cooldown<=0) and (obj_controller.mouse_left==1) and (obj_controller.requisition>=1500){
-	                array_push(planet_upgrades, new new_planet_feature(P_features.Arsenal));
+	                array_push(planet_upgrades, new NewPlanetFeature(P_features.Arsenal));
 	                obj_controller.cooldown=8000;obj_controller.requisition-=1500;
 	            }
 	        }draw_set_halign(fa_left);
@@ -336,7 +336,7 @@ function scr_ui_popup() {
 	            draw_set_alpha(0.2);draw_rectangle(xx+300,yy+175,xx+400,yy+195,0);draw_set_alpha(1);
             
 	            if (obj_controller.cooldown<=0) and (obj_controller.mouse_left=1) and (obj_controller.requisition>=4000){
-	                array_push(planet_upgrades, new new_planet_feature(P_features.Gene_Vault));
+	                array_push(planet_upgrades, new NewPlanetFeature(P_features.Gene_Vault));
 	                obj_controller.cooldown=8000;obj_controller.requisition-=4000;
 	            }
 	        }draw_set_halign(fa_left);

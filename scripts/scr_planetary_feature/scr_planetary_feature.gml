@@ -34,7 +34,7 @@ enum base_type{
 	Lair,
 }
 
-function player_forge() constructor{
+function PlayerForge() constructor{
 	constructions = [];
 	size = 1;
 	techs_working = 0;
@@ -43,7 +43,7 @@ function player_forge() constructor{
 }
 
 // Function creates a new struct planet feature of a  specified type
-function new_planet_feature(feature_type, other_data={}) constructor{
+function NewPlanetFeature(feature_type, other_data={}) constructor{
 	f_type = feature_type;
 	static reveal_to_player = function(){
 		if (player_hidden == 1){
@@ -361,7 +361,7 @@ function create_starship_event(){
 		return false;
 	}else {
 		var planet=irandom(star.planets-1)+1;
-		array_push(star.p_feature[planet], new new_planet_feature(P_features.Starship))
+		array_push(star.p_feature[planet], new NewPlanetFeature(P_features.Starship))
 		scr_event_log("","Ancient Starship discovered on "+string(star.name)+" "+scr_roman(planet)+".", star.name);
 	}
 }
