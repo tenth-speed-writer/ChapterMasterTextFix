@@ -7,21 +7,17 @@ function log_into_file(_message) {
     file_text_close(_log_file);
 }
 
-function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[]){
+function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[], catch_custom=0, catch_args=[]){
     try{
         method_call(func,args);
     } catch (_exception){
         var _popup_header = $"Your game just encountered an error ({dev_marker}) :(";
         var _popup_message = $"The error log is automatically copied into your clipboard and a copy is created at: \nC:>Users>(UserName)>AppData>Local>ChapterMaster>ErrorLogs \n\nPlease, do the following: \n\n1) Create a bug report on the bug-report-forum in our 'Chapter Master Discord' server. \n\n2) Press CTRL+V to paste the error log into the bug report. \n\n3) If for some reason the error log wasn't pasted, find the location that is mentioned above and attach the latest error_log to your bug report. \n\n\nThank you :)";
 
-        if (turn_end || instance_exists(obj_turn_end) ){
-            scr_popup(_popup_header, _popup_message, "debug");
-        } else {
-            pip = instance_create(0,0,obj_popup);
-            pip.title = _popup_header;
-            pip.text = _popup_message;
-            pip.image = "debug"
-        }
+        pip = instance_create(0,0,obj_popup);
+        pip.title = _popup_header;
+        pip.text = _popup_message;
+        pip.image = "debug"
 
         var _formatted_stacktrace = "";
         // Loop through the array
@@ -40,6 +36,10 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
         clipboard_set_text(string(_full_message));
     
         show_debug_message(_full_message);
+
+        if (is_method(catch_custom)) {
+            method_call(catch_custom, catch_args);
+        }
     }
 }
 
