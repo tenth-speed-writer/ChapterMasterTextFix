@@ -1,4 +1,6 @@
 // Sets up the number of enemies based on the threath level, enemy type and specific story events
+
+try_and_report_loop("battle_Setup", function(){
 if (battle_special = "cs_meeting_battle5") then alpha_strike = 1;
 
 instance_activate_object(obj_enunit);
@@ -3103,3 +3105,13 @@ if (player_defenses + player_silos > 0) {
 }
 
 instance_activate_object(obj_enunit);
+
+},
+false,
+,
+function(){
+	instance_destroy(obj_enunit);
+	instance_destroy(obj_pnunit);
+	instance_destroy(obj_ncombat);
+}
+);

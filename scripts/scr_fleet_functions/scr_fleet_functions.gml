@@ -8,6 +8,15 @@ function set_fleet_target(targ_x, targ_y, final_target){
 	action_eta=floor(point_distance(x,y,targ_x,targ_y)/128)+1;
 }
 
+function scr_valid_fleet_target(){
+	var valid = instance_exists(target);
+	if (valid){
+		valid = (target.object_index == obj_p_fleet || target.object_index == obj_en_fleet);
+	}
+	if (!valid) then target=0;
+	return valid;
+}
+
 function fleets_next_location(fleet="none"){
 	var targ_location ="none";
 	if (fleet=="none"){
