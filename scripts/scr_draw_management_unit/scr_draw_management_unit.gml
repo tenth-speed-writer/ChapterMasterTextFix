@@ -389,7 +389,7 @@ function scr_draw_management_unit(selected, yy=0, xx=0, draw=true){
 
     	// individual click
     	if (draw && scrollbar_engaged==0 && ma_view[selected]){
-	    	if (mouse_check_button(mb_left) && point_in_rectangle(mouse_x, mouse_y,xx+25+8,yy+64,xx+974,yy+85) && rectangle_action==-1 /*squad[selected]=squad_sel*/){
+			if (point_and_click([xx+25+8, yy+64, xx+974, yy+85]) && rectangle_action==-1 /*squad[selected]=squad_sel*/){
 				if (double_click<1){
 					double_was=selected;
 					double_click=12;
