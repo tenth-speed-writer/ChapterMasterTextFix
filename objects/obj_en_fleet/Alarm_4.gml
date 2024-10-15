@@ -1,5 +1,5 @@
 
-
+try_and_report_loop("fleet alarm 4", function(){
 if (action!=""){
     var sys, sys_dist, mine, connected, fleet, cont;
     sys_dist=9999;connected=0;cont=0;
@@ -32,14 +32,14 @@ if (action!=""){
 
 
 
-if (action=""){
+if (action==""){
     var sys, sys_dist, mine, connected, fleet, cont, target_dist;
     sys_dist=9999;connected=0;cont=0;target_dist=0;
     
     fleet=id;
     sys=instance_nearest(action_x,action_y,obj_star);
     sys_dist=point_distance(action_x,action_y,sys.x,sys.y);
-    if (target!=0) and (instance_exists(target)){
+    if (scr_valid_fleet_target()){
         target_dist=point_distance(x,y,target.action_x,target.action_y);
     }
     
@@ -62,7 +62,7 @@ if (action=""){
         var eta=0;
         
         if (trade_goods!="") and (owner != eFACTION.Tyranids) and (owner != eFACTION.Chaos) and (string_count("Inqis",trade_goods)=0) and (string_count("merge",trade_goods)=0)and (string_count("_her",trade_goods)=0) and (trade_goods!="cancel_inspection") and (trade_goods!="return"){
-            if (target!=0) and (instance_exists(target)){
+            if (scr_valid_fleet_target()){
                 if (target.action!=""){
                     if (target_dist>sys_dist){
                         action_x=target.action_x;
@@ -98,4 +98,6 @@ if (action=""){
 }
 
 etah=0;
+
+});
 
