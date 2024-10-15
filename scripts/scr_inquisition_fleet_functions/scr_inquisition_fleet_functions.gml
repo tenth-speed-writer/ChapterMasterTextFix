@@ -16,8 +16,11 @@ function base_inquis_fleet (){
 
 function inquisition_fleet_inspection_chase(){
 	var good=0,acty="";
-			
-	if (!instance_exists(target)){// Reaquire target
+	var reset = !instance_exists(target);
+    if (!reset){
+        reset = target.object_index != obj_p_fleet;
+    }
+	if (reset){// Reaquire target
         var target_player_fleet = get_largest_player_fleet();
         if (target_player_fleet != "none"){
             if (target_player_fleet.action == ""){
@@ -26,8 +29,7 @@ function inquisition_fleet_inspection_chase(){
                 set_fleet_target(target_player_fleet.action_x,target_player_fleet.action_y, target_player_fleet);         
             }                        
         }
-	}
-	if (instance_exists(target)) {
+	}else {
 
         var at_star=instance_nearest(target.x,target.y,obj_star).id;
         var target_at_star=instance_nearest(x,y,obj_star).id;

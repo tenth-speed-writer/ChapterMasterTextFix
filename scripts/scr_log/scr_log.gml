@@ -6,7 +6,7 @@ function log_into_file(_message) {
 }
 
 
-function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[], catch_custom){
+function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, args=[], catch_custom, catch_args=[]){
     try{
         method_call(func,args);
     } catch (_exception){
@@ -22,7 +22,9 @@ function try_and_report_loop(dev_marker="generic crash",func, turn_end=true, arg
         log_into_file(_exception.longMessage);
         log_into_file(_exception.script);
         log_into_file(_exception.stacktrace);
-        show_debug_message(_exception.longMessage);     
+        show_debug_message(_exception.longMessage); 
+
+        method_call(catch_custom, catch_args);    
     }
 }
 
