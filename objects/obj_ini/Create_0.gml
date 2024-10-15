@@ -43,7 +43,7 @@ repeat(200){i+=1;
     artifact_loc[i]="";
     artifact_sid[i]=0;// Over 500 : ship
     // Weapon           Unidentified
-    artifact_struct[i] =  new arti_struct(i);    
+    artifact_struct[i] =  new ArtifactStruct(i);    
 }
 
 var i=-1,v=0;

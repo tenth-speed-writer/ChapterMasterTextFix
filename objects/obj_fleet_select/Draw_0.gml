@@ -110,9 +110,9 @@ if (owner  == eFACTION.Player) and (player_fleet.action==""){
             var selection_travel_speed = calculate_action_speed(has_capitals,has_frigates,has_escorts);
             player_fleet.action_spd = selection_travel_speed;
             if (is_array(star_travel)){
-                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
+                star_travel = new FastestRouteAlgorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
             }else if (sys.id != star_travel.final_route_info[0]){
-                star_travel = new fastest_route_algorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
+                star_travel = new FastestRouteAlgorithm(mine.x,mine.y,sys.x,sys.y, player_fleet);
             }
             star_travel.draw_route();
             draw_set_color(c_white);

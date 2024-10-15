@@ -85,7 +85,7 @@ function scr_load(save_part, save_id) {
 					if (p_features != ""){
 						var p_features = json_parse(base64_decode(p_features));
 						for (var feat = 0;feat < array_length(p_features);feat++){
-							var new_feat = new new_planet_feature(p_features[feat].f_type);
+							var new_feat = new NewPlanetFeature(p_features[feat].f_type);
 							new_feat.load_json_data(p_features[feat]);
 							array_push(new_star.p_feature[g], new_feat);
 						}
@@ -114,7 +114,7 @@ function scr_load(save_part, save_id) {
 					if (p_upgrades != ""){
 						var p_upgrades = json_parse(base64_decode(p_upgrades));
 						for (var feat = 0;feat < array_length(p_upgrades);feat++){
-							var new_feat = new new_planet_feature(p_upgrades[feat].f_type);
+							var new_feat = new NewPlanetFeature(p_upgrades[feat].f_type);
 							new_feat.load_json_data(p_upgrades[feat]);
 							array_push(new_star.p_upgrades[g], new_feat);
 						}
@@ -235,7 +235,7 @@ function scr_load(save_part, save_id) {
 	            obj_ini.artifact_sid[g]=ini_read_real("Ini","artifact_sid"+string(g),0);
 	            obj_ini.artifact_equipped[g]=ini_read_real("Ini","artifact_equipped"+string(g),0);
 	            obj_ini.artifact_quality[g]=ini_read_string("Ini","artifact_quality"+string(g),"artifact");
-	            obj_ini.artifact_struct[g] = new arti_struct(g);
+	            obj_ini.artifact_struct[g] = new ArtifactStruct(g);
 	            var temp_data = ini_read_string("Ini","artifact_struct"+string(g),"");
 	            if (temp_data!=""){
     	            obj_ini.artifact_struct[g].load_json_data(json_parse(base64_decode(temp_data)));
@@ -451,7 +451,7 @@ function scr_load(save_part, save_id) {
 	        if (squad_fetch != ""){
 	        	squad_fetch = json_parse(base64_decode(squad_fetch));
 	        	for (i=0;i<array_length(squad_fetch);i++){
-	        		array_push(obj_ini.squads, new unit_squad());
+	        		array_push(obj_ini.squads, new UnitSquad());
 	        		obj_ini.squads[i].load_json_data(json_parse(squad_fetch[i]));
 	        	}
 	        	delete squad_fetch;

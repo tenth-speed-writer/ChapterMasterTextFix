@@ -399,19 +399,19 @@ hide_banner=0;
 var xx=__view_get( e__VW.XView, 0 );
 var yy=__view_get( e__VW.YView, 0 );
 menu_buttons = {
-    "chapter_manage":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("M"),scr_toggle_manage),
-    "chapter_settings":new main_menu_button(spr_ui_but_1, spr_ui_hov_1,,,ord("S"),scr_toggle_setting),
-    "apoth":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("A"),scr_toggle_apothecarion),
-    "reclu":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("R"),scr_toggle_reclu),
-    "lib":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("L"),scr_toggle_lib),
-    "arm":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("N"),scr_toggle_armamentarium),
-    "recruit":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("T"),scr_toggle_recruiting),
-    "fleet":new main_menu_button(spr_ui_but_3, spr_ui_hov_3,,,ord("F"),scr_toggle_fleet_area),
-    "diplo":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("D"),scr_toggle_diplomacy),
-    "event":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("O"),scr_toggle_event_log),
-    "end_turn":new main_menu_button(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
-    "help":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,ord("H"),scr_in_game_help),
-    "menu":new main_menu_button(spr_ui_but_4, spr_ui_hov_4,,,,scr_in_game_menu),
+    "chapter_manage":new MainMenuButton(spr_ui_but_1, spr_ui_hov_1,,,ord("M"),scr_toggle_manage),
+    "chapter_settings":new MainMenuButton(spr_ui_but_1, spr_ui_hov_1,,,ord("S"),scr_toggle_setting),
+    "apoth":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("A"),scr_toggle_apothecarion),
+    "reclu":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("R"),scr_toggle_reclu),
+    "lib":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("L"),scr_toggle_lib),
+    "arm":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("N"),scr_toggle_armamentarium),
+    "recruit":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("T"),scr_toggle_recruiting),
+    "fleet":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3,,,ord("F"),scr_toggle_fleet_area),
+    "diplo":new MainMenuButton(spr_ui_but_2, spr_ui_hov_2,,,ord("D"),scr_toggle_diplomacy),
+    "event":new MainMenuButton(spr_ui_but_2, spr_ui_hov_2,,,ord("O"),scr_toggle_event_log),
+    "end_turn":new MainMenuButton(spr_ui_but_2, spr_ui_hov_2,,,ord("E"),scr_end_turn),
+    "help":new MainMenuButton(spr_ui_but_4, spr_ui_hov_4,,,ord("H"),scr_in_game_help),
+    "menu":new MainMenuButton(spr_ui_but_4, spr_ui_hov_4,,,,scr_in_game_menu),
 
 }
 
@@ -1459,7 +1459,7 @@ squads = false;
 calculate_research_points()
 
 //** sets up marine_by_location view
-location_viewer = new scr_unit_quick_find_pane();
+location_viewer = new UnitQuickFindPanel();
 
 // ** Sets up the number of marines per company **
 marines=0;

@@ -1604,7 +1604,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			return obj_ini.race[company][marine_number];
 		};
 
-		//get equipment data methods by deafult they garb all equipment data and return an equipment struct e.g new equipment_struct(item_data, core_type,quality="none")
+		//get equipment data methods by deafult they garb all equipment data and return an equipment struct e.g new EquipmentStruct(item_data, core_type,quality="none")
 		static get_armour_data= function(type="all"){
 			return gear_weapon_data("armour", armour(), type, false, armour_quality);
 		}
@@ -1701,14 +1701,14 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			var _wep1 = get_weapon_one_data();
 			var _wep2 = get_weapon_two_data();
 
-			if (!is_struct(_wep1)) then _wep1 = new equipment_struct({},"");
-			if (!is_struct(_wep2)) then _wep2 = new equipment_struct({},"");
+			if (!is_struct(_wep1)) then _wep1 = new EquipmentStruct({},"");
+			if (!is_struct(_wep2)) then _wep2 = new EquipmentStruct({},"");
 			if (allegiance==global.chapter_name){
 				_wep1.owner_data("chapter");
 				_wep2.owner_data("chapter");
 			}
-			var primary_weapon= new equipment_struct({},"");
-			var secondary_weapon= new equipment_struct({},"");
+			var primary_weapon= new EquipmentStruct({},"");
+			var secondary_weapon= new EquipmentStruct({},"");
 			if (carry_data[0]>carry_data[1]){
 				encumbered_ranged=true;					
 				ranged_att*=0.6;
@@ -1866,8 +1866,8 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			melee_carrying = melee_hands_limit();
 			var _wep1 = get_weapon_one_data();
 			var _wep2 = get_weapon_two_data();
-			if (!is_struct(_wep1)) then _wep1 = new equipment_struct({},"");
-			if (!is_struct(_wep2)) then _wep2 = new equipment_struct({},"");
+			if (!is_struct(_wep1)) then _wep1 = new EquipmentStruct({},"");
+			if (!is_struct(_wep2)) then _wep2 = new EquipmentStruct({},"");
 			if (allegiance==global.chapter_name){
 				_wep1.owner_data("chapter");
 				_wep2.owner_data("chapter");
@@ -1879,7 +1879,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				var valid1 = ((_wep1.range<=1.1 && _wep1.range!=0) || (_wep1.has_tags(["pistol","flame"])));
 				var valid2 = ((_wep2.range<=1.1 && _wep2.range!=0) || (_wep2.has_tags(["pistol","flame"])));
 				if (!valid1 && !valid2){
-					primary_weapon=new equipment_struct({},"");//create blank weapon struct
+					primary_weapon=new EquipmentStruct({},"");//create blank weapon struct
 					primary_weapon.attack=strength/3;//calculate damage from player fists
 					primary_weapon.name="fists";
 					primary_weapon.range = 1;
@@ -1985,7 +1985,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 
 		//TODO just did this so that we're not loosing featuring but this porbably needs a rethink
 		static hammer_of_wrath =  function(){
-			var wrath =  new equipment_struct({},"");
+			var wrath =  new EquipmentStruct({},"");
 			wrath.attack=(strength*2) +(0.5*weapon_skill);
 			wrath.name = "hammer_of_wrath";
 			wrath.range = 1;
@@ -2464,7 +2464,7 @@ function fetch_unit(unit){
 }
 
 
-function pen_and_paper_sim() constructor{
+function PenAndPaperSim() constructor{
 	static oppposed_test = function(unit1, unit2, stat,unit1_mod=0,unit2_mod=0,  modifiers={}){
 		var stat1 = irandom(99)+1;
 		var unit1_val = unit1[$ stat]+unit1_mod;
@@ -2542,6 +2542,6 @@ function pen_and_paper_sim() constructor{
 	}
 }
 
-global.character_tester = new pen_and_paper_sim();
+global.character_tester = new PenAndPaperSim();
 
 
