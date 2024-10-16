@@ -3956,7 +3956,7 @@ function scr_initialize_custom() {
 				predy = 5;
 				if (global.chapter_name = "Iron Hands") then predy = 2;
 
-				if (obj_creation.custom == 1) and (array_contains(obj_creation.adv, "Tech-Brothers")) then predy -=2;
+				if (obj_creation.custom == 1) and (scr_has_adv("Tech-Brothers")) then predy -=2;
 
 				repeat(predy) {
 					v += 1;
@@ -4044,10 +4044,31 @@ function scr_initialize_custom() {
 			var e_qty = obj_creation.extra_equipment[e][1];
 			scr_add_item(e_name, e_qty);
 		}
+		//below isn't working yet, something to do with total company men count
+		
+		// if(obj_creation.extra_vehicles.rhino != 0){
+		// 	for(var r = 0; r<obj_creation.extra_vehicles.rhino; r++){
+		// 		scr_add_vehicle("Rhino", 10, "Storm Bolter", "HK Missile","", "","Dozer Blades");
+		// 	}
+		// }
+		// if(obj_creation.extra_vehicles.whirlwind != 0){
+		// 	for(var r = 0; r<obj_creation.extra_vehicles.whirlwind; r++){
+		// 		scr_add_vehicle("Whirlwind", 10, "Whirlwind Missiles", "HK Missile","", "","");
+		// 	}
+		// }
+		// if(obj_creation.extra_vehicles.predator != 0){
+		// 	for(var r = 0; r<obj_creation.extra_vehicles.predator; r++){
+		// 		scr_add_vehicle("Predator", 10, "Twin Linked Lascannon Turret", "Lascannon Sponsons","HK Missile", "","Searchlight");
+		// 	}
+		// }
+		// if(obj_creation.extra_vehicles.land_raider != 0){
+		// 	for(var r = 0; r<obj_creation.extra_vehicles.land_raider; r++){
+		// 		scr_add_vehicle("Land Raider", 10, "Twin Linked Heavy Bolter Mount", "Twin Linked Lascannon Sponsons","HK Missile", "Heavy Armour","Searchlight");
+		// 	}
+		// }
 	}
 	
 	if (global.chapter_name = "Iron Hands") then scr_add_item("Bionics", 200);
-
 
 	if(scr_has_disadv("Sieged")){
 		scr_add_item("Narthecium", 4);

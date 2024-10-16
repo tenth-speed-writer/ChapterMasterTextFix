@@ -6,9 +6,9 @@
         "origin": 1, // 1 - Founding, 2 -successor, 3 - Other/non-canon/fanmade, 4 - Custom
         "points": 150,
         "founding": 0, // The id of the founding chapter, 0 for unknown or none
+        "splash": 1,
         "icon": 1, // in \images\creation\creation_icons.png, the index from the left, 0 being blank square and 1 being dark angels etc
         "icon_name": "da", // ? dunno what this is used for yet but the icon breaks if you dont use it 
-        "splash": 1,
         "fleet_type": 1, // 1= Homeworld, 2 = Fleet based, 3 = Penitent
         "strength": 10, // 1-10
         "purity": 8, // 1-10
@@ -176,6 +176,7 @@
         * use negative numbers to subtract
         * Stacks with strength for non-founding chapters
         */
+        // * Not working yet
         "extra_marines": {
             "second": 0,
             "third": 0,
@@ -187,6 +188,7 @@
             "ninth": 0,
             "tenth": 0
         },
+        // * Not working yet
         "extra_vehicles": {
             "rhino": 0,
             "whirlwind": 0,
