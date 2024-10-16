@@ -7,7 +7,6 @@ function chapter_data() constructor {
 	origin = CHAPTER_ORIGIN.NONE;
 	founding = CHAPTERS.UNKNOWN;
 	successors = 0;
-	homeworld_rule = 0;
 	splash = 0;
 	icon = 0;
 	icon_name = "";
@@ -82,6 +81,7 @@ function chapter_data() constructor {
 		melee: 0,
 		ranged: 0,
 		specialty: CM_SPECIALTY.NONE,
+		/// @type {Array<String>}
 		traits: []
 	};
 
@@ -166,7 +166,6 @@ function scr_chapter_new(argument0) {
 		role[i,19]="Veteran Sergeant";wep1[i,19]="Chainsword";wep2[i,19]="Plasma Pistol";armour[i,19]="Power Armour";gear[i,19]="";
 	}i=100;
 
-	chapter="nopw_nopw";
 
 	for(var c = 0; c < array_length(obj_creation.all_chapters); c++){
 		if(argument0 == obj_creation.all_chapters[c].name && obj_creation.all_chapters[c].json == true){
@@ -232,7 +231,7 @@ function scr_chapter_new(argument0) {
 		obj_creation.use_chapter_object = 0;
 		chapter_id = CHAPTERS.WHITE_SCARS;
 		#region data
-		founding="N/A";points=150;
+		points=150;
 		    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
 		    homeworld="Feudal";homeworld_name="Chogoris";
 		    homeworld_exists=1;recruiting_exists=0;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;discipline="rune Magick";
@@ -290,7 +289,7 @@ function scr_chapter_new(argument0) {
 
 	#region V1 Chapter Initialised factions
 
-	if (argument0="Ultramarines"){founding="N/A";points=150;
+	if (argument0="Ultramarines"){points=150;
 	    selected_chapter=7;chapter=argument0;icon=7;icon_name="um";founding=0;fleet_type=1;strength=5;purity=10;stability=10;cooperation=10;
 	    homeworld="Temperate";homeworld_name="Macragge";recruiting="Death";recruiting_name="Parmenio";
 	    homeworld_exists=1;recruiting_exists=1;homeworld_rule=3;aspirant_trial=eTrials.EXPOSURE;
@@ -320,7 +319,7 @@ function scr_chapter_new(argument0) {
 
 	}
 	//Waiting on new disadv to give anymore adv.
-  if (argument0="Imperial Fists"){founding="N/A";points=150;
+  if (argument0="Imperial Fists"){points=150;
 		selected_chapter=4;chapter=argument0;icon=4;icon_name="if";founding=0;fleet_type=1;strength=6;purity=7;stability=10;cooperation=8;
 		adv[1]="Bolter Drilling";adv[2]="Siege Masters";
 		homeworld="Ice";homeworld_name="Inwit";recruiting="Hive";recruiting_name="Necromunda";
@@ -356,7 +355,7 @@ function scr_chapter_new(argument0) {
 	}
 
 
-	if (argument0="Space Wolves"){founding="N/A";points=150;
+	if (argument0="Space Wolves"){points=150;
 	    selected_chapter=3;chapter=argument0;icon=3;icon_name="sw";founding=0;fleet_type=1;strength=10;purity=8;stability=5;cooperation=4;
 	    adv[1]="Melee Enthusiasts";dis[1]="Black Rage";dis[2]="Suspicious";
 	    homeworld="Ice";homeworld_name="Fenris";
@@ -405,7 +404,7 @@ function scr_chapter_new(argument0) {
 
 
 
-	if (argument0="Blood Angels"){founding="N/A";points=150;
+	if (argument0="Blood Angels"){points=150;
 	    selected_chapter=5;chapter=argument0;icon=5;icon_name="ba";founding=0;fleet_type=1;strength=5;purity=9;stability=9;cooperation=7;
 	    adv[1]="Melee Enthusiasts";dis[1]="Black Rage";
 	    homeworld="Desert";homeworld_name="Baal";
@@ -440,7 +439,7 @@ function scr_chapter_new(argument0) {
 	}
 
 
-	if (argument0="Iron Hands"){founding="N/A";points=150;
+	if (argument0="Iron Hands"){points=150;
 	    selected_chapter=6;chapter=argument0;icon=6;icon_name="ih";founding=0;fleet_type=1;strength=5;purity=8;stability=8;cooperation=2;
 	    adv[1]="Tech-Brothers";adv[2]="Slow and Purposeful";dis[1]="Splintered";dis[2]="Suspicious";
 	    homeworld="Lava";homeworld_name="Medusa";homeworld_exists=1;recruiting_exists=0;
@@ -477,7 +476,7 @@ function scr_chapter_new(argument0) {
 
 
 
-	if (argument0="Salamanders"){founding="N/A";points=150;
+	if (argument0="Salamanders"){points=150;
 	    selected_chapter=8;chapter=argument0;icon=8;icon_name="sl";founding=0;fleet_type=1;strength=2;purity=8;stability=8;cooperation=10;
 	    adv[1]="Crafters";adv[2]="Slow and Purposeful";
 	    homeworld="Lava";homeworld_name="Nocturne";homeworld_exists=1;recruiting_exists=0;
@@ -512,7 +511,7 @@ function scr_chapter_new(argument0) {
 	}
 
 
-	if (argument0="Raven Guard"){founding="N/A";points=150;
+	if (argument0="Raven Guard"){points=150;
 		selected_chapter=9;chapter=argument0;icon=9;icon_name="rg";founding=0;fleet_type=1;strength=5;purity=8;stability=4;cooperation=5;
 	    adv[1]="Ambushers";adv[2]="Melee Enthusiasts";dis[1]="Splintered";
 	    homeworld="Dead";homeworld_name="Deliverance";homeworld_exists=1;recruiting_exists=1;
@@ -723,7 +722,7 @@ if (argument0="Lamenters"){founding=5;points=150;
 		
 	}
 	
-	if (argument0="Soul Drinkers"){founding="N/A";points=200;
+	if (argument0="Soul Drinkers"){points=200;
 	    selected_chapter=16;chapter=argument0;icon=14;icon_name="sd";founding= 4;
 	    fleet_type=2;strength=2;purity=10;stability=2;cooperation=2;
 	    adv[1]="Melee Enthusiasts";adv[2]="Kings of Space";adv[3]="Boarders";adv[4]="Daemon Binders";dis[1]="Suspicious";
@@ -949,6 +948,8 @@ if (argument0="Lamenters"){founding=5;points=150;
 
 		obj_creation.disposition = chapter_object.disposition;
 
+		obj_creation.chapter_master = chapter_object.chapter_master;
+		
 		obj_creation.chapter_master_name = chapter_object.chapter_master.name;
 		obj_creation.chapter_master_melee = chapter_object.chapter_master.melee;
 		obj_creation.chapter_master_ranged = chapter_object.chapter_master.ranged;
@@ -956,15 +957,17 @@ if (argument0="Lamenters"){founding=5;points=150;
 		if(struct_exists(chapter_object, "company_titles")){
 			obj_creation.company_title = chapter_object.company_titles;
 		}
-		for(var i = 0; i < array_length(chapter_object.company_titles); i++){
-			company_title[i] = chapter_object.company_titles[i];
-		}
 
+		if(struct_exists(chapter_object, "artifact")){
+			obj_creation.artifact = chapter_object.artifact;
+		}
+		
 		obj_creation.flagship_name = chapter_object.flagship_name;
 		obj_creation.extra_ships = chapter_object.extra_ships;
 		obj_creation.extra_specialists = chapter_object.extra_specialists;
 		obj_creation.extra_marines = chapter_object.extra_marines;
 		obj_creation.extra_vehicles = chapter_object.extra_vehicles;
+		obj_creation.extra_equipment = chapter_object.extra_equipment;
 
 		obj_creation.squad_name = chapter_object.squad_name;
 		if(struct_exists(chapter_object, "custom_roles")){

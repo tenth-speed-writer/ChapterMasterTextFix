@@ -21,8 +21,9 @@ window_data=string(window_get_x())+"|"+string(window_get_y())+"|"+string(window_
 window_old=window_data;if (window_get_fullscreen()=1){window_old="fullscreen";window_data="fullscreen";}
 restarted=0;custom_icon=0;
 
+/// Stores the chapter icon in one spot so we dont have to keep checking whether we're using a custom image or not every time we wanna display it somewhere
 global.chapter_icon_sprite = spr_icon_chapters;
-global.chapter_icon_frame = 1;
+global.chapter_icon_frame = 0;
 
 
 audio_stop_all();

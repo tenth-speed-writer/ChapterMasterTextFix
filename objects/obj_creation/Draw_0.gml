@@ -67,18 +67,20 @@ if (slate4>0){
             draw_sprite(spr_creation_icon,0,x2,167);
             scr_image("creation/chapters/icons", founding_chapters[c].icon,x2,y2,48,48);
             // draw_sprite_stretched(spr_icon,i,x2,167,48,48);
-            
-            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
+            if(scr_hit(x2,y2, x2+48, y2+48) && slate4>=30){
+            // if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
-                if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
+                if (point_and_click([x2,y2,x2+48,y2+48])){
                     cooldown=8000;
                     chapter_name=founding_chapters[c].name;
                     if (!founding_chapters[c].disabled){
                         if(scr_chapter_new(chapter_name)){
+                            global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][founding_chapters[c].icon];
+                            global.chapter_icon_frame = 0;
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // Chapter is borked
@@ -100,18 +102,20 @@ if (slate4>0){
             scr_image("creation/chapters/icons",successor_chapters[c].icon,x2,y2,48,48);
 
             
-            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
+            if (scr_hit(x2, y2, x2+48, y2+48) && slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
                 //Click
-                if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
+                if (point_and_click([x2, y2, x2+48, y2+48])){
                     cooldown=8000;
                     chapter_name=successor_chapters[c].name;
                     if (!successor_chapters[c].disabled){
                         if(scr_chapter_new(chapter_name)){
+                            global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][successor_chapters[c].icon];
+                            global.chapter_icon_frame = 0;
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked
@@ -122,7 +126,7 @@ if (slate4>0){
             x2+=icon_gap_x;
         }
         
-        /** * Custom Chapters */
+        /** * Saved Custom Chapters */
 		x2=441;y2=custom_y + icon_gap_y;new_hover=highlight;
         for(var c = 0; c < array_length(custom_chapters); c++){
             i = custom_chapters[c].id;
@@ -138,14 +142,14 @@ if (slate4>0){
 			}
             scr_image("creation",icon21,x2,y2,48,48);
             
-            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
+            if (scr_hit(x2, y2, x2+48, y2+48) && slate4>=30){
 				
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=custom_chapters[c].id;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
-                if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0){
+                if (point_and_click([x2, y2, x2+48, y2+48])){
 					if(chapter_made=1){
                         cooldown=8000;chapter_name = custom_chapters[c].name;
                         change_slide=1;goto_slide=2;
@@ -172,18 +176,20 @@ if (slate4>0){
             scr_image("creation/chapters/icons",other_chapters[c].icon,x2,y2,48,48);
 
             
-            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
+            if (scr_hit(x2, y2, x2+48, y2+48) && slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
                 draw_rectangle(x2,y2,x2+48,y2+48,0);
                 draw_set_alpha(slate4/30);
                 //Click
-                if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0) and (premades){
+                if (point_and_click([x2, y2, x2+48, y2+48])){
                     cooldown=8000;
                     chapter_name=other_chapters[c].name;
                     if (!other_chapters[c].disabled){
                         if(scr_chapter_new(chapter_name)){
+                            global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][other_chapters[c].icon];
+                            global.chapter_icon_frame = 0;
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked

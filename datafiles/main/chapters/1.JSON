@@ -52,10 +52,12 @@
             "trim_on": 0 // 0 no, 1 yes for special trim colours // todo update ref for new name
         },
         "names": {
+            //Chapter Staff
             "hchaplain": "Sapphon",
             "clibrarian": "Ezekial",
             "fmaster": "Sepharon",
             "hapothecary": "Razaek",
+            //Company Captains 1 - 10
             "honorcapt": "Belial",
             "watchmaster": "Sammael",
             "arsenalmaster": "Astoran",
@@ -109,7 +111,14 @@
             "traits": [
                 "old_guard",
                 "melee_enthusiast"
-            ]
+            ],
+            "gear": "",
+            "mobi": ""
+        },
+        "artifact": {
+            "name": "Sword of Secrets",
+            "description": "A master-crafted Power Sword of formidable potency created soon after the disappearance of Lion El'Jonson. It is the mightiest of the Heavenfall Blades",
+            "base_weapon_type": "Power Sword"
         },
         "company_titles": [
             "",
@@ -184,6 +193,13 @@
             "predator": 0,
             "land_raider": 0
         },
+        /** Add extra starting items ["Item Name", Number to add] */
+        "extra_equipment": [
+            // [
+            //     "Bolter",
+            //     20
+            // ]
+        ],
         /** 
         * Provide a place to change the default name and equipment preferences of roles for this chapter
         * `custom_roles` should be used for specialist/leadership type roles, 
@@ -382,7 +398,3 @@
         }
     }
 }
-/*
-* * not working list 
-* artefacts, extra specialists, extra marines
-*/

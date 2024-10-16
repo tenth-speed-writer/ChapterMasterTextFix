@@ -19,6 +19,10 @@ function JsonFileListLoader() constructor {
         try {
 			var item_total = 0;
             var file_path = working_directory + relative_file_path;
+            if(file_exists(file_path) == false){
+                debugl($"File does not exist at path {file_path}");
+                return result;
+            }
             file_buffer = buffer_load(file_path);
 
             if (file_buffer == -1) {
