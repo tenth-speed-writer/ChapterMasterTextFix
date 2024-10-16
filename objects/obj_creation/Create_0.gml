@@ -260,7 +260,7 @@ all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
 
 global.normal_icons_count = 0;
 // Load from files to overwrite hardcoded ones
-for(var c = 0; c < 100; c++){
+for(var c = 0; c < 30; c++){
     var json_chapter = new chapter_data();
     var success = json_chapter.load_from_json(c); 
     if(success){

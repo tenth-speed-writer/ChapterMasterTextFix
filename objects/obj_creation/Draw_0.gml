@@ -233,6 +233,7 @@ if (slate4>0){
             if (highlight=1002) then scr_image("creation/chapters/splash",99,0,68,374,713);
             if( highlight <= array_length(all_chapters)){
                 var splash_chapter = all_chapters[highlight];
+                //show_debug_message($"highlight {highlight} splash chapter {splash_chapter.id} splash icon {splash_chapter.splash}");
                 scr_image("creation/chapters/splash", splash_chapter.splash,0,68,374,713);
             }
 
