@@ -22,7 +22,11 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 		var drawing_sprite;
 		var cache_arr_exists = struct_exists(obj_img.image_cache, argument0);
 		if(!cache_arr_exists){
-			variable_struct_set(obj_img.image_cache, argument0, []);
+			var empty_arr = [];
+			for(var i = 0; i <= 100; i++){
+				array_insert(empty_arr, i, -1);
+			}
+			variable_struct_set(obj_img.image_cache, argument0, empty_arr);
 		}
 	
 		var existing_sprite = -1;
@@ -40,7 +44,7 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 			var dir = $"{working_directory}\\images\\{folders}\\{string(argument1)}.png";
 			if(file_exists(dir)){
 				drawing_sprite = sprite_add(dir,1, false,false,0,0);
-				array_insert(obj_img.image_cache[$argument0], argument1, drawing_sprite);
+				array_set(obj_img.image_cache[$argument0], argument1, drawing_sprite);
 			} else {
 				drawing_sprite = -1;
 				debugl($"No directory/file found matching {dir}");
@@ -59,6 +63,7 @@ function scr_image(argument0, argument1, argument2, argument3, argument4, argume
 	        draw_set_color(c_black);
 			return;
 		}
+		//show_debug_message($"drawing sprite {drawing_sprite}");
 		draw_sprite_stretched(drawing_sprite,1,argument2,argument3,argument4,argument5);
 
 		draw_set_alpha(old_alpha);
