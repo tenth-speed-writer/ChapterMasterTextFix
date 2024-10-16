@@ -111,8 +111,8 @@ function scr_enemy_ai_a() {
     var garrison_force=false, total_garrison=0;
 	for (run =1;run<=planets;run++){
 		garrison_force=false;
-		var garrison = new garrison_force(p_operatives[run], true);
-		var sabatours = new garrison_force(p_operatives[run], true, "sabotage");
+		var garrison = new GarrisonForce(p_operatives[run], true);
+		var sabatours = new GarrisonForce(p_operatives[run], true, "sabotage");
 
 		garrison_force = garrison.garrison_force;
 		array_push(system_garrison, garrison);

@@ -206,7 +206,7 @@ function scr_ui_manage() {
 				if ((point_in_rectangle(mouse_x, mouse_y,x5,y5,x6,y6) && mouse_check_button_pressed(mb_left)) || (keyboard_check_pressed(ord("S")) && !text_bar)){
 					obj_controller.view_squad = !obj_controller.view_squad;
 					if (stat_tool_tip_text=="Squad View"){
-						obj_controller.company_data = new scr_company_struct(obj_controller.managing);
+						obj_controller.company_data = new CompanyStruct(obj_controller.managing);
 						obj_controller.unit_profile = true;
 					} else {
 						obj_controller.unit_profile = false;
@@ -813,7 +813,7 @@ function scr_ui_manage() {
 				yy-=8;
 				draw_set_font(fnt_40k_14b);
 				draw_set_color(#50a076);
-				var button = new unit_button_object();
+				var button = new UnitButtonObject();
 				
 				button.x1 = right_ui_block.x1+26;
 				button.y1 = right_ui_block.y2-6-30;

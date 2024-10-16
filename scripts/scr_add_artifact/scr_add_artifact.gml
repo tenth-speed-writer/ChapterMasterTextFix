@@ -189,7 +189,7 @@ function scr_add_artifact(artifact_type, artifact_tags, is_identified, artifact_
 	obj_ini.artifact_sid[last_artifact] = ship_id;
 	obj_ini.artifact_quality[last_artifact] = "artifact";
 	obj_ini.artifact_equipped[last_artifact]=  false;
-	obj_ini.artifact_struct[last_artifact] = new arti_struct(last_artifact);
+	obj_ini.artifact_struct[last_artifact] = new ArtifactStruct(last_artifact);
 
 	obj_controller.artifacts+=1;
 
@@ -203,7 +203,7 @@ function artifact_has_tag(index, wanted_tag){
 	return array_contains(obj_ini.artifact_tags[index], wanted_tag);
 }
 //TODO make a proper artifact struct
-function arti_struct(Index)constructor{
+function ArtifactStruct(Index) constructor{
 	index = Index
 	static type = function(){
 		return obj_ini.artifact[index];
@@ -393,7 +393,7 @@ function delete_artifact(index){
 	        artifact_loc[index]="";
 	        artifact_sid[index]=0;
 	        artifact_equipped[index] = false;
-	        artifact_struct[index]=new arti_struct(index);
+	        artifact_struct[index]=new ArtifactStruct(index);
 		}
 		obj_controller.artifacts-=1;
 	}

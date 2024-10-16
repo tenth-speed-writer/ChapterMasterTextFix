@@ -82,7 +82,6 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 				obj_ini.armour[target_company][good] = "Power Armour";
 				obj_ini.experience[target_company][good] = 100;
 				obj_ini.gear[target_company][good] = "Sororitas Medkit";
-				obj_ini.hp[target_company][good] = 40;
 				obj_ini.race[target_company][good] = 5;
 				unit = new TTRPG_stats("adeptus_sororitas", target_company, good, "sister_hospitaler");
 				break;
@@ -91,7 +90,6 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 				obj_ini.wep2[target_company][good] = "Choppa";
 				obj_ini.armour[target_company][good] = "";
 				obj_ini.experience[target_company][good] = 20;
-				obj_ini.hp[target_company][good] = 45;
 				obj_ini.race[target_company][good] = 7;
 				unit = new TTRPG_stats("ork", target_company, good, "ork_Sniper");
 
@@ -102,7 +100,6 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 				obj_ini.wep2[target_company][good] = "Choppa";
 				obj_ini.armour[target_company][good] = "Ork Armour";
 				obj_ini.experience[target_company][good] = 40;
-				obj_ini.hp[target_company][good] = 65;
 				obj_ini.race[target_company][good] = 7;
 				unit = new TTRPG_stats("ork", target_company, good, "flash_git");
 				break;

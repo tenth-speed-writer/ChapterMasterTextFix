@@ -60,6 +60,7 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
                 if (man_limit_reached) {
                     break;
                 }
+                if (unit.hp()<=0 || unit.in_jail()) then continue;
                 unit_location =  unit.marine_location();
                 //array[0] set to 0, so the proper array starts at array[1], for some reason
 
@@ -76,14 +77,14 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
                     //Normal and other battle cases checks go here
                     else if (okay >= 0) {
                         if (instance_exists(obj_ground_mission)) { //Exploring ruins ambush case
-                            if (obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location) and(obj_ini.hp[company][v] > 0) {
+                            if (obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location) {
                                 okay = 1;
                             } else {
                                 continue;
                             }
                         } else if (!instance_exists(obj_drop_select)) { // Only when attacked, normal battle
-                            if (_is_planet) and(obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location) and(obj_ini.hp[company][v] > 0) and(obj_ini.god[company][v] < 10) then okay = 1;
-                            else if (!_is_planet) and(unit.ship_location == _target_location) and(obj_ini.hp[company][v] > 0) and(obj_ini.god[company][v] < 10) then okay = 1;
+                            if (_is_planet) and(obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location)  then okay = 1;
+                            else if (!_is_planet) and(unit.ship_location == _target_location) then okay = 1;
 
                             if (instance_exists(obj_temp_meeting)) {
                                 meeting = true;
@@ -95,8 +96,8 @@ function scr_battle_roster(required_location, _target_location, _is_planet) {
                             if (obj_drop_select.fighting[company][v] == 0) then okay = 0;
 
                             else if (obj_drop_select.attack == 1) {
-                                if (_is_planet) and(obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location) and(obj_ini.hp[company][v] > 0) and(obj_ini.god[company][v] < 10) then okay = 1;
-                                else if (!_is_planet) and(unit.ship_location == _target_location) and(obj_ini.hp[company][v] > 0) and(obj_ini.god[company][v] < 10) then okay = 1;
+                                if (_is_planet) and(obj_ini.loc[company][v] == required_location) and(unit.planet_location == _target_location)   then okay = 1;
+                                else if (!_is_planet) and(unit.ship_location == _target_location) then okay = 1;
                             } else if (obj_drop_select.attack != 1) {
                                 //Related to defensive battles (¿?). Without the above check, it duplicates marines on offensive ones.
                                 if (obj_drop_select.fighting[company][v] == 1) and(unit.ship_location == _target_location) then okay = 1;

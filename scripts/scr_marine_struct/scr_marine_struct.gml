@@ -659,6 +659,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	bionics=0;
 	favorite=false;
 	spawn_data = other_spawn_data;
+	unit_health=0;
 	if (faction=="chapter" && !struct_exists(spawn_data, "recruit_data")){
 		spawn_data.recruit_data = {
 			recruit_world : obj_ini.recruiting_type,
@@ -785,10 +786,10 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return obj_ini.artifact[wep];
 	};	
 	static hp = function(){ 
-		return obj_ini.hp[company][marine_number]; //return current health
+		return unit_health; //return current unit_health
 	};
 	static add_or_sub_health = function(health_augment){
-		obj_ini.hp[company][marine_number]+=health_augment;
+		unit_health+=health_augment;
 	}
 	static healing = function(apoth){
 		if (hp()<=0) then exit;
@@ -818,7 +819,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		update_health(new_health);	
 	}
 	 static update_health = function(new_health){
-	    obj_ini.hp[company][marine_number] = new_health;
+	    unit_health = new_health;
 	 };
 
 	 static hp_portion = function(){
@@ -861,7 +862,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return max_h;
 	};	
 	static increase_max_health = function(increase){
-		return max_health() + (increase*(1+((constitution - 40)*0.025))); //calculate the effect of health buffs
+		return max_health() + (increase*(1+((constitution - 40)*0.025))); //calculate the effect of unit_health buffs
 	};		
 	// used both to load unit data from save and to add preset base_stats
 	static load_json_data = function(data){							//this also allows us to create a pre set of anysort for a marine
@@ -1404,6 +1405,9 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return obj_ini.race[company][marine_number];
 	};	//get race
 
+	static update_loyalty = function(change_value){
+		loyalty = clamp(loyalty+change_value, 0, 100);
+	}
 	static calculate_death = function(death_threshold = 25, death_random=50,apothecary=true, death_type="normal"){
 		dies = false;
 		death_random += luck;
@@ -1511,7 +1515,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	static update_gear = scr_update_unit_gear;
 
 	if (base_group!="none"){
-		update_health(max_health()); //set marine health to max
+		update_health(max_health()); //set marine unit_health to max
 	}
 	   
 	static weapon_one = function(raw=false){
@@ -1604,7 +1608,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			return obj_ini.race[company][marine_number];
 		};
 
-		//get equipment data methods by deafult they garb all equipment data and return an equipment struct e.g new equipment_struct(item_data, core_type,quality="none")
+		//get equipment data methods by deafult they garb all equipment data and return an equipment struct e.g new EquipmentStruct(item_data, core_type,quality="none")
 		static get_armour_data= function(type="all"){
 			return gear_weapon_data("armour", armour(), type, false, armour_quality);
 		}
@@ -1701,14 +1705,14 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			var _wep1 = get_weapon_one_data();
 			var _wep2 = get_weapon_two_data();
 
-			if (!is_struct(_wep1)) then _wep1 = new equipment_struct({},"");
-			if (!is_struct(_wep2)) then _wep2 = new equipment_struct({},"");
+			if (!is_struct(_wep1)) then _wep1 = new EquipmentStruct({},"");
+			if (!is_struct(_wep2)) then _wep2 = new EquipmentStruct({},"");
 			if (allegiance==global.chapter_name){
 				_wep1.owner_data("chapter");
 				_wep2.owner_data("chapter");
 			}
-			var primary_weapon= new equipment_struct({},"");
-			var secondary_weapon= new equipment_struct({},"");
+			var primary_weapon= new EquipmentStruct({},"");
+			var secondary_weapon= new EquipmentStruct({},"");
 			if (carry_data[0]>carry_data[1]){
 				encumbered_ranged=true;					
 				ranged_att*=0.6;
@@ -1866,8 +1870,8 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			melee_carrying = melee_hands_limit();
 			var _wep1 = get_weapon_one_data();
 			var _wep2 = get_weapon_two_data();
-			if (!is_struct(_wep1)) then _wep1 = new equipment_struct({},"");
-			if (!is_struct(_wep2)) then _wep2 = new equipment_struct({},"");
+			if (!is_struct(_wep1)) then _wep1 = new EquipmentStruct({},"");
+			if (!is_struct(_wep2)) then _wep2 = new EquipmentStruct({},"");
 			if (allegiance==global.chapter_name){
 				_wep1.owner_data("chapter");
 				_wep2.owner_data("chapter");
@@ -1879,7 +1883,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				var valid1 = ((_wep1.range<=1.1 && _wep1.range!=0) || (_wep1.has_tags(["pistol","flame"])));
 				var valid2 = ((_wep2.range<=1.1 && _wep2.range!=0) || (_wep2.has_tags(["pistol","flame"])));
 				if (!valid1 && !valid2){
-					primary_weapon=new equipment_struct({},"");//create blank weapon struct
+					primary_weapon=new EquipmentStruct({},"");//create blank weapon struct
 					primary_weapon.attack=strength/3;//calculate damage from player fists
 					primary_weapon.name="fists";
 					primary_weapon.range = 1;
@@ -1985,7 +1989,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 
 		//TODO just did this so that we're not loosing featuring but this porbably needs a rethink
 		static hammer_of_wrath =  function(){
-			var wrath =  new equipment_struct({},"");
+			var wrath =  new EquipmentStruct({},"");
 			wrath.attack=(strength*2) +(0.5*weapon_skill);
 			wrath.name = "hammer_of_wrath";
 			wrath.range = 1;
@@ -2464,7 +2468,7 @@ function fetch_unit(unit){
 }
 
 
-function pen_and_paper_sim() constructor{
+function PenAndPaperSim() constructor{
 	static oppposed_test = function(unit1, unit2, stat,unit1_mod=0,unit2_mod=0,  modifiers={}){
 		var stat1 = irandom(99)+1;
 		var unit1_val = unit1[$ stat]+unit1_mod;
@@ -2542,6 +2546,6 @@ function pen_and_paper_sim() constructor{
 	}
 }
 
-global.character_tester = new pen_and_paper_sim();
+global.character_tester = new PenAndPaperSim();
 
 

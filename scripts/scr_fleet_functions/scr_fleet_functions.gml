@@ -103,7 +103,7 @@ function set_fleet_movement(fastest_route = true){
 	    var connected=0,cont=0,target_dist=0;
 	    if (fastest_route){
 	    	mine=instance_nearest(x,y,obj_star);
-	    	var star_travel = new fastest_route_algorithm(x,y,action_x,action_y, self.id,is_orbiting());
+	    	var star_travel = new FastestRouteAlgorithm(x,y,action_x,action_y, self.id,is_orbiting());
 	    	var path =  star_travel.final_array_path();
 	    	if (array_length(path)>1){
 		    	var targ = star_by_name(path[1]);

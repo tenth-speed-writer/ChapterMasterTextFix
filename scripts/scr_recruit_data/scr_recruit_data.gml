@@ -383,7 +383,7 @@ function set_up_recruitment_view(){
 	    onceh=1;
 	    cooldown=8000;
 	    click=1;
-	    recruit_list_pane = new data_slate();
+	    recruit_list_pane = new DataSlate();
 	    recruit_list_pane.inside_method = function(){
 		    var xx=__view_get( e__VW.XView, 0 )+0;
 		    var yy=__view_get( e__VW.YView, 0 )+0+60;
@@ -407,8 +407,8 @@ function set_up_recruitment_view(){
 		        }
 		    }	
 	    }	    
-	    left_panel = new data_slate();
-	    middle_panel = new data_slate();
+	    left_panel = new DataSlate();
+	    middle_panel = new DataSlate();
 	}
 }
 

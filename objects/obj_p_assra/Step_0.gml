@@ -289,7 +289,7 @@ if (boarding=true) and (board_cooldown>=0) and (instance_exists(target)) and (in
                     if (arp=0) then hurt=max(0,(attack-ac)*dr);
                     
                     repeat(hits){
-                        obj_ini.hp[co][i]-=hurt;
+                        unit.add_or_sub_health(-hurt);
                     }
                     
                     if (unit.hp()<=0){

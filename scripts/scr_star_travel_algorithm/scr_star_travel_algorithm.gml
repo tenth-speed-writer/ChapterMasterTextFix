@@ -1,4 +1,4 @@
-function fastest_route_algorithm(start_x,start_y, xx,yy,fleet, start_from_star=false) constructor{
+function FastestRouteAlgorithm(start_x,start_y, xx,yy,fleet, start_from_star=false) constructor{
 	var star_number = instance_number(obj_star);
 	target = instance_nearest(xx,yy,obj_star);
 	self.fleet=fleet;

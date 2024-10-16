@@ -763,7 +763,7 @@ if (turn==5) and (faction_gender[eFACTION.Chaos]==1) {// show_message("Turn 100"
         
         planet.warlord[testi]=1;
 
-        array_push(planet.p_feature[testi], new new_planet_feature(P_features.Warlord10));
+        array_push(planet.p_feature[testi], new NewPlanetFeature(P_features.Warlord10));
 
         if (planet.p_type[testi]=="Hive") then planet.p_heresy[testi]+=25;
         if (planet.p_type[testi]!="Hive") then planet.p_heresy[testi]+=10;
@@ -864,7 +864,7 @@ if ((turn>=irandom(200)+100) or (obj_ini.fleet_type==eFACTION.Mechanicus)) and (
                     if (!instance_exists(obj_temp2)){
                         rund=round(random(you.planets));
 						if (rund>0) and(rund<5){
-							if	(you.p_owner[rund]==eFACTION.Ork) and (you.p_pdf[rund]+you.p_guardsmen[rund]==0) and (you.p_orks[rund]>=2) then array_push( you.p_feature[rund], new new_planet_feature(P_features.OrkWarboss));
+							if	(you.p_owner[rund]==eFACTION.Ork) and (you.p_pdf[rund]+you.p_guardsmen[rund]==0) and (you.p_orks[rund]>=2) then array_push( you.p_feature[rund], new NewPlanetFeature(P_features.OrkWarboss));
 						}
                         if (you.p_orks[rund]<4) then you.p_orks[rund]=4;
                         if (planet_feature_bool(you.p_feature[rund], P_features.OrkWarboss)==1) then instance_create(x,y,obj_temp2);

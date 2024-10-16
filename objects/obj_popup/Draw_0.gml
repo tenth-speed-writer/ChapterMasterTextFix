@@ -173,8 +173,9 @@ var zoom=0;
 if (instance_exists(obj_controller)) then zoom=obj_controller.zoomed;
 if ((zoom=0) and (type<=4)) or (type=98){
     
-    var widd,image_bot;
+    var widd,image_bot,y_scale_mod;
     image_bot=0;
+    y_scale_mod = 1;
 
     if (size=0) or (size=2){
         sprite_index=spr_popup_medium;
@@ -191,11 +192,15 @@ if ((zoom=0) and (type<=4)) or (type=98){
         if (image!=""){image_wid=150;image_hei=150;}
     }
     else if (size=3){
+        var draw_y_scale = y_scale;
         sprite_index=spr_popup_large;
         image_alpha=0;
         widd=sprite_width-50;
-        var draw_y_scale = image=="debug"? y_scale*1.5 : y_scale;
-        draw_sprite_ext(spr_popup_large,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height)/2),1,draw_y_scale,0,c_white,1);
+        if (image == "debug"){
+            y_scale_mod = 1.5; 
+            draw_y_scale = y_scale*y_scale_mod;
+        }
+        draw_sprite_ext(spr_popup_large,type,xx+((1600-sprite_width)/2),yy+((900-sprite_height*y_scale_mod)/2),1,draw_y_scale,0,c_white,1);
         if (image!=""){image_wid=200;image_hei=200;}
     }
     
@@ -203,7 +208,7 @@ if ((zoom=0) and (type<=4)) or (type=98){
     
     var x1,y1;
     x1=xx+((1600-sprite_width)/2);
-    y1=yy+((900-sprite_height)/2);
+    y1=yy+((900-sprite_height*y_scale_mod)/2);
     
     draw_set_font(fnt_40k_14b);
     draw_set_halign(fa_center);
@@ -213,7 +218,7 @@ if ((zoom=0) and (type<=4)) or (type=98){
         draw_set_font(fnt_fancy);    
         if (type=1) then draw_set_color(255);
     }
-    draw_text(x1+(sprite_width/2),y1+(sprite_height*0.07),string_hash_to_newline(string(title)));
+    draw_text_transformed(x1+(sprite_width/2),y1+(sprite_height*0.07),string_hash_to_newline(string(title)), 1.1, 1.1, 0);
     // draw_text(xx+320.5,yy+123.5,string(title));
     
     draw_set_font(fnt_40k_14);
@@ -224,7 +229,7 @@ if ((zoom=0) and (type<=4)) or (type=98){
         if (obj_turn_end.popups>0) then draw_text(x1+20,y1+(sprite_height*0.07),string_hash_to_newline(string(obj_turn_end.current_popup)+"/"+string(obj_turn_end.popups)));
     }
     if (image=="debug"){
-        draw_text_ext(x1+5,y1+(sprite_height*0.18),string_hash_to_newline(string(text)),-1,sprite_width-10);
+        draw_text_ext(x1+20,y1+(sprite_height*0.18),string_hash_to_newline(string(text)),-1,sprite_width-40);
     }
     else if (image=""){
         if (size=1) then draw_text_ext(x1+5,y1+(sprite_height*0.18),string_hash_to_newline(string(text)),-1,widd);
