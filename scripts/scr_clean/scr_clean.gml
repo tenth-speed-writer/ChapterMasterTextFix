@@ -125,6 +125,7 @@ function scr_clean(argument0) {
 		repeat(hostile_shots) {
 			if (men > 0) then you = floor(random(men)) + 1; // Need a max_men / max_veh    for the amount of them initialized
 			repeat(700) { // This gets a different mahreen if it is not valid
+				if (you>=array_length(unit_struct)) then break;
 				unit = unit_struct[you];
 				if (!is_struct(unit)) then
 				continue;

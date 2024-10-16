@@ -5,6 +5,11 @@ function scr_kill_unit(company, unit_slot){
 		array_push(obj_ini.previous_forge_masters, obj_ini.name[company][unit_slot]);
 	}
 
+    if (obj_ini.role[company][unit_slot]="Chapter Master"){
+        tek="c";
+        alarm[7]=5;
+        global.defeat=3;
+    }
 	scr_wipe_unit(company, unit_slot)
 }
 
