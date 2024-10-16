@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "get_diag_string",
+  "name": "scr_diplomacy_helpers",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

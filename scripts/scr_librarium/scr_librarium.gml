@@ -98,9 +98,9 @@ function scr_librarium(){
             if (point_and_click(arrow)){
                 artifact_namer.allow_input=false;
             	identifiable=0;
-                artifact_equip = new shutter_button();
-                artifact_gift = new shutter_button();
-                artifact_destroy = new shutter_button();  
+                artifact_equip = new ShutterButton();
+                artifact_gift = new ShutterButton();
+                artifact_destroy = new ShutterButton();  
                 if  (menu_artifact>=1){     	
                 	while (menu_artifact>=0){
                 		menu_artifact--;
@@ -120,9 +120,9 @@ function scr_librarium(){
             if (point_and_click(arrow)){
                 artifact_namer.allow_input=false;
             	identifiable=0;
-                artifact_equip = new shutter_button();
-                artifact_gift = new shutter_button();
-                artifact_destroy = new shutter_button();           	
+                artifact_equip = new ShutterButton();
+                artifact_gift = new ShutterButton();
+                artifact_destroy = new ShutterButton();           	
                 if (menu_artifact<30){
                     while(menu_artifact<30){
                         menu_artifact++;
@@ -210,10 +210,11 @@ function scr_librarium(){
                     }
 
                     if (artifact_gift.draw_shutter(xx + 575, yy + 740, "GIFT", 0.3, true)){
+                        show_debug_message("Clicked");
                         var chick=false;
                         //list of all giftable factions enum numbers
                         var giftable_factions = [eFACTION.Imperium, eFACTION.Mechanicus,eFACTION.Inquisition,eFACTION.Ecclesiarchy,eFACTION.Eldar,eFACTION.Tau]
-                        for (vari=0;i<array_length(giftable_factions);i++){
+                        for (var i = 0; i < array_length(giftable_factions); i++){
                             var gift_faction = giftable_factions[i];
                             if (known[gift_faction] && !faction_defeated[gift_faction]) then chick=true;
                         }
@@ -227,15 +228,14 @@ function scr_librarium(){
                     if (artifact_destroy.draw_shutter(xx + 765, yy + 740, "DESTROY", 0.3, true)){
                         var fun=irandom(100)+1;
                         // Below here cleans up the artifacts
-                        var i=menu_artifact;
 
                         if (menu_artifact==fest_display) then fest_display=0;
 
                         cur_arti.destroy_arti();
 
                         //TODO centralise into function
-                        for (var e=1; e<=array_length(obj_controller.recent_keyword); e++){
-                            if (obj_ini.artifact_tags[i]==obj_controller.recent_keyword[e]){
+                        for (var e = 0; e < array_length(obj_controller.recent_keyword); e++){
+                            if (obj_ini.artifact_tags[menu_artifact]==obj_controller.recent_keyword[e]){
                                 with (obj_controller){
                                     array_delete(recent_keyword, e, 1);
                                     array_delete(recent_type, e, 1);
@@ -247,7 +247,7 @@ function scr_librarium(){
                                 break;
                             }
                         }
-                        delete_artifact(i);                           
+                        delete_artifact(menu_artifact);                           
                         set_chapter_arti_data();      
                     }
                     var base_type = cur_arti.determine_base_type();

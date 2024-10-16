@@ -26,7 +26,7 @@ enum UnitSpecialColours {
     Gold,
 }
 
-function unit_image(unit_surface) constructor{
+function UnitImage(unit_surface) constructor{
     u_surface = unit_surface;
     static draw = function (xx, yy, _background=false){
         if (_background){
@@ -1467,10 +1467,10 @@ function scr_draw_unit_image(_background=false){
     //draw_surface(unit_surface, xx+_x1-x_surface_offset,yy+_y1-y_surface_offset);
     //surface_free(unit_surface);
     shader_reset();
-    return new unit_image(unit_surface);   
+    return new UnitImage(unit_surface);   
 }
 
-function base_colour(R,G,B) constructor{
+function BaseColor(R,G,B) constructor{
     r=R;
     g=G;
     b=B;

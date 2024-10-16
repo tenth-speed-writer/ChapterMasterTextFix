@@ -2292,7 +2292,7 @@ global.gear = {
 	}
 }
 
-function equipment_struct(item_data, core_type,quality="none") constructor{ 
+function EquipmentStruct(item_data, core_type,quality="none") constructor{ 
     //This could be done with 2d arrays [[],[]]
     var names = ["hp_mod", "description","damage_resistance_mod", "ranged_mod", "melee_mod","armour_value" ,"attack","melee_hands","ranged_hands","ammo","range","spli","arp","special_description", "special_properties", "abbreviation","tags","name","second_profiles","req_exp"];
     var defaults = [0,"",0,0,0,0,0,0,0,0,0,0,0,"",[],"",[],"",[],0];
@@ -2595,7 +2595,7 @@ function gear_weapon_data(search_area="any",item,wanted_data="all", sub_class=fa
     if (is_struct(item_data_set)){
         if (wanted_data=="all"){
             item_data_set.name=item;
-            return new equipment_struct(item_data_set,search_area,quality);
+            return new EquipmentStruct(item_data_set,search_area,quality);
         }
         if (struct_exists(item_data_set, wanted_data)){
             if (is_struct(item_data_set[$ wanted_data])){

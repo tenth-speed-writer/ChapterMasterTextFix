@@ -50,46 +50,34 @@ function scr_destroy_planet(argument0) {
     
 
 	// No survivors!
-	var cah,ed;cah=-1;ed=0;
+	var cah=-1,ed=0,unit;
 	repeat(11){
-	    cah+=1;ed=0;
+	    cah+=1;
+	    ed=0;
 
 	    repeat(500){ed+=1;
-	        if (obj_ini.loc[cah,ed]=you.name) and (obj_ini.TTRPG[cah,ed].planet_location=baid){
+	    	unit = fetch_unit([cah,ed])
+	        if (obj_ini.loc[cah,ed]=you.name) and (unit.planet_location=baid){
 	            if (obj_ini.role[cah,ed]="Chapter Master"){obj_controller.alarm[7]=15;if (global.defeat<=1) then global.defeat=1;}
             
-	            if (obj_ini.race[cah,ed]=1){var comm;comm=false;
-	                if (obj_ini.role[co][i]="Chapter Master") then comm=true;
-	                if (obj_ini.role[co][i]="Master of Sanctity") then comm=true;
-	                if (obj_ini.role[co][i]="Master of the Apothecarion") then comm=true;
-	                if (obj_ini.role[co][i]="Chief "+string(obj_ini.role[100,17])) then comm=true;
-	                if (obj_ini.role[co][i]="Forge Master") then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100,17]) then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100][14]) then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100][15]) then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100][16]) then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100][6]) then comm=true;
-	                if (obj_ini.role[co][i]=obj_ini.role[100][5]) then comm=true;
-	                if (obj_ini.role[co][i]="Codiciery") then comm=true;
-	                if (obj_ini.role[co][i]="Lexicanum") then comm=true;
-	                if (obj_ini.role[co][i]=string(obj_ini.role[100,17])+" Aspirant") then comm=true;
-	                if (obj_ini.role[co][i]=string(obj_ini.role[100][14])+" Aspirant") then comm=true;
-	                if (obj_ini.role[co][i]=string(obj_ini.role[100][15])+" Aspirant") then comm=true;
-	                if (obj_ini.role[co][i]=string(obj_ini.role[100][16])+" Aspirant") then comm=true;
-	                if (obj_ini.role[co][i]="Venerable "+string(obj_ini.role[100][6])) then comm=true;
-                
+	            if (obj_ini.race[cah,ed]=1){
+
+	            	var comm = unit.IsSpecialist(,true);
+
 	                // if (obj_ini.race[cah,ed]=1) then obj_controller.marines-=1;
 	                if (comm=false) then obj_controller.marines-=1;
 	                if (comm=true) then obj_controller.command-=1;
 	            }
             
-            
-            
-	            obj_ini.race[cah,ed]=0;obj_ini.loc[cah,ed]="";obj_ini.name[cah,ed]="";obj_ini.role[cah,ed]="";obj_ini.hp[cah,ed]=0;
+            	scr_kill_unit(cah,ed);
+
 	        }
 	        if (ed<200){
 	            if (obj_ini.veh_loc[cah,ed]=you.name) and (obj_ini.veh_wid[cah,ed]=baid){
-	                obj_ini.veh_race[cah,ed]=0;obj_ini.veh_loc[cah,ed]="";obj_ini.veh_role[cah,ed]="";obj_ini.veh_hp[cah,ed]=0;
+	                obj_ini.veh_race[cah,ed]=0;
+	                obj_ini.veh_loc[cah,ed]="";
+	                obj_ini.veh_role[cah,ed]="";
+	                obj_ini.veh_hp[cah,ed]=0;
 	            }
 	        }
 	    }

@@ -1,9 +1,9 @@
 function macros() {
-#macro GM_build_date 41914.3660453472
-#macro GM_version "1.0.0.4"
+#macro GM_version "0.9.3.2"
 #macro MAX_STC_PER_SUBCATEGORY 6
 #macro DEFAULT_TOOLTIP_VIEW_OFFSET 32
 #macro DEFAULT_LINE_GAP -1
+#macro LINE_BREAK_92 "############################################################################################"
 
 	enum luck {
 		bad = -1,

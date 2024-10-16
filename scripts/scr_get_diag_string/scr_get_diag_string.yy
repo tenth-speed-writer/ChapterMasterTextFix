@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "get_integer2",
+  "name": "scr_get_diag_string",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

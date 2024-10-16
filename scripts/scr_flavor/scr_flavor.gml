@@ -18,7 +18,7 @@ function scr_flavor(id_of_attacking_weapons, target, target_type, number_of_shot
 
 	var weapon_data = gear_weapon_data("weapon", weapon_name, "all");
 	if (!is_struct(weapon_data)) {
-		weapon_data = new equipment_struct({},"");
+		weapon_data = new EquipmentStruct({},"");
 		weapon_data.name = weapon_name;
 	}
 

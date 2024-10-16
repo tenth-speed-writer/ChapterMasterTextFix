@@ -7,7 +7,7 @@ construction_started = 0;
 eta = 0;
 target_comp = obj_controller.new_vehicles;
 
-slate_panel =  new data_slate();
+slate_panel =  new DataSlate();
 scroll_point=0;
 tooltip_show = 0;
 tooltip = "";
@@ -77,10 +77,10 @@ if (obj_controller.faction_status[eFACTION.Imperium] = "War") {
 }
 
 tab_buttons = {
-    "equipment":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "armour":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "vehicles":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-    "ships":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
+    "equipment":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+    "armour":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+    "vehicles":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+    "ships":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
 }  
 var require_tool_tip = "requires: #"
 if (shop = "equipment") {

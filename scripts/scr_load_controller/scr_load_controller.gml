@@ -46,7 +46,7 @@ function scr_load_controller(save_id){
 	    obj_ini.sector_name=ini_read_string("Save","sector_name","Error"); //
 
 		// TODO make it either throw error (if version is wrong) or try to upgrade the saved game data and version
-	    global.version=ini_read_string("Save","version",0);
+	    global.save_version=ini_read_string("Save","version",0);
 	    global.game_seed=ini_read_real("Save","game_seed",0);
 	    obj_ini.use_custom_icon=ini_read_real("Save","use_custom_icon",0);
 

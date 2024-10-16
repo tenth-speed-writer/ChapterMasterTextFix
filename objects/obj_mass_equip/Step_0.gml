@@ -132,7 +132,7 @@ if (refresh=true) and (obj_controller.settings>0){
     req_mobi=obj_ini.mobi[100,role];
 	
 	for(var co=0; co<11; co++){
-		for(var i=1; i<=array_length(obj_ini.role[co]); i++){
+		for(var i=1; i < array_length(obj_ini.role[co]); i++){
             if (obj_ini.role[co][i]=obj_ini.role[100,role]){
                 role_number[co]+=1;
                 

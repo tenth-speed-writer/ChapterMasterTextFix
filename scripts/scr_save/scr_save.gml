@@ -546,7 +546,6 @@ function scr_save(save_part,save_id) {
 	                ini_write_string("Mar",$"ge{coh}.{mah}",obj_ini.gear[coh,mah]);
 	                ini_write_string("Mar",$"mb{coh}.{mah}",obj_ini.mobi[coh,mah]);
 
-	                ini_write_real("Mar",$"hp{coh}.{mah}",obj_ini.TTRPG[coh,mah].hp());
 	                ini_write_real("Mar",$"exp{coh}.{mah}",obj_ini.experience[coh,mah]);
 	                ini_write_real("Mar",$"ag{coh}.{mah}",obj_ini.age[coh,mah]);
 	                ini_write_string("Mar",$"spe{coh}.{mah}",obj_ini.spe[coh,mah]);

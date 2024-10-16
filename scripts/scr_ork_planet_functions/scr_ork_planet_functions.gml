@@ -62,7 +62,7 @@ function ork_ship_production(planet){
                     }
                 }
             }
-            if (contin==3) and (rando<=25){// Create a fleet
+            if (contin==3 && irandom_range(1,100)<=25){// Create a fleet
                 // fleet=instance_create
                 fleet=instance_create(x,y,obj_en_fleet);
                 fleet.owner = eFACTION.Ork;

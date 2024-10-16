@@ -876,7 +876,6 @@ if (skip=true){
     slate=22;
     slate3=22;
     slate4=50;
-    global.version="500";
     
     change_slide=0;
     slide=6;

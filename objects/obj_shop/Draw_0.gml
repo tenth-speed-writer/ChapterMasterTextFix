@@ -167,7 +167,7 @@ slate_panel.inside_method = function(){
                 draw_text(xx+1300,yy+y2,string_hash_to_newline(item_stocked[i]));// Stocked
                 draw_set_alpha(1);
             }
-            if (mouse_x>=xx+962) and (mouse_y>=yy+y2) and (mouse_x<xx+1100) and (mouse_y<yy+y2+19) and (shop!="warships"){
+            if (mouse_x>=xx+962) and (mouse_y>=yy+y2) and (mouse_x<xx+1280) and (mouse_y<yy+y2+19) and (shop!="warships"){
                 if (last_item == item[i]){
                     tooltip_show=1;
                 } else {

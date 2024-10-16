@@ -119,17 +119,14 @@ function scr_marine_spawn_age(){
 			_maximum_age = 300;
 			_apply_gauss = true;
 			break;
+			
 		case "Chief Librarian":
 		case "Forge Master":
 		case "Master of Sanctity":
 		case "Master of the Apothecarion":
+		case obj_ini.role[100][Role.HONOUR_GUARD]:
 			_minimum_age = 180;
 			_maximum_age = 300;
-			_apply_gauss = true;
-			break;
-		case obj_ini.role[100][Role.HONOUR_GUARD]:
-			_minimum_age = 140;
-			_maximum_age = 200;
 			_apply_gauss = true;
 			break;
 		case "Codiciery":
@@ -143,15 +140,15 @@ function scr_marine_spawn_age(){
 		// 1st company only
 		case obj_ini.role[100][Role.VETERAN]:
 			_minimum_age = 100;
-			_maximum_age = 150;
+			_maximum_age = 140;
 			break;
 		case obj_ini.role[100][Role.TERMINATOR]:
-			_minimum_age = 110;
+			_minimum_age = 140;
 			_maximum_age = 160;
 			break;
 		case obj_ini.role[100][Role.VETERAN_SERGEANT]:
-			_minimum_age = 115;
-			_maximum_age = 165;
+			_minimum_age = 140;
+			_maximum_age = 160;
 			break;
 		// Command Squads
 		case obj_ini.role[100][Role.CAPTAIN]:
@@ -177,12 +174,12 @@ function scr_marine_spawn_age(){
 			break;
 		// Company marines
 		case obj_ini.role[100][Role.DREADNOUGHT]:
-			_minimum_age += 400;
+			_minimum_age = 400;
 			_maximum_age = 600;
 			_apply_gauss = true;
 			break;
 		case "Venerable Dreadnought":
-			_minimum_age += 650;
+			_minimum_age = 650;
 			_maximum_age = 0;
 			_apply_gauss = true;
 			break;

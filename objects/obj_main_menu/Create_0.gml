@@ -4,7 +4,7 @@ if (!instance_exists(obj_cuicons)){
     instance_create(0,0,obj_cuicons);
 }
 
-global.version="0.9.3.2";
+global.save_version=0;
 global.game_seed=0;
 global.cheat_req=false;
 global.cheat_gene=false;
@@ -109,7 +109,7 @@ info=0;
 global.load=0;
 cooldown=0;
 browser=0;
-version=0;
+something_version=0;
 
 thought=scr_thought();
 async_ini = http_get( "http://planetofthebrandons.com/other/pass.ini" ); // RIP - lost to the void forever it seems
@@ -132,10 +132,9 @@ tim3=0;
 tim4=0;
 tim5=0;
 
-
-var _log_file = file_text_open_write("message_log.log");
-file_text_write_string(_log_file, "Message log:" + "\n");
-file_text_close(_log_file);
+if (!directory_exists("ErrorLogs")) {
+    directory_create("ErrorLogs");
+}
 
 
 /* */

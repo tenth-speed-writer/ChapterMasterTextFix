@@ -192,187 +192,8 @@ if (menu==16) and (cooldown<=0){
         }
     }
 }
-// ** Diplomacy Chaos talks **
-if (menu==20) and (diplomacy==10.1){
-	if (diplomacy_pathway == "intro") and (cooldown <= 0){
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-		    diplomacy_pathway = "gift";
-		    scr_dialogue(diplomacy_pathway);
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-			diplomacy_pathway = "daemon_scorn";
-			scr_dialogue(diplomacy_pathway);
-			force_goodbye=1;
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[2].lh, option_selections[2].top, option_selections[2].rh, option_selections[2].base){
-			cooldown=8000;
-			diplomacy_pathway = "daemon_Scorn";
-			scr_dialogue(diplomacy_pathway);
-			force_goodbye=1;
-		}
-	}
-	if (diplomacy_pathway == "gift") and (cooldown  <= 0) {
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-			diplomacy_pathway = "Khorne_path";
-			scr_dialogue(diplomacy_pathway);
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-			diplomacy_pathway = "Nurgle_path";
-			scr_dialogue(diplomacy_pathway);
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[2].lh, option_selections[2].top, option_selections[2].rh, option_selections[2].base){
-			cooldown=8000;
-			diplomacy_pathway = "Tzeentch_path";
-			scr_dialogue(diplomacy_pathway);
-		}
-        if point_in_rectangle(mouse_x, mouse_y, option_selections[3].lh, option_selections[3].top, option_selections[3].rh, option_selections[3].base){
-			cooldown=8000;
-			diplomacy_pathway = "Slaanesh_path";
-			scr_dialogue(diplomacy_pathway);
-		}
-	}
-	if (diplomacy_pathway == "Khorne_path")  and (cooldown  <= 0){
-        var chapter_master = obj_ini.TTRPG[0,0];
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-			diplomacy_pathway = "sacrifice_lib";
-            //grab a random librarian
-            var lib = scr_random_marine("lib",0);
-            if (lib!="none"){
-                var chapter_master = obj_ini.TTRPG[0][1];
-                var dead_lib = obj_ini.TTRPG[lib[0],lib[1]];
-                pop_up = instance_create(0,0,obj_popup);
-                pop_up.title = "Skull for the Skull Throne";
-                pop_up.text = $"You summon {dead_lib.name_role()} to your personal chambers. Darting from the shadows you deftly strike his head from his shoulders. With the flesh removed from his skull you place the skull upon a hastily erected shrine."
-                pop_up.type=98;
-                pop_up.image = "chaos";
-                kill_and_recover(lib[0],lib[1]);
-                chapter_master.add_trait("blood_for_blood");
-                chapter_master.edit_corruption(20);
-            } else {
-                diplomacy_pathway = "daemon_scorn";
-            }
-            scr_dialogue(diplomacy_pathway);  
-			force_goodbye = 1;
 
-		}
-        if (point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base)){
-			cooldown=8000;
-			diplomacy_pathway = "sacrifice_champ";
-            var champ = scr_random_marine(obj_ini.role[100,7],0);
-            if (champ!="none"){
-                var chapter_master = obj_ini.TTRPG[0][1];
-                 chapter_master.add_trait("blood_for_blood");
-                 chapter_master.edit_corruption(20);
-                var dead_champ = obj_ini.TTRPG[champ[0]][champ[1]];
-                //TODO make this into a real dual with consequences
-                pop_up = instance_create(0,0,obj_popup);
-                pop_up.title = "Skull for the Skull Throne";
-                pop_up.text = $"You summon {dead_champ.name_role()} to your personal chambers. Darting from the shadows towards {dead_champ.name()} who is a cunning warrior and reacts with precision to your attack, however eventually you prevail and strike him down. With the flesh removed from his skull you place it upon a hastily erected shrine."
-                pop_up.type=98;
-                pop_up.image = "chaos";                
-               // obj_duel = instance_create(0,0,obj_duel);
-               // obj_duel.title = "Ambush Champion";
-               // pop.type="duel";
-                kill_and_recover(champ[0],champ[1]);
-            } else {
-                diplomacy_pathway = "daemon_scorn";
-            }              
-			scr_dialogue(diplomacy_pathway);
-			force_goodbye = 1;
-		}
-        if (point_in_rectangle(mouse_x, mouse_y, option_selections[2].lh, option_selections[2].top, option_selections[2].rh, option_selections[2].base)){
-			cooldown=8000;
-			diplomacy_pathway = "sacrifice_squad";
-            var kill_squad, squad_found=false;
-            for(var i=0;i<array_length(obj_ini.squads);i++){
-                kill_squad = obj_ini.squads[i];
-                if (kill_squad.type == "tactical_squad" && array_length(kill_squad.members)>4){
-                    var chapter_master = obj_ini.TTRPG[0][1];
-                    chapter_master.add_trait("blood_for_blood");   
-                    chapter_master.edit_corruption(20);
-                    kill_squad.kill_members();
-                    with(obj_ini){
-                        scr_company_order(kill_squad.base_company);
-                    }
-                    squad_found=true
-                    break;
-                }
-            }
-            if (!squad_found){
-                diplomacy_pathway = "daemon_scorn";
-            }
-			scr_dialogue(diplomacy_pathway);
-			force_goodbye = 1;
-		}
-        if ( point_in_rectangle(mouse_x, mouse_y, option_selections[2].lh, option_selections[2].top, option_selections[2].rh, option_selections[2].base)){
-			cooldown=8000;
-            diplomacy_pathway = "daemon_scorn";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-	}
-	if (diplomacy_pathway == "Slaanesh_path")  and (cooldown  <= 0){
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-            diplomacy_pathway = "Slaanesh_arti";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-            diplomacy_pathway = "daemon_scorn";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-	}
-	if (diplomacy_pathway == "Nurgle_path")  and (cooldown  <= 0){
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-			diplomacy_pathway = "nurgle_gift";
-			scr_dialogue(diplomacy_pathway);
-			force_goodbye = 1;
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-            diplomacy_pathway = "daemon_scorn";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-	}
-	if (diplomacy_pathway == "Nurgle_path")  and (cooldown  <= 0){
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-            diplomacy_pathway = "nurgle_gift";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-				if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-            diplomacy_pathway = "daemon_scorn";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-	}	
-	if (diplomacy_pathway = "Tzeentch_path")  and (cooldown  <= 0){
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[0].lh, option_selections[0].top, option_selections[0].rh, option_selections[0].base){
-			cooldown=8000;
-            diplomacy_pathway = "Tzeentch_plan";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-		if point_in_rectangle(mouse_x, mouse_y, option_selections[1].lh, option_selections[1].top, option_selections[1].rh, option_selections[1].base){
-			cooldown=8000;
-            diplomacy_pathway = "daemon_scorn";
-            scr_dialogue(diplomacy_pathway);
-            force_goodbye = 1;
-		}
-	}
-}
+
 // ** Diplomacy **
 if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cooldown<=0) and (diplomacy<10){
     if (trading==0) and (diplo_option[1]=="") and (diplo_option[2]=="") and (diplo_option[3]=="") and (diplo_option[4]==""){
@@ -898,32 +719,34 @@ if (menu==20) and (diplomacy>0) or ((diplomacy<-5) and (diplomacy>-6)) and (cool
         xx+=419;
         // Player Things to Offer
         // Requisition
-        if (scr_hit(xx+342,yy+371,xx+485,yy+422)==true) and (minz!=0) and (cooldown<=0) and (trade_req>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Requisition offered?",trade_req,"m"+string(minz),"Requisition");
-            scr_trade(false);
-        }
-        // Gene-seed
-        else if (scr_hit(xx+342,yy+422,xx+485,yy+470)==true) and (minz!=0) and (cooldown<=0) and (trade_gene>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Gene-Seed offered?",trade_gene,"m"+string(minz),"Gene-Seed");
-            scr_trade(false);
-        }
-        // STC Fragment
-        else if (scr_hit(xx+342,yy+470,xx+485,yy+517)==true) and (minz!=0) and (cooldown<=0) and (trade_chip>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("STC Fragments offered?",trade_chip,"m"+string(minz),"STC Fragment");
-            scr_trade(false);
-        }
-        // Info Chips
-        if (scr_hit(xx+342,yy+517,xx+485,yy+564)==true) and (minz!=0) and (cooldown<=0) and (trade_info>0){
-            cooldown=8000;
-            click2=1;
-            get_integer2("Info Chips offered?",trade_info,"m"+string(minz),"Info Chip");
-            scr_trade(false);
+        if (!instance_exists(obj_popup_dialogue)){
+            if (scr_hit(xx+342,yy+371,xx+485,yy+422)==true) and (minz!=0) and (cooldown<=0) and (trade_req>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Requisition offered?",trade_req,"m"+string(minz),"Requisition");
+                scr_trade(false);
+            }
+            // Gene-seed
+            else if (scr_hit(xx+342,yy+422,xx+485,yy+470)==true) and (minz!=0) and (cooldown<=0) and (trade_gene>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Gene-Seed offered?",trade_gene,"m"+string(minz),"Gene-Seed");
+                scr_trade(false);
+            }
+            // STC Fragment
+            else if (scr_hit(xx+342,yy+470,xx+485,yy+517)==true) and (minz!=0) and (cooldown<=0) and (trade_chip>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("STC Fragments offered?",trade_chip,"m"+string(minz),"STC Fragment");
+                scr_trade(false);
+            }
+            // Info Chips
+            if (scr_hit(xx+342,yy+517,xx+485,yy+564)==true) and (minz!=0) and (cooldown<=0) and (trade_info>0){
+                cooldown=8000;
+                click2=1;
+                get_diag_integer("Info Chips offered?",trade_info,"m"+string(minz),"Info Chip");
+                scr_trade(false);
+            }
         }
         xx-=419;
         // Remove items buttons

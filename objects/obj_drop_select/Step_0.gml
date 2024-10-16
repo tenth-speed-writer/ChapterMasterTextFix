@@ -22,7 +22,7 @@ if (refresh_raid!=0){
             
                 // Fight wounded
                 var on_bike = unit.mobility_item()=="Bike";
-                if (obj_ini.hp[comp][i]<=10) and (fighting[comp][i]=0) and (raid_wounded=1) and (via[unit.ship_location]>0){
+                if (unit.hp()<=10) and (fighting[comp][i]=0) and (raid_wounded=1) and (via[unit.ship_location]>0){
                     if (!on_bike) or (attack=1) then fighting[comp][i]=1;
                     
                     if (unit.role()=obj_ini.role[100][11]){
@@ -87,12 +87,6 @@ if (refresh_raid!=0){
                     if (unit.IsSpecialist("apoth", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;apothecaries-=1;}
                     if (unit.IsSpecialist("libs", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
                     if (unit.IsSpecialist("forge", true)) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;techmarines-=1;}
-                    
-                    if (unit.role()=obj_ini.role[100,17]) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
-                    if (unit.role()="Codiciery") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
-                    if (unit.role()="Lexicanum") and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;psykers-=1;}
-                    if (unit.role()=obj_ini.role[100][15]) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;apothecaries-=1;}
-                    if (unit.role()=obj_ini.role[100][16]) and ((raid_spec=0) or (remove=1)){fighting[comp][i]=0;techmarines-=1;}
                 }
                 
                 
@@ -133,7 +127,7 @@ if (refresh_raid!=0){
                 // Remove wounded
                 
                 
-                if (obj_ini.hp[comp][i]<=10) and (fighting[comp][i]=1) and (raid_wounded=0){
+                if (unit.hp()<=10) and (fighting[comp][i]=1) and (raid_wounded=0){
                     fighting[comp][i]=0;
                     if (unit.role()=obj_ini.role[100][11]){
                         if (obj_ini.mobi[comp][i]="Bike") then bikes-=1;

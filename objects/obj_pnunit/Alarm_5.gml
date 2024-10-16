@@ -2,7 +2,7 @@
 var i=0,new_exp, cur_exp, unit;
 total_battle_exp_gain = 0;
 if (obj_ncombat.defeat=0){
-    for (i=1;i<array_length(marine_co);i++){
+    for (i=0;i<array_length(unit_struct);i++){
         unit=unit_struct[i];
         if (is_struct(unit)){
             if (marine_dead[i]=0) and (obj_ncombat.player_max<obj_ncombat.enemy_max) and (ally[i]==false){
@@ -44,6 +44,8 @@ if (obj_ncombat.defeat=0){
                 }
             }
         }
+    }
+    for (i=0;i<array_length(veh_dead);i++){    
         
         if (veh_type[i]!="") and (veh_dead[i]=1) and (obj_controller.stc_bonus[3]=4) and (veh_ally[i]=false){
             var rand1, survival;onceh=0;
@@ -67,9 +69,9 @@ if (obj_ncombat.defeat=0){
 
 i=0;
 
- for (i=1;i<array_length(marine_co);i++){
+ for (i=0;i<array_length(unit_struct);i++){
     if (marine_id[i]==0) then continue;
-    unit=obj_ini.TTRPG[marine_co[i]][marine_id[i]];
+    unit=unit_struct[i];
     if (marine_dead[i]=0) and (marine_type[i]=="Death Company"){
         if( unit.role()!="Death Company"){
             unit.update_role("Death Company");
@@ -179,9 +181,13 @@ i=0;
             
             // if (wah=1){show_message(obj_ini.armour[marine_co[i],marine_id[i]]);}
             arti=!is_string(unit.armour(true));
-            if (wah=1) and (unit.armour()!=""){
-                if (marine_armour[i]="Terminator Armour") or (marine_armour[i]="Tartaros") then eqp_chance+=30;
-                if (string_count("&",marine_armour[i])>0){eqp_chance=90;artif=true;}
+            var arm_data = unit.get_armour_data();
+            if (wah=1) and (is_struct(arm_data)){
+                if (arm_data.has_tag("terminator")) then eqp_chance+=30;
+                if (string_count("&",marine_armour[i])>0){
+                    eqp_chance=90;
+                    artif=true;
+                }
                 if (dece>eqp_chance){
                     var last=0;o=0;
                     repeat(50){
@@ -312,16 +318,26 @@ i=0;
         
         
     }
-    
+}
+
+for (i=0;i<array_length(veh_dead);i++){
     if ((veh_dead[i]=1) or (obj_ncombat.defeat!=0)) and (veh_type[i]!="") and (veh_ally[i]=false){
         obj_ncombat.vehicle_deaths+=1;
         
-        var last,o;last=0;o=0;
-        repeat(50){
+        var last=0,o=0;
+        for (var o=0;o<array_length(obj_ncombat.post_unit_lost);o++){
             if (last=0){
                 o+=1;
-                if (obj_ncombat.post_unit_lost[o]=veh_type[i]){last=1;obj_ncombat.post_units_lost[o]+=1;}
-                if (obj_ncombat.post_unit_lost[o]="") and (last=0){last=o;obj_ncombat.post_unit_lost[o]=veh_type[i];obj_ncombat.post_units_lost[o]=1;obj_ncombat.post_unit_veh[o]=1;}
+                if (obj_ncombat.post_unit_lost[o]=veh_type[i]){
+                    last=1;
+                    obj_ncombat.post_units_lost[o]+=1;
+                }
+                else if (obj_ncombat.post_unit_lost[o]="") and (last=0){
+                    last=o;
+                    obj_ncombat.post_unit_lost[o]=veh_type[i];
+                    obj_ncombat.post_units_lost[o]=1;
+                    obj_ncombat.post_unit_veh[o]=1;
+                }
             }
         }
         

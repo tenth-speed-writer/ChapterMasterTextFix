@@ -130,14 +130,14 @@ function scr_cheatcode(argument0) {
 				case "artifactpopulate":
 					with (obj_star) {
 						for (i = 1; i <= planets; i++) {
-							array_push(p_feature[i], new new_planet_feature(P_features.Artifact));
+							array_push(p_feature[i], new NewPlanetFeature(P_features.Artifact));
 						}
 					}
 					break;
 				case "ruinspopulate":
 					with (obj_star) {
 						for (i = 1; i <= planets; i++) {
-							array_push(p_feature[i], new new_planet_feature(P_features.Ancient_Ruins));
+							array_push(p_feature[i], new NewPlanetFeature(P_features.Ancient_Ruins));
 						}
 					}
 					break;					
