@@ -25,13 +25,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changed:
 - Battle debug (d) now only works with debug mode enabled.
-- Possible fix of some weird stuff in battles, cased by `obj_ini.hp`.
 
 ### Fixed:
 - Spelling error in `scr_navy_planet_action` "orbiting" causing crash.
+- Probably a lot of missclicks, when one screen opens and you immediately click on something, should be fixed.
+- Possible fix of some weird stuff and some crashes in battles, cased by `obj_ini.hp`.
 
 ### Under The Hood:
 - `obj_ini.hp[][]` is replaced with `unit.hp()`.
+- `point_and_click()` now sets `obj_controller` cooldown and checks for it to work.
+- `obj_managment_panel` is now drawn in GUI layer, mouse event merged into draw.
 
 ## [0.9.3.3-YYC]
 
