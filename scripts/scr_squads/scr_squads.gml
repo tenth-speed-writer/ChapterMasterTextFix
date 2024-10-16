@@ -11,7 +11,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 	var squad_unit_types, fulfilled,unit, squad;
 	var squad_count = array_length(obj_ini.squads);
 	var fill_squad =  obj_ini.squad_types[$ squad_type];			//grab all the squad struct info from the squad_types struct
-	squad = new unit_squad(squad_type, company);
+	squad = new UnitSquad(squad_type, company);
 	squad.base_company = company;
 	squad.add_type_data(fill_squad[$ "type_data"]);		
 	squad_unit_types = squad.find_squad_unit_types();
@@ -125,7 +125,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 
 
 // constructor for new squad
-function unit_squad(squad_type = undefined, company = undefined) constructor{
+function UnitSquad(squad_type = undefined, company = undefined) constructor{
 	type = squad_type;
 	members = [];
 	squad_fulfilment ={};

@@ -1,5 +1,5 @@
 
-function scr_company_struct(comp) constructor{
+function CompanyStruct(comp) constructor{
 	company = comp;
 	company_squads = [];
 

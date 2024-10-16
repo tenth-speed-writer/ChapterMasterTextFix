@@ -20,18 +20,18 @@ function set_up_armentarium(){
         temp[37]=temp[36]+scr_role_count(string(obj_ini.role[100][16])+" Aspirant","");
         calculate_research_points();
         in_forge=false
-        forge_button = new shutter_button();
-        stc_flashes = new glow_dot();
+        forge_button = new ShutterButton();
+        stc_flashes = new GlowDot();
         /*for (var i =0;i<3;i++){
             for (var f =0;f<7;f++){
-                stc_flashes[i][f] = new glow_dot();
+                stc_flashes[i][f] = new GlowDot();
                // stc_flashes[i][f].flash_size
             }
         }*/
         speeding_bits = [
-            new speeding_dot(0, 0,(210/6)*stc_wargear),
-            new speeding_dot(0, 0,(210/6)*stc_vehicles),
-            new speeding_dot(0, 0,(210/6)*stc_ships)
+            new SpeedingDot(0, 0,(210/6)*stc_wargear),
+            new SpeedingDot(0, 0,(210/6)*stc_vehicles),
+            new SpeedingDot(0, 0,(210/6)*stc_ships)
         ]        
 }
 

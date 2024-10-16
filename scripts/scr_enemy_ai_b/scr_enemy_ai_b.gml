@@ -275,7 +275,7 @@ function scr_enemy_ai_b() {
 		        if (rando >= 100) and (p_traitors[i] < 5) {
 		            p_traitors[i] = 6;
 		            p_owner[i] = 10;
-		            array_push(p_feature[i], new new_planet_feature(P_features.Daemonic_Incursion));
+		            array_push(p_feature[i], new NewPlanetFeature(P_features.Daemonic_Incursion));
 
 		            if (p_heresy[i] >= 80){
 		            	p_heresy[i] = 95;
@@ -335,7 +335,7 @@ function scr_enemy_ai_b() {
 		} else if (p_influence[i][eFACTION.Tyranids]>5){
 			adjust_influence(eFACTION.Tyranids, -1, i);
 			if ((irandom(200)+(p_influence[i][eFACTION.Tyranids]/10)) > 195){
-				array_push(p_feature[i], new new_planet_feature(P_features.Gene_Stealer_Cult));
+				array_push(p_feature[i], new NewPlanetFeature(P_features.Gene_Stealer_Cult));
 			}
 		}
 

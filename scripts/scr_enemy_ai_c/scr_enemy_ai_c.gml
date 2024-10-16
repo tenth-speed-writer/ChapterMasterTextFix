@@ -468,11 +468,11 @@ function scr_enemy_ai_c() {
 		            }
 		            if (planet_feature_bool(p_feature[i], P_features.Capillary_Towers)==1) and (p_type[i]!="Dead"){
 		                p_feature[i]=[];
-						array_push(p_feature[i], new new_planet_feature(P_features.Capillary_Towers), new new_planet_feature(P_features.Reclamation_pools));
+						array_push(p_feature[i], new NewPlanetFeature(P_features.Capillary_Towers), new NewPlanetFeature(P_features.Reclamation_pools));
 		                p_population[i]=0;// show_message("C");
 		            }
 		            if (planet_feature_bool(p_feature[i], P_features.Capillary_Towers)==0) and (planet_feature_bool(p_feature[i], P_features.Reclamation_pools)==0) and (p_type[i]!="Dead"){
-						array_push(p_feature[i], new new_planet_feature(P_features.Capillary_Towers));// show_message("B");
+						array_push(p_feature[i], new NewPlanetFeature(P_features.Capillary_Towers));// show_message("B");
 		            }
 		        }
 	        }

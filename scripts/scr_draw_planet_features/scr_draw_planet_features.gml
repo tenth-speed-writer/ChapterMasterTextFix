@@ -3,9 +3,9 @@
 
 
 
-function feature_selected(Feature, system, planet) constructor{
+function FeatureSelected(Feature, system, planet) constructor{
 	feature = Feature;
-	main_slate = new mk_two_data_slate();
+	main_slate = new DataSlateMKTwo();
 	exit_sequence = false;
 	entrance_sequence=true;
 	remove=false;
@@ -164,7 +164,7 @@ function feature_selected(Feature, system, planet) constructor{
 					if (point_and_click(draw_unit_buttons([xx+10, yy+70], "Parade (500 req)",[1,1],c_red))){
 						obj_controller.requisition-=500;
 						feature.forge=1;
-						feature.forge_data = new player_forge();
+						feature.forge_data = new PlayerForge();
 					}
 				}*/
 				break;																	
@@ -175,7 +175,7 @@ function feature_selected(Feature, system, planet) constructor{
 					if (draw_building_builder(xx+40, yy+70,500,spr_forge_holo)){
 						obj_controller.requisition-=500;
 						feature.forge=1;
-						feature.forge_data = new player_forge();
+						feature.forge_data = new PlayerForge();
 					};
 				}
 				break;
@@ -296,7 +296,7 @@ function draw_building_builder(xx, yy, req_require, building_sprite){
 	return clicked;
 }
 
-function mk_two_data_slate()constructor{
+function DataSlateMKTwo()constructor{
 	height=0;
 	width=0;
 	XX=0;
@@ -313,7 +313,7 @@ function mk_two_data_slate()constructor{
 	}
 }
 
-function rack_and_pinion(Type="forward") constructor{
+function RackAndPinion(Type="forward") constructor{
 	reverse =false;
 	rack_y=0;
 	rotation = 360;
@@ -378,7 +378,7 @@ function rack_and_pinion(Type="forward") constructor{
 		}		
 	}
 }
-function speeding_dot(XX,YY, limit) constructor{
+function SpeedingDot(XX,YY, limit) constructor{
 	bottom_limit = limit;
 	stack = 0;
 	yyy=YY;
@@ -396,7 +396,7 @@ function speeding_dot(XX,YY, limit) constructor{
 		return yy+stack;
 	}
 }
-function glow_dot() constructor{
+function GlowDot() constructor{
 	flash = 0
 	flash_size = 5;
 	one_flash_finished = true;
@@ -448,7 +448,7 @@ function glow_dot() constructor{
 	}
 }
 
-function shutter_button() constructor{
+function ShutterButton() constructor{
 	time_open = 0;
 	click_timer = 0;
 	Width = 315;
@@ -457,8 +457,8 @@ function shutter_button() constructor{
 	YY=0;
 	width=0;
 	height=0;
-	right_rack = new rack_and_pinion();
-	left_rack = new rack_and_pinion("backward");
+	right_rack = new RackAndPinion();
+	left_rack = new RackAndPinion("backward");
 	draw_shutter = function(xx,yy,text, scale=1, entered = ""){
 		XX=xx;
 		YY=yy;
@@ -530,7 +530,7 @@ function shutter_button() constructor{
 	}
 }
 
-function data_slate() constructor{
+function DataSlate() constructor{
 	static_line=1;
 	title="";
 	sub_title="";
