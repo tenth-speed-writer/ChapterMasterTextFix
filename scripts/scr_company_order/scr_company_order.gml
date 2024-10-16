@@ -95,7 +95,6 @@ function scr_company_order(company) {
 	        temp_wep2[co][v]=wep2[co][unit_num];
 	        temp_armour[co][v]=armour[co][unit_num];
 	        temp_gear[co][v]=gear[co][unit_num];
-	        temp_hp[co][v]=hp[co][unit_num];
 	        temp_experience[co][v]=experience[co][unit_num];
 	        temp_age[co][v]=age[co][unit_num];
 	        temp_mobi[co][v]=mobi[co][unit_num];
@@ -291,7 +290,6 @@ function scr_company_order(company) {
 	        armour[co][i]=temp_armour[co][i];
 	        gear[co][i]=temp_gear[co][i];
 	        mobi[co][i]=temp_mobi[co][i];
-	        hp[co][i]=temp_hp[co][i];
 	        experience[co][i]=temp_experience[co][i];
 	        age[co][i]=temp_age[co][i];
 	        spe[co][i]=temp_spe[co][i];

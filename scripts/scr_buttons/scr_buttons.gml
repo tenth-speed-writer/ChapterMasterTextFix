@@ -51,7 +51,7 @@ function draw_unit_buttons(position, text, size_mod=[1.5,1.5],colour=c_gray,_hal
 
 
 //object containing draw_unit_buttons
-function unit_button_object() constructor{
+function UnitButtonObject() constructor{
 	x1 = 0;
 	y1 = 0;
 	w = 102;
@@ -110,7 +110,7 @@ function unit_button_object() constructor{
 	}
 }
 
-function text_bar_area(XX,YY,Max_width = 400) constructor{
+function TextBarArea(XX,YY,Max_width = 400) constructor{
 	allow_input=false;
 	xx=XX;
 	yy=YY

@@ -98,8 +98,8 @@ if (did==1){
             current_system.p_type[2]=obj_ini.home_type;
             current_system.planet[2]=1;
             if (obj_ini.home_name!="random") then current_system.name=obj_ini.home_name;
-            array_push(current_system.p_feature[1], new new_planet_feature(P_features.Recruiting_World));//recruiting world
-            array_push(current_system.p_feature[2], new new_planet_feature(P_features.Monastery));current_system.p_owner[2]=eFACTION.Player;current_system.p_first[2]=1; //monestary
+            array_push(current_system.p_feature[1], new NewPlanetFeature(P_features.Recruiting_World));//recruiting world
+            array_push(current_system.p_feature[2], new NewPlanetFeature(P_features.Monastery));current_system.p_owner[2]=eFACTION.Player;current_system.p_first[2]=1; //monestary
             if (homeworld_rule!=1) then current_system.dispo[2]=-5000;
             
             if (obj_ini.home_type=="Shrine") then known[eFACTION.Ecclesiarchy]=1;
@@ -125,7 +125,7 @@ if (did==1){
             current_system.p_type[2]=obj_ini.home_type;
             current_system.planet[2]=1;
             if (obj_ini.home_name!="random") then current_system.name=obj_ini.home_name;
-            array_push(current_system.p_feature[2], new new_planet_feature(P_features.Monastery), new new_planet_feature(P_features.Recruiting_World))
+            array_push(current_system.p_feature[2], new NewPlanetFeature(P_features.Monastery), new NewPlanetFeature(P_features.Recruiting_World))
 			current_system.p_owner[2]=eFACTION.Player;
             current_system.p_first[2]=eFACTION.Player;
             if (homeworld_rule!=1) then current_system.dispo[2]=-5000;
@@ -155,7 +155,7 @@ if (did==1){
             current_system.p_type[2]=obj_ini.home_type;
             current_system.planet[2]=1;
             if (obj_ini.home_name!="random") then current_system.name=obj_ini.home_name;
-            array_push(current_system.p_feature[1],new new_planet_feature(P_features.Recruiting_World))
+            array_push(current_system.p_feature[1],new NewPlanetFeature(P_features.Recruiting_World))
             if (current_system.p_type[1]=="random") then current_system.p_type[1]=choose("Feral","Temperate","Desert","Ice");
             if (current_system.p_type[2]=="random") then current_system.p_type[2]=choose("Feral","Temperate","Desert","Ice");
             if (global.chapter_name!="Lamenters") then obj_controller.recruiting_worlds+=string(current_system.name)+" I|";
@@ -165,7 +165,7 @@ if (did==1){
             current_system.p_type[2]=obj_ini.home_type;
             current_system.planet[2]=1;
             if (obj_ini.home_name!="random") then current_system.name=obj_ini.home_name;
-            array_push(current_system.p_feature[2],new new_planet_feature(P_features.Recruiting_World))
+            array_push(current_system.p_feature[2],new NewPlanetFeature(P_features.Recruiting_World))
             if (current_system.p_type[1]=="random") then current_system.p_type[1]=choose("Feral","Temperate","Desert","Ice");
             if (current_system.p_type[2]=="random") then current_system.p_type[2]=choose("Feral","Temperate","Desert","Ice");
             if (global.chapter_name!="Lamenters") then obj_controller.recruiting_worlds+=string(current_system.name)+" II|";
@@ -630,7 +630,7 @@ for(var i=0; i<100; i++){
         var craft=instance_create(xx,yy,obj_star);
         craft.craftworld=1;
         go=999;
-		array_push(craft.p_feature[1],new new_planet_feature(P_features.Warlord6));
+		array_push(craft.p_feature[1],new NewPlanetFeature(P_features.Warlord6));
         
         var elforce=instance_create(xx,yy,obj_en_fleet);
         elforce.sprite_index=spr_fleet_eldar;

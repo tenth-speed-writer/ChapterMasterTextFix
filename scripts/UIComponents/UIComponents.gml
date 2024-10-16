@@ -392,7 +392,7 @@ function star_ui_name_node(){
 		.finalize()	
 }
 
-function main_menu_button(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0, Hot_key=-1, Click_function=false) constructor{
+function MainMenuButton(sprite=spr_ui_but_1, sprite_hover=spr_ui_hov_1, xx=0, yy=0, Hot_key=-1, Click_function=false) constructor{
 	mouse_enter=0;
 	base_sprite = sprite;
 	hover_sprite = sprite_hover;

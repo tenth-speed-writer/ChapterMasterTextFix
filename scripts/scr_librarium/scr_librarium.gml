@@ -98,9 +98,9 @@ function scr_librarium(){
             if (point_and_click(arrow)){
                 artifact_namer.allow_input=false;
             	identifiable=0;
-                artifact_equip = new shutter_button();
-                artifact_gift = new shutter_button();
-                artifact_destroy = new shutter_button();  
+                artifact_equip = new ShutterButton();
+                artifact_gift = new ShutterButton();
+                artifact_destroy = new ShutterButton();  
                 if  (menu_artifact>=1){     	
                 	while (menu_artifact>=0){
                 		menu_artifact--;
@@ -120,9 +120,9 @@ function scr_librarium(){
             if (point_and_click(arrow)){
                 artifact_namer.allow_input=false;
             	identifiable=0;
-                artifact_equip = new shutter_button();
-                artifact_gift = new shutter_button();
-                artifact_destroy = new shutter_button();           	
+                artifact_equip = new ShutterButton();
+                artifact_gift = new ShutterButton();
+                artifact_destroy = new ShutterButton();           	
                 if (menu_artifact<30){
                     while(menu_artifact<30){
                         menu_artifact++;

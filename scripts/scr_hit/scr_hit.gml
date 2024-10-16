@@ -17,12 +17,22 @@ function scr_hit(x1=0, y1=0, x2=0, y2=0) {
 /// @param {array} rect x1, y1, x2, y2 array.
 /// @returns {bool}
 function point_and_click(rect){
+	var controller_exist = instance_exists(obj_controller);
+	var click_check = false;
 	var mouse_consts = return_mouse_consts();
-	if (point_in_rectangle(mouse_consts[0], mouse_consts[1], rect[0], rect[1],rect[2], rect[3])){
-		var click_check = event_number==ev_gui ? device_mouse_check_button_pressed(0,mb_left) : mouse_check_button_pressed(mb_left);
-		return click_check;
+
+	if (controller_exist && obj_controller.cooldown > 0) {
+		return false;
 	}
-	return false;
+
+	if (point_in_rectangle(mouse_consts[0], mouse_consts[1], rect[0], rect[1],rect[2], rect[3])){
+		click_check = event_number==ev_gui ? device_mouse_check_button_pressed(0,mb_left) : mouse_check_button_pressed(mb_left);
+		if (controller_exist && click_check) {
+			obj_controller.cooldown = 8000;
+		}
+	}
+
+	return click_check;
 }
 
 function scr_click_left(){

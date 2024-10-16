@@ -376,7 +376,7 @@ function scr_navy_planet_action(){
 	    if (obj_controller.faction_status[eFACTION.Imperium]="War"){
 	        if (orbiting.present_fleet[1]>0) then player_planet=true;
 
-            for (var r=1;r<=prbiting.planet;r++){
+            for (var r=1;r<=orbiting.planet;r++){
 	            player_planet = orbiting.p_owner[r]==eFACTION.Player;
 	            if (!player_planet){
 	            	player_planet = planet_feature_bool(orbiting.p_feature[r], P_features.Monastery);

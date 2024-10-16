@@ -34,13 +34,13 @@ function mission_name_key(mission){
 		return "none"
 	}  
 }
-function scr_unit_quick_find_pane() constructor{
-	main_panel = new data_slate();
+function UnitQuickFindPanel() constructor{
+	main_panel = new DataSlate();
 	tab_buttons = {
-	    "fleets":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-	    "garrisons":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-	    "hider":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
-	    "missions":new main_menu_button(spr_ui_but_3, spr_ui_hov_3),
+	    "fleets":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+	    "garrisons":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+	    "hider":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
+	    "missions":new MainMenuButton(spr_ui_but_3, spr_ui_hov_3),
 	}
 
 	view_area = "fleets";
@@ -254,7 +254,7 @@ function scr_unit_quick_find_pane() constructor{
 			    if (registered_hover){
 			    	any_hover=true;
     			    if (hover_count==10){
-    			    	hover_item = new hover_box();
+    			    	hover_item = new HoverBox();
     			    	var mouse_consts = return_mouse_consts()
     			    	hover_item.relative_x = (mouse_consts[0]-xx+(10-10));
     			    	hover_item.relative_y = (mouse_consts[1]-(yy+90+(20*i)));
@@ -383,7 +383,7 @@ function scr_unit_quick_find_pane() constructor{
 	}
 }
 
-function  hover_box() constructor{
+function HoverBox() constructor{
 	root_item = "none";
 	relative_x=0;
 	relative_y=0;
@@ -421,7 +421,7 @@ function update_general_manage_view(){
 	    if (managing>0){
 	        if (managing<=10) and (managing!=0){
 	        	scr_company_view(managing);
-	        	company_data = new scr_company_struct(managing);
+	        	company_data = new CompanyStruct(managing);
 	        }
 	        if (managing>10) or (managing=0){
 				scr_special_view(managing);
@@ -793,7 +793,7 @@ function planet_selection_action(){
 		                    exit;
 		                }
 	                } else if (!loading){
-	                    garrison = new garrison_force(target.p_operatives[sel_plan]);
+	                    garrison = new GarrisonForce(target.p_operatives[sel_plan]);
 	                    target.garrison = garrison.garrison_force;
 	                    feature="";
 	                    buttons_selected=false;                 

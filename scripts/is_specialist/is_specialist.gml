@@ -294,8 +294,8 @@ function group_selection(group, selection_data){
 			managing=0;
 			diplomacy=0;
             cooldown=8000;
-            exit_button = new shutter_button();
-            proceed_button = new shutter_button();
+            exit_button = new ShutterButton();
+            proceed_button = new ShutterButton();
             selection_data.start_count=0;
         // Resets selections for next turn
             man_size=0;

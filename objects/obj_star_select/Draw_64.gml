@@ -536,7 +536,7 @@ if (obj_controller.selecting_planet!=0){
             y_move += button_size[3]-button_size[1];
             if (point_and_click(button_size)){
                 if (planet_displays[i][0] != "????"){
-                    feature = new feature_selected(planet_displays[i][1], target, current_planet);
+                    feature = new FeatureSelected(planet_displays[i][1], target, current_planet);
                 } else {
                     feature = "";
                 }
@@ -710,7 +710,7 @@ if (obj_controller.selecting_planet!=0){
                 if (planet_feature_bool(target.p_feature[obj_controller.selecting_planet],P_features.Recruiting_World)==0){
                     obj_controller.cooldown=3000;
                     obj_controller.recruiting_worlds_bought-=1;
-                    array_push(target.p_feature[obj_controller.selecting_planet] ,new new_planet_feature(P_features.Recruiting_World))
+                    array_push(target.p_feature[obj_controller.selecting_planet] ,new NewPlanetFeature(P_features.Recruiting_World))
                     
                     if (obj_controller.selecting_planet){
                          obj_controller.recruiting_worlds+=planet_numeral_name(obj_controller.selecting_planet,target);

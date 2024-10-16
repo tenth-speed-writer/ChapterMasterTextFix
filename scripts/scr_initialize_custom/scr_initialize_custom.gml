@@ -1206,7 +1206,6 @@ function scr_initialize_custom() {
 		gear[100, i] = "";
 		mobi[100, i] = "";
 		experience[100, i] = 0;
-		hp[100, i] = 0;
 		age[100, i] = ((millenium * 1000) + year) - 10;
 		god[100, i] = 0;
 	}
@@ -1225,7 +1224,6 @@ function scr_initialize_custom() {
 		gear[0, i] = "";
 		mobi[0, i] = "";
 		experience[0, i] = 0;
-		hp[0, i] = 0;
 		age[0, i] = ((millenium * 1000) + year) - 10;
 		god[0, i] = 0;
 		TTRPG[0, i] = new TTRPG_stats("chapter", 0, i, "blank");
@@ -2701,7 +2699,6 @@ function scr_initialize_custom() {
 		wep2[company, 5] = "";
 		armour[company, 5] = "";
 		gear[company, 5] = "";
-		hp[company, 5] = 0;
 		experience[company, 5] = 0;
 		man_size -= 1;
 		commands -= 1;
@@ -2948,7 +2945,6 @@ function scr_initialize_custom() {
 		experience[company, i] = 0;
 		gear[company, i] = "";
 		mobi[company, i] = "";
-		hp[company, i] = 100;
 		age[company, i] = ((millenium * 1000) + year) - 10;
 		god[company, i] = 0;
 		TTRPG[company, i] = new TTRPG_stats("chapter", company, i, "blank");
@@ -3324,7 +3320,6 @@ function scr_initialize_custom() {
 			armour[company, i] = "";
 			gear[company, i] = "";
 			mobi[company, i] = "";
-			hp[company, i] = 100;
 			chaos[company, i] = 0;
 			experience[company, i] = 0;
 			age[company, i] = ((millenium * 1000) + year) - 21 - irandom(6);

@@ -446,7 +446,7 @@ function switch_view_company(new_view){
 			scr_special_view(new_view);
 		} else {
 			scr_company_view(new_view);		
-			company_data = new scr_company_struct(managing);
+			company_data = new CompanyStruct(managing);
 		}
 	}
 }
