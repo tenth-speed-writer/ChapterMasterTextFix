@@ -4,6 +4,11 @@ function scr_kill_unit(company, unit_slot){
 	if (obj_ini.role[company][unit_slot]=="Forge Master"){
 		array_push(obj_ini.previous_forge_masters, obj_ini.name[company][unit_slot]);
 	}
+
+	scr_wipe_unit(company, unit_slot)
+}
+
+function scr_wipe_unit(company, unit_slot){
 	obj_ini.spe[company][unit_slot]="";
 	obj_ini.race[company][unit_slot]=0;
 	obj_ini.loc[company][unit_slot]="";
@@ -18,7 +23,7 @@ function scr_kill_unit(company, unit_slot){
 	obj_ini.age[company][unit_slot]=0;
 	obj_ini.mobi[company][unit_slot]="";
 	obj_ini.bio[company][unit_slot]="";
-	obj_ini.TTRPG[company][unit_slot]=new TTRPG_stats("chapter", company,unit_slot ,"blank");
+	obj_ini.TTRPG[company][unit_slot].base_group="none";	
 }
 
 function kill_and_recover(company, unit_slot, equipment=true, gene_seed_collect=true){
