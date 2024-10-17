@@ -1118,8 +1118,7 @@ function scr_initialize_custom() {
 	col_special = obj_creation.col_special;
 	trim = obj_creation.trim;
 	skin_color = obj_creation.skin_color;
-	complex_livery_data = obj_creation.complex_livery_data;
-	full_livery = obj_creation.livery_picker.map_colour;
+	full_liveries = obj_creation.full_liveries;
 	var complex_type = ["sgt", "vet_sgt", "captain", "veteran"];
 	for (var i=0;i<array_length(complex_type);i++){
 		with (complex_livery_data[$ complex_type[i]]){

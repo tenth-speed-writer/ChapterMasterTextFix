@@ -37,6 +37,7 @@ function colour_item(xx,yy) constructor{
         return map_colour;
     }
 
+    role_set=0;
     static image_location_maps = {
     		left_leg_lower : [103,165, 148,217],
             left_leg_upper : [83,107, 119,134],
@@ -86,7 +87,7 @@ function colour_item(xx,yy) constructor{
 
     static upper_right = ["right_chest","right_arm","right_hand","right_backpack"];   
 
-    static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","left_right_lower","left_right_upper","left_right_knee"];
+    static legs = ["left_leg_lower","left_leg_upper","left_leg_knee","right_leg_lower","right_leg_upper","right_leg_knee"];
 
     static head_set = ["left_head", "right_head","left_muzzle", "right_muzzle"];
 
@@ -110,7 +111,16 @@ function colour_item(xx,yy) constructor{
     		}
     	}
         image_location_maps.right_trim = draw_unit_buttons([xx-100, yy+31], "R Trim");
+        image_location_maps.right_trim[0]-=xx;
+        image_location_maps.right_trim[1]-=yy;        
+        image_location_maps.right_trim[2]-=xx;
+        image_location_maps.right_trim[3]-=yy; 
+
         image_location_maps.left_trim = draw_unit_buttons([xx+150, yy+31], "L Trim");
+        image_location_maps.left_trim[0]-=xx;
+        image_location_maps.left_trim[1]-=yy;        
+        image_location_maps.left_trim[2]-=xx;
+        image_location_maps.left_trim[3]-=yy;
 
 		shader_set(full_livery_shader);
 		var spot_names = struct_get_names(map_colour);
@@ -121,9 +131,14 @@ function colour_item(xx,yy) constructor{
 		}
 		//draw_sprite(sprite_index, 0, x, y);
 		draw_sprite(spr_mk7_complex_backpack, 0, xx, yy);
-		draw_sprite(spr_mk7_complex, 2, xx, yy);  	
-		draw_sprite(spr_mk7_complex, 3, xx, yy); 		
-		draw_sprite(spr_mk7_complex, 0, xx, yy);	
+		draw_sprite(spr_mk7_complex, 0, xx, yy);
+        draw_sprite(spr_mk7_leg_variants, 0, xx, yy);     	
+		draw_sprite(spr_mk7_left_arm, 0, xx, yy);
+        draw_sprite(spr_mk7_left_trim, 0, xx, yy);
+        draw_sprite(spr_mk7_mouth_variants, 0, xx, yy);
+        draw_sprite(spr_mk7_thorax_variants, 0, xx, yy);            
+		draw_sprite(spr_mk7_right_arm, 0, xx, yy);
+        draw_sprite(spr_mk7_right_trim, 0, xx, yy);
     	//draw_sprite(xx,yy,2,spr_mk7_full_colour);
     	//draw_sprite(xx,yy,3,spr_mk7_full_colour);
     	shader_reset();
@@ -144,9 +159,16 @@ function colour_item(xx,yy) constructor{
     	}
     }
 }
-function setup_complex_livery_shader(){
+function setup_complex_livery_shader(setup_role){
+    var data_set = full_liveries[0];
+    for (var i=0;i<=20;i++){
+        if (obj_ini.role[100][i]==setup_role){
+            data_set = full_liveries[i];
+            break;
+        }
+    }
     shader_set(full_livery_shader);
-    var spot_names = struct_get_names(obj_ini.full_livery);
+    var spot_names = struct_get_names(data_set);
     for (var i=0;i<array_length(spot_names);i++){
         var colour = obj_ini.full_livery[$ spot_names[i]];
         var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];

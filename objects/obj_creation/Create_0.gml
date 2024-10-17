@@ -36,12 +36,12 @@ skip=false;
 premades=true;
 livery_picker = new colour_item(100,230);
 livery_picker.scr_unit_draw_data();
+full_liveries = array_create(21,DeepCloneStruct(livery_picker.map_colour));
 complex_livery=false;
 complex_selection = "sgt";
 complex_depth_selection = 0;
 //TODO probably make this array based at some point ot match other unit data
 complex_livery_data = complex_livery_default();
-full_unit_liveries = array_create(20,false);
 
 standard_livery_components = 0;
 enum LiveryComponents{

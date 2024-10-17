@@ -26,6 +26,10 @@ enum UnitSpecialColours {
     Gold,
 }
 
+function draw_complex_armour_set(){
+
+}
+
 function UnitImage(unit_surface) constructor{
     u_surface = unit_surface;
     static draw = function (xx, yy, _background=false){
@@ -986,7 +990,7 @@ function scr_draw_unit_image(_background=false){
                 // Draw torso
                 if (!armour_bypass){
                     if (complex_livery){
-                        setup_complex_livery_shader()                        
+                        setup_complex_livery_shader(role());                        
                         draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset)
                         shader_reset();
                         shader_set(sReplaceColor);
