@@ -10,10 +10,10 @@ xx=375;yy=10;
 tooltip="";tooltip2="";
 draw_set_alpha(1);
 // draw_sprite(spr_creation_slate,0,xx,yy);
-scr_image("slate",0,xx,yy,850,860);
+scr_image("creation/slate",1,xx,yy,850,860);
 draw_set_alpha(1-(slate1/30));
 // draw_sprite(spr_creation_slate,1,xx,yy);
-scr_image("slate",1,xx,yy,850,860);
+scr_image("creation/slate",2,xx,yy,850,860);
 
 draw_set_color(5998382);
 if (slate2>0){
