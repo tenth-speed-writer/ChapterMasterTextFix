@@ -39,7 +39,7 @@ slate_panel.inside_method = function(){
             icc-=19;
         }
 
-        sprx = x+(wid/2)-50;
+        sprx = x+(panel_width/2)-50;
         spry = y-10;
         sprw = 141*0.7;
         sprh = 141*0.7;
