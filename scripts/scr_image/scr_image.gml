@@ -31,6 +31,7 @@ function scr_image(path, image_id, x1, y1, width, height) {
 	/// where sprite1 is loaded from "/images/some/path/1.png" 
 	/// Converting to the new method will require renaming images and redoing folder structure where it makes sense,
 	/// and composite images like `chapter_icons.png` need to be broken up into separate pngs. 
+	/// One notable thing missing is any sprite_delete handling, that may require it's own separate function.
 	if(string_count("/", path) > 0){
 		var old_alpha = draw_get_alpha();
 		var old_color = draw_get_color();
@@ -50,10 +51,10 @@ function scr_image(path, image_id, x1, y1, width, height) {
 		var existing_sprite = -1;
 		try {
 			existing_sprite = array_get(obj_img.image_cache[$path], image_id);
-			if(image_id != 0 && existing_sprite == 0){
-				existing_sprite = -1; // blank spots in the array show up as 0s which is taken by the credits sprite so yea
-			}
-		} catch (_ex){}
+		} catch (_ex){
+			debugl($"error trying to fetch image {path}/{image_id}.png from cache: {_ex}");
+			existing_sprite = -1;
+		}
 		
 		if(sprite_exists(existing_sprite)){
 			drawing_sprite = existing_sprite;
@@ -82,6 +83,7 @@ function scr_image(path, image_id, x1, y1, width, height) {
 	        draw_set_color(c_black);
 			return;
 		}
+		// Draws the real image if we found it
 		draw_sprite_stretched(drawing_sprite,1,x1,y1,width,height);
 
 		draw_set_alpha(old_alpha);
