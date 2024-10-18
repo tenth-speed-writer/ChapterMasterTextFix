@@ -1157,6 +1157,7 @@ function scr_initialize_custom() {
 	trim = obj_creation.trim;
 	skin_color = obj_creation.skin_color;
 	full_liveries = obj_creation.full_liveries;
+	complex_livery_data = obj_creation.complex_livery_data;
 	var complex_type = ["sgt", "vet_sgt", "captain", "veteran"];
 	for (var i=0;i<array_length(complex_type);i++){
 		with (complex_livery_data[$ complex_type[i]]){

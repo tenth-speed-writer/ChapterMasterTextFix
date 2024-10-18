@@ -125,7 +125,7 @@ function colour_item(xx,yy) constructor{
             set_pattern(struct_cols.main_color, backpack);
         } else if (armour_style==1){//Breastplate
             set_pattern(struct_cols.secondary_color, chest);
-            set_pattern(struct_cols.secondary_color, head_set);
+            set_pattern(struct_cols.main_color, head_set);
             set_pattern(struct_cols.main_color, legs);
         }else if (armour_style==2){//Vertical
             set_pattern(struct_cols.secondary_color, upper_left);
@@ -195,7 +195,7 @@ function colour_item(xx,yy) constructor{
     			tooltip_draw(map_names[i]);
     		}
     		if (point_and_click(rel_position)){
-    			colour_pick = new colour_picker(xx, yy);
+    			colour_pick = new colour_picker(xx-20, yy);
     			colour_pick.area = map_names[i];
     			colour_pick.title = map_names[i];
     		}

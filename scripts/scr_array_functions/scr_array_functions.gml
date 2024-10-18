@@ -26,7 +26,7 @@ function array_sum(choice_array,start_value=0, offset=0,length=0){
 function array_find_value(search_array, value){
 	var loc = -1;
 	for (var i=0;i<array_length(search_array);i++){
-		if (search_array[i] == loc){
+		if (search_array[i] == value){
 			loc = i;
 			break;
 		}

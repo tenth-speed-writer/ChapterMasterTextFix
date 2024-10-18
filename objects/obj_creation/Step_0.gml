@@ -206,30 +206,37 @@ var good=0;
 if (color_to_main!=""){
     main_color = max(array_find_value(col,color_to_main),0);
     color_to_main = "";
+    full_liveries = "none";
 }
 if (color_to_secondary!=""){
     secondary_color = max(array_find_value(col,color_to_secondary),0);
     color_to_secondary = "";
+    full_liveries = "none";
 }
 if (color_to_trim!=""){
     main_trim = max(array_find_value(col,color_to_trim),0);
     color_to_trim = "";
+    full_liveries = "none";
 }
 if (color_to_pauldron!=""){
     right_pauldron = max(array_find_value(col,color_to_pauldron),0);
-    color_to_pauldron = "";     
+    color_to_pauldron = "";  
+    full_liveries = "none";   
 }
 if (color_to_pauldron2!=""){
     left_pauldron = max(array_find_value(col,color_to_pauldron2),0);
     color_to_pauldron2 = "";
+    full_liveries = "none";
 }
 if (color_to_lens!=""){
     lens_color = max(array_find_value(col,color_to_lens),0);
-    color_to_lens = "";  
+    color_to_lens = ""; 
+    full_liveries = "none"; 
 }
 if (color_to_weapon!=""){
     weapon_color = max(array_find_value(col,color_to_weapon),0);
     color_to_weapon = "";
+    full_liveries = "none";
 }
 
 if (full_liveries == "none"){
@@ -246,5 +253,6 @@ if (full_liveries == "none"){
     livery_picker.set_defualt_armour(struct_cols,col_special);
     full_liveries = array_create(21,DeepCloneStruct(livery_picker.map_colour));
 }
+
 // on left mouse release, if greater than 5000 and less than 9000, set cooldown to 0
 // if >=9000 then don't decrease at all

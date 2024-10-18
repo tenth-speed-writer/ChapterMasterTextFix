@@ -264,7 +264,7 @@ function scr_livery_setup(){
             if (cur_button.text=="Trim") then yar = trim;
             if (custom<2) then draw_set_alpha(0.5);
             draw_sprite(spr_creation_check,yar,cur_button.cords[0],cur_button.cords[1]);
-             if (scr_hit(cur_button.cords[0],cur_button.cords[1],cur_button.cords[0]+32,cur_button.cords[1]+32) and allow_colour_click){
+             if (point_and_click([cur_button.cords[0],cur_button.cords[1],cur_button.cords[0]+32,cur_button.cords[1]+32])){
                 cooldown=8000;
                 var onceh=0;
                 if (cur_button.text!="Trim"){
@@ -285,7 +285,7 @@ function scr_livery_setup(){
 	    			lens_color:lens_color,
 	    			weapon_color:weapon_color
 	    		}
-	    		set_defualt_armour(struct_cols, col_special);          
+	    		livery_picker.set_defualt_armour(struct_cols, col_special);          
              }
              draw_text_transformed(cur_button.cords[0]+30,cur_button.cords[1]+4,cur_button.text,0.4,0.4,0);
         }
@@ -532,6 +532,13 @@ function scr_livery_setup(){
                 turn_selection_change=true;
             }
         }
+    }
+    if (livery_picker.role_set!=0){
+    	if (point_and_click(draw_unit_buttons([340, 200], $"Return to defualt Livery"))){
+            full_liveries[livery_picker.role_set] = DeepCloneStruct(livery_picker.map_colour);
+            livery_picker.map_colour = full_liveries[0];
+            livery_picker.role_set = 0;   		
+    	}
     }
     
     

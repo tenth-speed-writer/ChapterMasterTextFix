@@ -113,6 +113,8 @@ function ChapterData() constructor {
 /// @mixin obj_creation
 function scr_chapter_new(argument0) {
 
+	full_liveries = "none"; // until chapter objects are in full use kicks off livery propogation
+
 	// argument0 = chapter
 	obj_creation.use_chapter_object = 0; // for the new json testing
 	var chapter_id = CHAPTERS.UNKNOWN;
