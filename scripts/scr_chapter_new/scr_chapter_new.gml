@@ -21,6 +21,9 @@ function ChapterData() constructor {
 	homeworld_rule = HOMEWORLD_RULE.NONE;
 	advantages = [];
 	disadvantages = [];
+
+	full_liveries = "none"
+
 	colors = {
 		main: "Grey",
 		secondary: "Grey",
@@ -349,7 +352,8 @@ function scr_chapter_new(argument0) {
 	        company_title[7]="Guardians of Phalanx";company_title[8]="Dorn's Huscarls";company_title[9]="The Wardens";
 	        company_title[10]="The Eyes of Dorn";
 
-	    i=99;repeat(3){i+=1;
+	    i=99;repeat(3){
+	    	i+=1;
 	        role[i,2]="Huscarl";wep1[i,2]="Power Sword";wep2[i,2]="Storm Shield";armour[i,2]="Power Armour";
 		}
 	}
@@ -907,6 +911,8 @@ if (argument0="Lamenters"){founding=5;points=150;
 		obj_creation.adv = chapter_object.advantages;
 		obj_creation.dis = chapter_object.disadvantages;
 
+		obj_creation.full_liveries = chapter_object.full_liveries;
+
 		obj_creation.color_to_main = chapter_object.colors.main;
 		obj_creation.color_to_secondary = chapter_object.colors.secondary;
 		obj_creation.color_to_pauldron = chapter_object.colors.pauldron_r;
@@ -978,7 +984,7 @@ if (argument0="Lamenters"){founding=5;points=150;
 		}
 
 		points = chapter_object.points;
-		maxpoints=chapter_object.points;
+		maxpoints=chapter_object.points;	
 
 	}
 
@@ -998,7 +1004,9 @@ if (argument0="Lamenters"){founding=5;points=150;
 
 
 	maxpoints=points;
-
+	var livery_picker = new colour_item(0,0);
+	livery_picker.scr_unit_draw_data();
+	full_liveries = array_create(21,DeepCloneStruct(livery_picker.map_colour));	
 	return true;
 }
 

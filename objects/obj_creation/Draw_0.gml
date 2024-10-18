@@ -151,8 +151,10 @@ if (slate4>0){
                 draw_set_alpha(slate4/30);
                 if (point_and_click([x2, y2, x2+48, y2+48])){
 					if(chapter_made=1){
-                        cooldown=8000;chapter_name = custom_chapters[c].name;
-                        change_slide=1;goto_slide=2;
+                        cooldown=8000;
+                        chapter_name = custom_chapters[c].name;
+                        change_slide=1;
+                        goto_slide=2;
                         scr_chapter_new(chapter21);
                         
                         if (chapter_made = 0 ){
@@ -190,7 +192,11 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][other_chapters[c].icon];
                             global.chapter_icon_frame = 0;
-                            icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
+                            icon=i;
+                            custom=0;
+                            change_slide=1;
+                            goto_slide=2;
+                            chapter_string=chapter_name;
                         } else {
                             // borked
                         }
@@ -201,12 +207,13 @@ if (slate4>0){
         }
         
         /* Custom + Random*/
-        x2+=53;i=1001;
+        x2+=53;
+        i=1001;
         repeat(2){
             draw_sprite(spr_creation_icon,0,x2,y2);
             draw_sprite_stretched(spr_icon_chapters,i-1001,x2,y2,48,48);
             
-            if (mouse_x>=x2) and (mouse_y>=y2) and (mouse_x<x2+48) and (mouse_y<y2+48) and (slate4>=30){
+            if (scr_hit(x2, y2,x2+48,y2+48)) and (slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=i;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
@@ -214,8 +221,14 @@ if (slate4>0){
                 draw_set_alpha(slate4/30);
                 if (mouse_left>=1) and (cooldown<=0) and (change_slide<=0){
                     cooldown=8000;icon=1;icon_name="da";change_slide=1;goto_slide=2;
-                    if (i=1001){custom=2;scr_chapter_random(0);}
-                    if (i=1002){custom=1;scr_chapter_random(1);}
+                    if (i=1001){
+                        custom=2;
+                        scr_chapter_random(0);
+                    }
+                    if (i=1002){
+                        custom=1;
+                        scr_chapter_random(1);
+                    }
                 }
             }
             i+=1;x2+=53;
@@ -1663,7 +1676,8 @@ if (slide>=2) or (goto_slide>=2){
         if (popup="") and ((change_slide>=70) or (change_slide<=0)) and (cooldown<=0) and (mouse_left>=1){
             if (scr_hit(927+64+12,761+12,927+128-12,761+64-12)){
                 scr_creation(2);
-                scr_creation(3.5);scr_creation(4);
+                scr_creation(3.5);
+                scr_creation(4);
                 scr_creation(5);
                 scr_creation(6);
             }

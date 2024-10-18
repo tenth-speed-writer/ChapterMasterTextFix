@@ -204,75 +204,47 @@ if (custom==2){
 }
 var good=0;
 if (color_to_main!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_main=col[q]) and (good=0){
-            good=q;
-            color_to_main="";
-            main_color=q;
-        }
-    }
+    main_color = max(array_find_value(col,color_to_main),0);
+    color_to_main = "";
 }
 if (color_to_secondary!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_secondary=col[q]) and (good=0){
-            good=q;
-            color_to_secondary="";
-            secondary_color=q;
-        }
-    }
+    secondary_color = max(array_find_value(col,color_to_secondary),0);
+    color_to_secondary = "";
 }
 if (color_to_trim!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_trim=col[q]) and (good=0){
-            good=q;
-            color_to_trim="";
-            main_trim=q;
-        }
-    }
+    main_trim = max(array_find_value(col,color_to_trim),0);
+    color_to_trim = "";
 }
 if (color_to_pauldron!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_pauldron=col[q]) and (good=0){
-            good=q;
-            color_to_pauldron="";
-            right_pauldron=q;
-        }
-    }
+    right_pauldron = max(array_find_value(col,color_to_pauldron),0);
+    color_to_pauldron = "";     
 }
 if (color_to_pauldron2!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_pauldron2=col[q]) and (good=0){
-            good=q;
-            color_to_pauldron2="";
-            left_pauldron=q;
-        }
-    }
+    left_pauldron = max(array_find_value(col,color_to_pauldron2),0);
+    color_to_pauldron2 = "";
 }
 if (color_to_lens!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_lens=col[q]) and (good=0){
-            good=q;
-            color_to_lens="";
-            lens_color=q;
-        }
-    }
+    lens_color = max(array_find_value(col,color_to_lens),0);
+    color_to_lens = "";  
 }
 if (color_to_weapon!=""){
-    good=0;
-    for(var q=0; q<global.colors_count; q++){
-        if (color_to_weapon=col[q]) and (good=0){
-            good=q;
-            color_to_weapon="";
-            weapon_color=q;
-        }
-    }
+    weapon_color = max(array_find_value(col,color_to_weapon),0);
+    color_to_weapon = "";
 }
 
+if (full_liveries == "none"){
+    var struct_cols = {
+        main_color :main_color,
+        secondary_color:secondary_color,
+        main_trim:main_trim,
+        right_pauldron:right_pauldron,
+        left_pauldron:left_pauldron,
+        lens_color:lens_color,
+        weapon_color:weapon_color
+    }
+    livery_picker.scr_unit_draw_data();
+    livery_picker.set_defualt_armour(struct_cols,col_special);
+    full_liveries = array_create(21,DeepCloneStruct(livery_picker.map_colour));
+}
 // on left mouse release, if greater than 5000 and less than 9000, set cooldown to 0
 // if >=9000 then don't decrease at all

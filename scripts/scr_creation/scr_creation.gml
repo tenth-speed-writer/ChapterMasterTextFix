@@ -21,24 +21,64 @@ function scr_creation(argument0) {
 	    change_slide=1;goto_slide=4;cooldown=8000;alarm[0]=1;
     
 	    if (argument0=3.5){
-	        if (color_to_main!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_main=col[q]) and (good=0){good=q;color_to_main="";main_color=q;}}}
-	        if (color_to_secondary!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_secondary=col[q]) and (good=0){good=q;color_to_secondary="";secondary_color=q;}}}
-	        if (color_to_trim!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_trim=col[q]) and (good=0){good=q;color_to_trim="";main_trim=q;}}}
-	        if (color_to_pauldron!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron=col[q]) and (good=0){good=q;color_to_pauldron="";right_pauldron=q;}}}
-	        if (color_to_pauldron2!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_pauldron2=col[q]) and (good=0){good=q;color_to_pauldron2="";left_pauldron=q;}}}
-	        if (color_to_lens!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_lens=col[q]) and (good=0){good=q;color_to_lens="";lens_color=q;}}}
-	        if (color_to_weapon!=""){var q,good;q=0;good=0;repeat(30){q+=1;if (color_to_weapon=col[q]) and (good=0){good=q;color_to_weapon="";weapon_color=q;}}}
+
+	    	main_color = max(array_find_value(col,color_to_main),0);
+	    	color_to_main = "";
+
+	    	secondary_color = max(array_find_value(col,color_to_secondary),0);
+	    	color_to_secondary = "";
+
+	    	main_trim = max(array_find_value(col,color_to_trim),0);
+	    	color_to_trim = "";
+
+	    	right_pauldron = max(array_find_value(col,color_to_pauldron),0);
+	    	color_to_pauldron = "";	    		    	
+
+	    	left_pauldron = max(array_find_value(col,color_to_pauldron2),0);
+	    	color_to_pauldron2 = "";	 
+
+	    	lens_color = max(array_find_value(col,color_to_lens),0);
+	    	color_to_lens = "";	 	    	
+
+	    	weapon_color = max(array_find_value(col,color_to_weapon),0);
+	    	color_to_weapon = "";
+
+	    	if (full_liveries == "none"){
+	    		var struct_cols = {
+	    			main_color :main_color,
+	    			secondary_color:secondary_color,
+	    			main_trim:main_trim,
+	    			right_pauldron:right_pauldron,
+	    			left_pauldron:left_pauldron,
+	    			lens_color:lens_color,
+	    			weapon_color:weapon_color
+	    		}
+				livery_picker.scr_unit_draw_data();
+				livery_picker.set_defualt_armour(struct_cols,col_special);
+				full_liveries = array_create(21,DeepCloneStruct(livery_picker.map_colour));
+	    	}
 	    }
 	}
-            
+     
 	if (argument0=4){
 	    if (hapothecary!="") and (hchaplain!="") and (clibrarian!="") and (fmaster!="") and (recruiter!="") and (admiral!="") and (battle_cry!=""){
 	        change_slide=1;goto_slide=5;cooldown=8000;
         
 	        if (custom=2){
 	            mutations_selected=0;
-	            preomnor=0;voice=0;doomed=0;lyman=0;omophagea=0;ossmodula=0;membrane=0;
-	            zygote=0;betchers=0;catalepsean=0;secretions=0;occulobe=0;mucranoid=0;
+	            preomnor=0;
+	            voice=0;
+	            doomed=0;
+	            lyman=0;
+	            omophagea=0;
+	            ossmodula=0;
+	            membrane=0;
+	            zygote=0;
+	            betchers=0;
+	            catalepsean=0;
+	            secretions=0;
+	            occulobe=0;
+	            mucranoid=0;
 	            if (purity>=1) then mutations=4;
 	            if (purity>=2) then mutations=3;
 	            if (purity>=4) then mutations=2;

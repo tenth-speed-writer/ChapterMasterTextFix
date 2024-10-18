@@ -32,7 +32,9 @@ function colour_item(xx,yy) constructor{
             right_muzzle: 0,
             eye_lense :0,  
             right_backpack : 0,   
-            left_backpack : 0,                           
+            left_backpack : 0,
+            weapon_primary : 0,
+            weapon_Secondary : 0,                           
         }
         return map_colour;
     }
@@ -55,6 +57,9 @@ function colour_item(xx,yy) constructor{
 
             left_thorax : 0,
             right_thorax : 0, 
+
+            weapon_primary : 0,
+            weapon_Secondary : 0,
 
             left_pauldron :[114,31, 150,67],
             right_pauldron: [19,31, 43,71],
@@ -93,9 +98,47 @@ function colour_item(xx,yy) constructor{
 
     static backpack = ["right_backpack","left_backpack"]
 
+    static trim_all = ["right_trim","left_trim", "metallic_trim"];
+
     static set_pattern = function(col, pattern){
         for (var i=0 ;i<array_length(pattern);i++){
             map_colour[$ pattern[i]] = col;
+        }
+    }
+
+    static set_defualt_armour = function(struct_cols, armour_style=0){
+        map_colour.right_pauldron = struct_cols.right_pauldron;   
+        map_colour.left_pauldron = struct_cols.left_pauldron;   
+
+        map_colour.eye_lense = struct_cols.lens_color;  
+
+        map_colour.weapon_primary = struct_cols.weapon_color;
+        map_colour.weapon_secondary = struct_cols.weapon_color;
+        set_pattern(struct_cols.main_trim, trim_all);
+
+        if (armour_style==0){
+            set_pattern(struct_cols.main_color, upper_left);
+            set_pattern(struct_cols.main_color, lower_right);
+            set_pattern(struct_cols.main_color, upper_right);
+            set_pattern(struct_cols.main_color, lower_left);
+            set_pattern(struct_cols.main_color, head_set);
+            set_pattern(struct_cols.main_color, backpack);
+        } else if (armour_style==1){//Breastplate
+            set_pattern(struct_cols.secondary_color, chest);
+            set_pattern(struct_cols.secondary_color, head_set);
+            set_pattern(struct_cols.main_color, legs);
+        }else if (armour_style==2){//Vertical
+            set_pattern(struct_cols.secondary_color, upper_left);
+            set_pattern(struct_cols.main_color, lower_right);
+            set_pattern(struct_cols.main_color, upper_right);
+            set_pattern(struct_cols.secondary_color, lower_left);
+            set_pattern(struct_cols.main_color, head_set);
+        }else if (armour_style==3){//Quadrant
+            set_pattern(struct_cols.secondary_color, upper_left);
+            set_pattern(struct_cols.secondary_color, lower_right);
+            set_pattern(struct_cols.main_color, upper_right);
+            set_pattern(struct_cols.main_color, lower_left);
+            set_pattern(struct_cols.main_color, head_set);
         }
     }
     colour_pick=false;

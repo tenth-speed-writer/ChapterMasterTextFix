@@ -276,40 +276,16 @@ function scr_livery_setup(){
                 } else {
                     trim=!trim;
                 }
-                switch (cur_button.text){
-                    case "Quadrant":
-                        with(livery_picker){
-                            set_pattern(obj_creation.secondary_color, upper_left);
-                            set_pattern(obj_creation.secondary_color, lower_right);
-                            set_pattern(obj_creation.main_color, upper_right);
-                            set_pattern(obj_creation.main_color, lower_left);
-                            set_pattern(obj_creation.main_color, head_set);
-                        };
-                        break;
-                    case "Breastplate":
-                        with(livery_picker){
-                            set_pattern(obj_creation.secondary_color, chest);
-                            set_pattern(obj_creation.secondary_color, head_set);
-                            set_pattern(obj_creation.main_color, legs);
-                        };
-                        break;
-                    case "Vertical":
-                        with(livery_picker){
-                            set_pattern(obj_creation.secondary_color, upper_left);
-                            set_pattern(obj_creation.main_color, lower_right);
-                            set_pattern(obj_creation.main_color, upper_right);
-                            set_pattern(obj_creation.secondary_color, lower_left);
-                            set_pattern(obj_creation.main_color, head_set);
-                        };
-                        break;                                               
-                }
-                if (yar){
-	                set_pattern(obj_creation.main_color, upper_left);
-	                set_pattern(obj_creation.main_color, lower_right);
-	                set_pattern(obj_creation.main_color, upper_right);
-	                set_pattern(obj_creation.main_color, lower_left);
-	                set_pattern(obj_creation.main_color, head_set);                	
-                }
+	    		var struct_cols = {
+	    			main_color :main_color,
+	    			secondary_color:secondary_color,
+	    			main_trim:main_trim,
+	    			right_pauldron:right_pauldron,
+	    			left_pauldron:left_pauldron,
+	    			lens_color:lens_color,
+	    			weapon_color:weapon_color
+	    		}
+	    		set_defualt_armour(struct_cols, col_special);          
              }
              draw_text_transformed(cur_button.cords[0]+30,cur_button.cords[1]+4,cur_button.text,0.4,0.4,0);
         }
