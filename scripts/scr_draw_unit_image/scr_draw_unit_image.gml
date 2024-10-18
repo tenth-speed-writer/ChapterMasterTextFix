@@ -25,9 +25,23 @@ enum UnitSpecialColours {
     Ravenwing,
     Gold,
 }
+function get_complex_set(set = "mk7"){
+     set_pieces = {
 
-function draw_complex_armour_set(){
-
+    }
+    if (set == "mk7"){
+        set_pieces.armour = spr_mk7_complex;
+        set_pieces.left_arm = spr_mk7_left_arm;
+        set_pieces.right_arm = spr_mk7_right_arm;
+        set_pieces.left_trim = spr_mk7_left_trim;
+        set_pieces.right_trim = spr_mk7_right_trim;
+        set_pieces.mouth_variants = spr_mk7_mouth_variants;
+        set_pieces.thorax_variants = spr_mk7_thorax_variants;
+        set_pieces.chest_variants = spr_mk7_chest_variants;
+        set_pieces.leg_variants = spr_mk7_leg_variants;
+        set_pieces.backpack = spr_mk7_complex_backpack;
+    }
+    return set_pieces;
 }
 
 function UnitImage(unit_surface) constructor{
@@ -211,7 +225,7 @@ function scr_draw_unit_image(_background=false){
         }
     }
     
-    function draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics){
+    function draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics,complex_set){
         if (array_contains([ArmourType.Normal,ArmourType.Terminator, ArmourType.Scout], armour_type)){
             var offset_x = x_surface_offset;
             var offset_y = y_surface_offset;
@@ -309,6 +323,7 @@ function scr_draw_unit_image(_background=false){
         var armour_type = ArmourType.Normal;
         var armour_sprite = spr_weapon_blank;
         var complex_livery = false;
+        var complex_set={};
         var back_type = BackType.None,
             psy_hood = 0,
             skull_mask = 0,
@@ -868,6 +883,7 @@ function scr_draw_unit_image(_background=false){
 
                 } else if (unit_armour=="MK7 Aquila" || unit_armour="Power Armour"){
                     specific_armour_sprite = spr_mk7_complex;
+                    complex_set = get_complex_set("mk7");
                     complex_livery = true;
                     specific_helm = spr_generic_sgt_mk7;
                     if (progenitor_map()=="Dark Angels"){
@@ -985,14 +1001,33 @@ function scr_draw_unit_image(_background=false){
                 }
 
                 // Draw arms
-                draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics);
+                draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics, complex_set);
 
                 // Draw torso
                 if (!armour_bypass){
                     if (complex_livery){
-                        setup_complex_livery_shader(role());                        
-                        draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset)
-                        shader_reset();
+                        setup_complex_livery_shader(role());
+                        if (struct_exists(complex_set, "armour")){
+                            draw_sprite(complex_set.armour,0,x_surface_offset,y_surface_offset);
+                            if (struct_exists(complex_set, "chest_variants")){
+                                var choice = get_body_data("chest_variation","torso")%sprite_get_number(complex_set.chest_variants);
+                                draw_sprite(complex_set.chest_variants,choice,x_surface_offset,y_surface_offset);
+                            }
+                            if (struct_exists(complex_set, "thorax_variants")){
+                                var choice = get_body_data("thorax_variation","torso")%sprite_get_number(complex_set.thorax_variants);
+                                draw_sprite(complex_set.thorax_variants,choice,x_surface_offset,y_surface_offset);
+                            }
+                            if (struct_exists(complex_set, "mouth_variants")){
+                                var choice = get_body_data("mouth_variants","jaw")%sprite_get_number(complex_set.mouth_variants);
+                                draw_sprite(complex_set.mouth_variants,choice,x_surface_offset,y_surface_offset);
+                            }
+                            if (struct_exists(complex_set, "leg_variants")){
+                                var choice = get_body_data("leg_variants","left_leg")%sprite_get_number(complex_set.leg_variants);
+                                draw_sprite(complex_set.leg_variants,choice,x_surface_offset,y_surface_offset);
+                            }                                                                                     
+                        } else {
+                            draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset);
+                        }                       
                         shader_set(sReplaceColor);
                     } else{                   
                         draw_sprite(armour_sprite,specialist_colours,x_surface_offset,y_surface_offset);

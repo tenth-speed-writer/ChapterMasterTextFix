@@ -175,13 +175,14 @@ function colour_item(xx,yy) constructor{
 		//draw_sprite(sprite_index, 0, x, y);
 		draw_sprite(spr_mk7_complex_backpack, 0, xx, yy);
 		draw_sprite(spr_mk7_complex, 0, xx, yy);
-        draw_sprite(spr_mk7_leg_variants, 0, xx, yy);     	
-		draw_sprite(spr_mk7_left_arm, 0, xx, yy);
-        draw_sprite(spr_mk7_left_trim, 0, xx, yy);
-        draw_sprite(spr_mk7_mouth_variants, 0, xx, yy);
-        draw_sprite(spr_mk7_thorax_variants, 0, xx, yy);            
+        draw_sprite(spr_mk7_leg_variants, 1, xx, yy);
+        draw_sprite(spr_mk7_chest_variants, 1, xx, yy);           	
+        draw_sprite(spr_mk7_mouth_variants, 1, xx, yy);
+        draw_sprite(spr_mk7_thorax_variants, 1, xx, yy);            
 		draw_sprite(spr_mk7_right_arm, 0, xx, yy);
-        draw_sprite(spr_mk7_right_trim, 0, xx, yy);
+        draw_sprite(spr_mk7_right_trim, 1, xx, yy);
+        draw_sprite(spr_mk7_left_arm, 0, xx, yy);
+        draw_sprite(spr_mk7_left_trim, 1, xx, yy);        
     	//draw_sprite(xx,yy,2,spr_mk7_full_colour);
     	//draw_sprite(xx,yy,3,spr_mk7_full_colour);
     	shader_reset();
@@ -203,17 +204,17 @@ function colour_item(xx,yy) constructor{
     }
 }
 function setup_complex_livery_shader(setup_role){
-    var data_set = full_liveries[0];
+    var data_set = obj_ini.full_liveries[0];
     for (var i=0;i<=20;i++){
         if (obj_ini.role[100][i]==setup_role){
-            data_set = full_liveries[i];
+            data_set = obj_ini.full_liveries[i];
             break;
         }
     }
     shader_set(full_livery_shader);
     var spot_names = struct_get_names(data_set);
     for (var i=0;i<array_length(spot_names);i++){
-        var colour = obj_ini.full_livery[$ spot_names[i]];
+        var colour = data_set[$ spot_names[i]];
         var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];
         shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
     }    
