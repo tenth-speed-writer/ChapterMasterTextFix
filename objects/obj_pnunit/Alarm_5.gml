@@ -27,15 +27,15 @@ if (obj_ncombat.defeat=0){
             
             if (marine_type[i]!="") and (marine_dead[i]==1) and (ally[i]=false){
                 if (marine_type[i]=="Chapter Master"){
-                    if (obj_ncombat.apothecaries_alive>0){
-                        obj_ncombat.apothecaries_alive-=0.5;
+                    if (obj_ncombat.unit_recovery_score>0){
+                        obj_ncombat.unit_recovery_score-=1;
                         unit.update_health(irandom(20)-10);
                         marine_dead[i]=0;
                         obj_ncombat.units_saved+=1;                
                     }
-                }else if (marine_type[i]!="Chapter Master") and (marine_type[i]!=""){
-                    if (obj_ncombat.apothecaries_alive>0){
-                        obj_ncombat.apothecaries_alive-=0.5;
+                }else if (marine_type[i]!=""){
+                    if (obj_ncombat.unit_recovery_score>0){
+                        obj_ncombat.unit_recovery_score-=1;
                         unit.update_health(irandom(20)-10);
                         marine_dead[i]=0;
                         obj_ncombat.units_saved+=1;
@@ -46,19 +46,19 @@ if (obj_ncombat.defeat=0){
         }
     }
     for (i=0;i<array_length(veh_dead);i++){    
-        
-        if (veh_type[i]!="") and (veh_dead[i]=1) and (obj_controller.stc_bonus[3]=4) and (veh_ally[i]=false){
-            var rand1, survival;onceh=0;
-            survival=20;
-            rand1=floor(random(100))+1;
-            if (rand1<=survival) and (veh_dead[i]!=2){
-                veh_hp[i]=10;veh_dead[i]=0;
-                obj_ncombat.vehicles_saved+=1;
-            }
-        }
         if (veh_type[i]!="") and (veh_dead[i]=1) and (veh_ally[i]=false){
-            if (obj_ncombat.techmarines_alive>0){
-                obj_ncombat.techmarines_alive-=0.5;
+            if (obj_controller.stc_bonus[3]=4) {
+                var rand1, survival;onceh=0;
+                survival=20;
+                rand1=floor(random(100))+1;
+                if (rand1<=survival) and (veh_dead[i]!=2){
+                    veh_hp[i]=10;
+                    veh_dead[i]=0;
+                    obj_ncombat.vehicles_saved+=1;
+                }
+            } 
+            if (veh_dead[i]==1 && obj_ncombat.vehicle_recovery_score>0) {
+                obj_ncombat.vehicle_recovery_score-=1;
                 veh_hp[i]=10;
                 veh_dead[i]=0;
                 obj_ncombat.vehicles_saved+=1;
@@ -111,10 +111,7 @@ i=0;
     
     var destroy;destroy=0;
     if ((marine_dead[i]>0) or (obj_ncombat.defeat!=0)) and (marine_type[i]!="") and (ally[i]=false){
-        
-    
-    
-    
+
         var comm=false;
         if (unit.IsSpecialist("standard",true)){
             obj_ncombat.final_command_deaths+=1;
@@ -122,7 +119,7 @@ i=0;
             if (is_specialist(unit.role, "trainee")){
                 recent=false
             } else if (array_contains([string("Venerable {0}",obj_ini.role[100][6]), "Codiciery", "Lexicanum"], unit.role())){
-                 recent=false
+                recent=false
             }
             if (recent=true) then scr_recent("death_"+string(marine_type[i]),string(obj_ini.name[marine_co[i],marine_id[i]]),marine_co[i]);            
         } else {
@@ -346,7 +343,3 @@ for (i=0;i<array_length(veh_dead);i++){
         
     }
 }
-
-
-/* */
-/*  */

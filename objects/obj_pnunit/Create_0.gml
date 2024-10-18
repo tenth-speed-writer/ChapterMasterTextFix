@@ -104,7 +104,7 @@ hostile_shooters=0;
 hostile_damage=0;
 hostile_weapon="";
 hostile_unit="";
-hostile_men=0;
+hostile_type=0;
 hostile_range=0;
 hostile_splash=0;
 
