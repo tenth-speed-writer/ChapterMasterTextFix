@@ -246,8 +246,9 @@ function scr_draw_unit_image(_background=false){
             }
             for (var right_left = 1; right_left <= 2; right_left++) {
                 // Draw bionic arms
-                if (arm_variant[right_left] == 1 && armour_type == ArmourType.Normal && !hide_bionics && struct_exists(body[$ (right_left == 1 ? "right_arm" : "left_arm")], "bionic")){
-                    var bionic_arm = body[$ (right_left == 1 ? "right_arm" : "left_arm")][$ "bionic"];
+                var bionic_on_body = get_body_data("bionic",right_left == 1 ? "right_arm" : "left_arm");
+                if (arm_variant[right_left] == 1 && armour_type == ArmourType.Normal && !hide_bionics && bionic_on_body){
+                    var bionic_arm = bionic_on_body;
                     var _spr_w = sprite_get_width(spr_bionics_arm) - sprite_get_xoffset(spr_bionics_arm) * 2;
                     var bionic_spr_index = bionic_arm.variant * 2;
                     if (right_left == 2) {
@@ -257,13 +258,26 @@ function scr_draw_unit_image(_background=false){
                         draw_sprite(spr_bionics_arm, bionic_spr_index, offset_x, offset_y);
                     }
                 } else if (arm_variant[right_left] > 0){
-                    var _spr_index = (arm_variant[right_left] - 1) * 2;
-                    var _spr_w = sprite_get_width(_arm_spr) - sprite_get_xoffset(_arm_spr) * 2;
-                    if (right_left == 2) {
-                        _spr_index += (specialist_colours >= 2) ? 1 : 0;
-                        draw_sprite_ext(_arm_spr, _spr_index, offset_x + _spr_w, offset_y, -1, 1, 0, c_white, 1);
+                    if (right_left==1 && (struct_exists(complex_set, "right_arm"))){
+
+                        setup_complex_livery_shader(role());
+                        draw_sprite(complex_set.right_arm,0,x_surface_offset,y_surface_offset);
+                        shader_set(sReplaceColor);
+
+                    } else if (right_left==1 && (struct_exists(complex_set, "left_arm"))){
+
+                        setup_complex_livery_shader(role());
+                        draw_sprite(complex_set.left_arm,0,x_surface_offset,y_surface_offset);
+                        shader_set(sReplaceColor);                      
                     } else {
-                        draw_sprite(_arm_spr, _spr_index, offset_x, offset_y);
+                        var _spr_index = (arm_variant[right_left] - 1) * 2;
+                        var _spr_w = sprite_get_width(_arm_spr) - sprite_get_xoffset(_arm_spr) * 2;
+                        if (right_left == 2) {
+                            _spr_index += (specialist_colours >= 2) ? 1 : 0;
+                            draw_sprite_ext(_arm_spr, _spr_index, offset_x + _spr_w, offset_y, -1, 1, 0, c_white, 1);
+                        } else {
+                            draw_sprite(_arm_spr, _spr_index, offset_x, offset_y);
+                        }
                     }
                 }
             }
@@ -1024,7 +1038,15 @@ function scr_draw_unit_image(_background=false){
                             if (struct_exists(complex_set, "leg_variants")){
                                 var choice = get_body_data("leg_variants","left_leg")%sprite_get_number(complex_set.leg_variants);
                                 draw_sprite(complex_set.leg_variants,choice,x_surface_offset,y_surface_offset);
-                            }                                                                                     
+                            }
+                            if (struct_exists(complex_set, "left_trim")){
+                                var choice = get_body_data("trim_variation","left_arm")%sprite_get_number(complex_set.left_trim);
+                                draw_sprite(complex_set.left_trim,choice,x_surface_offset,y_surface_offset);
+                            } 
+                            if (struct_exists(complex_set, "right_trim")){
+                                var choice = get_body_data("trim_variation","right_arm")%sprite_get_number(complex_set.right_trim);
+                                draw_sprite(complex_set.right_trim,choice,x_surface_offset,y_surface_offset);
+                            }                                                                                                                                              
                         } else {
                             draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset);
                         }                       
@@ -1037,12 +1059,6 @@ function scr_draw_unit_image(_background=false){
                     if (array_contains(["MK3 Iron Armour", "MK6 Corvus", "MK7 Aquila", "MK8 Errant"], unit_armour)){
                         if (back_type == BackType.Jump || back_type == BackType.Dev){
                             draw_sprite(mk7_chest_variants,1,x_surface_offset,y_surface_offset);
-                        } else if (unit_armour=="MK7 Aquila"){
-                            if (struct_exists(body.torso, "variation")){
-                                if (body.torso.variation%2 == 1){
-                                    draw_sprite(mk7_chest_variants,0,x_surface_offset,y_surface_offset);
-                                }
-                            }
                         }
                     }
                     // Draw pauldron trim
