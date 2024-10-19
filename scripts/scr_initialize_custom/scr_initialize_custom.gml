@@ -18,6 +18,7 @@ enum Role {
 	SERGEANT = 18,
 	VETERAN_SERGEANT = 19
 }
+
 function complex_livery_default(){
 	return {
 		sgt : {

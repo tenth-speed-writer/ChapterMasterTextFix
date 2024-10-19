@@ -40,6 +40,8 @@ function get_complex_set(set = "mk7"){
         set_pieces.chest_variants = spr_mk7_chest_variants;
         set_pieces.leg_variants = spr_mk7_leg_variants;
         set_pieces.backpack = spr_mk7_complex_backpack;
+    }else if (set == "mk6"){
+        set_pieces.armour = spr_mk6_complex;
     }
     return set_pieces;
 }
@@ -882,6 +884,9 @@ function scr_draw_unit_image(_background=false){
                         }                        
                     }                   
                 } else if (unit_armour=="MK6 Corvus"){
+                    specific_armour_sprite = spr_mk6_complex;
+                    complex_set = get_complex_set("mk6");
+                    complex_livery = true;
                     specific_armour_sprite = spr_beakie_colors;
                     specific_helm = spr_generic_sgt_mk6;
                     if (progenitor_map()=="Dark Angels"){
