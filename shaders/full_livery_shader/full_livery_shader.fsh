@@ -34,7 +34,7 @@ void main()
     vec4 col = texture2D(gm_BaseTexture, v_vTexcoord);
    if (col.rgb == vec3(0.0,0.0, 128.0/255.0).rgb){
      col.rgb = left_head.rgb;
-   }
+   };
     if (col.rgb == vec3(181.0/255.0,0.0, 255.0/255.0).rgb){
         col.rgb = right_backpack.rgb;
     };    
@@ -77,7 +77,7 @@ void main()
      if (col.rgb == vec3(0.0/255.0,128.0/255.0, 0.0/255.0).rgb){
         col.rgb = right_leg_upper.rgb;
     };
-     if (col.rgb == vec3(255.0/255.0,112/255.0, 170.0/255.0).rgb){
+     if (col.rgb == vec3(255.0/255.0,112.0/255.0, 170.0/255.0).rgb){
         col.rgb = left_leg_upper.rgb;
     };
      if (col.rgb == vec3(1.0,0.0, 0.0).rgb){
@@ -91,19 +91,19 @@ void main()
     };
      if (col.rgb == vec3(165.0/255.0,84.0/255.0, 24.0/255.0).rgb){
         col.rgb = right_leg_lower.rgb;
-    }
+    };
      if (col.rgb == vec3(138.0/255.0,218.0/255.0, 140.0/255.0).rgb){
         col.rgb = right_arm.rgb;
-    }
+    };
      if (col.rgb == vec3(46.0/255.0,169.0/255.0, 151.0/255.0).rgb){
         col.rgb = right_hand.rgb;
-    }
+    };
      if (col.rgb == vec3(1.0,230.0/255.0, 140.0/255.0).rgb){
         col.rgb = left_arm.rgb;
-    } 
+    } ;
      if (col.rgb == vec3(1.0,160.0/255.0, 112.0/255.0).rgb){
         col.rgb = left_hand.rgb;
-    }               
+    } ;              
     gl_FragColor = v_vColour * col;
 
 }
