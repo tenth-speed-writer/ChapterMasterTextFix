@@ -294,7 +294,8 @@ function scr_draw_unit_image(_background=false){
     draw_set_font(fnt_40k_14b);
     draw_set_color(c_gray);
 	var xx=__view_get( e__VW.XView, 0 )+0, yy=__view_get( e__VW.YView, 0 )+0, bb="", img=0;
-    var blandify = obj_controller.blandify;
+    var modest_livery = obj_controller.modest_livery;
+    var progenitor_visuals = obj_controller.progenitor_visuals;
     var draw_sequence = [];
     if (name_role()!="") and (base_group=="astartes"){
         ui_weapon[1]=spr_weapon_blank;
@@ -313,19 +314,20 @@ function scr_draw_unit_image(_background=false){
         ui_xmod[2]=0;
         ui_ymod[1]=0;
         ui_ymod[2]=0;
-        ui_back=true;
-        ui_force_both=false;
-        pauldron_trim=0;
+        var draw_backpack = true;
+        var ui_force_both=false;
+        var pauldron_trim=false;
         var armour_bypass = false;
         var hide_bionics = false;
         var robes_bypass = false;
         var robes_hood_bypass = false;
         var halo_bypass = false;
         var arm_bypass = false;
-        var armour_draw =[];
+        var armour_draw = [];
 		var specialist_colours=obj_ini.col_special; 
         var specific_armour_sprite = "none";
         var unit_chapter = global.chapter_name;
+        var unit_progenitor = progenitor_visuals ? progenitor_map() : "";
         var unit_is_sniper = false;
         var unit_role = role();
         var unit_wep1=weapon_one();
@@ -340,16 +342,16 @@ function scr_draw_unit_image(_background=false){
         var armour_sprite = spr_weapon_blank;
         var complex_livery = false;
         var complex_set={};
-        var back_type = BackType.None,
-            psy_hood = 0,
-            skull_mask = 0,
-            servo_arm = 0,
-            servo_harness = 0,
-            halo = 0,
-            reverent_guardians = 0,
-            slow_trait = 0,
-            tech_brothers_trait = -5,
-            body_part;
+        var back_equipment = BackType.None;
+        var psy_hood = 0;
+        var skull_mask = 0;
+        var servo_arm = 0;
+        var servo_harness = 0;
+        var halo = 0;
+        var reverent_guardians = false;
+        var slow_trait = 0;
+        var tech_brothers_trait = -5;
+        var body_part;
 
         // if (unit_role=="Chapter Master"){unit_specialization=111;}
         // // Honour Guard
@@ -401,25 +403,26 @@ function scr_draw_unit_image(_background=false){
         }
         // Sets up the description for the equipement of current marine            
 
-        if (array_contains([UnitSpecialization.Chaplain, UnitSpecialization.WolfPriest, UnitSpecialization.Librarian], unit_specialization) || unit_role=="Chapter Master"){
-            if (array_contains(obj_ini.adv, "Reverent Guardians")){
-                reverent_guardians=1
+        if (scr_has_adv("Reverent Guardians")){
+            if (array_contains([UnitSpecialization.Chaplain, UnitSpecialization.WolfPriest, UnitSpecialization.Librarian], unit_specialization) || unit_role=="Chapter Master"){
+                    reverent_guardians = true;
             }
         }
+
         if (unit_gear="Psychic Hood"){
             psy_hood=-50;
         }
 
         if (array_contains([UnitSpecialization.Chaplain, UnitSpecialization.WolfPriest], unit_specialization)) then skull_mask=-50;
     
-        // if (_armour_type!=ArType.Norm) then ui_back=false;
+        // if (_armour_type!=ArType.Norm) then draw_backpack=false;
 
         if (unit_back=="Jump Pack"){
-			ui_back=false;
-			back_type=BackType.Jump;
+			draw_backpack=false;
+			back_equipment=BackType.Jump;
 		}else if (unit_back=="Heavy Weapons Pack"){
-            ui_back=false;
-			back_type=BackType.Dev;
+            draw_backpack=false;
+			back_equipment=BackType.Dev;
         } else if (unit_back="Servo-arm"){
             servo_arm=1;
         } else if (unit_back="Servo-harness"){
@@ -448,7 +451,7 @@ function scr_draw_unit_image(_background=false){
                 break;
             }
 		
-        if (armour_type!=ArmourType.Normal) then ui_back=false;
+        if (armour_type!=ArmourType.Normal) then draw_backpack=false;
         
         if (armour_type!=ArmourType.Dreadnought && armour_type!=ArmourType.None){
             if (weapon_one()!=""){
@@ -655,14 +658,14 @@ function scr_draw_unit_image(_background=false){
             //Rejoice!
             // draw_sprite(spr_marine_base,img,x_surface_offset,y_surface_offset);
             var clothing_style=3;
-            if (progenitor_map()=="Dark Angels")  {clothing_style=0;}
-            else if (progenitor_map()=="White Scars")  {clothing_style=1; }
-            else if (progenitor_map()=="Space Wolves")  {clothing_style=2;}
-            else if (progenitor_map()=="Imperial Fists")  {clothing_style=0;}
-            else if (progenitor_map()=="Iron Hands" ) { clothing_style=0;}
-            else if (progenitor_map()=="Salamanders" )  {clothing_style=4;}
-            else if (progenitor_map()=="Raven Guard")  {clothing_style=0;}
-            else if (progenitor_map()=="Doom Benefactors")  {clothing_style=4;}
+            if (unit_progenitor=="Dark Angels")  {clothing_style=0;}
+            else if (unit_progenitor=="White Scars")  {clothing_style=1; }
+            else if (unit_progenitor=="Space Wolves")  {clothing_style=2;}
+            else if (unit_progenitor=="Imperial Fists")  {clothing_style=0;}
+            else if (unit_progenitor=="Iron Hands" ) { clothing_style=0;}
+            else if (unit_progenitor=="Salamanders" )  {clothing_style=4;}
+            else if (unit_progenitor=="Raven Guard")  {clothing_style=0;}
+            else if (unit_progenitor=="Doom Benefactors")  {clothing_style=4;}
         
             // Determine Sprite
             if (skull_mask=-50) then skull_mask=1;
@@ -760,7 +763,7 @@ function scr_draw_unit_image(_background=false){
             }
         
             // Draw the lights
-            if (unit_specialization == UnitSpecialization.Apothecary) and (unit_armour!="") and (back_type == BackType.None){
+            if (unit_specialization == UnitSpecialization.Apothecary) and (unit_armour!="") and (back_equipment == BackType.None){
                 if (unit_armour=="Terminator Armour") then draw_sprite(spr_gear_apoth,0,x_surface_offset,y_surface_offset-22); // for terminators
                 else draw_sprite(spr_gear_apoth,0,x_surface_offset,y_surface_offset-6); // for normal power armour
             }
@@ -782,45 +785,56 @@ function scr_draw_unit_image(_background=false){
             
                 if (skin_color!=6) then draw_sprite(spr_clothing_colors,clothing_style,x_surface_offset,y_surface_offset);
             } else {
-                if (reverent_guardians=1) and (blandify=0){
-                    if (armour_type==ArmourType.Normal) then draw_sprite(spr_pack_brazier,0,x_surface_offset,y_surface_offset);
-                    if (armour_type!=ArmourType.Normal) then draw_sprite(spr_pack_brazier,1,0-2,0);
-                }
                  // Draw the backpack
-                if (armour_type!=ArmourType.Dreadnought){
-                    if (ui_back){
-                        var back_sprite [0, 0];
-                        if (specialist_colours==0) then back_sprite = [armour_sprite, 10];
-                        if (specialist_colours==1) then back_sprite = [armour_sprite, 11];
-                        if (specialist_colours>=2) then back_sprite = [armour_sprite, 12];
-                        if (body.torso.backpack_variation < 3) {
-                            if (progenitor_map()=="Dark Angels"){
-                                if array_contains(["MK5 Heresy", "MK6 Corvus","MK7 Aquila", "MK8 Errant", "Artificer Armour"], unit_armour){
-                                    back_sprite = [spr_da_backpack, 0];
-                                }
+                if (draw_backpack){
+                    var _backpack_sprite = "";
+                    var _backpack_index = 0;
+
+                    if (specialist_colours==0) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 10;
+                    } else if (specialist_colours==1) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 11;
+                    } else if (specialist_colours>=2) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 12;
+                    }
+
+                    if (body.torso.backpack_variation < 3) {
+                        if (unit_progenitor=="Dark Angels"){
+                            if array_contains(["MK5 Heresy", "MK6 Corvus","MK7 Aquila", "MK8 Errant", "Artificer Armour"], unit_armour){
+                                _backpack_sprite = spr_da_backpack;
+                                _backpack_index = 0;
                             }
                         }
-                        if (unit_chapter == "Dark Angels") {
-                            if (unit_role == "Chapter Master") {
-                                back_sprite = [spr_da_backpack, 1];
-                            } else if (unit_role == "Master of Sanctity") {
-                                back_sprite = [spr_da_chaplain, 1];
-                            }
+                        if (reverent_guardians) and (!modest_livery){
+                            _backpack_sprite = spr_pack_brazier3;
+                            _backpack_index = 0;
                         }
-                        draw_sprite(back_sprite[0],back_sprite[1],x_surface_offset,y_surface_offset);
-                    }else{
-                        if (back_type==BackType.Jump){
-                            if (specialist_colours==0) then draw_sprite(spr_pack_jump,0,x_surface_offset,y_surface_offset);
-                            if (specialist_colours==1) then draw_sprite(spr_pack_jump,1,x_surface_offset,y_surface_offset);
-                            if (specialist_colours>=2) then draw_sprite(spr_pack_jump,2,x_surface_offset,y_surface_offset);
+                    }
+
+                    if (unit_progenitor == "Dark Angels") {
+                        if (unit_role == "Chapter Master") {
+                            _backpack_sprite = spr_da_backpack;
+                            _backpack_index = 1;
+                        } else if (unit_role == "Master of Sanctity") {
+                            _backpack_sprite = spr_da_chaplain;
+                            _backpack_index = 1;
                         }
-                        if (back_type==BackType.Dev){
-                            if (specialist_colours==0) then draw_sprite(spr_pack_devastator,0,x_surface_offset,y_surface_offset);
-                            if (specialist_colours==1) then draw_sprite(spr_pack_devastator,1,x_surface_offset,y_surface_offset);
-                            if (specialist_colours>=2) then draw_sprite(spr_pack_devastator,2,x_surface_offset,y_surface_offset);
-                        }
-                    }  
-                }
+                    }
+
+                    draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
+
+                }else{
+                    if (back_equipment==BackType.Jump){
+                        var color_variant = min(specialist_colours, 2);
+                        draw_sprite(spr_pack_jump,color_variant,x_surface_offset,y_surface_offset);
+                    } else if (back_equipment==BackType.Dev){
+                        var color_variant = min(specialist_colours, 2);
+                        draw_sprite(spr_pack_devastator,color_variant,x_surface_offset,y_surface_offset);
+                    }
+                }  
 
                 var specific_helm = false;
                 var helm_draw=[0,0];
@@ -836,7 +850,7 @@ function scr_draw_unit_image(_background=false){
                 }else if (unit_armour=="MK3 Iron Armour"){
                     specific_armour_sprite = spr_mk3_colors;
                     specific_helm = spr_generic_sgt_mk3;
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk3;
@@ -859,7 +873,7 @@ function scr_draw_unit_image(_background=false){
                             armour_bypass=true;
                         }*/                      
                     }
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk4;
@@ -873,7 +887,7 @@ function scr_draw_unit_image(_background=false){
                     specific_armour_sprite = spr_mk5_colors;
                     //TODO sort this mess out streamline system somehow
                     specific_helm = spr_generic_sgt_mk5;
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk5;
@@ -889,7 +903,7 @@ function scr_draw_unit_image(_background=false){
                     complex_livery = true;
                     specific_armour_sprite = spr_beakie_colors;
                     specific_helm = spr_generic_sgt_mk6;
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk6;
@@ -905,7 +919,7 @@ function scr_draw_unit_image(_background=false){
                     complex_set = get_complex_set("mk7");
                     complex_livery = true;
                     specific_helm = spr_generic_sgt_mk7;
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk7;
@@ -919,7 +933,7 @@ function scr_draw_unit_image(_background=false){
                 } else if (unit_armour=="MK8 Errant"){
                     specific_helm = spr_generic_sgt_mk8;
                     specific_armour_sprite = spr_mk8_colors;
-                    if (progenitor_map()=="Dark Angels"){
+                    if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk8;
@@ -1062,7 +1076,7 @@ function scr_draw_unit_image(_background=false){
                     // Draw additional torso decals
 
                     if (array_contains(["MK3 Iron Armour", "MK6 Corvus", "MK7 Aquila", "MK8 Errant"], unit_armour)){
-                        if (back_type == BackType.Jump || back_type == BackType.Dev){
+                        if (back_equipment == BackType.Jump || back_equipment == BackType.Dev){
                             draw_sprite(mk7_chest_variants,1,x_surface_offset,y_surface_offset);
                         }
                     }
@@ -1076,8 +1090,8 @@ function scr_draw_unit_image(_background=false){
                 }
 
                 // Draw decals, features and other stuff
-                if (slow_trait>=10) and (blandify=0) then draw_sprite(armour_sprite,slow_trait,x_surface_offset,y_surface_offset);// Slow and Purposeful battle damage
-                // if (tech_brothers_trait>=0) and (blandify=0) then draw_sprite(spr_gear_techb,tech_brothers_trait,x_surface_offset,y_surface_offset);// Tech-Brothers bling
+                if (slow_trait>=10) and (!modest_livery) then draw_sprite(armour_sprite,slow_trait,x_surface_offset,y_surface_offset);// Slow and Purposeful battle damage
+                // if (tech_brothers_trait>=0) and (modest_livery=0) then draw_sprite(spr_gear_techb,tech_brothers_trait,x_surface_offset,y_surface_offset);// Tech-Brothers bling
                 //sgt helms
                 if (specific_helm!=false){
                     var return_helm = false;
@@ -1204,7 +1218,7 @@ function scr_draw_unit_image(_background=false){
                     var psy_hood_offset_x = 0;
                     var psy_hood_offset_y = 0;
                     robes_hood_bypass = true;
-                    if (array_contains(obj_ini.adv,"Daemon Binders") && blandify==0 && psy_hood<7){
+                    if (array_contains(obj_ini.adv,"Daemon Binders") && !modest_livery && psy_hood<7){
 						robes_bypass = true;
                         if (pauldron_trim=1){
 							draw_sprite(spr_gear_hood2,0,x_surface_offset-2,y_surface_offset-11);
@@ -1400,7 +1414,7 @@ function scr_draw_unit_image(_background=false){
                     helm_ii=2;
                 }else if (array_contains(obj_ini.adv,"Never Forgive") || obj_ini.progenitor==1){
                     helm_ii=3;
-                } else if (array_contains(obj_ini.adv,"Reverent Guardians")) {
+                } else if (reverent_guardians) {
                     helm_ii=4;
                 }
                 draw_sprite(spr_honor_helm,helm_ii,x_surface_offset-2,y_surface_offset-11);     
