@@ -248,7 +248,8 @@ function scr_load_controller(save_id){
 	    if (obj_controller.command_set[23]=0) and (obj_controller.command_set[24]=0) then obj_controller.command_set[24]=1;
 
 
-	    ini_read_real("Controller","blandify",0);
+	    ini_read_real("Controller","modest_livery",0);
+		ini_read_real("Controller","progenitor_visuals",0);
 	    var _recruit_data = return_json_from_ini("Recruit", "data", {
 	    	names:[""],
 	    	corruption :[0],

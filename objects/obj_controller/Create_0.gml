@@ -542,7 +542,8 @@ command_set[8]=1;
 command_set[9]=1;
 command_set[20]=1;
 command_set[24]=1;
-blandify=0;
+modest_livery=0;
+progenitor_visuals=0;
 
 // ** Default menu items **
 selecting_planet=0;

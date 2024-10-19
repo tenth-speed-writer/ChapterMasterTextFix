@@ -1278,7 +1278,7 @@ if (slide=4){
     draw_line(445,202,1125,202);
     
     draw_set_font(fnt_40k_30b);
-    draw_text_transformed(444,215,string_hash_to_newline("Livelry"),0.6,0.6,0);
+    draw_text_transformed(444,215,string_hash_to_newline("Livery"),0.6,0.6,0);
     var button_alpha = custom < 2 ? 0.5 : 1;
     var livery_swap_button = draw_unit_buttons([544,215], complex_livery? "Simple Livery":"Complex Livery",[1,1], 38144,, fnt_40k_14b, button_alpha);
     if (point_and_click(livery_swap_button) && custom >= 2){
