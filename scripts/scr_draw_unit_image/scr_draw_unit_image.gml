@@ -54,6 +54,18 @@ function get_complex_set(set = "mk7"){
         set_pieces.right_arm = spr_mk5_right_arm;
         set_pieces.left_trim = spr_mk7_left_trim;
         set_pieces.right_trim = spr_mk7_right_trim;        
+    }else if (set == "mk4"){
+        set_pieces.armour = spr_mk4_complex;
+        set_pieces.backpack = spr_mk4_complex_backpack;
+        set_pieces.left_arm = spr_mk4_left_arm;
+        set_pieces.right_arm = spr_mk4_right_arm;
+        set_pieces.left_trim = spr_mk7_left_trim;
+        set_pieces.right_trim = spr_mk7_right_trim;        
+    }else if (set == "mk3"){
+        set_pieces.armour = spr_mk3_complex;
+        set_pieces.backpack = spr_mk3_complex_backpack;
+        set_pieces.left_arm = spr_mk3_left_arm;
+        set_pieces.right_arm = spr_mk3_right_arm;      
     }
     return set_pieces;
 }
@@ -860,9 +872,12 @@ function scr_draw_unit_image(_background=false){
                     specific_armour_sprite=armour_sprite;
                     armour_bypass=true;
                 }else if (unit_armour=="MK3 Iron Armour"){
-                    specific_armour_sprite = spr_mk3_colors;
+                    specific_armour_sprite = spr_mk3_complex;
+                    complex_set = get_complex_set("mk3");
+                    complex_livery = true;
                     specific_helm = spr_generic_sgt_mk3;
                     if (unit_progenitor=="Dark Angels"){
+                        complex_livery = false;
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk3;
@@ -874,7 +889,9 @@ function scr_draw_unit_image(_background=false){
                     }
                 } else if (unit_armour=="MK4 Maximus"){
                     specific_helm = spr_generic_sgt_mk4;
-                    specific_armour_sprite = spr_mk4_colors;
+                    specific_armour_sprite = spr_mk4_complex;
+                    complex_set = get_complex_set("mk4");
+                    complex_livery = true;
                     if (array_contains(["Champion",obj_ini.role[100][2],obj_ini.role[100][5]], unit_role)){
                         /*if (unit_chapter=="Ultramarines"){
                             armour_draw=[spr_ultra_honor_guard,body.torso.armour_choice];
@@ -886,6 +903,7 @@ function scr_draw_unit_image(_background=false){
                         }*/                      
                     }
                     if (unit_progenitor=="Dark Angels"){
+                        complex_livery = false;
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk4;
@@ -896,7 +914,9 @@ function scr_draw_unit_image(_background=false){
                         }
                     }
                 } else if (unit_armour=="MK5 Heresy"){
-                    specific_armour_sprite = spr_mk5_colors;
+                    specific_armour_sprite = spr_mk5_complex;
+                    complex_set = get_complex_set("mk5");
+                    complex_livery = true;
                     //TODO sort this mess out streamline system somehow
                     specific_helm = spr_generic_sgt_mk5;
                     if (unit_progenitor=="Dark Angels"){
