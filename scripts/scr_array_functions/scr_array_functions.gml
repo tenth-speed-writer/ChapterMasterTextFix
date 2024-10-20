@@ -35,16 +35,7 @@ function array_join(){
     }
     return 	new_array;
 }
-function print(){
-    var _str = "";
 
-    for (var i = 0; i < argument_count; i ++)
-    {
-        _str += string(argument[i]);
-    }
-
-    show_debug_message(_str);
-}
 function array_find_value(search_array, value){
 	var loc = -1;
 	for (var i=0;i<array_length(search_array);i++){

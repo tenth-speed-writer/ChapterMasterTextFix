@@ -42,6 +42,18 @@ function get_complex_set(set = "mk7"){
         set_pieces.backpack = spr_mk7_complex_backpack;
     }else if (set == "mk6"){
         set_pieces.armour = spr_mk6_complex;
+        set_pieces.backpack = spr_mk6_complex_backpack;
+        set_pieces.left_arm = spr_mk6_left_arm;
+        set_pieces.right_arm = spr_mk6_right_arm;
+        set_pieces.left_trim = spr_mk7_left_trim;
+        set_pieces.right_trim = spr_mk7_right_trim;
+    }else if (set == "mk5"){
+        set_pieces.armour = spr_mk5_complex;
+        set_pieces.backpack = spr_mk5_complex_backpack;
+        set_pieces.left_arm = spr_mk5_left_arm;
+        set_pieces.right_arm = spr_mk5_right_arm;
+        set_pieces.left_trim = spr_mk7_left_trim;
+        set_pieces.right_trim = spr_mk7_right_trim;        
     }
     return set_pieces;
 }
