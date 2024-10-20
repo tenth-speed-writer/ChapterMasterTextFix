@@ -66,7 +66,24 @@ function get_complex_set(set = "mk7"){
         set_pieces.backpack = spr_mk3_complex_backpack;
         set_pieces.left_arm = spr_mk3_left_arm;
         set_pieces.right_arm = spr_mk3_right_arm;      
+    }else if (set == "mk8"){
+        set_pieces.armour = spr_mk8_complex;
+        set_pieces.backpack = spr_mk8_complex_backpack;
+        set_pieces.left_arm = spr_mk8_left_arm;
+        set_pieces.right_arm = spr_mk8_right_arm; 
+        set_pieces.leg_variants = spr_mk7_leg_variants; 
+        set_pieces.left_trim = spr_mk7_left_trim;
+        set_pieces.right_trim = spr_mk7_right_trim;                    
+    }else if (set == "indomitus"){
+        set_pieces.armour = spr_indomitus_complex;
+        set_pieces.left_arm = spr_indomitus_left_arm;
+        set_pieces.right_arm = spr_indomitus_right_arm;                  
+    }else if (set == "tartaros"){
+        set_pieces.armour = spr_tartaros_complex;
+        set_pieces.left_arm = spr_tartaros_left_arm;
+        set_pieces.right_arm = spr_tartaros_right_arm;                  
     }
+
     return set_pieces;
 }
 
@@ -547,7 +564,7 @@ function scr_draw_unit_image(_background=false){
                     }
                 }
             }
-			
+			//TODO complex shader means no need for all this edge case stuff
 			// Apothecary
             else if (unit_specialization == UnitSpecialization.Apothecary) and (unit_chapter!="Space Wolves"){
                 shader_array_set[ShaderType.Body] = Colors.White;
@@ -808,57 +825,7 @@ function scr_draw_unit_image(_background=false){
                 draw_sprite(spr_marine_base,skin_color,x_surface_offset,y_surface_offset);
             
                 if (skin_color!=6) then draw_sprite(spr_clothing_colors,clothing_style,x_surface_offset,y_surface_offset);
-            } else {
-                 // Draw the backpack
-                if (draw_backpack){
-                    var _backpack_sprite = "";
-                    var _backpack_index = 0;
-
-                    if (specialist_colours==0) {
-                        _backpack_sprite = armour_sprite;
-                        _backpack_index = 10;
-                    } else if (specialist_colours==1) {
-                        _backpack_sprite = armour_sprite;
-                        _backpack_index = 11;
-                    } else if (specialist_colours>=2) {
-                        _backpack_sprite = armour_sprite;
-                        _backpack_index = 12;
-                    }
-
-                    if (body.torso.backpack_variation < 3) {
-                        if (unit_progenitor=="Dark Angels"){
-                            if array_contains(["MK5 Heresy", "MK6 Corvus","MK7 Aquila", "MK8 Errant", "Artificer Armour"], unit_armour){
-                                _backpack_sprite = spr_da_backpack;
-                                _backpack_index = 0;
-                            }
-                        }
-                        if (reverent_guardians) and (!modest_livery){
-                            _backpack_sprite = spr_pack_brazier3;
-                            _backpack_index = 0;
-                        }
-                    }
-
-                    if (unit_progenitor == "Dark Angels") {
-                        if (unit_role == "Chapter Master") {
-                            _backpack_sprite = spr_da_backpack;
-                            _backpack_index = 1;
-                        } else if (unit_role == "Master of Sanctity") {
-                            _backpack_sprite = spr_da_chaplain;
-                            _backpack_index = 1;
-                        }
-                    }
-
-                    draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
-
-                }else{
-                    if (back_equipment==BackType.Jump){
-                        var color_variant = min(specialist_colours, 2);
-                        draw_sprite(spr_pack_jump,color_variant,x_surface_offset,y_surface_offset);
-                    } else if (back_equipment==BackType.Dev){
-                        var color_variant = min(specialist_colours, 2);
-                        draw_sprite(spr_pack_devastator,color_variant,x_surface_offset,y_surface_offset);
-                    }
-                }  
+            } else { 
 
                 var specific_helm = false;
                 var helm_draw=[0,0];
@@ -1021,9 +988,13 @@ function scr_draw_unit_image(_background=false){
                         }
                     }
                 } else if (unit_armour="Tartaros"){
-                    specific_armour_sprite = spr_tartaros2_colors;
+                    specific_armour_sprite = spr_tartaros_complex;
+                    complex_set = get_complex_set("tartaros");
+                    complex_livery = true;
                 } else if (unit_armour="Terminator Armour"){
-                    specific_armour_sprite = spr_terminator3_colors;
+                    specific_armour_sprite = spr_indomitus_complex;
+                    complex_set = get_complex_set("indomitus");
+                    complex_livery = true;
                     specific_helm = spr_generic_terminator_sgt;
                     if(unit_chapter == "Dark Angels"){
                         specific_helm = false;
@@ -1064,7 +1035,70 @@ function scr_draw_unit_image(_background=false){
                     }
                     draw_sprite(spr_gear_halo,halo_type+halo_color,x_surface_offset,y_surface_offset+halo_offset_y);
                 }
+                 // Draw the backpack
+                if (draw_backpack){
+                    var _backpack_sprite = "";
+                    var _backpack_index = 0;
 
+                    if (specialist_colours==0) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 10;
+                    } else if (specialist_colours==1) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 11;
+                    } else if (specialist_colours>=2) {
+                        _backpack_sprite = armour_sprite;
+                        _backpack_index = 12;
+                    }
+
+                    if (body.torso.backpack_variation < 3) {
+                        if (unit_progenitor=="Dark Angels"){
+                            if array_contains(["MK5 Heresy", "MK6 Corvus","MK7 Aquila", "MK8 Errant", "Artificer Armour"], unit_armour){
+                                _backpack_sprite = spr_da_backpack;
+                                _backpack_index = 0;
+                                if (struct_exists(complex_set, "backpack")){
+                                    struct_remove(complex_set, "backpack");
+                                }                                
+                            }
+                        }
+                        if (reverent_guardians) and (!modest_livery){
+                            _backpack_sprite = spr_pack_brazier3;
+                            _backpack_index = 0;
+                            if (struct_exists(complex_set, "backpack")){
+                                struct_remove(complex_set, "backpack");
+                            }                            
+                        }
+                    }
+
+                    if (unit_progenitor == "Dark Angels") {
+                        if (unit_role == "Chapter Master") {
+                            _backpack_sprite = spr_da_backpack;
+                            _backpack_index = 1;
+                        } else if (unit_role == "Master of Sanctity") {
+                            _backpack_sprite = spr_da_chaplain;
+                            _backpack_index = 1;
+                        }
+                    }
+                    if (complex_livery){
+                        if (struct_exists(complex_set, "backpack")){
+                            var choice = get_body_data("torso","backpack_variation")%sprite_get_number(complex_set.backpack);
+                            draw_sprite(complex_set.backpack,choice,x_surface_offset,y_surface_offset);
+                        }else {
+                            draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
+                        }
+                    } else {
+                        draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
+                    }
+
+                }else{
+                    if (back_equipment==BackType.Jump){
+                        var color_variant = min(specialist_colours, 2);
+                        draw_sprite(spr_pack_jump,color_variant,x_surface_offset,y_surface_offset);
+                    } else if (back_equipment==BackType.Dev){
+                        var color_variant = min(specialist_colours, 2);
+                        draw_sprite(spr_pack_devastator,color_variant,x_surface_offset,y_surface_offset);
+                    }
+                } 
                 // Draw arms
                 draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics, complex_set);
 

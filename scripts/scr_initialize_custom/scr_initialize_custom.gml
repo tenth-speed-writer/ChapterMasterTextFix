@@ -1158,6 +1158,11 @@ function scr_initialize_custom() {
 	trim = obj_creation.trim;
 	skin_color = obj_creation.skin_color;
 	full_liveries = obj_creation.full_liveries;
+	for (var i=1;i<array_length(full_liveries);i++){
+		if (!full_liveries[i].is_changed){
+			full_liveries[i] = DeepCloneStruct(full_liveries[0]);
+		}
+	}
 	complex_livery_data = obj_creation.complex_livery_data;
 	var complex_type = ["sgt", "vet_sgt", "captain", "veteran"];
 	for (var i=0;i<array_length(complex_type);i++){

@@ -7,6 +7,7 @@ function colour_item(xx,yy) constructor{
 	self.yy=yy;
     static scr_unit_draw_data = function(){
         map_colour = {
+            is_changed : 0,
             left_leg_lower : 0,
             left_leg_upper : 0,
             left_leg_knee : 0,
@@ -145,6 +146,7 @@ function colour_item(xx,yy) constructor{
         map_colour.eye_lense = Colors.Green;
         map_colour.right_pauldron = Colors.Red;   
         map_colour.left_pauldron = struct_cols.left_pauldron;
+        map_colour.is_changed=true;
         return DeepCloneStruct(map_colour);                       
     }
 
@@ -153,6 +155,7 @@ function colour_item(xx,yy) constructor{
         map_colour.eye_lense = Colors.Red;
         map_colour.right_pauldron = Colors.White;   
         map_colour.left_pauldron = struct_cols.left_pauldron;
+        map_colour.is_changed=true;
         return DeepCloneStruct(map_colour);                 
     }
 
@@ -161,6 +164,7 @@ function colour_item(xx,yy) constructor{
         map_colour.eye_lense = Colors.Red;
         map_colour.right_pauldron = Colors.Black;   
         map_colour.left_pauldron = struct_cols.left_pauldron;
+        map_colour.is_changed=true;
         return DeepCloneStruct(map_colour);                 
     }
 
@@ -170,6 +174,7 @@ function colour_item(xx,yy) constructor{
         map_colour.eye_lense = Colors.Cyan;
         map_colour.right_pauldron = Colors.Dark_Ultramarine;   
         map_colour.left_pauldron = struct_cols.left_pauldron;
+        map_colour.is_changed=true;
         return DeepCloneStruct(map_colour);                 
     }
 
@@ -182,6 +187,7 @@ function colour_item(xx,yy) constructor{
     		} else {
     			if (colour_pick.chosen!=-1){
     				map_colour[$ colour_pick.area] = colour_pick.chosen;
+                    map_colour.is_changed = true;
     			}
     		}
     	}
@@ -200,6 +206,7 @@ function colour_item(xx,yy) constructor{
 		shader_set(full_livery_shader);
 		var spot_names = struct_get_names(map_colour);
 		for (var i=0;i<array_length(spot_names);i++){
+            if (spot_names[i]=="is_changed") then continue;
 			var colour = map_colour[$ spot_names[i]];
 			var colour_set = [obj_creation.col_r[colour]/255, obj_creation.col_g[colour]/255, obj_creation.col_b[colour]/255];
 			shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
@@ -235,6 +242,8 @@ function colour_item(xx,yy) constructor{
     	}
     }
 }
+
+
 function setup_complex_livery_shader(setup_role){
     var data_set = obj_ini.full_liveries[0];
     for (var i=0;i<=20;i++){
@@ -246,6 +255,7 @@ function setup_complex_livery_shader(setup_role){
     shader_set(full_livery_shader);
     var spot_names = struct_get_names(data_set);
     for (var i=0;i<array_length(spot_names);i++){
+        if (spot_names[i]=="is_changed") then continue;
         var colour = data_set[$ spot_names[i]];
         var colour_set = [obj_controller.col_r[colour]/255, obj_controller.col_g[colour]/255, obj_controller.col_b[colour]/255];
         shader_set_uniform_f_array(shader_get_uniform(full_livery_shader, spot_names[i]), colour_set);
@@ -274,9 +284,9 @@ function colour_picker(xx,yy) constructor{
                 if (current_color < global.colors_count) {
                     draw_set_color(make_color_rgb(obj_creation.col_r[current_color], obj_creation.col_g[current_color], obj_creation.col_b[current_color]));
                     var x1, x2, y1, y2;
-                    x1 = 6 + (column * 40);
+                    x1 = -36 + (column * 40);
                     y1 = 541 + (row * 40);
-                    x2 = 46 + (column * 40);
+                    x2 = 6 + (column * 40);
                     y2 = 581 + (row * 40);
                     draw_rectangle(x1, y1, x2, y2, 0);
                     draw_set_color(38144);
@@ -289,7 +299,7 @@ function colour_picker(xx,yy) constructor{
                         chosen = current_color;
 			            if (mouse_check_button_pressed(mb_left)) {
 			               count_destroy=true;
-			            }                        
+			            }                    
                     }
                     current_color += 1;
                 }
@@ -298,14 +308,17 @@ function colour_picker(xx,yy) constructor{
         
         draw_set_halign(fa_center);
         draw_set_font(fnt_40k_14b);
+        var xx = 294;
+        var yy = 742;
+        var button_width = string_width("Close")/2;
         draw_set_color(38144);
-        draw_rectangle(334 - (string_width("Close") / 2), 742, 334 + (string_width("Close") / 2), 762, 0);
+        draw_rectangle(xx - button_width, yy, xx + button_width, yy+20, 0);
         draw_set_color(0);
-        draw_text(334, 743, "Close");
-        if (scr_hit(334 - (string_width("Close") / 2), 742, 334 + (string_width("Close") / 2), 762) = true) {
+        draw_text(xx, 743, "Close");
+        if (scr_hit(xx - button_width, yy, xx + button_width, yy+20)) {
             draw_set_color(c_white);
             draw_set_alpha(0.2);
-            draw_rectangle(634 - (string_width("Close") / 2), 742, 334 + (string_width("Close") / 2), 762, 0);
+            draw_rectangle(634 - button_width, yy, xx + button_width, yy+20, 0);
             draw_set_alpha(1);
             if (mouse_check_button_pressed(mb_left)) {
                return "destroy";

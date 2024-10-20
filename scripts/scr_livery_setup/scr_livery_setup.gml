@@ -34,7 +34,8 @@ function scr_livery_setup(){
         test_sprite--;
         if (test_sprite<0) then test_sprite=(array_length(draw_sprites)-1);
     }
-    draw_text(100, 200, $"Full Livery {role[100][livery_picker.role_set]}");
+    var liv_string = $"Full Livery {livery_picker.role_set == 0? "Defualt" :role[100][livery_picker.role_set]}";
+    draw_text(150, 200, liv_string);
     livery_picker.draw_base();
     draw_rectangle_color_simple(preview_box.x1,preview_box.y1,preview_box.x2,preview_box.y2,1,38144);
     if( shader_is_compiled(sReplaceColor)){
@@ -135,7 +136,7 @@ function scr_livery_setup(){
     
     draw_set_color(38144);
     draw_set_halign(fa_left);
-    draw_text_transformed(580,118,string_hash_to_newline("Battle Cry:"),0.6,0.6,0);
+    draw_text_transformed(580,118,"Battle Cry:",0.6,0.6,0);
     draw_set_font(fnt_40k_14b);
     if (text_selected!="battle_cry") or (custom<2) then draw_text_ext(580,144,string_hash_to_newline(string(battle_cry)+"!"),-1,580);
     if (custom>1){
@@ -152,10 +153,7 @@ function scr_livery_setup(){
     
     
     
-    
-    draw_line(445,200,1125,200);
-    draw_line(445,201,1125,201);
-    draw_line(445,202,1125,202);
+    draw_rectangle(445, 200, 1125, 202, 0)
     
     draw_set_font(fnt_40k_30b);
     draw_text_transformed(444,215,"Basic Livelry",0.6,0.6,0);
@@ -566,7 +564,8 @@ function scr_livery_setup(){
     draw_text_transformed(860+30,650+4,"Equal Specialist Distribution",0.4,0.4,0);
     draw_set_alpha(1);
     
-    yar=0;if (load_to_ships[0]=1) then yar=1;draw_sprite(spr_creation_check,yar,860,645+40);yar=0;
+    yar=0;
+    if (load_to_ships[0]=1) then yar=1;draw_sprite(spr_creation_check,yar,860,645+40);yar=0;
     if (scr_hit(860,645+40,1005,645+32+40) and !instance_exists(obj_creation_popup)){
     	tooltip="Load to Ships";
     	tooltip2="Check to have your Astartes automatically loaded into ships when the game starts.";
@@ -578,17 +577,19 @@ function scr_livery_setup(){
     }
     draw_text_transformed(860+30,645+4+40,"Load to Ships",0.4,0.4,0);
     
-    yar=0;if (load_to_ships[0]=2) then yar=1;draw_sprite(spr_creation_check,yar,1010,645+40);yar=0;
+    yar=0;
+
+    draw_sprite(spr_creation_check,load_to_ships[0]==2,1010,645+40);
     if (scr_hit(1010,645+40,1150,645+32+40)) and (!instance_exists(obj_creation_popup)){
     	tooltip="Load (Sans Escorts)";
     	tooltip2="Check to have your Astartes automatically loaded into ships, except for Escorts, when the game starts.";
     }
     if (point_and_click([1010,645+40,1020+32,645+32+40]))  and (!instance_exists(obj_creation_popup)){
-        cooldown=8000;var onceh=0;
-        load_to_ships[2] = !load_to_ships[0];
+        cooldown=8000;
+        load_to_ships[0] =  (load_to_ships[0]!=2) ? 2 : 0; 
 
     }
-    draw_text_transformed(1010+30,645+4+40,string_hash_to_newline("Load (Sans Escorts)"),0.4,0.4,0);
+    draw_text_transformed(1010+30,645+4+40,"Load (Sans Escorts)",0.4,0.4,0);
 	
 	yar=0;
 	if (load_to_ships[0] > 0){
@@ -599,23 +600,23 @@ function scr_livery_setup(){
     	if (scr_hit(860,645+80,1005,645+32+80)) and (!instance_exists(obj_creation_popup)){tooltip="Distribute Scouts";tooltip2="Check to have your Scouts split across ships in the fleet.";}
     	if (scr_hit(860,645+80,860+32,645+32+80)) and (cooldown<=0) and (mouse_left>=1) and (!instance_exists(obj_creation_popup)){
     		 cooldown=8000;
-             var onceh;onceh=0;
              load_to_ships[1] = !load_to_ships[1];  		 
     	}
-    	draw_text_transformed(860+30,645+4+80,string_hash_to_newline("Distribute Scouts"),0.4,0.4,0);	
+    	draw_text_transformed(860+30,645+4+80,"Distribute Scouts",0.4,0.4,0);	
 	
 		yar=0;
 		if (load_to_ships[2] == 1){
 			yar=1;
 		}
 		draw_sprite(spr_creation_check,yar,1010,645+80);yar=0;
-    	if (scr_hit(1010,645+80,1150,645+32+80)) and (!instance_exists(obj_creation_popup)){tooltip="Distribute Veterans";tooltip2="Check to have your Veterans split across the fleet.";}
+    	if (scr_hit(1010,645+80,1150,645+32+80)) and (!instance_exists(obj_creation_popup)){
+            tooltip="Distribute Veterans";tooltip2="Check to have your Veterans split across the fleet.";
+        }
     	if (scr_hit(1010,645+80,1020+32,645+32+80)) and (cooldown<=0) and (mouse_left>=1) and (!instance_exists(obj_creation_popup)){
-    		 cooldown=8000;var onceh;onceh=0;
-    		 if (load_to_ships[2]=0) and (onceh=0){load_to_ships[2]=1;onceh=1;}
-     		 if (load_to_ships[2]=1) and (onceh=0){load_to_ships[2]=0;onceh=1;}   		 
+    		 cooldown=8000;var onceh=0;
+             load_to_ships[2] = !load_to_ships[2] 		 
     	}
-    	draw_text_transformed(1010+30,645+4+80,string_hash_to_newline("Distribute Veterans"),0.4,0.4,0);	
+    	draw_text_transformed(1010+30,645+4+80,"Distribute Veterans",0.4,0.4,0);	
 	}	
     
     
@@ -632,12 +633,12 @@ function scr_livery_setup(){
         draw_text_transformed(444,550,string_hash_to_newline("Advisor Names"),0.6,0.6,0);
         draw_set_font(fnt_40k_14b);
         draw_set_halign(fa_right);
-        if (race[100,15]!=0) then draw_text(594,575,string_hash_to_newline("Chief Apothecary: "));
-        if (race[100,14]!=0) then draw_text(594,597,string_hash_to_newline("High Chaplain: "));
-        if (race[100,17]!=0) then draw_text(594,619,string_hash_to_newline("Chief Librarian: "));
-        if (race[100,16]!=0) then draw_text(594,641,string_hash_to_newline("Forge Master: "));
-        draw_text(594,663,string_hash_to_newline("Master of Recruits: "));
-        draw_text(594,685,string_hash_to_newline("Master of the Fleet: "));
+        if (race[100,15]!=0) then draw_text(594,575,("Chief Apothecary: "));
+        if (race[100,14]!=0) then draw_text(594,597,("High Chaplain: "));
+        if (race[100,17]!=0) then draw_text(594,619,("Chief Librarian: "));
+        if (race[100,16]!=0) then draw_text(594,641,("Forge Master: "));
+        draw_text(594,663,"Master of Recruits: ");
+        draw_text(594,685,"Master of the Fleet: ");
         draw_set_halign(fa_left);
         
         if (race[100,15]!=0){
@@ -648,7 +649,10 @@ function scr_livery_setup(){
                 if (text_selected="capoth") and (text_bar<=30) then draw_text_ext(600,575,string_hash_to_newline(string(hapothecary)+"|"),-1,580);
                 var str_width,hei;str_width=0;hei=string_height_ext(string_hash_to_newline(hapothecary),-2,580);
                 if (scr_hit(600,575,785,575+hei)){obj_cursor.image_index=2;
-                    if (mouse_left>=1) and (cooldown<=0) and (!instance_exists(obj_creation_popup)){text_selected="capoth";cooldown=8000;keyboard_string=hapothecary;}
+                    if (mouse_left>=1) and (cooldown<=0) and (!instance_exists(obj_creation_popup)){
+                        text_selected="capoth";
+                        cooldown=8000;keyboard_string=hapothecary;
+                    }
                 }
                 if (text_selected="capoth") then hapothecary=keyboard_string;
                 draw_rectangle(600-1,575-1,785,575+hei,1);
