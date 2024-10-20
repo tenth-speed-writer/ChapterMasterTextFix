@@ -100,6 +100,8 @@ function colour_item(xx,yy) constructor{
 
     static trim_all = ["right_trim","left_trim", "metallic_trim"];
 
+    static full_body = array_join(lower_left,lower_right,upper_left,chest,upper_right,head_set);
+
     static set_pattern = function(col, pattern){
         for (var i=0 ;i<array_length(pattern);i++){
             map_colour[$ pattern[i]] = col;
@@ -117,12 +119,7 @@ function colour_item(xx,yy) constructor{
         set_pattern(struct_cols.main_trim, trim_all);
 
         if (armour_style==0){
-            set_pattern(struct_cols.main_color, upper_left);
-            set_pattern(struct_cols.main_color, lower_right);
-            set_pattern(struct_cols.main_color, upper_right);
-            set_pattern(struct_cols.main_color, lower_left);
-            set_pattern(struct_cols.main_color, head_set);
-            set_pattern(struct_cols.main_color, backpack);
+            set_pattern(struct_cols.main_color,full_body);
         } else if (armour_style==1){//Breastplate
             set_pattern(struct_cols.secondary_color, chest);
             set_pattern(struct_cols.main_color, head_set);
@@ -140,7 +137,42 @@ function colour_item(xx,yy) constructor{
             set_pattern(struct_cols.main_color, lower_left);
             set_pattern(struct_cols.main_color, head_set);
         }
+        return DeepCloneStruct(map_colour);
     }
+
+    static set_defualt_techmarines = function(struct_cols){
+        set_pattern(Colors.Red,full_body);
+        map_colour.eye_lense = Colors.Green;
+        map_colour.right_pauldron = Colors.Red;   
+        map_colour.left_pauldron = struct_cols.left_pauldron;
+        return DeepCloneStruct(map_colour);                       
+    }
+
+    static set_defualt_apothecary = function(struct_cols){
+        set_pattern(Colors.White,full_body);
+        map_colour.eye_lense = Colors.Red;
+        map_colour.right_pauldron = Colors.White;   
+        map_colour.left_pauldron = struct_cols.left_pauldron;
+        return DeepCloneStruct(map_colour);                 
+    }
+
+    static set_defualt_chaplain = function(struct_cols){
+        set_pattern(Colors.Black,full_body);
+        map_colour.eye_lense = Colors.Red;
+        map_colour.right_pauldron = Colors.Black;   
+        map_colour.left_pauldron = struct_cols.left_pauldron;
+        return DeepCloneStruct(map_colour);                 
+    }
+
+
+    static set_defualt_librarian = function(struct_cols){
+        set_pattern(Colors.Dark_Ultramarine,full_body);
+        map_colour.eye_lense = Colors.Cyan;
+        map_colour.right_pauldron = Colors.Dark_Ultramarine;   
+        map_colour.left_pauldron = struct_cols.left_pauldron;
+        return DeepCloneStruct(map_colour);                 
+    }
+
     colour_pick=false;
     static draw_base = function(){
     	if (is_struct(colour_pick)){
