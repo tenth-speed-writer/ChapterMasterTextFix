@@ -870,10 +870,10 @@ function scr_draw_unit_image(_background=false){
                         }*/                      
                     }
                     if (unit_progenitor=="Dark Angels"){
-                        complex_livery = false;
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
                             // specific_armour_sprite = spr_da_mk4;
+                            complex_livery = false;
                             armour_draw=[spr_da_mk4,0];
                             robes_bypass = true;
                             robes_hood_bypass = true;
@@ -894,6 +894,7 @@ function scr_draw_unit_image(_background=false){
                             robes_bypass = true;
                             robes_hood_bypass = true;
                             armour_bypass=true;
+                            complex_livery = false;
                         }                        
                     }                   
                 } else if (unit_armour=="MK6 Corvus"){
@@ -905,6 +906,7 @@ function scr_draw_unit_image(_background=false){
                     if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
+                            complex_livery = false;
                             // specific_armour_sprite = spr_da_mk6;
                             armour_draw=[spr_da_mk6,0];
                             robes_bypass = true;
@@ -932,6 +934,7 @@ function scr_draw_unit_image(_background=false){
                 } else if (unit_armour=="MK8 Errant"){
                     specific_helm = spr_generic_sgt_mk8;
                     specific_armour_sprite = spr_mk8_colors;
+                    complex_livery = true;
                     if (unit_progenitor=="Dark Angels"){
                         specific_helm = false;
                         if (unit_role==obj_ini.role[100][Role.CAPTAIN]){
@@ -1051,7 +1054,7 @@ function scr_draw_unit_image(_background=false){
                         _backpack_index = 12;
                     }
 
-                    if (body.torso.backpack_variation < 3) {
+                    if (body.torso.backpack_variation % 3 == 0) {
                         if (unit_progenitor=="Dark Angels"){
                             if array_contains(["MK5 Heresy", "MK6 Corvus","MK7 Aquila", "MK8 Errant", "Artificer Armour"], unit_armour){
                                 _backpack_sprite = spr_da_backpack;
@@ -1081,8 +1084,10 @@ function scr_draw_unit_image(_background=false){
                     }
                     if (complex_livery){
                         if (struct_exists(complex_set, "backpack")){
-                            var choice = get_body_data("torso","backpack_variation")%sprite_get_number(complex_set.backpack);
+                            var choice = get_body_data("backpack_variation","torso")%sprite_get_number(complex_set.backpack);
+                            setup_complex_livery_shader(role());
                             draw_sprite(complex_set.backpack,choice,x_surface_offset,y_surface_offset);
+                            shader_set(sReplaceColor);
                         }else {
                             draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
                         }

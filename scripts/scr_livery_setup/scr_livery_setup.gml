@@ -534,13 +534,12 @@ function scr_livery_setup(){
         }
     }
     if (livery_picker.role_set!=0){
-    	if (point_and_click(draw_unit_buttons([340, 200], $"Return to defualt Livery"))){
+    	if (point_and_click(draw_unit_buttons([10, 150], $"Return to defualt Livery"))){
             full_liveries[livery_picker.role_set] = DeepCloneStruct(livery_picker.map_colour);
             livery_picker.map_colour = full_liveries[0];
             livery_picker.role_set = 0;   		
     	}
     }
-    
     
     
     
