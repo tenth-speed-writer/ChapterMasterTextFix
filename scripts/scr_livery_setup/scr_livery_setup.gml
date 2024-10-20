@@ -468,32 +468,34 @@ function scr_livery_setup(){
     }
     draw_set_alpha(1);
     
-    draw_line(844,204,844,740);
-    draw_line(845,204,845,740);
-    draw_line(846,204,846,740);
-    draw_text_transformed(862,215,string_hash_to_newline("Astartes Role Settings"),0.6,0.6,0);
-    draw_set_font(fnt_40k_14b);var c,role_id,spacing;c=100;spacing=30;
-    draw_set_halign(fa_left);var xxx,yyy;xxx=862;yyy=255-spacing;
+    draw_rectangle(844, 204, 846, 740, 0)
+    draw_text_transformed(862,215,"Astartes Role Settings",0.6,0.6,0);
+    draw_set_font(fnt_40k_14b);
+    var c=100,role_id,spacing=30;
+    draw_set_halign(fa_left);
+    var xxx=862;
+    var yyy=255-spacing;
     
     
     if (!complex_livery){
-        var role_slot;
-        role_slot=0;
         
-        repeat(13){role_slot+=1;
-            if (role_slot=1) then role_id=15;
-            if (role_slot=2) then role_id=14;
-            if (role_slot=3) then role_id=17;
-            if (role_slot=4) then role_id=16;
-            if (role_slot=5) then role_id=5;
-            if (role_slot=6) then role_id=2;
-            if (role_slot=7) then role_id=4;
-            if (role_slot=8) then role_id=3;
-            if (role_slot=9) then role_id=6;
-            if (role_slot=10) then role_id=8;
-            if (role_slot=11) then role_id=9;
-            if (role_slot=12) then role_id=10;
-            if (role_slot=13) then role_id=12;
+        for (var role_slot =1;role_slot<=13;role_slot++){
+            var id_array = [
+                0,
+                Role.APOTHECARY,
+                Role.CHAPLAIN,
+                Role.LIBRARIAN,
+                Role.TECHMARINE,
+                Role.CAPTAIN,
+                Role.HONOUR_GUARD,
+                Role.TERMINATOR,
+                Role.VETERAN,Role.DREADNOUGHT,
+                Role.TACTICAL,
+                Role.DEVASTATOR,
+                Role.ASSAULT,
+                Role.SCOUT
+            ];
+            role_id = id_array[role_slot];
             
             draw_set_alpha(1);
             if (race[c,role_id]!=0){
@@ -504,12 +506,12 @@ function scr_livery_setup(){
                 draw_set_color(38144);
                 draw_text(xxx,yyy,string_hash_to_newline(role[c,role_id]));
                 if (scr_hit(xxx,yyy,1150,yyy+20)) and ((!instance_exists(obj_creation_popup)) || ((instance_exists(obj_creation_popup) and obj_creation_popup.target_gear=0))) {
-                    if (custom=2) then draw_set_alpha(0.2);
-                    if (custom<2) then draw_set_alpha(0.1);
+
+                    draw_set_alpha(custom==2?0.2:0.1);
                     draw_set_color(c_white);
                     draw_rectangle(xxx,yyy,1150,yyy+20,0);
                     draw_set_alpha(1);
-                    tooltip=string(role[c,role_id])+" Settings";
+                    tooltip=string(role[c][role_id])+" Settings";
                     tooltip2="Click to open the settings for this unit.";
                     if (mouse_left>=1) and (custom>0) and (cooldown<=0) and (custom=2){
                         instance_destroy(obj_creation_popup);
@@ -517,8 +519,8 @@ function scr_livery_setup(){
                         pp.type=role_id+100;
                         cooldown=8000;
                         full_liveries[livery_picker.role_set] = DeepCloneStruct(livery_picker.map_colour);
-                        livery_picker.map_colour = full_liveries[role_id];
                         livery_picker.role_set = role_id;
+                        livery_picker.map_colour = full_liveries[role_id];
                     }
                 }
             }
