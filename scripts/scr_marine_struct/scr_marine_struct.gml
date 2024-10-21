@@ -1249,12 +1249,18 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 					"slow_and_purposeful",
 					[99,98],
 					{
+						"advantage":["Devastator Doctrine",[3,1]]
+					}
+				],
+				[
+					"melee_enthusiast",
+					[99,98],
+					{
 						"advantage":[
-							"Devastator Doctrine",[3,1]
+							"Assault Doctrine",[3,1]
 						]
 					}
 				],
-				["melee_enthusiast",[99,98],{"advantage":["Melee Enthusiasts",[3,1]]}],
 				[
 					"lightning_warriors",
 					[99,98],
@@ -1813,9 +1819,21 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			//calculate chapter specific bonus
 			if (allegiance==global.chapter_name){//calculate player specific bonuses
 				if (primary_weapon.has_tag("bolt")){
-					if (array_contains(obj_ini.adv, "Bolter Drilling") && base_group=="astartes"){
+					if (scr_has_adv("Bolter Drilling") && base_group=="astartes"){
 						range_multiplyer+=0.15;
 						explanation_string+=$"Bolter Drilling:X1.15#"
+					}
+				}
+				if (primary_weapon.has_tag("energy")){
+					if (scr_has_adv("Ryzan Patronage") && base_group=="astartes"){
+						range_multiplyer+=0.15;
+						explanation_string+=$"Ryzan Craftsmanship:X1.15#"
+					}
+				}
+				if (primary_weapon.has_tag("heavy_ranged")){
+					if (scr_has_adv("Devastator Doctrine") && base_group=="astartes"){
+						range_multiplyer+=0.15;
+						explanation_string+=$"Devastator Doctrine:X1.15#"
 					}
 				}
 			}

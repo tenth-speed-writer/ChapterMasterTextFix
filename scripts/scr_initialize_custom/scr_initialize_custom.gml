@@ -865,9 +865,13 @@ function scr_initialize_custom() {
 		techmarines += 6;
 		tenth -= 6;
 	}
-	if scr_has_adv("Melee Enthusiasts") {
+	if scr_has_adv("Assault Doctrine") {
 		assault += 10;
 		devastator -= 10;
+	}
+	if scr_has_adv("Devastator Doctrine") {
+		assault -= 10;
+		devastator += 10;
 	}
 	if scr_has_adv("Siege Masters") {
 		siege = 1;
@@ -4105,11 +4109,22 @@ function scr_initialize_custom() {
 		scr_add_item("Close Combat Weapon", 4);
 	}
 
-	if(scr_has_adv("Crafters") || scr_has_adv("Melee Enthusiasts")){
-		scr_add_item("MK3 Iron Armour", round(random_range(2, 12)));
+	// man_size+=80;// bikes
+
+	// if (string_count("Crafter",strin)>0) and (string_count("Enthusi",strin)>0) then equipment_number[1]=20;
+	// if (string_count("Crafter",strin)>0) and (string_count("Enthusi",strin)=0) then equipment_number[2]=20;
+
+	if (string_count("Crafter", strin) > 0) and(string_count("Enthusi", strin) > 0) {
+		eqi += 1;
+		equipment[eqi] = "MK3 Iron Armour";
+		equipment_number[eqi] = round(random_range(2, 12));
+		equipment_type[eqi] = "armour";
 	}
-	if(scr_has_adv("Crafters") && !scr_has_adv("Melee Enthusiasts")){	
-		scr_add_item("MK4 Maximus", round(random_range(3, 18)));
+	if (string_count("Crafter", strin) > 0) and(string_count("Enthusi", strin) = 0) {
+		eqi += 1;
+		equipment[eqi] = "MK4 Maximus";
+		equipment_number[eqi] = round(random_range(3, 18));
+		equipment_type[eqi] = "armour";
 	}
 
 
