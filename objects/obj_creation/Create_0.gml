@@ -654,6 +654,8 @@ else if (file_exists("chaptersave#1.ini")=false){
 
 // TODO refactor into struct constructors stored in which are struct arrays 
 
+// meta provides a universal way to control not having contradictory advatages and disadvantages
+// the player can not have any two advantages or disadvatages taht have the same piece of meta thus removing clunky checks in the draw sequence
 chapter_trait_meta = [];
 function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constructor{
     id = _id;
