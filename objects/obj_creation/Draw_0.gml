@@ -526,7 +526,8 @@ if (slide=2){
         var advantage_click = (mouse_left>=1  && cooldown<=0  &&  custom>1);
         draw_set_halign(fa_left);
         draw_set_font(fnt_40k_30b);
-        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);draw_set_font(fnt_40k_14);
+        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);
+        draw_set_font(fnt_40k_14);
         var adv_txt = {
             x1: 436,
             y1: 570,
@@ -562,9 +563,8 @@ if (slide=2){
                         removable=true;
                     }
                     if  (mouse_x<=456) and (removable){
-                        points-=20;
-                        adv[i]="";
-                        adv_num[i]=0;
+                        var cur_ad = obj_creation.all_advantages[adv_num[i]]
+                        cur_ad.remove();
                         cooldown=8000;
                     }
                 }              
@@ -604,9 +604,8 @@ if (slide=2){
                         removable=true;
                     }                    
                     if  (mouse_x<=830) and (removable) and (points+20<=maxpoints) {
-                        points+=20;
-                        dis[i]="";
-                        dis_num[i]=0;
+                        var cur_dis = obj_creation.all_disadvantages[dis_num[i]]
+                        cur_dis.remove();
                         cooldown=8000;
                     }   
                 }             
@@ -768,9 +767,11 @@ if (slide=2){
     
     
     if (popup="advantages"){
-        draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select an Advantage"),0.6,0.6,0);
-        draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
+        draw_set_font(fnt_40k_30b);
+        draw_set_halign(fa_center);
+        draw_text_transformed(800,211,"Select an Advantage",0.6,0.6,0);
+        draw_set_font(fnt_40k_14b);
+        draw_set_halign(fa_left);
         
         for(var i = 0; i < array_length(obj_creation.all_advantages); i++){
             var advantage_local_var = obj_creation.all_advantages[i];
@@ -788,11 +789,13 @@ if (slide=2){
                 //columns of 14, shift the left boarder across
                 if(i >= 15 && i <29) {column.x1 = 670; column.x2 = column.x1 + column.w;};
                 if(i >= 29 && i <42) {column.x1 = 904; column.x2 = column.x1 + column.w;};
-                draw_set_color(38144);draw_set_alpha(1);
-                if (array_contains(adv, adv_name)) then draw_set_alpha(0.5);
-                if (adv_name="Psyker Abundance" && array_contains(dis, "Psyker Intolerant")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Reverent Guardians"&& array_contains(dis, "Suspicious")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Tech-Brothers" && array_contains(dis, "Tech-Heresy")){disable=1;draw_set_alpha(0.5);}
+                draw_set_color(38144);
+                draw_set_alpha(1);
+                disable = array_contains(adv, adv_name);
+                if (!disable){
+                    disable = advantage_local_var.disable();
+                }
+                if (disable) then draw_set_alpha(0.5);
                 
                 var gap = (((i-1)%14) * column.h);
                 draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
@@ -810,15 +813,15 @@ if (slide=2){
                 if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(adv, adv_name) == false){
                     if (disable=0){
                         cooldown=8000;
-                        adv[temp]=adv_name;
-                        adv_num[temp]=i;
+                        advantage_local_var.add(temp)
                         popup="";
-                        points+=advantage_local_var.points;
                     }
-            }}
-        }}
+                }
+            }
+        }
+    }
         
-    if (popup="disadvantages"){
+    else if (popup="disadvantages"){
         draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
         draw_text_transformed(800,211,string_hash_to_newline("Select a Disadvantage"),0.6,0.6,0);
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
@@ -841,10 +844,11 @@ if (slide=2){
                 draw_set_color(38144);draw_set_alpha(1);
                 if (array_contains(dis, dis_name)) then draw_set_alpha(0.5);
                 
-                if (dis_name="Psyker Intolerant") and (array_contains(adv, "Psyker Abundance")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Suspicious") and (array_contains(adv, "Reverent Guardians")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Tech-Heresy") and (array_contains(adv, "Tech-Brothers")){disable=1;draw_set_alpha(0.5);}
+                disable = disadvantage_local_var.disable();
                 if (dis_name="Blood Debt") and (fleet_type=3){disable=1;draw_set_alpha(0.5);}
+                if (disable){
+                    draw_set_alpha(0.5);
+                }
                 
                 var gap = (((i-1)%14) * column.h);
 
@@ -862,10 +866,8 @@ if (slide=2){
                 if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(dis, dis_name) == false){
                     if (disable=0){
                         cooldown=8000;
-                        dis[temp]=dis_name;
-                        dis_num[temp]=i;
                         popup="";
-                        points-= disadvantage_local_var.points;
+                        disadvantage_local_var.add(temp);
                     }
         }}}
     }
