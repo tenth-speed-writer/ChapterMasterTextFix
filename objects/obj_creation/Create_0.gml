@@ -658,6 +658,7 @@ else if (file_exists("chaptersave#1.ini")=false){
 // the player can not have any two advantages or disadvatages taht have the same piece of meta thus removing clunky checks in the draw sequence
 chapter_trait_meta = [];
 function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constructor{
+
     id = _id;
     name = _name;
     description = _description;
@@ -693,6 +694,7 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
         return is_disabled;
     }
 }
+
 function Advantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost=20) constructor {
 
     static add = function(slot){
@@ -889,10 +891,12 @@ for (var i=0;i<array_length(all_advantages);i++){
     array_push(obj_creation.all_advantages, new_adv);
 }
 
+
 //advantage[i]="Battle Cousins";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 //advantage[i]="Comrades in Arms";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+
 /// @type {Array<Disadvantage>}
 var all_disadvantages = [
     {
@@ -975,56 +979,24 @@ for (var i=0;i<array_length(all_disadvantages);i++){
 }
 
 
+
 // disadvantage[i]="Embargo";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;// Greatly increases the cost of common wargear and disallows advanced items.
 // disadvantage[i]="First In, Last Out";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 // disadvantage[i]="Rival Brotherhood";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 
 // Default Marine Loadouts
-var ye,i;
-ye=99;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=100;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=101;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=102;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=103;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+for(var slot = 99; slot <= 103; slot++){
+    for(var i = 0; i <= 50; i++){
+        race[slot,i]=1;
+        loc[slot,i]="";
+        role[slot,i]="";
+        wep1[slot,i]="";
+        wep2[slot,i]="";
+        armour[slot,i]="";
+        gear[slot,i]="";
+        mobi[slot,i]="";
+        experience[y,i]=0;
+    }
 }
 
 defaults_slot = 100;

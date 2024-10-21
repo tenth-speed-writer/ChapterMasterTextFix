@@ -539,7 +539,9 @@ if (slide=2){
             var draw_string = adv_num[i]==0?"[+]":"[-] "+adv[i];
             draw_text(adv_txt.x1,adv_txt.y1+(i*adv_txt.h), draw_string);
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
+
                 if (points>=maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
+
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }
@@ -550,7 +552,9 @@ if (slide=2){
                     tooltip2=cur_adv.description;
                 }
                 if (advantage_click){
+
                     if (points<maxpoints) and (adv_num[i]=0) and (popup=""){
+
                         popup="advantages";
                         cooldown=8000;
                         temp=i;
@@ -562,8 +566,10 @@ if (slide=2){
                         removable=true;
                     }
                     if  (mouse_x<=456) and (removable){
+
                         var cur_ad = obj_creation.all_advantages[adv_num[i]]
                         cur_ad.remove();
+
                         cooldown=8000;
                     }
                 }              
@@ -601,11 +607,13 @@ if (slide=2){
                         removable=true;
                     } else if (dis_num[i]>0 && dis_num[i+1]==0){
                         removable=true;
+
                     }
                     var cur_dis = obj_creation.all_disadvantages[dis_num[i]];                    
                     if  (mouse_x<=830) and (removable) and (points+cur_dis.points<=maxpoints) {
                         var cur_dis = obj_creation.all_disadvantages[dis_num[i]];
                         cur_dis.remove();
+
                         cooldown=8000;
                     }   
                 }             
@@ -789,6 +797,7 @@ if (slide=2){
             if (advantage_local_var.name != ""){
                 var adv_name = advantage_local_var.name;
                 //columns of 14, shift the left boarder across
+
                 if(i >= 15 && i <29) {
                     column.x1 = 670;
                     column.x2 = column.x1 + column.w;
@@ -805,6 +814,7 @@ if (slide=2){
                 }
                 if (disable) then draw_set_alpha(0.5);
                 
+
                 var gap = (((i-1)%14) * column.h);
                 var draw_string = $"{adv_name} ({advantage_local_var.points})"
                 var adv_width = string_width(adv_name);
@@ -817,12 +827,14 @@ if (slide=2){
                     popup="";
                 }
                 // Tooltips
+
                 if (scr_hit(coords)){
                     tooltip=adv_name;
                     tooltip2=advantage_local_var.description;
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,adv_name);
+
                 }
                 //Click on advantage
                 if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(adv, adv_name) == false){
@@ -866,6 +878,7 @@ if (slide=2){
                 draw_set_color(38144);
 
                 
+
                 disable = (disadvantage_local_var.disable() || array_contains(dis, dis_name));
 
                 if (!disable){
@@ -873,6 +886,7 @@ if (slide=2){
                 }
 
                 draw_set_alpha(disable?0.5:1);
+
 
                 
                 var gap = (((i-1)%14) * column.h);
@@ -888,12 +902,14 @@ if (slide=2){
                     popup="";
                 }
                 //Tooltip
+
                 if (scr_hit(coords)){
                     tooltip=dis_name;
                     tooltip2=disadvantage_local_var.description;
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,dis_name);
+
                 }
                 //Click on disadvantage
                 if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(dis, dis_name) == false){
