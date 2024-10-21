@@ -30,11 +30,14 @@ All notable changes to this project will be documented in this file.
 - Spelling error in `scr_navy_planet_action` "orbiting" causing crash.
 - Probably a lot of missclicks, when one screen opens and you immediately click on something, should be fixed.
 - Possible fix of some weird stuff and some crashes in battles, cased by `obj_ini.hp`.
+- crash from non star instance with end location when calculating travel eta
 
 ### Under The Hood:
 - `obj_ini.hp[][]` is replaced with `unit.hp()`.
 - `point_and_click()` now sets `obj_controller` cooldown and checks for it to work.
 - `obj_managment_panel` is now drawn in GUI layer, mouse event merged into draw.
+- minor refactor of scr_destory planet
+- minor refactor of alarm 7 obj_n_combat
 
 ## [0.9.3.3-YYC]
 
