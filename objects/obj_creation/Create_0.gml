@@ -660,9 +660,6 @@ function Advantage(_id, _name, _description, _points_cost) constructor {
     disabled = false;
 }
 
-function Disadvantage(_id, _name, _description, _points_cost) : Advantage (_id, _name, _description, _points_cost) constructor {}
-
-/// @type {Array<Advantage>}
 all_advantages = [
     new Advantage(0, "", "", 0),
     new Advantage(1, "Ambushers", "Your chapter is especially trained with ambushing foes; they have a bonus to attack during the start of a battle.", 20),
@@ -696,9 +693,8 @@ all_advantages = [
 //advantage[i]="Comrades in Arms";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 
-
-/// @type {Array<Disadvantage>}
-obj_creation.all_disadvantages = [
+function Disadvantage(_id, _name, _description, _points_cost) : Advantage (_id, _name, _description, _points_cost) constructor {}
+all_disadvantages = [
     new Disadvantage(0, "", "", 0),
     new Disadvantage(1, "Black Rage", "Your marines are susceptible to Black Rage, having a chance each battle to become Death Company.  These units are locked as Assault Marines and are fairly suicidal.", 20),
     new Disadvantage(2, "Blood Debt", "Prevents your Chapter from recruiting new Astartes until enough of your marines, or enemies, have been killed.  Incompatible with Penitent chapter types.", 20),
