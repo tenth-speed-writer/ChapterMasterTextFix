@@ -19,6 +19,7 @@ function scr_valid_fleet_target(){
 
 function fleets_next_location(fleet="none"){
 	var targ_location ="none";
+	scr_valid_fleet_target();
 	if (fleet=="none"){
 		if (action!=""){
 	        var goal_x=action_x;
