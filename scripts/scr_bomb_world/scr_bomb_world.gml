@@ -218,7 +218,7 @@ function scr_bomb_world(star_system, planet_number, bombard_target_faction, bomb
 	        	delete_features(star_system.p_feature[planet_number], P.features.Gene_Stealer_Cult);
 	        	adjust_influence(eFACTION.Tyranids, -100, planet_number,star_system);
 	        }
-	        pip.text+= "The xenos taint of the tyranids infecting the population has been completely eradicated with the planets cleansing".
+	        pip.text+= "The xenos taint of the tyranids infecting the population has been completely eradicated with the planets cleansing";
 	    }
 	    if (bombard_target_faction=8) and (obj_controller.faction_status[eFACTION.Tau]!="War"){
 	        obj_controller.audiences+=1;
