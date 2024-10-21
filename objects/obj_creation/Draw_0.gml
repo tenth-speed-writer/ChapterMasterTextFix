@@ -540,7 +540,7 @@ if (slide=2){
             var draw_string = adv_num[i]==0?"[+]":"[-] "+adv[i];
             draw_text(adv_txt.x1,adv_txt.y1+(i*adv_txt.h), draw_string);
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
-                if (points+20>maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
+                if (points+10>maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }
@@ -550,7 +550,7 @@ if (slide=2){
                     tooltip2=obj_creation.all_advantages[adv_num[i]].description;
                 }
                 if (advantage_click){
-                    if (points+20<=maxpoints) and (adv_num[i]=0) and (popup=""){
+                    if (points+10<=maxpoints) and (adv_num[i]=0) and (popup=""){
                         popup="advantages";
                         cooldown=8000;
                         temp=i;
@@ -562,7 +562,7 @@ if (slide=2){
                         removable=true;
                     }
                     if  (mouse_x<=456) and (removable){
-                        points-=20;
+                        points-=obj_creation.all_advantages[adv_num[i]].points;
                         adv[i]="";
                         adv_num[i]=0;
                         cooldown=8000;
@@ -604,7 +604,7 @@ if (slide=2){
                         removable=true;
                     }                    
                     if  (mouse_x<=830) and (removable) and (points+20<=maxpoints) {
-                        points+=20;
+                        points+=obj_creation.all_disadvantages[dis_num[i]].points;
                         dis[i]="";
                         dis_num[i]=0;
                         cooldown=8000;
@@ -794,7 +794,8 @@ if (slide=2){
                 if (adv_name="Reverent Guardians"&& array_contains(dis, "Suspicious")){disable=1;draw_set_alpha(0.5);} 
                 if (adv_name="Tech-Brothers" && array_contains(dis, "Tech-Heresy")){disable=1;draw_set_alpha(0.5);}
                 if(advantage_local_var.disabled){disable=1;draw_set_alpha(0.5);}
-                
+                if (points + advantage_local_var.points > maxpoints){ disable = 1; draw_set_alpha(0.5);};
+
                 var gap = (((i-1)%14) * column.h);
                 draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
                 
@@ -804,7 +805,13 @@ if (slide=2){
                 }
                 // Tooltips
                 if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)){
-                    tooltip=adv_name;tooltip2=advantage_local_var.description;draw_set_color(c_white);draw_set_alpha(0.2);
+                    tooltip=adv_name;
+                    tooltip2=advantage_local_var.description + " - Points: " + string(advantage_local_var.points);
+                    if (points + advantage_local_var.points > maxpoints){
+                        tooltip2 = "Insufficient points: " + tooltip2;
+                    }
+
+                    draw_set_color(c_white);draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
                 }
                 //Click on advantage
@@ -859,7 +866,8 @@ if (slide=2){
                 }
                 //Tooltip
                 if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)){
-                    tooltip=dis_name;tooltip2=disadvantage_local_var.description;draw_set_color(c_white);draw_set_alpha(0.2);draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));
+                    tooltip=dis_name;tooltip2=disadvantage_local_var.description + " - Points: " + string(disadvantage_local_var.points);
+                    draw_set_color(c_white);draw_set_alpha(0.2);draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));
                 }
                 //Click on disadvantage
                 if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(dis, dis_name) == false){
