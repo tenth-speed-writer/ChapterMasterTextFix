@@ -811,7 +811,7 @@ var all_advantages = [
         {
             name : "Boarders",
             description : "Boarding other ships is the specialty of your chapter.  Your chapter is more lethal when boarding ships, have dedicated boarding squads, and two extra strike cruisers.",
-            value : 20,
+            value : 30,
         },
         {
             name : "Bolter Drilling",
@@ -916,16 +916,16 @@ var all_advantages = [
             value : 15,
         },
         {
-            name : "Slow and Purposeful",
-            description : "Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.",
-            value : 15,
-            meta : ["Doctrine"],
+            name : "Devastator Doctrine",
+            description : "The steady advance of overwhelming firepower is your chapters combat doctrine each company has an additional Devastator squad, all infantry have boosted defence, and heavy weapons have increased attack.",
+            value : 30,
+            meta : ["doctrine"],
         },
         {
-            name : "Melee Enthusiasts",
-            description : "Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.",
-            value : 15,
-            meta : ["Doctrine"],
+            name : "Assault Doctrine",
+            description : "Your chapter prefers quick close quarter assaults on the enemy each Company has an additional Assault Squad and your marines are more skilled in melee.",
+            value : 25,
+            meta : ["doctrine"],
         },
         {
             name : "Venerable Ancients",
@@ -937,7 +937,12 @@ var all_advantages = [
             name : "Medicae Primacy",
             description : "Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.",
             value : 25,
-        },                                                                                                                                                                              
+        },
+        {
+            name : "Ryzan Patronage",
+            description : "Your chapter has strong ties to the Forgeworld of Ryza as a result your Techmarines are privy to the secrets of their Techpriests enhancing your Plasma and Las weaponry.",
+            value : 25,
+        },                                                                                                                                                                             
     ]
 
 
