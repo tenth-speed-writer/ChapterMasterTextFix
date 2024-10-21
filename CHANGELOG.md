@@ -25,12 +25,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changed:
 - Battle debug (d) now only works with debug mode enabled.
+- reducing population via bombardment to 0 will now destroy genestealer cults and 0 nid influence to 0
 
 ### Fixed:
 - Spelling error in `scr_navy_planet_action` "orbiting" causing crash.
 - Probably a lot of missclicks, when one screen opens and you immediately click on something, should be fixed.
 - Possible fix of some weird stuff and some crashes in battles, cased by `obj_ini.hp`.
 - crash from non star instance with end location when calculating travel eta
+- warp portal selectable through objects
+- crash from killing inquisitor
 
 ### Under The Hood:
 - `obj_ini.hp[][]` is replaced with `unit.hp()`.
