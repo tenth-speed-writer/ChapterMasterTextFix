@@ -2907,7 +2907,7 @@ function scr_initialize_custom() {
 	chapter_option = 0;
 	repeat(4) {
 		o += 1;
-		if (obj_creation.adv[o] = "Brothers, All") then chapter_option = 1;
+		if (obj_creation.adv[o] = "Retinue of Renown") then chapter_option = 1;
 	}
 	if (chapter_option = 1) then _honour_guard_count += 10;
 	if (progenitor = 0) and (obj_creation.custom = 0) then _honour_guard_count += 6;
@@ -2925,7 +2925,7 @@ function scr_initialize_custom() {
 		role[company][k] = roles.honour_guard;
 		name[company][k] = global.name_generator.generate_space_marine_name();
 		spawn_unit.marine_assembling();
-		spawn_unit.add_trait(choose("guardian", "champion", "observant", "perfectionist"));
+		spawn_unit.add_trait(choose("guardian", "champion", "observant", "perfectionist","natural_leader"));
 		gear[company][k] = gear[defaults_slot, Role.HONOUR_GUARD];
 		mobi[company][k] = mobi[defaults_slot,  Role.HONOUR_GUARD];
 		// wep1 power sword // wep2 storm bolter default

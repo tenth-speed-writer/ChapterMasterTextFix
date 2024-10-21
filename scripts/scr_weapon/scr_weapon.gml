@@ -9,7 +9,7 @@ global.weapons = {
 		},
 		"ranged_hands": 2,
 		"range": 25,
-		"tags": ["las", "rifle", "precision"],
+		"tags": ["las", "energy", "rifle", "precision"],
 	},
 	"Choppa": {
 		"abbreviation": "Chop",
@@ -83,7 +83,7 @@ global.weapons = {
 			"artifact": 6
 		},
 		"melee_hands": 0.9,
-		"tags": ["shield"],
+		"tags": ["shield","boarding"],
 		"hp_mod": {
 			"standard": 15,
 			"master_crafted": 17.5,
@@ -136,7 +136,7 @@ global.weapons = {
 		"range": 3.1,
 		"spli": 0,
 		"arp": 0,
-		"tags": ["pistol", "ancient", "las"],
+		"tags": ["pistol", "ancient", "las", "energy"],
 	},
 	"Laspistol": {
 		"attack": {
@@ -152,7 +152,7 @@ global.weapons = {
 		"range": 3.1,
 		"spli": 0,
 		"arp": 0,
-		"tags": ["pistol", "las"],
+		"tags": ["pistol", "las", "energy"],
 	},
 	"Combat Knife": {
 		"abbreviation": "CbKnf",
@@ -321,7 +321,7 @@ global.weapons = {
 		"range": 1,
 		"spli": 2,
 		"arp": 1,
-		"tags": ["power", "chain", "fist", "dual", "siege"],
+		"tags": ["power","boarding", "chain", "fist", "dual", "siege"],
 	},
 	"Lascutter": {
 		"abbreviation": "Lasct",
@@ -334,7 +334,7 @@ global.weapons = {
 		"melee_hands": 1,
 		"range": 1,
 		"arp": 1,
-		"tags": ["laser", "siege"],
+		"tags": ["las","boarding", "siege"],
 	},
 	"Eldar Power Sword": {
 		"abbreviation": "EldPwrSwrd",
@@ -805,7 +805,7 @@ global.weapons = {
 		"range": 1,
 		"spli": 10,
 		"arp": 1,
-		"tags": ["power", "melee","vehicle", "dual", "dreadnought", "fist"]
+		"tags": ["power", "vehicle", "dual", "dreadnought", "fist"]
 	},
 	"Close Combat Weapon": {
 		"abbreviation": "CCW",
@@ -819,7 +819,7 @@ global.weapons = {
 		"range": 1,
 		"spli": 10,
 		"arp": 1,
-		"tags": ["vehicle","melee", "dreadnought", "fist"]
+		"tags": ["vehicle", "dreadnought", "fist"]
 	},
 	"Inferno Cannon": {
 		"abbreviation": "InfCann",
@@ -851,7 +851,7 @@ global.weapons = {
 		"range": 2.1,
 		"spli": 1,
 		"arp": 1,
-		"tags": ["melta"]
+		"tags": ["melta","boarding"]
 	},
 	"Multi-Melta": {
 		"abbreviation": "MltMelt",
@@ -883,7 +883,7 @@ global.weapons = {
 		"range": 3.1,
 		"spli": 1,
 		"arp": 1,
-		"tags": ["plasma", "pistol"]
+		"tags": ["plasma", "energy", "pistol"]
 	},
 	"Plasma Cutter": { // Basically a dual-linked plasma pistol
 		"abbreviation": "PlsmCt",
@@ -899,7 +899,7 @@ global.weapons = {
 		"range": 3.1,
 		"spli": 1,
 		"arp": 1,
-		"tags": ["plasma", "pistol"]
+		"tags": ["plasma", "energy", "pistol"]
 	},
 	"Infernus Pistol": {
 		"abbreviation": "InfPstl",
@@ -931,7 +931,7 @@ global.weapons = {
 		"range": 12,
 		"spli": 3,
 		"arp": 1,
-		"tags": ["plasma"]
+		"tags": ["plasma", "energy"]
 	},
 	"Plasma Cannon": {
 		"abbreviation": "PlsmCan",
@@ -1027,7 +1027,7 @@ global.weapons = {
 		"range": 24,
 		"spli": 1,
 		"arp": 1,
-		"tags": ["heavy_ranged", "las"]
+		"tags": ["heavy_ranged", "las", "energy"]
 	},
 	"Conversion Beam Projector": {
 		"abbreviation": "CnvBmPrj",
@@ -1091,7 +1091,7 @@ global.weapons = {
 		"range": 24,
 		"spli": 2,
 		"arp": 1,
-		"tags": ["las", "heavy_ranged", "vehicle", "dreadnought"]
+		"tags": ["las", "energy", "heavy_ranged", "vehicle", "dreadnought"]
 	},
 	"Heavy Bolter": {
 		"abbreviation": "HvyBltr",
@@ -1160,7 +1160,7 @@ global.weapons = {
 		"range": 20,
 		"spli": 3,
 		"arp": 1,
-		"tags": ["las", "vehicle", "heavy_ranged", "dreadnought"]
+		"tags": ["las", "energy", "vehicle", "heavy_ranged", "dreadnought"]
 	},
 	"Twin Linked Assault Cannon Mount": {
 		"attack": {
@@ -1224,7 +1224,7 @@ global.weapons = {
 		"range": 20,
 		"spli": 3,
 		"arp": 1,
-		"tags": ["las", "vehicle", "sponson", "twin_linked"]
+		"tags": ["las", "energy", "vehicle", "heavy_ranged", "sponson", "twin_linked"]
 	},
 	"Lascannon Sponsons": {
 		"attack": {
@@ -1240,7 +1240,7 @@ global.weapons = {
 		"range": 20,
 		"spli": 1,
 		"arp": 1,
-		"tags": ["las", "vehicle", "sponson"]
+		"tags": ["las", "energy","heavy_ranged", "vehicle", "sponson"]
 	},
 	"Hurricane Bolter Sponsons": {
 		"attack": {
@@ -1567,7 +1567,7 @@ global.weapons = {
 		"range": 24,
 		"ammo": 5,
 		"spli": 2,
-		"tags": ["las", "twin_linked", "vehicle", "turret"]
+		"tags": ["las", "energy", "twin_linked","heavy_ranged", "vehicle", "turret"]
 	},
 	"Twin Linked Assault Cannon Turret": {
 		"abbreviation": "TwnAssCnn",
@@ -1631,7 +1631,7 @@ global.weapons = {
 		"range": 14,
 		"spli": 3,
 		"arp": 1,
-		"tags": ["plasma", "vehicle", "turret"]
+		"tags": ["plasma", "energy","heavy_ranged", "vehicle", "turret"]
 	},
 	"Heavy Conversion Beam Projector": {
 		"abbreviation": "HvyCnvBmr",

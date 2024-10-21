@@ -819,8 +819,8 @@ var all_advantages = [
             value : 25,
         },
         {
-            name : "Brothers",
-            description : "Your chapter places great emphasis on comradely and loyalty.  You start with a well-equipped Honour Guard.",
+            name : "Retinue of Renown",
+            description : "Your chapter master is guarded by renown heroes of the chapter.  You start with a larger well-equipped Honour Guard.",
             value : 20,
         },
         {
@@ -873,7 +873,7 @@ var all_advantages = [
             name : "Kings of Space",
             description : "Veterans of naval combat, your chapter fleet has bonuses to offense, defence, an additional battle barge, and may always be controlled regardless of whether or not the Chapter Master is present.",
             value : 40,
-            meta : [],
+            meta : ["Naval"],
         },
         {
             name : "Lightning Warriors",
@@ -919,13 +919,13 @@ var all_advantages = [
             name : "Devastator Doctrine",
             description : "The steady advance of overwhelming firepower is your chapters combat doctrine each company has an additional Devastator squad, all infantry have boosted defence, and heavy weapons have increased attack.",
             value : 30,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Assault Doctrine",
             description : "Your chapter prefers quick close quarter assaults on the enemy each Company has an additional Assault Squad and your marines are more skilled in melee.",
             value : 25,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Venerable Ancients",
