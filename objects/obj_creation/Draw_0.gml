@@ -793,6 +793,7 @@ if (slide=2){
                 if (adv_name="Psyker Abundance" && array_contains(dis, "Psyker Intolerant")){disable=1;draw_set_alpha(0.5);} 
                 if (adv_name="Reverent Guardians"&& array_contains(dis, "Suspicious")){disable=1;draw_set_alpha(0.5);} 
                 if (adv_name="Tech-Brothers" && array_contains(dis, "Tech-Heresy")){disable=1;draw_set_alpha(0.5);}
+                if(advantage_local_var.disabled){disable=1;draw_set_alpha(0.5);}
                 
                 var gap = (((i-1)%14) * column.h);
                 draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
@@ -845,6 +846,8 @@ if (slide=2){
                 if (dis_name="Suspicious") and (array_contains(adv, "Reverent Guardians")){disable=1;draw_set_alpha(0.5);}
                 if (dis_name="Tech-Heresy") and (array_contains(adv, "Tech-Brothers")){disable=1;draw_set_alpha(0.5);}
                 if (dis_name="Blood Debt") and (fleet_type=3){disable=1;draw_set_alpha(0.5);}
+                if(disadvantage_local_var.disabled){disable=1;draw_set_alpha(0.5);}
+
                 
                 var gap = (((i-1)%14) * column.h);
 

@@ -652,8 +652,6 @@ else if (file_exists("chaptersave#1.ini")=false){
 }
 
 
-// TODO refactor into struct constructors stored in which are struct arrays 
-
 function Advantage(_id, _name, _description, _points_cost) constructor {
     id = _id;
     name = _name;
@@ -661,16 +659,11 @@ function Advantage(_id, _name, _description, _points_cost) constructor {
     points = _points_cost;
     disabled = false;
 }
-function Disadvantage(_id, _name, _description, _points_cost) constructor {
-    id = _id;
-    name = _name;
-    description = _description;
-    points = _points_cost;
-    disabled = false;
-}
+
+function Disadvantage(_id, _name, _description, _points_cost) : Advantage (_id, _name, _description, _points_cost) constructor {}
 
 /// @type {Array<Advantage>}
-obj_creation.all_advantages = [
+all_advantages = [
     new Advantage(0, "", "", 0),
     new Advantage(1, "Ambushers", "Your chapter is especially trained with ambushing foes; they have a bonus to attack during the start of a battle.", 20),
     new Advantage(2, "Boarders", "Boarding other ships is the specialty of your chapter.  Your chapter is more lethal when boarding ships, have dedicated boarding squads, and two extra strike cruisers.", 20),
@@ -702,6 +695,8 @@ obj_creation.all_advantages = [
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 //advantage[i]="Comrades in Arms";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
+
+
 /// @type {Array<Disadvantage>}
 obj_creation.all_disadvantages = [
     new Disadvantage(0, "", "", 0),
@@ -723,51 +718,18 @@ obj_creation.all_disadvantages = [
 // disadvantage[i]="Rival Brotherhood";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 
 // Default Marine Loadouts
-var ye,i;
-ye=99;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=100;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=101;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=102;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
-}
-ye=103;i=-1;repeat(51){i+=1;
-    race[ye,i]=1;loc[ye,i]="";
-    role[ye,i]="";
-    wep1[ye,i]="";
-    wep2[ye,i]="";
-    armour[ye,i]="";
-    gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+for(var slot = 99; slot <= 103; slot++){
+    for(var i = 0; i <= 50; i++){
+        race[slot,i]=1;
+        loc[slot,i]="";
+        role[slot,i]="";
+        wep1[slot,i]="";
+        wep2[slot,i]="";
+        armour[slot,i]="";
+        gear[slot,i]="";
+        mobi[slot,i]="";
+        experience[y,i]=0;
+    }
 }
 
 defaults_slot = 100;
