@@ -137,20 +137,11 @@ if (slate4>0){
 		x2=441;y2=custom_y + icon_gap_y;new_hover=highlight;
         for(var c = 0; c < array_length(custom_chapters); c++){
             i = custom_chapters[c].id;
-
+            
             draw_sprite(spr_creation_icon,0,x2,y2);
-            // draw_sprite_stretched(spr_icon,i,x2,397,48,48);
-			if(file_exists("chaptersave#1.ini")){
-			ini_open("chaptersave#1.ini")
-			icon21=ini_read_real("Save","icon",1);
-			ini_close();
-			}
-			else{ icon21=1
-			}
-            scr_image("creation",icon21,x2,y2,48,48);
+            draw_sprite_stretched(global.chapter_icon_sprite,global.chapter_icon_frame,x2,y2,48,48);
             
             if (scr_hit(x2, y2, x2+48, y2+48) && slate4>=30){
-				
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
                 if (goto_slide!=2){highlight=custom_chapters[c].id;tool=1;}
                 draw_set_alpha(0.1);draw_set_color(c_white);
@@ -162,13 +153,13 @@ if (slate4>0){
                         chapter_name = custom_chapters[c].name;
                         change_slide=1;
                         goto_slide=2;
-                        scr_chapter_new(chapter21);
-                        
-                        if (chapter_made = 0 ){
-                            cooldown=8000;
-                            change_slide=1;goto_slide=2;
-                            custom=2;scr_chapter_random(0);
-                        }
+                        scr_chapter_new(i);
+                    } else {
+                        cooldown=8000;
+                        change_slide=1;
+                        goto_slide=2;
+                        custom=2;
+                        scr_chapter_random(0);
                     }
                 }
                 x2+=icon_gap_x;
@@ -256,27 +247,6 @@ if (slate4>0){
                 scr_image("creation/chapters/splash", splash_chapter.splash,0,68,374,713);
             }
 
-            // if (highlight<=9) then scr_image("main_splash",highlight-1,0,68,374,713);
-            // if (highlight>9) and (highlight<=16) and (highlight!=15) then scr_image("existing_splash",highlight-10,0,68,374,713);
-            // if (highlight=15) then scr_image("other_splash",6,0,68,374,713);
-            // if (highlight=17) then scr_image("other_splash",0,0,68,374,713);
-            // if (highlight=18) then scr_image("other_splash",6,0,68,374,713);
-            // if (highlight=19) then scr_image("other_splash",2,0,68,374,713);
-            // if (highlight=20) then scr_image("other_splash",6,0,68,374,713);
-            
-            
-            
-            /*if (highlight<=9) then draw_sprite(spr_creation_founding,highlight-1,0,68);
-            if (highlight>9) and (highlight<=16) and (highlight!=15) then draw_sprite(spr_creation_existing,highlight-10,0,68);
-            if (highlight=15) then draw_sprite(spr_creation_nosplash,0,0,68);
-            if (highlight=17) then draw_sprite(spr_creation_other,0,0,68);
-            if (highlight=18) then draw_sprite(spr_creation_nosplash,0,0,68);
-            if (highlight=19) then draw_sprite(spr_creation_other,2,0,68);
-            if (highlight=20) then draw_sprite(spr_creation_nosplash,0,0,68);
-            
-            if (highlight=1001) then draw_sprite(spr_creation_other,4,0,68);
-            if (highlight=1002) then draw_sprite(spr_creation_other,5,0,68);*/
-            
             draw_set_alpha(slate4/30);
             draw_set_color(38144);
             draw_rectangle(0,68,374,781,1);
@@ -317,13 +287,6 @@ if (slide>=2){
     tooltip="";tooltip2="";
     
     if (goto_slide!=1){
-        if (icon<=9) then draw_sprite(spr_creation_founding,icon-1,0,68);
-        if (icon>9) and (icon<=16) and (icon!=15) then draw_sprite(spr_creation_existing,icon-10,0,68);
-        if (icon=15) then draw_sprite(spr_creation_nosplash,0,0,68);
-        if (icon=17) then draw_sprite(spr_creation_other,0,0,68);
-        if (icon=18) then draw_sprite(spr_creation_nosplash,0,0,68);
-        if (icon=19) then draw_sprite(spr_creation_other,2,0,68);
-        if (icon=20) then draw_sprite(spr_creation_nosplash,0,0,68);
         
         if (custom=2) then draw_sprite(spr_creation_other,4,0,68);
         if (custom=1) then draw_sprite(spr_creation_other,5,0,68);
