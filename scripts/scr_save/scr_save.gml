@@ -249,6 +249,15 @@ function scr_save(save_part,save_id) {
 	        }
 	    }
 
+		// Save chapter icon
+		ini_write_real("Ini", "global_chapter_icon_sprite", global.chapter_icon_sprite);
+		ini_write_real("Ini", "global_chapter_icon_frame", global.chapter_icon_frame);
+		ini_write_string("Ini", "global_chapter_icon_path", global.chapter_icon_path);
+		ini_write_real("Ini", "global_chapter_icon_filename", global.chapter_icon_filename);
+
+
+
+
 	    // obj_ini
 	    ini_encode_and_json("Ini", "full_liveries", obj_ini.full_liveries);
 	    ini_write_string("Ini","home_name",obj_ini.home_name);
@@ -265,9 +274,10 @@ function scr_save(save_part,save_id) {
 	    ini_write_string("Ini","strin2",obj_ini.strin2);
 	    ini_write_string("Ini","psy_powers",obj_ini.psy_powers);
 	    ini_encode_and_json("Ini", "FullLivery",obj_ini.full_livery)
-	    ini_write_real("Ini","companies",obj_ini.companies);
-	    var i;i=-1;repeat(21){i+=1;ini_write_string("Ini","comp_title"+string(i),obj_ini.company_title[i]);}
-	    var i;i=-1;repeat(121){i+=1;ini_write_real("Ini","slave_num_"+string(i),obj_ini.slave_batch_num[i]);ini_write_real("Ini","slave_eta_"+string(i),obj_ini.slave_batch_eta[i]);}
+		ini_write_real("Ini","companies",obj_ini.companies);
+		ini_encode_and_json("Ini", "comp_title", obj_ini.company_title);
+		ini_encode_and_json("Ini", "slave_num_", obj_ini.slave_batch_num);
+		ini_encode_and_json("Ini", "slave_eta_", obj_ini.slave_batch_eta);
 
 	    ini_write_string("Ini","battle_cry",obj_ini.battle_cry);
 

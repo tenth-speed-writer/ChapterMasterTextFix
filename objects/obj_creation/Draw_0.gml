@@ -81,6 +81,9 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][founding_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = founding_chapters[c].icon;
+
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // Chapter is borked
@@ -116,6 +119,10 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][successor_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = successor_chapters[c].icon;
+
+
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked
@@ -192,11 +199,10 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][other_chapters[c].icon];
                             global.chapter_icon_frame = 0;
-                            icon=i;
-                            custom=0;
-                            change_slide=1;
-                            goto_slide=2;
-                            chapter_string=chapter_name;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = other_chapters[c].icon;
+
+                            icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked
                         }
@@ -488,10 +494,10 @@ if (slide=2){
         draw_text_transformed(800,301,string_hash_to_newline("Chapter Stats"),0.6,0.6,0);
         draw_set_halign(fa_right);
         
-        draw_text_transformed(617,332,string_hash_to_newline("Strength ("+string(strength)+")"),0.5,0.5,0);
-        draw_text_transformed(617,387,string_hash_to_newline("Cooperation ("+string(cooperation)+")"),0.5,0.5,0);
-        draw_text_transformed(617,442,string_hash_to_newline("GeneSeed Purity ("+string(purity)+")"),0.5,0.5,0);
-        draw_text_transformed(617,497,string_hash_to_newline("GeneSeed Stability ("+string(stability)+")"),0.5,0.5,0);
+        draw_text_transformed(617,332,$"Strength ({strength})",0.5,0.5,0);
+        draw_text_transformed(617,387,$"Cooperation ({cooperation})",0.5,0.5,0);
+        draw_text_transformed(617,442,$"GeneSeed Purity ({purity})",0.5,0.5,0);
+        draw_text_transformed(617,497,$"GeneSeed Stability ({stability})",0.5,0.5,0);
         var arrow_buttons_controls = [strength, cooperation, purity, stability]
         for (var i=0;i<4;i++){
             if (custom=2) then draw_sprite_stretched(spr_arrow,0,625,325+(i*55),32,32);
@@ -527,9 +533,7 @@ if (slide=2){
     }
     
     if (popup!="icons"){
-        draw_line(445,551,1125,551);
-        draw_line(445,552,1125,552);
-        draw_line(445,553,1125,553);
+        draw_rectangle(445, 551, 1125, 553, 0);
     }
     
     if (popup!="") or (custom<2) then draw_set_alpha(0.5);
@@ -539,7 +543,8 @@ if (slide=2){
         var advantage_click = (mouse_left>=1  && cooldown<=0  &&  custom>1);
         draw_set_halign(fa_left);
         draw_set_font(fnt_40k_30b);
-        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);draw_set_font(fnt_40k_14);
+        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);
+        draw_set_font(fnt_40k_14);
         var adv_txt = {
             x1: 436,
             y1: 570,
@@ -553,17 +558,19 @@ if (slide=2){
             var draw_string = adv_num[i]==0?"[+]":"[-] "+adv[i];
             draw_text(adv_txt.x1,adv_txt.y1+(i*adv_txt.h), draw_string);
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
-                if (points+20>maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
+
+                if (points>=maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }
                 
                 if (adv_num[i]!=0){
-                    tooltip=advantage[adv_num[i]];
-                    tooltip2=advantage_tooltip[adv_num[i]];
+                    var cur_adv = obj_creation.all_advantages[adv_num[i]];
+                    tooltip=$"{cur_adv.name} ({cur_adv.points} Points)";
+                    tooltip2=cur_adv.description;
                 }
                 if (advantage_click){
-                    if (points+20<=maxpoints) and (adv_num[i]=0) and (popup=""){
+                    if (points<maxpoints) and (adv_num[i]=0) and (popup=""){
                         popup="advantages";
                         cooldown=8000;
                         temp=i;
@@ -575,9 +582,10 @@ if (slide=2){
                         removable=true;
                     }
                     if  (mouse_x<=456) and (removable){
-                        points-=20;
-                        adv[i]="";
-                        adv_num[i]=0;
+
+                        var cur_ad = obj_creation.all_advantages[adv_num[i]]
+                        cur_ad.remove(i);
+
                         cooldown=8000;
                     }
                 }              
@@ -596,30 +604,32 @@ if (slide=2){
         dis_txt.x2 = dis_txt.x1 + dis_txt.w;
         dis_txt.y2 = dis_txt.y1 + dis_txt.h;
         var max_disadvantage_count = 8;
-        for (i=1;i<=max_disadvantage_count;i++){
-            var draw_string = dis_num[i]==0?"[+]":"[-] "+dis[i];
-            draw_text(dis_txt.x1,dis_txt.y1+(i*dis_txt.h), draw_string);
-            if (scr_hit(dis_txt.x1,dis_txt.y1+(i*dis_txt.h),dis_txt.x2,dis_txt.y2+(i*dis_txt.h))){
-                if (dis_num[i]!=0){
-                    tooltip=disadvantage[dis_num[i]];
-                    tooltip2=dis_tooltip[dis_num[i]];
+        for (var slot =1;slot<=max_disadvantage_count;slot++){
+            var draw_string = dis_num[slot]==0?"[+]":"[-] "+dis[slot];
+            draw_text(dis_txt.x1,dis_txt.y1+(slot*dis_txt.h), draw_string);
+            if (scr_hit(dis_txt.x1,dis_txt.y1+(slot*dis_txt.h),dis_txt.x2,dis_txt.y2+(slot*dis_txt.h))){
+                if (dis_num[slot]!=0){
+                    tooltip=obj_creation.all_disadvantages[dis_num[slot]].name;
+                    tooltip2=obj_creation.all_disadvantages[dis_num[slot]].description;
                 }
                 if (advantage_click){
-                    if ((dis_num[i]=0) and (popup="")){
+                    if ((dis_num[slot]=0) and (popup="")){
                         popup="disadvantages";
                         cooldown=8000;
-                        temp=i;
+                        temp=slot;
                     }
                     var removable=false;
-                    if (i==max_disadvantage_count && dis_num[i]>0){
+                    if (slot==max_disadvantage_count && dis_num[slot]>0){
                         removable=true;
-                    } else if (dis_num[i]>0 && dis_num[i+1]==0){
+                    } else if (dis_num[slot]>0 && dis_num[slot+1]==0){
                         removable=true;
-                    }                    
-                    if  (mouse_x<=830) and (removable) and (points+20<=maxpoints) {
-                        points+=20;
-                        dis[i]="";
-                        dis_num[i]=0;
+
+                    }
+                    var cur_dis = obj_creation.all_disadvantages[dis_num[slot]];                    
+                    if  (mouse_x<=830) and (removable) and (points+cur_dis.points<=maxpoints) {
+                        var cur_dis = obj_creation.all_disadvantages[dis_num[slot]];
+                        cur_dis.remove(slot);
+
                         cooldown=8000;
                     }   
                 }             
@@ -628,11 +638,11 @@ if (slide=2){
         draw_set_alpha(1);
         if (scr_hit(436,564,631,583)){
             tooltip="Chapter Advantages";
-            tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";
+            tooltip2="Advantages cost points, and improve the performance of your chapter in a specific domain. You can only have 1 trait of the same category, shown in brackets.";
         }
         if (scr_hit(810,564,1030,583)){
             tooltip="Chapter Disadvantages";
-            tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";
+            tooltip2="Disadvantages grant additional points, and penalize the performance of your chapter. You can only have 1 trait of the same category, shown in brackets.";
         }
     }else if (popup="icons"){
         draw_set_alpha(1);
@@ -650,8 +660,8 @@ if (slide=2){
         draw_text_transformed(800,687,"Cancel",0.6,0.6,0);
         
         var cw,ch;
-        cw=string_width(string_hash_to_newline("Cancel"))*0.6;
-        ch=string_height(string_hash_to_newline("Cancel"))*0.6;
+        cw=string_width("Cancel")*0.6;
+        ch=string_height("Cancel")*0.6;
         
         if (scr_hit(800,687,800+cw,687+ch)){
             draw_set_color(c_white);
@@ -698,7 +708,9 @@ if (slide=2){
                 }
                 
                 if (scr_hit(x3,y3,x3+96,y3+96)){
-                    draw_set_blend_mode(bm_add);draw_set_alpha(0.25);draw_set_color(16119285);
+                    draw_set_blend_mode(bm_add);
+                    draw_set_alpha(0.25);
+                    draw_set_color(16119285);
                     // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
                     if (ic<=global.normal_icons_count) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
                     if (ic>global.normal_icons_count) and (ic<=normal_and_builtin) then draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count-1,x3,y3,96,96);
@@ -717,7 +729,9 @@ if (slide=2){
                         scr_icon("");
                         if (ic <= global.normal_icons_count){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][ic];
-                            global.chapter_icon_frame = 1;
+                            global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = ic;
                         }
                         if (ic>normal_and_builtin) {
                             global.chapter_icon_sprite = obj_cuicons.spr_custom_icon[ic-normal_and_builtin];
@@ -781,11 +795,14 @@ if (slide=2){
     
     
     if (popup="advantages"){
-        draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select an Advantage"),0.6,0.6,0);
-        draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
+        draw_set_font(fnt_40k_30b);
+        draw_set_halign(fa_center);
+        draw_text_transformed(800,211,"Select an Advantage",0.6,0.6,0);
+        draw_set_font(fnt_40k_14b);
+        draw_set_halign(fa_left);
         
-        for(var i = 0; i < array_length(advantage); i++){
+        for(var slot = 0; slot < array_length(obj_creation.all_advantages); slot++){
+            var advantage_local_var = obj_creation.all_advantages[slot];
             var column = {
                 x1: 436,
                 y1: 250,
@@ -795,46 +812,64 @@ if (slide=2){
             column.x2 = column.x1 + column.w;
             column.y2 = column.y1 + column.h;
             var disable = 0;
-            if (advantage[i]!=""){
-                var adv_name = advantage[i];
+            if (advantage_local_var.name != ""){
+                var adv_name = advantage_local_var.name;
                 //columns of 14, shift the left boarder across
-                if(i >= 15 && i <29) {column.x1 = 670; column.x2 = column.x1 + column.w;};
-                if(i >= 29 && i <42) {column.x1 = 904; column.x2 = column.x1 + column.w;};
-                draw_set_color(38144);draw_set_alpha(1);
-                if (array_contains(adv, adv_name)) then draw_set_alpha(0.5);
-                if (adv_name="Psyker Abundance" && array_contains(dis, "Psyker Intolerant")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Reverent Guardians"&& array_contains(dis, "Suspicious")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Tech-Brothers" && array_contains(dis, "Tech-Heresy")){disable=1;draw_set_alpha(0.5);}
+
+                if(slot >= 15 && slot <29) {
+                    column.x1 = 670;
+                    column.x2 = column.x1 + column.w;
+                };
+                if(slot >= 29 && slot <42) {
+                    column.x1 = 904;
+                    column.x2 = column.x1 + column.w;
+                };
+                draw_set_color(38144);
+                draw_set_alpha(1);
+                disable = array_contains(adv, adv_name);
+                if (!disable){
+                    disable = advantage_local_var.disable();
+                }
+                if (disable) then draw_set_alpha(0.5);
                 
-                var gap = (((i-1)%14) * column.h);
-                draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
+
+                var gap = (((slot-1)%14) * column.h);
+                var adv_width = string_width(adv_name);
+                draw_text(column.x1,column.y1+gap,adv_name);
                 
                 // Cancel button
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (adv_name="Cancel"){
-                    cooldown=8000;popup="";
+                var coords = [column.x1,column.y1+gap,column.x1+adv_width,column.y1+column.h+gap];
+                if (point_and_click(coords)) and (cooldown<=0) and (adv_name="Cancel"){
+                    cooldown=8000;
+                    popup="";
                 }
                 // Tooltips
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)){
-                    tooltip=adv_name;tooltip2=advantage_tooltip[i];draw_set_color(c_white);draw_set_alpha(0.2);
-                    draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
+                if (scr_hit(coords)){
+                    tooltip=$"{adv_name} ({advantage_local_var.points})";
+                    tooltip2=$"{advantage_local_var.description} \nCategories: {advantage_local_var.print_meta()}";
+                    draw_set_color(c_white);
+                    draw_set_alpha(0.2);
+                    draw_text(column.x1,column.y1+gap,adv_name);
                 }
                 //Click on advantage
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(adv, adv_name) == false){
+                if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(adv, adv_name) == false){
                     if (disable=0){
                         cooldown=8000;
-                        adv[temp]=adv_name;
-                        adv_num[temp]=i;
+                        advantage_local_var.add(temp);
                         popup="";
-                        points+=20;
                     }
-            }}
-        }}
+                }
+            }
+        }
+    }
         
-    if (popup="disadvantages"){
-        draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select a Disadvantage"),0.6,0.6,0);
+    else if (popup="disadvantages"){
+        draw_set_font(fnt_40k_30b);
+        draw_set_halign(fa_center);
+        draw_text_transformed(800,211,"Select a Disadvantage",0.6,0.6,0);
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
-        for(var i = 0; i < array_length(disadvantage); i++){
+        for(var slot = 0; slot < array_length(obj_creation.all_disadvantages); slot++){
+            var disadvantage_local_var = obj_creation.all_disadvantages[slot];
             var column = {
                 x1: 436,
                 y1: 250,
@@ -844,46 +879,70 @@ if (slide=2){
             column.x2 = column.x1 + column.w;
             column.y2 = column.y1 + column.h;
             var disable = 0;
-            if (disadvantage[i]!=""){
-                var dis_name = disadvantage[i];
+            if (disadvantage_local_var.name!=""){
+                var dis_name = disadvantage_local_var.name;
                 //columns of 14, shift the left boarder across and leave a gap at the top on cols 2 & 3
-                if(i >= 15 && i <29) {column.x1 = 670; column.x2 = column.x1 + column.w;};
-                if(i >= 29 && i <42) {column.x1 = 904; column.x2 = column.x1 + column.w;};
-                draw_set_color(38144);draw_set_alpha(1);
-                if (array_contains(dis, dis_name)) then draw_set_alpha(0.5);
-                
-                if (dis_name="Psyker Intolerant") and (array_contains(adv, "Psyker Abundance")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Suspicious") and (array_contains(adv, "Reverent Guardians")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Tech-Heresy") and (array_contains(adv, "Tech-Brothers")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Blood Debt") and (fleet_type=3){disable=1;draw_set_alpha(0.5);}
-                
-                var gap = (((i-1)%14) * column.h);
+                if(slot >= 15 && slot <29) {
+                    column.x1 = 670;
+                    column.x2 = column.x1 + column.w;
+                };
+                if(slot >= 29 && slot <42) {
+                    column.x1 = 904;
+                    column.x2 = column.x1 + column.w;
+                };
+                draw_set_color(38144);
 
-                draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));
                 
+
+                disable = (disadvantage_local_var.disable() || array_contains(dis, dis_name));
+
+                if (!disable){
+                    disable = (dis_name=="Blood Debt" && fleet_type==3);
+                }
+
+                draw_set_alpha(disable?0.5:1);
+
+
+                
+                var gap = (((slot-1)%14) * column.h);
+
+                draw_text(column.x1,column.y1+gap,dis_name);
+                
+                var dis_width = string_width(dis_name);
                 // Cancel button
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (dis_name="Cancel"){
-                    cooldown=8000;popup="";
+                var coords = [column.x1,column.y1+gap,column.x1+dis_width,column.y1+column.h+gap];
+
+                if (point_and_click(coords)) and (cooldown<=0) and (dis_name="Cancel"){
+                    cooldown=8000;
+                    popup="";
                 }
                 //Tooltip
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)){tooltip=dis_name;tooltip2=dis_tooltip[i];draw_set_color(c_white);draw_set_alpha(0.2);draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));}
+                if (scr_hit(coords)){
+                    tooltip=$"{dis_name} ({disadvantage_local_var.points})";
+                    tooltip2=$"{disadvantage_local_var.description} \nCategories: {disadvantage_local_var.print_meta()}";
+                    draw_set_color(c_white);
+                    draw_set_alpha(0.2);
+                    draw_text(column.x1,column.y1+gap,dis_name);
+                }
                 //Click on disadvantage
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(dis, dis_name) == false){
-                    if (disable=0){
+                if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(dis, dis_name) == false){
+                    if (disable==false){
                         cooldown=8000;
-                        dis[temp]=dis_name;
-                        dis_num[temp]=i;
                         popup="";
-                        points-=20;
+                        disadvantage_local_var.add(temp);
                     }
-        }}}
+                }
+            }
+        }
     }
     if (popup!="") and ((mouse_left>=1) or (mouse_right=1)) and (cooldown<=0){
         if ((mouse_x<445) or (mouse_x>1125) or (mouse_y<200) or (mouse_y>552)) and (popup!="icons"){
-            cooldown=8000;popup="";
+            cooldown=8000;
+            popup="";
         }
         if ((mouse_x<445) or (mouse_x>1125) or (mouse_y<200) or (mouse_y>719)) and (popup="icons"){
-            cooldown=8000;popup="";
+            cooldown=8000;
+            popup="";
         }
     }
     
@@ -891,14 +950,15 @@ if (slide=2){
 
 /* Homeworld, Flagship, Psychic discipline, Aspirant Trial */
 
-var yar;yar=0;
+var yar=0;
 
 if (slide=3){
     draw_set_color(38144);
     draw_set_font(fnt_40k_30b);
     draw_set_halign(fa_center);
     
-    tooltip="";tooltip2="";
+    tooltip="";
+    tooltip2="";
     obj_cursor.image_index=0;
     
     draw_text(800,80,string_hash_to_newline(string(chapter_name)));

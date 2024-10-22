@@ -158,6 +158,7 @@ function scr_load(save_part, save_id) {
 	        }
 	    }
 
+
 	    // obj_ini
 	    //TODO allow methods to be passed as teh defualt to return_json_from_ini to optomise load speed
 	    var livery_picker = new colour_item(0,0);
@@ -178,10 +179,23 @@ function scr_load(save_part, save_id) {
 	    obj_ini.strin2=ini_read_string("Ini","strin2","");
 	    obj_ini.psy_powers=ini_read_string("Ini","psy_powers","default");
 
-	    obj_ini.companies=ini_read_real("Ini","companies",10);
-	    var i=-1;repeat(21){i+=1;obj_ini.company_title[i]=ini_read_string("Ini","comp_title"+string(i),"");}
-	    var i=-1;repeat(121){i+=1;obj_ini.slave_batch_num[i]=ini_read_real("Ini","slave_num_"+string(i),0);obj_ini.slave_batch_eta[i]=ini_read_real("Ini","slave_eta_"+string(i),0);}
+		
+		global.chapter_icon_sprite = ini_read_real("Ini", "global_chapter_icon_sprite", spr_icon_chapters);
+		global.chapter_icon_frame = ini_read_real("Ini", "global_chapter_icon_frame", 0);
+		global.chapter_icon_path = ini_read_string("Ini", "global_chapter_icon_path", "Error");
+		global.chapter_icon_filename = ini_read_real("Ini", "global_chapter_icon_filename", 0);
 
+
+		if(!sprite_exists(global.chapter_icon_sprite) && global.chapter_icon_path != ""){
+			global.chapter_icon_sprite = scr_image_cache(global.chapter_icon_path, global.chapter_icon_filename);
+		}
+
+
+	    obj_ini.companies=ini_read_real("Ini","companies",10);
+		obj_ini.company_title = return_json_from_ini("Ini","comp_title",array_create(21,""));
+		obj_ini.slave_batch_num = return_json_from_ini("Ini","slave_num_",array_create(121,""));
+		obj_ini.slave_batch_eta = return_json_from_ini("Ini","slave_eta_",array_create(121,""));
+	
 	    obj_ini.complex_livery_data=ini_read_string("Ini","complex_livery","");
 	    if (obj_ini.complex_livery_data!=""){
 	    	obj_ini.complex_livery_data=json_parse(base64_decode(obj_ini.complex_livery_data));

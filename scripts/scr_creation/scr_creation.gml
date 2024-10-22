@@ -1,7 +1,8 @@
+/// @mixin obj_creation
 function scr_creation(argument0) {
 
-
-
+	
+	show_debug_message($"calling scr_creation with input {argument0}");
 	if (argument0=2) and (custom>0){
 	    if (name_bad=1){cooldown=8000;/*(sound_play(bad);*/}
 	    if (name_bad=0){
@@ -203,8 +204,8 @@ function scr_creation(argument0) {
 	        var nope;nope=0;if (master_volume=0) or (music_volume=0) then nope=1;
 	        if (nope!=1){audio_sound_gain(snd_royal,0.25*master_volume*music_volume,2000);}
         
-	        if (founding=8) or (chapter="Salamanders") then obj_ini.skin_color=1;
-	        if (chapter!="Salamanders") and (founding!=8) and (secretions=1){
+	        if (founding=8) or (chapter_name="Salamanders") then obj_ini.skin_color=1;
+	        if (chapter_name!="Salamanders") and (founding!=8) and (secretions=1){
 	            obj_ini.skin_color=choose(2,3,4);
 	        }
         

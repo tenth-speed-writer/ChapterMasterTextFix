@@ -8,7 +8,7 @@ function scr_destroy_planet(argument0) {
 
 
 	if (argument0=2){
-	    var pip;pip=instance_create(0,0,obj_popup);
+	    var pip=instance_create(0,0,obj_popup);
 	    with(pip){
 	        title="Exterminatus";
 	        image="exterminatus";

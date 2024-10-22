@@ -995,12 +995,18 @@ if (argument0="Lamenters"){founding=5;points=150;
 
 
 
-	var i,a;i=0;a=0;
-	repeat(8){a+=1;i=0;
-	    repeat(40){i+=1;
-	        if (adv[a]!="") and (advantage[i]=adv[a]) then adv_num[a]=i;
-	        if (dis[a]!="") and (disadvantage[i]=dis[a]) then dis_num[a]=i;
-	    }
+	
+	for(var a = 0; a < array_length(adv); a++){
+	    for(var k = 0; k < array_length(obj_creation.all_advantages); k++){
+			if(adv[a]!="" && obj_creation.all_advantages[k].name=adv[a]){
+				adv_num[a] = k;
+			}
+		}
+		for(var j = 0; j < array_length(obj_creation.all_disadvantages); j++){
+			if (dis[a]!="" && obj_creation.all_disadvantages[j].name=dis[a]){
+				dis_num[a]=j;
+			}
+		}
 	}
 
 
