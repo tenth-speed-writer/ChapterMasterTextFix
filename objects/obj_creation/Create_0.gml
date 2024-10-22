@@ -670,6 +670,8 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
         for (var i=0;i<array_length(meta);i++){
             array_push(obj_creation.chapter_trait_meta, meta[i]);
         }
+        show_debug_message($"Meta updated: {meta}");
+
     }
     static remove_meta = function(){
         for (var i=0;i<array_length(meta);i++){
@@ -681,7 +683,60 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
                     len--;
                 }
             }
-        }        
+        }
+        show_debug_message($"Meta updated: {meta}");
+    }
+
+
+}
+
+function Advantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost) constructor {
+
+    static add = function(slot){
+        show_debug_message($"Adding adv {name} to slot {slot} for points {points}");
+        obj_creation.adv[slot] = name;
+        obj_creation.adv_num[slot] = id;
+        obj_creation.points+=points;
+        add_meta();
+    }
+    static remove = function(slot){
+        show_debug_message($"removing adv {name} from slot {slot} for points {points}");
+        obj_creation.adv[slot] = "";
+        obj_creation.points-=points;
+        obj_creation.adv_num[slot]=0;
+        remove_meta();
+    }
+
+    static disable = function(){
+        var is_disabled= false;
+        for (var i=0;i<array_length(meta);i++){
+            if (array_contains(obj_creation.chapter_trait_meta, meta[i])){
+                is_disabled = true;
+            }
+        }
+        if(obj_creation.points + points > obj_creation.maxpoints){
+            is_disabled = true;
+        }
+        return is_disabled;
+    }
+
+}
+function Disadvantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost) constructor {
+
+    static add = function(slot){
+        show_debug_message($"Adding disadv {name} to slot {slot} for points {points}");
+        obj_creation.dis[slot] = name;
+        obj_creation.dis_num[slot] = id;
+        obj_creation.points-=points;
+        add_meta();
+    }
+
+    static remove = function(slot){
+        show_debug_message($"Removing disadv {name} from slot {slot} for points {points}");
+        obj_creation.dis[slot] = "";
+        obj_creation.points+=points;
+        obj_creation.dis_num[slot]=0;
+        remove_meta();
     }
 
     static disable = function(){
@@ -695,41 +750,8 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
     }
 }
 
-function Advantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost=20) constructor {
-
-    static add = function(slot){
-        obj_creation.adv[slot] = name;
-        obj_creation.adv_num[slot] = id;
-        obj_creation.points+=points;
-        add_meta();
-    }
-    static remove = function(slot){
-        obj_creation.adv[slot] = "";
-        obj_creation.points-=points;
-        obj_creation.adv_num[slot]=0;
-        remove_meta();
-    }
-
-}
-function Disadvantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost=20) constructor {
-
-    static add = function(slot){
-        obj_creation.dis[slot] = name;
-        obj_creation.dis_num[slot] = id;
-        obj_creation.points-=points;
-        add_meta();
-    }
-
-    static remove = function(slot){
-        obj_creation.dis[slot] = "";
-        obj_creation.points+=points;
-        obj_creation.dis_num[slot]=0;
-        remove_meta();
-    }
-}
-
 //later we can use json maybe
-/// @type {Array<Advantage>}
+/// @type {Array<Struct.Advantage>}
 obj_creation.all_advantages = [];
 var all_advantages = [
         {
@@ -897,7 +919,7 @@ for (var i=0;i<array_length(all_advantages);i++){
 //advantage[i]="Comrades in Arms";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 
-/// @type {Array<Disadvantage>}
+/// @type {Array<Struct.Disadvantage>}
 var all_disadvantages = [
     {
         name : "",
@@ -971,12 +993,14 @@ obj_creation.all_disadvantages = []
 var new_dis,cur_dis;
 for (var i=0;i<array_length(all_disadvantages);i++){
     cur_dis = all_disadvantages[i];
-    new_dis = new Advantage(i, cur_dis.name, cur_dis.description, cur_dis.value);
+    new_dis = new Disadvantage(i, cur_dis.name, cur_dis.description, cur_dis.value);
     if (struct_exists(cur_dis, "meta")){
         new_dis.meta = cur_dis.meta;
     }
     array_push(obj_creation.all_disadvantages, new_dis);
 }
+show_debug_message(obj_creation.all_advantages);
+show_debug_message(obj_creation.all_disadvantages);
 
 
 

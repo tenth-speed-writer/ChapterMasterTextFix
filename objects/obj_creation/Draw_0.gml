@@ -541,7 +541,6 @@ if (slide=2){
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
 
                 if (points>=maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
-
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }
@@ -552,9 +551,7 @@ if (slide=2){
                     tooltip2=cur_adv.description;
                 }
                 if (advantage_click){
-
                     if (points<maxpoints) and (adv_num[i]=0) and (popup=""){
-
                         popup="advantages";
                         cooldown=8000;
                         temp=i;
@@ -622,11 +619,11 @@ if (slide=2){
         draw_set_alpha(1);
         if (scr_hit(436,564,631,583)){
             tooltip="Chapter Advantages";
-            tooltip2="Advantages cost 20 points, and improve the performance of your chapter in a specific domain.";
+            tooltip2="Advantages cost points, and improve the performance of your chapter in a specific domain. You can only have 1 trait of the same category, shown in brackets.";
         }
         if (scr_hit(810,564,1030,583)){
             tooltip="Chapter Disadvantages";
-            tooltip2="Disadvantages Grant 20 additional points, and penalize the performance of your chapter.";
+            tooltip2="Disadvantages grant additional points, and penalize the performance of your chapter. You can only have 1 trait of the same category, shown in brackets.";
         }
     }else if (popup="icons"){
         draw_set_alpha(1);
@@ -816,7 +813,6 @@ if (slide=2){
                 
 
                 var gap = (((i-1)%14) * column.h);
-                var draw_string = $"{adv_name} ({advantage_local_var.points})"
                 var adv_width = string_width(adv_name);
                 draw_text(column.x1,column.y1+gap,adv_name);
                 
@@ -827,14 +823,12 @@ if (slide=2){
                     popup="";
                 }
                 // Tooltips
-
                 if (scr_hit(coords)){
-                    tooltip=adv_name;
-                    tooltip2=advantage_local_var.description;
+                    tooltip=$"{adv_name} ({advantage_local_var.points})";
+                    tooltip2=$"{advantage_local_var.description} \n{advantage_local_var.meta}";
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,adv_name);
-
                 }
                 //Click on advantage
                 if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(adv, adv_name) == false){
@@ -902,18 +896,16 @@ if (slide=2){
                     popup="";
                 }
                 //Tooltip
-
                 if (scr_hit(coords)){
-                    tooltip=dis_name;
-                    tooltip2=disadvantage_local_var.description;
+                    tooltip=$"{dis_name} ({disadvantage_local_var.points})";
+                    tooltip2=$"{disadvantage_local_var.description} \n{disadvantage_local_var.meta}";
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,dis_name);
-
                 }
                 //Click on disadvantage
                 if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(dis, dis_name) == false){
-                    if (disable=0){
+                    if (disable==false){
                         cooldown=8000;
                         popup="";
                         disadvantage_local_var.add(temp);
