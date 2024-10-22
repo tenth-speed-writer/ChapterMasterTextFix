@@ -216,7 +216,7 @@ function scr_load(save_part, save_id) {
 	        obj_ini.equipment_quality[g]=ini_read_string("Ini","equipment_quality"+string(g),"");
 	        obj_ini.equipment_quality[g] = return_json_from_ini("Ini", $"equipment_quality{g}", []);
 
-	        if (g<=50){
+			for (g=0; g<array_length(obj_ini.artifact); g++){
 	        	obj_ini.artifact[g]=ini_read_string("Ini","artifact"+string(g),"");
 	            obj_ini.artifact_tags[g]=ini_read_string("Ini","artifact_tags"+string(g),"");
 		        if (obj_ini.artifact_tags[g] != ""){

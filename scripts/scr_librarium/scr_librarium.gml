@@ -88,12 +88,8 @@ function scr_librarium(){
         draw_set_halign(fa_center);
         identifiable = 0;
         if (artifacts > 0) {
-            var usey =0;
-            for (i=0;i<30;i++){
-                if (obj_ini.artifact[i]!="") then usey++;
-                if (i==menu_artifact) then break;
-            }
-            draw_text(xx + 622, yy + 440, string_hash_to_newline("[Artifact " + string(usey) + " of " + string(artifacts) + "]"));
+            var current_artifact = menu_artifact + 1;
+            draw_text(xx + 622, yy + 440, string_hash_to_newline("[Artifact " + string(current_artifact) + " of " + string(artifacts) + "]"));
 
             if scr_hit(xx + 326 + 16, yy + 426, xx + 887 + 16, yy + 818) {
                 var arrow_hovered = false;
@@ -114,19 +110,11 @@ function scr_librarium(){
                     identifiable=0;
                     artifact_equip = new ShutterButton();
                     artifact_gift = new ShutterButton();
-                    artifact_destroy = new ShutterButton();  
-                    if (menu_artifact>0){     	
-                        while (menu_artifact>0){
-                            menu_artifact--;
-                            if (obj_ini.artifact[menu_artifact] != "") then break;
-                        }
-                    } else if (menu_artifact==0){
-                        for (var i=29;i>0;i--){
-                            if (obj_ini.artifact[i] != ""){
-                                menu_artifact=i;
-                                break;
-                            }
-                        }                    
+                    artifact_destroy = new ShutterButton();
+                    if (menu_artifact > 0){     	
+                        menu_artifact--;
+                    } else if (menu_artifact == 0){
+                        menu_artifact = artifacts - 1;
                     }
                 }
                 if (arrow_hovered) {
@@ -152,18 +140,10 @@ function scr_librarium(){
                     artifact_equip = new ShutterButton();
                     artifact_gift = new ShutterButton();
                     artifact_destroy = new ShutterButton();           	
-                    if (menu_artifact<30){
-                        while(menu_artifact<30){
-                            menu_artifact++;
-                            if (obj_ini.artifact[menu_artifact] != "") then break;
-                        }
-                    } else if (menu_artifact==30){
-                        for (var i=0;i<30;i++){
-                                if (obj_ini.artifact[i] != ""){
-                                menu_artifact=i;
-                                break;
-                            }
-                        }
+                    if (menu_artifact < artifacts - 1){
+                        menu_artifact++;;
+                    } else if (menu_artifact == artifacts - 1){
+                        menu_artifact = 0;
                     }
                 }
                 if (arrow_hovered) {

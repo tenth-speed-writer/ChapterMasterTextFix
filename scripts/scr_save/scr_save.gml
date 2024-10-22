@@ -331,7 +331,6 @@ function scr_save(save_part,save_id) {
 	        }	    	
 	    }
 	    for (g=0;g<array_length(obj_ini.artifact);g++){
-
             ini_write_string("Ini","artifact"+string(g),obj_ini.artifact[g]);
             ini_write_string("Ini","artifact_tags"+string(g),base64_encode(json_stringify(obj_ini.artifact_tags[g])));
             ini_write_real("Ini","artifact_ident"+string(g),obj_ini.artifact_identified[g]);
@@ -349,8 +348,8 @@ function scr_save(save_part,save_id) {
 			  }
 			}
             ini_write_string("Ini","artifact_struct"+string(g),base64_encode(json_stringify(new_artifact)));	            
-
 	    }
+
 	    //
 	    var g;g=0;repeat(200){g+=1;
 	        ini_write_string("Ships","shi"+string(g),obj_ini.ship[g]);
