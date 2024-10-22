@@ -2,7 +2,12 @@
 
 
 function calculate_full_chapter_spread(turn_end=true){
+ 	obj_controller.command=0;
+ 	obj_controller.marines=0;	
 	var mar_loc,is_healer,is_tech,key_val,veh_location,array_slot,unit;
+	var tech_spread = {};
+	var apoth_spread = {};
+	var unit_spread = {};
     for(var company=0;company<11;company++){
     	for (var v=1;v<500;v++){
     		key_val = "";
@@ -18,7 +23,7 @@ function calculate_full_chapter_spread(turn_end=true){
 	    	}
 	                
 		    is_tech = (unit.IsSpecialist("forge") && unit.hp()>=10);
-		    is_healer = (((unit.IsSpaecialist("apoth",true) && unit.gear()=="Narthecium") || (unit.role()=="Sister Hospitaler")) && unit.hp()>=10);
+		    is_healer = (((unit.IsSpecialist("apoth",true) && unit.gear()=="Narthecium") || (unit.role()=="Sister Hospitaler")) && unit.hp()>=10);
 		  	if (mar_loc[2]!="warp"){
   	    		if (mar_loc[0]=location_types.planet){
   	    			array_slot = mar_loc[1];
@@ -104,9 +109,7 @@ function apothecary_simple(turn_end=true){
 	var spreads = calculate_full_chapter_spread();
 	var tech_spread = spreads[0];
 	var apoth_spread = spreads[1];
-	var unit_spread = spreads[3];
- 	obj_controller.command=0;
- 	obj_controller.marines=0;
+	var unit_spread = spreads[2];
     marines-=1;
 
 	var locations = struct_get_names(unit_spread);

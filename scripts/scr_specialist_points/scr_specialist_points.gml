@@ -35,12 +35,13 @@ function calculate_research_points(turn_end=false){
             }
             tech_locations[i] = techs[i].marine_location();
         }
-        var used_points = apothecary_simple(turn_end);
-        forge_points-=used_points;
         if (forge_master>-1){
             obj_controller.master_of_forge = techs[forge_master];
         }
         forge_string += $"Techmarines: +{floor(forge_points)}#";
+        var used_points = apothecary_simple(turn_end);
+        forge_string += $"Vehicle Repairs: -{floor(used_points)}#";
+        forge_points-=used_points;        
         var forge_veh_maintenance={};
         for (var comp=0;comp<=10;comp++){
             for (var veh=0;veh<=100;veh++){

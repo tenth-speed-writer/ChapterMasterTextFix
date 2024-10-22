@@ -2,7 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 
-scr apothecary_points_calc(){
+function apothecary_points_calc(){
 	with (obj_controller){
         research_points = 0;
         apoth_points = 0;
