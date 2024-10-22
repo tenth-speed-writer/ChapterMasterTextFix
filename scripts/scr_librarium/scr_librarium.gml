@@ -94,49 +94,80 @@ function scr_librarium(){
                 if (i==menu_artifact) then break;
             }
             draw_text(xx + 622, yy + 440, string_hash_to_newline("[Artifact " + string(usey) + " of " + string(artifacts) + "]"));
-            var arrow = [xx+400,yy+437,xx+445,yy+461]
-            if (point_and_click(arrow)){
-                artifact_namer.allow_input=false;
-            	identifiable=0;
-                artifact_equip = new ShutterButton();
-                artifact_gift = new ShutterButton();
-                artifact_destroy = new ShutterButton();  
-                if  (menu_artifact>=1){     	
-                	while (menu_artifact>=0){
-                		menu_artifact--;
-                        if (obj_ini.artifact[menu_artifact] != "") then break;
-                	}
-                }
-                if (menu_artifact==-1){
-                    for (var i=29;i>0;i--){
-                        if (obj_ini.artifact[i] != ""){
-                            menu_artifact=i;
-                            break;
-                        }
-                    }                    
-            	}
-            }
-            arrow = [xx+790,yy+437,xx+832,yy+461]
-            if (point_and_click(arrow)){
-                artifact_namer.allow_input=false;
-            	identifiable=0;
-                artifact_equip = new ShutterButton();
-                artifact_gift = new ShutterButton();
-                artifact_destroy = new ShutterButton();           	
-                if (menu_artifact<30){
-                    while(menu_artifact<30){
-                        menu_artifact++;
-                        if (obj_ini.artifact[menu_artifact] != "") then break;
+
+            if scr_hit(xx + 326 + 16, yy + 426, xx + 887 + 16, yy + 818) {
+                var arrow_hovered = false;
+                var scroll_engaged = false;
+                var arrow = [xx+400,yy+437,xx+445,yy+461];
+                if (scr_hit(arrow[0],arrow[1],arrow[2],arrow[3])) {
+                    arrow_hovered = true;
+                    if (scr_click_left()){
+                        scroll_engaged = true;
                     }
+                }
+                if (mouse_wheel_down()){
+                    scroll_engaged = true;
                 }
 
-                if (menu_artifact==30){
-                    for (var i=0;i<30;i++){
-                         if (obj_ini.artifact[i] != ""){
-                            menu_artifact=i;
-                            break;
+                if (scroll_engaged) {
+                    artifact_namer.allow_input=false;
+                    identifiable=0;
+                    artifact_equip = new ShutterButton();
+                    artifact_gift = new ShutterButton();
+                    artifact_destroy = new ShutterButton();  
+                    if (menu_artifact>0){     	
+                        while (menu_artifact>0){
+                            menu_artifact--;
+                            if (obj_ini.artifact[menu_artifact] != "") then break;
+                        }
+                    } else if (menu_artifact==0){
+                        for (var i=29;i>0;i--){
+                            if (obj_ini.artifact[i] != ""){
+                                menu_artifact=i;
+                                break;
+                            }
+                        }                    
+                    }
+                }
+                if (arrow_hovered) {
+                    tooltip_draw("Click here or use mouse wheel to scroll the artifact list.");
+                }
+
+                arrow_hovered = false;
+                scroll_engaged = false;
+                arrow = [xx+790,yy+437,xx+832,yy+461];
+                if (scr_hit(arrow[0],arrow[1],arrow[2],arrow[3])) {
+                    arrow_hovered = true;
+                    if (scr_click_left()){
+                        scroll_engaged = true;
+                    }
+                }
+                if (mouse_wheel_up()){
+                    scroll_engaged = true;
+                }
+
+                if (scroll_engaged) {
+                    artifact_namer.allow_input=false;
+                    identifiable=0;
+                    artifact_equip = new ShutterButton();
+                    artifact_gift = new ShutterButton();
+                    artifact_destroy = new ShutterButton();           	
+                    if (menu_artifact<30){
+                        while(menu_artifact<30){
+                            menu_artifact++;
+                            if (obj_ini.artifact[menu_artifact] != "") then break;
+                        }
+                    } else if (menu_artifact==30){
+                        for (var i=0;i<30;i++){
+                                if (obj_ini.artifact[i] != ""){
+                                menu_artifact=i;
+                                break;
+                            }
                         }
                     }
+                }
+                if (arrow_hovered) {
+                    tooltip_draw("Click on this arrow or use mouse wheel to scroll the artifact list.");
                 }
             }
 
