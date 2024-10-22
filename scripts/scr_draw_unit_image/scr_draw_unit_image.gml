@@ -27,7 +27,8 @@ enum UnitSpecialColours {
 }
 function get_complex_set(set = "mk7"){
      set_pieces = {
-
+        right_pauldron : spr_gothic_numbers_right_pauldron,
+        left_knee : spr_numeral_left_knee,
     }
     if (set == "mk7"){
         set_pieces.armour = spr_mk7_complex;
@@ -1136,7 +1137,13 @@ function scr_draw_unit_image(_background=false){
                             if (struct_exists(complex_set, "right_trim")){
                                 var choice = get_body_data("trim_variation","right_arm")%sprite_get_number(complex_set.right_trim);
                                 draw_sprite(complex_set.right_trim,choice,x_surface_offset,y_surface_offset);
-                            }                                                                                                                                              
+                            }
+                            if (struct_exists(set_pieces, "right_pauldron")){
+                                draw_sprite(complex_set.right_pauldron,company,x_surface_offset,y_surface_offset);
+                            }
+                            if (struct_exists(set_pieces, "left_knee")){
+                                draw_sprite(complex_set.left_knee,company,x_surface_offset,y_surface_offset);
+                            }                                                                                                                                         
                         } else {
                             draw_sprite(specific_armour_sprite,0,x_surface_offset,y_surface_offset);
                         }                       
