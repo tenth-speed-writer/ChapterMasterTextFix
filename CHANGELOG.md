@@ -21,9 +21,15 @@ All notable changes to this project will be documented in this file.
     - everything that a normal player doesn't need to know.
 ----------------------------------
 
-## [0.9.3.4]
+## [0.9.4.0]
 
 ### Changed:
+- Artifacts and Librarium:
+	- Now able to unequip artifacts from the Librarium screen.
+	- `artifact` cheat now supports quantity parameter. `CHEATCODES.md` updated.
+	- Added support for mouse wheel scrolling of the artifact list, just hover over the general artifact box and scroll.
+	- Added tooltips to scroll arrows that remind you about the mouse wheel.
+	- The limit for artifacts now is 200. Getting new artifacts above this limit, will simply poof them.
 - Battle debug (d) now only works with debug mode enabled.
 - Tartaros sprite is replaced with a clean, tweaked version (by Abomination).
 - Various, minor error popup changes.
@@ -43,10 +49,13 @@ All notable changes to this project will be documented in this file.
 - Probably a lot of missclicks, when one screen opens and you immediately click on something, should be fixed.
 - Vehicle loss and recovery flavour text now should be repaired.
 - Fixed formula for vehicle recovery score from Techmarines, as it was a bit overblown by stats.
-- Adjustments to Artifact preview screen. Fixed button font, bigger description box.
 - STC fleet speed bonus reducing speed instead.
 - Warp portal selectable through other UI elements.
 - Inquisitor inspection throwing errors (`fleets_next_location`).
+- Adjustments to Artifact preview screen. Fixed button font, bigger description box.
+- Equipped artifacts breaking on save/loading after their count goes over 20.
+- Fixed artifact list ping-pong that didn't work properly when going backwards.
+- Artifact list being limited to 30, even if the player has more.
 
 ### Under The Hood:
 - **All constructors from now on use PascalCase, to prevent variable name overlaps with the YYC compiler.**
@@ -55,6 +64,7 @@ All notable changes to this project will be documented in this file.
 	- `obj_popup` cooldown on creation is reduced to 8k to fix the UI lock caused by the above change, may have unintended consequences.
 	- `obj_managment_panel` is now drawn in GUI layer, mouse event merged into draw.
 	- Minor refactors to Artifact preview screen. Use `draw_unit_button()`.
+	- Added cooldown check to `scr_click_left()`, to be able to use it nested in scr_hit, when point_and_click is unneeded.
 - Combat code:
 	- Many repeats and bad array practices are removed from the combat related code.
 	- Various minor efficiency improvements and refactors. 
@@ -70,6 +80,7 @@ All notable changes to this project will be documented in this file.
 - Minor refactor of `scr_destroy planet`.
 - Minor refactor of alarm 7 `obj_n_combat`.
 - New function: `draw_rectangle_outline()` to draw rectangles with an outline backed in.
+- Deprecate `int_strings[]` in `scr_load`.
 
 ## [0.9.3.3-YYC]
 
