@@ -7,7 +7,7 @@ function colour_item(xx,yy) constructor{
 	self.yy=yy;
     static scr_unit_draw_data = function(){
         map_colour = {
-            is_changed : 0,
+            is_changed : false,
             left_leg_lower : 0,
             left_leg_upper : 0,
             left_leg_knee : 0,
@@ -188,6 +188,7 @@ function colour_item(xx,yy) constructor{
     			if (colour_pick.chosen!=-1){
     				map_colour[$ colour_pick.area] = colour_pick.chosen;
                     map_colour.is_changed = true;
+                    obj_creation.full_liveries[role_set] = DeepCloneStruct(map_colour);
     			}
     		}
     	}
@@ -245,6 +246,7 @@ function colour_item(xx,yy) constructor{
 
 
 function setup_complex_livery_shader(setup_role){
+    shader_reset();
     var data_set = obj_ini.full_liveries[0];
     for (var i=0;i<=20;i++){
         if (obj_ini.role[100][i]==setup_role){
