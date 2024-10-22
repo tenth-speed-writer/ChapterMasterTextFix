@@ -687,6 +687,13 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
         show_debug_message($"Meta updated: {meta}");
     }
 
+    static print_meta = function(){
+        if(array_length(meta) ==0){
+            return "None";
+        } else {
+            return string(meta); //idk how to get this to look good
+        }
+    }
 
 }
 
@@ -841,7 +848,7 @@ var all_advantages = [
             name : "Lightning Warriors",
             description : "Your chapter's style of warfare is built around the speedy execution of battle. Infantry have boosted attack at the cost of defense as well as two additional Land speeders and Biker squads.",
             value : 35,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Paragon",
@@ -881,19 +888,19 @@ var all_advantages = [
             name : "Slow and Purposeful",
             description : "Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.",
             value : 15,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Melee Enthusiasts",
             description : "Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.",
             value : 15,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Venerable Ancients",
             description : "Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service.",
             value : 25,
-            meta : ["doctrine"],
+            meta : ["Doctrine"],
         },
         {
             name : "Medicae Primacy",
@@ -940,7 +947,7 @@ var all_disadvantages = [
         name : "Fresh Blood",
         description : "Due to being newly created your chapter has little special wargear or psykers.",
         value : 30,
-        meta : ["status"],
+        meta : ["Status"],
     }, 
     {
         name : "Never Forgive",
@@ -951,7 +958,7 @@ var all_disadvantages = [
         name : "Sieged",
         description : "A recent siege has reduced the number of your marines greatly.  You retain a normal amount of equipment but some is damaged.",
         value : 30,
-        meta : ["status"],
+        meta : ["Status"],
     },
     {
         name : "Splintered",

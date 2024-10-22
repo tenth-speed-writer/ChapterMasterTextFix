@@ -825,7 +825,7 @@ if (slide=2){
                 // Tooltips
                 if (scr_hit(coords)){
                     tooltip=$"{adv_name} ({advantage_local_var.points})";
-                    tooltip2=$"{advantage_local_var.description} \n{advantage_local_var.meta}";
+                    tooltip2=$"{advantage_local_var.description} \nCategories: {advantage_local_var.print_meta()}";
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,adv_name);
@@ -898,7 +898,7 @@ if (slide=2){
                 //Tooltip
                 if (scr_hit(coords)){
                     tooltip=$"{dis_name} ({disadvantage_local_var.points})";
-                    tooltip2=$"{disadvantage_local_var.description} \n{disadvantage_local_var.meta}";
+                    tooltip2=$"{disadvantage_local_var.description} \nCategories: {disadvantage_local_var.print_meta()}";
                     draw_set_color(c_white);
                     draw_set_alpha(0.2);
                     draw_text(column.x1,column.y1+gap,dis_name);
