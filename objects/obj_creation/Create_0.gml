@@ -652,63 +652,334 @@ else if (file_exists("chaptersave#1.ini")=false){
 }
 
 
-function Advantage(_id, _name, _description, _points_cost) constructor {
+// TODO refactor into struct constructors stored in which are struct arrays 
+
+// meta provides a universal way to control not having contradictory advatages and disadvantages
+// the player can not have any two advantages or disadvatages taht have the same piece of meta thus removing clunky checks in the draw sequence
+chapter_trait_meta = [];
+function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constructor{
+
     id = _id;
     name = _name;
     description = _description;
     points = _points_cost;
     disabled = false;
+    meta = _meta;
+
+    static add_meta = function(){
+        for (var i=0;i<array_length(meta);i++){
+            array_push(obj_creation.chapter_trait_meta, meta[i]);
+        }
+    }
+    static remove_meta = function(){
+        for (var i=0;i<array_length(meta);i++){
+            var len = array_length(obj_creation.chapter_trait_meta);
+            for (var s=0;s<len;s++){
+                if (obj_creation.chapter_trait_meta[s]==meta[i]){
+                    array_delete(obj_creation.chapter_trait_meta, s, 1);
+                    s--;
+                    len--;
+                }
+            }
+        }        
+    }
+
+    static disable = function(){
+        var is_disabled= false;
+        for (var i=0;i<array_length(meta);i++){
+            if (array_contains(obj_creation.chapter_trait_meta, meta[i])){
+                is_disabled = true;
+            }
+        }
+        return is_disabled;
+    }
 }
 
-all_advantages = [
-    new Advantage(0, "", "", 0),
-    new Advantage(1, "Ambushers", "Your chapter is especially trained with ambushing foes; they have a bonus to attack during the start of a battle.", 20),
-    new Advantage(2, "Boarders", "Boarding other ships is the specialty of your chapter.  Your chapter is more lethal when boarding ships, have dedicated boarding squads, and two extra strike cruisers.", 20),
-    new Advantage(3, "Bolter Drilling", "Bolter drills are sacred to your chapter; all marines have increased attack with Bolter weaponry.", 20),
-    new Advantage(4, "Brothers, All", "Your chapter places great emphasis on comradely and loyalty.  You start with a well-equipped Honour Guard.", 20),
-    new Advantage(5, "Crafters", "Your chapter views artifacts as sacred; you start with better gear and maintain all equipment with more ease.", 20),
-    new Advantage(6, "Daemon Binders", "Powers are replaced with a more powerful Witchfire variant.  Perils are also less likely to occur but are more disasterous when they do.", 20),
-    new Advantage(7, "Enemy: Eldar", "Eldar are particularly hated by your chapter.  When fighting Eldar damage is increased.", 20),
-    new Advantage(8, "Enemy: Fallen", "Chaos Marines are particularly hated by your chapter.  When fighting the traitors damage is increased.", 20),
-    new Advantage(9, "Enemy: Necrons", "Necrons are particularly hated by your chapter.  When fighting Necrons damage is increased.", 20),
-    new Advantage(10, "Enemy: Orks", "Orks are particularly hated by your chapter.  When fighting Orks damage is increased.", 20),
-    new Advantage(11, "Enemy: Tau", "Tau are particularly hated by your chapter.  When fighting Tau damage is increased.", 20),
-    new Advantage(12, "Enemy: Tyranids", "Tyranids are particularly hated by your chapter. A large number of your veterans and marines are tyrannic war veterans and when fighting Tyranids damage is increased.", 20),
-    new Advantage(13, "Kings of Space", "Veterans of naval combat, your chapter fleet has bonuses to offense, defence, an additional battle barge, and may always be controlled regardless of whether or not the Chapter Master is present.", 20),
-    new Advantage(14, "Lightning Warriors", "Your chapter's style of warfare is built around the speedy execution of battle. Infantry have boosted attack at the cost of defense as well as two additional Land speeders and Biker squads.", 20),
-    new Advantage(15, "Paragon", "You are a pale shadow of the primarchs.  Larger, stronger, faster, your Chapter Master is on a higher level than most, gaining additional health and combat effectiveness.", 20),
-    new Advantage(16, "Psyker Abundance", "The Psyker mutation runs rampant in your chapter.  Librarians train in 60% the normal time and receive bonus experience.", 20),
-    new Advantage(17, "Reverent Guardians", "Your chapter places great faith in the Imperial Cult; you start with more Chaplains and any Ecclesiarchy disposition increases are enhanced.", 20),
-    new Advantage(18, "Tech-Brothers", "Your chapter has better ties to the mechanicus; you have more techmarines and higher mechanicus disposition.", 20),
-    new Advantage(19, "Scavengers", "Your Astartes have a knack for finding what has been lost.  Items and wargear are periodically found and added to the Armamentarium.", 20),
-    new Advantage(20, "Siege Masters", "Your chapter is familiar with the ins-and-outs of fortresses.  They are better at defending and attacking fortifications.", 20),
-    new Advantage(21, "Slow and Purposeful", "Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.", 20),
-    new Advantage(22, "Melee Enthusiasts", "Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.", 20),
-    new Advantage(23, "Venerable Ancients", "Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service.", 20),
-    new Advantage(24, "Medicae Primacy", "Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.", 20),
-];
+function Advantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost=20) constructor {
+
+    static add = function(slot){
+        obj_creation.adv[slot] = name;
+        obj_creation.adv_num[slot] = id;
+        obj_creation.points+=points;
+        add_meta();
+    }
+    static remove = function(slot){
+        obj_creation.adv[slot] = "";
+        obj_creation.points-=points;
+        obj_creation.adv_num[slot]=0;
+        remove_meta();
+    }
+
+}
+function Disadvantage(_id, _name, _description, _points_cost) : ChapterTrait(_id, _name, _description, _points_cost=20) constructor {
+
+    static add = function(slot){
+        obj_creation.dis[slot] = name;
+        obj_creation.dis_num[slot] = id;
+        obj_creation.points-=points;
+        add_meta();
+    }
+
+    static remove = function(slot){
+        obj_creation.dis[slot] = "";
+        obj_creation.points+=points;
+        obj_creation.dis_num[slot]=0;
+        remove_meta();
+    }
+}
+
+//later we can use json maybe
+/// @type {Array<Advantage>}
+obj_creation.all_advantages = [];
+var all_advantages = [
+        {
+            name : "",
+            description : "",
+            value : 0,
+        },
+        {
+            name : "Ambushers",
+            description : "Your chapter is especially trained with ambushing foes; they have a bonus to attack during the start of a battle.",
+            value : 20,
+        },
+        {
+            name : "Boarders",
+            description : "Boarding other ships is the specialty of your chapter.  Your chapter is more lethal when boarding ships, have dedicated boarding squads, and two extra strike cruisers.",
+            value : 20,
+        },
+        {
+            name : "Bolter Drilling",
+            description : "Bolter drills are sacred to your chapter; all marines have increased attack with Bolter weaponry.",
+            value : 25,
+        },
+        {
+            name : "Brothers",
+            description : "Your chapter places great emphasis on comradely and loyalty.  You start with a well-equipped Honour Guard.",
+            value : 20,
+        },
+        {
+            name : "Crafters",
+            description : "Your chapter views artifacts as sacred; you start with better gear and maintain all equipment with more ease.",
+            value : 35,
+        },
+        {
+            name : "Daemon Binders",
+            description : "Powers are replaced with a more powerful Witchfire variant.  Perils are also less likely to occur but are more disasterous when they do.",
+            value : 20,
+        },
+        {
+            name : "Enemy: Eldar",
+            description : "Eldar are particularly hated by your chapter.  When fighting Eldar damage is increased.",
+            value : 10,
+            meta : ["Main Enemy"],
+        },
+        {
+            name : "Enemy: Fallen",
+            description : "Chaos Marines are particularly hated by your chapter.  When fighting the traitors damage is increased.",
+            value : 15,
+            meta : ["Main Enemy"],
+        },
+        {
+            name : "Enemy: Necrons",
+            description : "Necrons are particularly hated by your chapter.  When fighting Necrons damage is increased.",
+            value : 15,
+            meta : ["Main Enemy"],
+        },  
+        {
+            name : "Enemy: Orks",
+            description : "Orks are particularly hated by your chapter.  When fighting Orks damage is increased.",
+            value : 35,
+            meta : ["Main Enemy"]
+        },
+        {
+            name : "Enemy: Tau",
+            description : "Tau are particularly hated by your chapter.  When fighting Tau damage is increased.",
+            value : 20,
+            meta : ["Main Enemy"],
+        },
+        {
+            name : "Enemy: Tau",
+            description : "Tau are particularly hated by your chapter.  When fighting Tau damage is increased.",
+            value : 20,
+            meta : ["Main Enemy"],
+        },
+        {
+            name : "Enemy: Tyranids",
+            description : "Tyranids are particularly hated by your chapter. A large number of your veterans and marines are tyrannic war veterans and when fighting Tyranids damage is increased.",
+            value : 25,
+            meta : ["Main Enemy"],
+        },
+        {
+            name : "Kings of Space",
+            description : "Veterans of naval combat, your chapter fleet has bonuses to offense, defence, an additional battle barge, and may always be controlled regardless of whether or not the Chapter Master is present.",
+            value : 40,
+            meta : [],
+        },
+        {
+            name : "Lightning Warriors",
+            description : "Your chapter's style of warfare is built around the speedy execution of battle. Infantry have boosted attack at the cost of defense as well as two additional Land speeders and Biker squads.",
+            value : 35,
+            meta : ["doctrine"],
+        },
+        {
+            name : "Paragon",
+            description : "You are a pale shadow of the primarchs.  Larger, stronger, faster, your Chapter Master is on a higher level than most, gaining additional health and combat effectiveness.",
+            value : 10,
+            meta : ["Chapter Master"],
+        },
+        {
+            name : "Psyker Abundance",
+            description : "The Psyker mutation runs rampant in your chapter.  Librarians train in 60% the normal time and receive bonus experience.",
+            value : 30,
+            meta : ["Psyker Views"],
+        }, 
+        {
+            name : "Reverent Guardians",
+            description : "Your chapter places great faith in the Imperial Cult; you start with more Chaplains and any Ecclesiarchy disposition increases are enhanced.",
+            value : 10,
+            meta : ["Faith","Imperium Trust"],
+        },
+        {
+            name : "Tech-Brothers",
+            description : "Your chapter has better ties to the mechanicus; you have more techmarines and higher mechanicus disposition.",
+            value : 25,
+            meta : ["Mechanicus Faith"],
+        }, 
+        {
+            name : "Tech-Scavengers",
+            description : "Your Astartes have a knack for finding what has been lost.  Items and wargear are periodically found and added to the Armamentarium.",
+            value : 30,
+        },
+        {
+            name : "Siege Masters",
+            description : "Your chapter is familiar with the ins-and-outs of fortresses.  They are better at defending and attacking fortifications. And better at garrisoning",
+            value : 15,
+        },
+        {
+            name : "Slow and Purposeful",
+            description : "Careful and steady is your chapters doctrine; all infantry have slightly less attack but boosted defences.",
+            value : 15,
+            meta : ["doctrine"],
+        },
+        {
+            name : "Melee Enthusiasts",
+            description : "Rip and tear! Each Company has an additional Assault Squad.  Your marines and dreadnoughts also have boosted attack with melee weapons.",
+            value : 15,
+            meta : ["doctrine"],
+        },
+        {
+            name : "Venerable Ancients",
+            description : "Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service.",
+            value : 25,
+            meta : ["doctrine"],
+        },
+        {
+            name : "Medicae Primacy",
+            description : "Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.",
+            value : 25,
+        },                                                                                                                                                                              
+    ]
+
+
+var new_adv,cur_adv;
+for (var i=0;i<array_length(all_advantages);i++){
+    cur_adv = all_advantages[i];
+    new_adv = new Advantage(i, cur_adv.name, cur_adv.description, cur_adv.value);
+    if (struct_exists(cur_adv, "meta")){
+        new_adv.meta = cur_adv.meta;
+    }
+    array_push(obj_creation.all_advantages, new_adv);
+}
+
 
 //advantage[i]="Battle Cousins";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 //advantage[i]="Comrades in Arms";
 //advantage_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 
-function Disadvantage(_id, _name, _description, _points_cost) : Advantage (_id, _name, _description, _points_cost) constructor {}
-all_disadvantages = [
-    new Disadvantage(0, "", "", 0),
-    new Disadvantage(1, "Black Rage", "Your marines are susceptible to Black Rage, having a chance each battle to become Death Company.  These units are locked as Assault Marines and are fairly suicidal.", 20),
-    new Disadvantage(2, "Blood Debt", "Prevents your Chapter from recruiting new Astartes until enough of your marines, or enemies, have been killed.  Incompatible with Penitent chapter types.", 20),
-    new Disadvantage(3, "Fresh Blood", "Due to being newly created your chapter has little special wargear or psykers.", 20),
-    new Disadvantage(4, "Never Forgive", "In the past traitors broke off from your chapter.  They harbor incriminating secrets or heritical beliefs, and as thus, must be hunted down whenever possible.", 20),
-    new Disadvantage(5, "Psyker Intolerant", "Witches are hated by your chapter.  You cannot create Librarians but gain a little bonus attack against psykers.", 20),
-    new Disadvantage(6, "Shitty Luck", "This is actually really helpful and beneficial for your chapter.  Trust me.", 20),
-    new Disadvantage(7, "Sieged", "A recent siege has reduced the number of your marines greatly.  You retain a normal amount of equipment but some is damaged.", 20),
-    new Disadvantage(8, "Splintered", "Your marines are unorganized and splintered.  You require greater time to respond to threats en masse.", 20),
-    new Disadvantage(9, "Suspicious", "Some of your chapter's past actions or current practices make the inquisition suspicious.  Their disposition is lowered.", 20),
-    new Disadvantage(10, "Tech-Heresy", "Your chapter does things that makes the Mechanicus upset.  Mechanicus disposition is lowered and you have less Tech Marines.", 20),
-    new Disadvantage(11, "Tolerant", "Your chapter is more lenient with xenos.  All xeno disposition is slightly increased and all Imperial disposition is lowered.", 20),
-    new Disadvantage(12, "Warp Touched", "Demons seem attracted to your chapter; perils of the warp happen more frequently and with more disasterous results.", 20),
-];
+/// @type {Array<Disadvantage>}
+var all_disadvantages = [
+    {
+        name : "",
+        description : "",
+        value : 0,
+    },
+    {
+        name : "Black Rage",
+        description : "Your marines are susceptible to Black Rage, having a chance each battle to become Death Company.  These units are locked as Assault Marines and are fairly suicidal.",
+        value : 30,
+    },
+    {
+        name : "Blood Debt",
+        description : "Prevents your Chapter from recruiting new Astartes until enough of your marines, or enemies, have been killed.  Incompatible with Penitent chapter types.",
+        value : 50,
+    },
+    {
+        name : "Fresh Blood",
+        description : "Due to being newly created your chapter has little special wargear or psykers.",
+        value : 30,
+        meta : ["status"],
+    }, 
+    {
+        name : "Never Forgive",
+        description : "In the past traitors broke off from your chapter.  They harbor incriminating secrets or heritical beliefs, and as thus, must be hunted down whenever possible.",
+        value : 15,
+    },
+    {
+        name : "Sieged",
+        description : "A recent siege has reduced the number of your marines greatly.  You retain a normal amount of equipment but some is damaged.",
+        value : 30,
+        meta : ["status"],
+    },
+    {
+        name : "Splintered",
+        description : "Your marines are unorganized and splintered.  You require greater time to respond to threats en masse.",
+        value : 10,
+        meta : ["Location"],
+    },
+    {
+        name : "Suspicious",
+        description : "Some of your chapter's past actions or current practices make the inquisition suspicious.  Their disposition is lowered.",
+        value : 10,
+        meta : ["Imperium Trust"],
+    },
+    {
+        name : "Tech-Heresy",
+        description : "Your chapter does things that makes the Mechanicus upset.  Mechanicus disposition is lowered and you have less Tech Marines. You start as a tech heretic tolerant chapter",
+        value : 15,
+        meta : ["Mechanicus Faith"],
+    },
+    {
+        name : "Tolerant",
+        description : "Your chapter is more lenient with xenos.  All xeno disposition is slightly increased and all Imperial disposition is lowered.",
+        value : 10,
+    },
+    {
+        name : "Warp Touched",
+        description : "Your chapter is more lenient with xenos.  All xeno disposition is slightly increased and all Imperial disposition is lowered.",
+        value : 10,
+    },
+    {
+        name : "Psyker Intolerant",
+        description : "Witches are hated by your chapter.  You cannot create Librarians but gain a little bonus attack against psykers.",
+        value : 20,
+        meta : ["Psyker Views"]
+    },                  
+]
+
+obj_creation.all_disadvantages = []
+var new_dis,cur_dis;
+for (var i=0;i<array_length(all_disadvantages);i++){
+    cur_dis = all_disadvantages[i];
+    new_dis = new Advantage(i, cur_dis.name, cur_dis.description, cur_dis.value);
+    if (struct_exists(cur_dis, "meta")){
+        new_dis.meta = cur_dis.meta;
+    }
+    array_push(obj_creation.all_disadvantages, new_dis);
+}
+
+
+
 // disadvantage[i]="Embargo";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;// Greatly increases the cost of common wargear and disallows advanced items.
 // disadvantage[i]="First In, Last Out";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;
 // disadvantage[i]="Rival Brotherhood";dis_tooltip[i]="NOT IMPLEMENTED YET.";i+=1;

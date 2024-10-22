@@ -475,10 +475,10 @@ if (slide=2){
         draw_text_transformed(800,301,string_hash_to_newline("Chapter Stats"),0.6,0.6,0);
         draw_set_halign(fa_right);
         
-        draw_text_transformed(617,332,string_hash_to_newline("Strength ("+string(strength)+")"),0.5,0.5,0);
-        draw_text_transformed(617,387,string_hash_to_newline("Cooperation ("+string(cooperation)+")"),0.5,0.5,0);
-        draw_text_transformed(617,442,string_hash_to_newline("GeneSeed Purity ("+string(purity)+")"),0.5,0.5,0);
-        draw_text_transformed(617,497,string_hash_to_newline("GeneSeed Stability ("+string(stability)+")"),0.5,0.5,0);
+        draw_text_transformed(617,332,$"Strength ({strength})",0.5,0.5,0);
+        draw_text_transformed(617,387,$"Cooperation ({cooperation})",0.5,0.5,0);
+        draw_text_transformed(617,442,$"GeneSeed Purity ({purity})",0.5,0.5,0);
+        draw_text_transformed(617,497,$"GeneSeed Stability ({stability})",0.5,0.5,0);
         var arrow_buttons_controls = [strength, cooperation, purity, stability]
         for (var i=0;i<4;i++){
             if (custom=2) then draw_sprite_stretched(spr_arrow,0,625,325+(i*55),32,32);
@@ -514,9 +514,7 @@ if (slide=2){
     }
     
     if (popup!="icons"){
-        draw_line(445,551,1125,551);
-        draw_line(445,552,1125,552);
-        draw_line(445,553,1125,553);
+        draw_rectangle(445, 551, 1125, 553, 0);
     }
     
     if (popup!="") or (custom<2) then draw_set_alpha(0.5);
@@ -526,7 +524,8 @@ if (slide=2){
         var advantage_click = (mouse_left>=1  && cooldown<=0  &&  custom>1);
         draw_set_halign(fa_left);
         draw_set_font(fnt_40k_30b);
-        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);draw_set_font(fnt_40k_14);
+        draw_text_transformed(436,564,"Chapter Advantages",0.5,0.5,0);
+        draw_set_font(fnt_40k_14);
         var adv_txt = {
             x1: 436,
             y1: 570,
@@ -540,17 +539,22 @@ if (slide=2){
             var draw_string = adv_num[i]==0?"[+]":"[-] "+adv[i];
             draw_text(adv_txt.x1,adv_txt.y1+(i*adv_txt.h), draw_string);
             if (scr_hit(adv_txt.x1,adv_txt.y1+(i*adv_txt.h),adv_txt.x2,adv_txt.y2+(i*adv_txt.h))){
-                if (points+10>maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
+
+                if (points>=maxpoints) and (adv_num[i]=0) and (popup="") and (custom>1){
+
                     tooltip="Insufficient Points";
                     tooltip2="Add disadvantages or decrease Chapter Stats";
                 }
                 
                 if (adv_num[i]!=0){
-                    tooltip=obj_creation.all_advantages[adv_num[i]].name;
-                    tooltip2=obj_creation.all_advantages[adv_num[i]].description;
+                    var cur_adv = obj_creation.all_advantages[adv_num[i]];
+                    tooltip=$"{cur_adv.name} ({cur_adv.points} Points)";
+                    tooltip2=cur_adv.description;
                 }
                 if (advantage_click){
-                    if (points+10<=maxpoints) and (adv_num[i]=0) and (popup=""){
+
+                    if (points<maxpoints) and (adv_num[i]=0) and (popup=""){
+
                         popup="advantages";
                         cooldown=8000;
                         temp=i;
@@ -562,9 +566,10 @@ if (slide=2){
                         removable=true;
                     }
                     if  (mouse_x<=456) and (removable){
-                        points-=obj_creation.all_advantages[adv_num[i]].points;
-                        adv[i]="";
-                        adv_num[i]=0;
+
+                        var cur_ad = obj_creation.all_advantages[adv_num[i]]
+                        cur_ad.remove();
+
                         cooldown=8000;
                     }
                 }              
@@ -602,11 +607,13 @@ if (slide=2){
                         removable=true;
                     } else if (dis_num[i]>0 && dis_num[i+1]==0){
                         removable=true;
-                    }                    
-                    if  (mouse_x<=830) and (removable) and (points+20<=maxpoints) {
-                        points+=obj_creation.all_disadvantages[dis_num[i]].points;
-                        dis[i]="";
-                        dis_num[i]=0;
+
+                    }
+                    var cur_dis = obj_creation.all_disadvantages[dis_num[i]];                    
+                    if  (mouse_x<=830) and (removable) and (points+cur_dis.points<=maxpoints) {
+                        var cur_dis = obj_creation.all_disadvantages[dis_num[i]];
+                        cur_dis.remove();
+
                         cooldown=8000;
                     }   
                 }             
@@ -637,8 +644,8 @@ if (slide=2){
         draw_text_transformed(800,687,"Cancel",0.6,0.6,0);
         
         var cw,ch;
-        cw=string_width(string_hash_to_newline("Cancel"))*0.6;
-        ch=string_height(string_hash_to_newline("Cancel"))*0.6;
+        cw=string_width("Cancel")*0.6;
+        ch=string_height("Cancel")*0.6;
         
         if (scr_hit(800,687,800+cw,687+ch)){
             draw_set_color(c_white);
@@ -685,7 +692,9 @@ if (slide=2){
                 }
                 
                 if (scr_hit(x3,y3,x3+96,y3+96)){
-                    draw_set_blend_mode(bm_add);draw_set_alpha(0.25);draw_set_color(16119285);
+                    draw_set_blend_mode(bm_add);
+                    draw_set_alpha(0.25);
+                    draw_set_color(16119285);
                     // if (ic<=20) then draw_sprite_stretched(spr_icon,ic,x3,y3,96,96);
                     if (ic<=global.normal_icons_count) then scr_image("creation/chapters/icons",ic,x3,y3,96,96);
                     if (ic>global.normal_icons_count) and (ic<=normal_and_builtin) then draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count-1,x3,y3,96,96);
@@ -768,9 +777,11 @@ if (slide=2){
     
     
     if (popup="advantages"){
-        draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select an Advantage"),0.6,0.6,0);
-        draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
+        draw_set_font(fnt_40k_30b);
+        draw_set_halign(fa_center);
+        draw_text_transformed(800,211,"Select an Advantage",0.6,0.6,0);
+        draw_set_font(fnt_40k_14b);
+        draw_set_halign(fa_left);
         
         for(var i = 0; i < array_length(obj_creation.all_advantages); i++){
             var advantage_local_var = obj_creation.all_advantages[i];
@@ -786,49 +797,61 @@ if (slide=2){
             if (advantage_local_var.name != ""){
                 var adv_name = advantage_local_var.name;
                 //columns of 14, shift the left boarder across
-                if(i >= 15 && i <29) {column.x1 = 670; column.x2 = column.x1 + column.w;};
-                if(i >= 29 && i <42) {column.x1 = 904; column.x2 = column.x1 + column.w;};
-                draw_set_color(38144);draw_set_alpha(1);
-                if (array_contains(adv, adv_name)) then draw_set_alpha(0.5);
-                if (adv_name="Psyker Abundance" && array_contains(dis, "Psyker Intolerant")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Reverent Guardians"&& array_contains(dis, "Suspicious")){disable=1;draw_set_alpha(0.5);} 
-                if (adv_name="Tech-Brothers" && array_contains(dis, "Tech-Heresy")){disable=1;draw_set_alpha(0.5);}
-                if(advantage_local_var.disabled){disable=1;draw_set_alpha(0.5);}
-                if (points + advantage_local_var.points > maxpoints){ disable = 1; draw_set_alpha(0.5);};
+
+                if(i >= 15 && i <29) {
+                    column.x1 = 670;
+                    column.x2 = column.x1 + column.w;
+                };
+                if(i >= 29 && i <42) {
+                    column.x1 = 904;
+                    column.x2 = column.x1 + column.w;
+                };
+                draw_set_color(38144);
+                draw_set_alpha(1);
+                disable = array_contains(adv, adv_name);
+                if (!disable){
+                    disable = advantage_local_var.disable();
+                }
+                if (disable) then draw_set_alpha(0.5);
+                
 
                 var gap = (((i-1)%14) * column.h);
-                draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
+                var draw_string = $"{adv_name} ({advantage_local_var.points})"
+                var adv_width = string_width(adv_name);
+                draw_text(column.x1,column.y1+gap,adv_name);
                 
                 // Cancel button
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (adv_name="Cancel"){
-                    cooldown=8000;popup="";
+                var coords = [column.x1,column.y1+gap,column.x1+adv_width,column.y1+column.h+gap];
+                if (point_and_click(coords)) and (cooldown<=0) and (adv_name="Cancel"){
+                    cooldown=8000;
+                    popup="";
                 }
                 // Tooltips
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)){
-                    tooltip=adv_name;
-                    tooltip2=advantage_local_var.description + " - Points: " + string(advantage_local_var.points);
-                    if (points + advantage_local_var.points > maxpoints){
-                        tooltip2 = "Insufficient points: " + tooltip2;
-                    }
 
-                    draw_set_color(c_white);draw_set_alpha(0.2);
-                    draw_text(column.x1,column.y1+gap,string_hash_to_newline(adv_name));
+                if (scr_hit(coords)){
+                    tooltip=adv_name;
+                    tooltip2=advantage_local_var.description;
+                    draw_set_color(c_white);
+                    draw_set_alpha(0.2);
+                    draw_text(column.x1,column.y1+gap,adv_name);
+
                 }
                 //Click on advantage
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(adv_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(adv, adv_name) == false){
+                if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(adv, adv_name) == false){
                     if (disable=0){
                         cooldown=8000;
-                        adv[temp]=adv_name;
-                        adv_num[temp]=i;
+                        advantage_local_var.add(temp);
                         popup="";
-                        points+=advantage_local_var.points;
                     }
-            }}
-        }}
+                }
+            }
+        }
+    }
         
-    if (popup="disadvantages"){
-        draw_set_font(fnt_40k_30b);draw_set_halign(fa_center);
-        draw_text_transformed(800,211,string_hash_to_newline("Select a Disadvantage"),0.6,0.6,0);
+    else if (popup="disadvantages"){
+        draw_set_font(fnt_40k_30b);
+        draw_set_halign(fa_center);
+        draw_text_transformed(800,211,"Select a Disadvantage",0.6,0.6,0);
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
         for(var i = 0; i < array_length(obj_creation.all_disadvantages); i++){
             var disadvantage_local_var = obj_creation.all_disadvantages[i];
@@ -844,48 +867,69 @@ if (slide=2){
             if (disadvantage_local_var.name!=""){
                 var dis_name = disadvantage_local_var.name;
                 //columns of 14, shift the left boarder across and leave a gap at the top on cols 2 & 3
-                if(i >= 15 && i <29) {column.x1 = 670; column.x2 = column.x1 + column.w;};
-                if(i >= 29 && i <42) {column.x1 = 904; column.x2 = column.x1 + column.w;};
-                draw_set_color(38144);draw_set_alpha(1);
-                if (array_contains(dis, dis_name)) then draw_set_alpha(0.5);
+                if(i >= 15 && i <29) {
+                    column.x1 = 670;
+                    column.x2 = column.x1 + column.w;
+                };
+                if(i >= 29 && i <42) {
+                    column.x1 = 904;
+                    column.x2 = column.x1 + column.w;
+                };
+                draw_set_color(38144);
+
                 
-                if (dis_name="Psyker Intolerant") and (array_contains(adv, "Psyker Abundance")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Suspicious") and (array_contains(adv, "Reverent Guardians")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Tech-Heresy") and (array_contains(adv, "Tech-Brothers")){disable=1;draw_set_alpha(0.5);}
-                if (dis_name="Blood Debt") and (fleet_type=3){disable=1;draw_set_alpha(0.5);}
-                if(disadvantage_local_var.disabled){disable=1;draw_set_alpha(0.5);}
+
+                disable = (disadvantage_local_var.disable() || array_contains(dis, dis_name));
+
+                if (!disable){
+                    disable = (dis_name=="Blood Debt" && fleet_type==3);
+                }
+
+                draw_set_alpha(disable?0.5:1);
+
 
                 
                 var gap = (((i-1)%14) * column.h);
 
-                draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));
+                draw_text(column.x1,column.y1+gap,dis_name);
                 
+                var dis_width = string_width(dis_name);
                 // Cancel button
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (dis_name="Cancel"){
-                    cooldown=8000;popup="";
+                var coords = [column.x1,column.y1+gap,column.x1+dis_width,column.y1+column.h+gap];
+
+                if (point_and_click(coords)) and (cooldown<=0) and (dis_name="Cancel"){
+                    cooldown=8000;
+                    popup="";
                 }
                 //Tooltip
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)){
-                    tooltip=dis_name;tooltip2=disadvantage_local_var.description + " - Points: " + string(disadvantage_local_var.points);
-                    draw_set_color(c_white);draw_set_alpha(0.2);draw_text(column.x1,column.y1+gap,string_hash_to_newline(dis_name));
+
+                if (scr_hit(coords)){
+                    tooltip=dis_name;
+                    tooltip2=disadvantage_local_var.description;
+                    draw_set_color(c_white);
+                    draw_set_alpha(0.2);
+                    draw_text(column.x1,column.y1+gap,dis_name);
+
                 }
                 //Click on disadvantage
-                if (scr_hit(column.x1,column.y1+gap,column.x1+string_width(string_hash_to_newline(dis_name)),column.y1+column.h+gap)) and (cooldown<=0) and (mouse_left>=1) and (array_contains(dis, dis_name) == false){
+                if (point_and_click(coords)) and (cooldown<=0)  and (array_contains(dis, dis_name) == false){
                     if (disable=0){
                         cooldown=8000;
-                        dis[temp]=dis_name;
-                        dis_num[temp]=i;
                         popup="";
-                        points-= disadvantage_local_var.points;
+                        disadvantage_local_var.add(temp);
                     }
-        }}}
+                }
+            }
+        }
     }
     if (popup!="") and ((mouse_left>=1) or (mouse_right=1)) and (cooldown<=0){
         if ((mouse_x<445) or (mouse_x>1125) or (mouse_y<200) or (mouse_y>552)) and (popup!="icons"){
-            cooldown=8000;popup="";
+            cooldown=8000;
+            popup="";
         }
         if ((mouse_x<445) or (mouse_x>1125) or (mouse_y<200) or (mouse_y>719)) and (popup="icons"){
-            cooldown=8000;popup="";
+            cooldown=8000;
+            popup="";
         }
     }
     
@@ -893,14 +937,15 @@ if (slide=2){
 
 /* Homeworld, Flagship, Psychic discipline, Aspirant Trial */
 
-var yar;yar=0;
+var yar=0;
 
 if (slide=3){
     draw_set_color(38144);
     draw_set_font(fnt_40k_30b);
     draw_set_halign(fa_center);
     
-    tooltip="";tooltip2="";
+    tooltip="";
+    tooltip2="";
     obj_cursor.image_index=0;
     
     draw_text(800,80,string_hash_to_newline(string(chapter_name)));
