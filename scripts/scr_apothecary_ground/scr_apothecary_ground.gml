@@ -214,6 +214,7 @@ function apothecary_simple(turn_end=true){
 			                    scr_alert("green","owner",$"{requisition_spend} Requision spent on Ancient Ship repairs in materials and outfitting (outfitting {(starship.funds_spent/target_spend)*100}%)",x,y);
 			                }
 			                if (starship.funds_spent>=target_spend) and(starship.engineer_score>=2000){// u2=tar;
+			                	//TODO refactor into general new ship logic
 			                    delete_features(cur_system.p_feature[p],P_features.Starship);
 		                    
 			                    var locy=$"{name} {scr_roman_numerals()[p-1]}";
