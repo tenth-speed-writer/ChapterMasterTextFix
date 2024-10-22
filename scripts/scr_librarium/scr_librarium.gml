@@ -222,15 +222,23 @@ function scr_librarium(){
                     var arti_data = gear_weapon_data("any",obj_ini.artifact[menu_artifact], "all", false, obj_ini.artifact_quality[menu_artifact]);
 
                     var _can_equip = cur_arti.can_equip();
-                    if (cur_arti.equipped()) then _can_equip = 0;
-
-                    if (artifact_equip.draw_shutter(xx + 385, yy + 770, "EQUIP", 0.3, _can_equip)){
-                        if (_can_equip && !instance_exists(obj_popup)){
-                            var pop=instance_create(0,0,obj_popup);
-                            pop.type=8;
-                            cooldown=8;                            
+                    if (_can_equip){
+                        if (cur_arti.equipped()) then _can_equip = false;
+        
+                        if (_can_equip){
+                            if (artifact_equip.draw_shutter(xx + 385, yy + 770, "EQUIP", 0.3,true)){
+                                if (_can_equip && !instance_exists(obj_popup)){
+                                    var pop=instance_create(0,0,obj_popup);
+                                    pop.type=8;
+                                    cooldown=8;                            
+                                }
+        
+                            }
+                        } else if (is_array(cur_arti.bearer)) {
+                            if (artifact_equip.draw_shutter(xx + 385, yy + 770, "UNEQUIP", 0.3,true)){
+                                cur_arti.unequip_from_unit();
+                            }                            
                         }
-
                     }
 
                     if (artifact_gift.draw_shutter(xx + 575, yy + 770, "GIFT", 0.3, true)){

@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - Tartaros sprite is replaced with a clean, tweaked version (by Abomination).
 - Various, minor error popup changes.
 - Reducing population via bombardment to 0 will now destroy genestealer cults and set Tyranid influence to 0.
+- now able to unequip artifacts from the librarium
 
 ### Fixed:
 - Crashes:
