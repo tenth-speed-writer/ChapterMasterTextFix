@@ -20,11 +20,6 @@ function load_marine_struct(company, marine){
 };
 
 function scr_load(save_part, save_id) {
-	var int_strings = [];
-	for (var i=0;i<=20;i++){
-		array_push(int_strings, $"{i}");
-	}
-
 	var unit;
 	var rang=0,i=0,g=0,stars=0,pfleets=0,efleets=0;
 
@@ -402,23 +397,23 @@ function scr_load(save_part, save_id) {
                     obj_ini.god[coh,mah]=ini_read_real("Mar","god"+string(coh)+"."+string(mah),0);
                     load_marine_struct(coh,mah);
                     unit = obj_ini.TTRPG[coh,mah];
-                    if (array_contains(int_strings, unit.weapon_one())){
-                    	obj_ini.wep1[coh,mah] = real(obj_ini.wep1[coh,mah]);
-                    }
-                    if (array_contains(int_strings, unit.weapon_two())){
-                    	obj_ini.wep2[coh,mah] = real(obj_ini.wep2[coh,mah]);
-                    }
-                    if (array_contains(int_strings, unit.gear())){
-                    	obj_ini.gear[coh,mah] = real(obj_ini.gear[coh,mah]);
-                    }
-                    if (array_contains(int_strings, unit.mobility_item())){
-                    	obj_ini.mobi[coh,mah] = real(obj_ini.mobi[coh,mah]);
-                    }
-                    if (array_contains(int_strings, unit.armour())){
-                    	obj_ini.armour[coh,mah] = real(obj_ini.armour[coh,mah]);
-                    }                                                                               
-	            }
-	        }
+					if (string_length(unit.weapon_one()) != 0 && string_length(string_digits(unit.weapon_one())) == string_length(unit.weapon_one())) {
+						obj_ini.wep1[coh, mah] = real(obj_ini.wep1[coh, mah]);
+					}
+					if (string_length(unit.weapon_two()) != 0 && string_length(string_digits(unit.weapon_two())) == string_length(unit.weapon_two())) {
+						obj_ini.wep2[coh, mah] = real(obj_ini.wep2[coh, mah]);
+					}
+					if (string_length(unit.gear()) != 0 && string_length(string_digits(unit.gear())) == string_length(unit.gear())) {
+						obj_ini.gear[coh, mah] = real(obj_ini.gear[coh, mah]);
+					}
+					if (string_length(unit.mobility_item()) != 0 && string_length(string_digits(unit.mobility_item())) == string_length(unit.mobility_item())) {
+						obj_ini.mobi[coh, mah] = real(obj_ini.mobi[coh, mah]);
+					}
+					if (string_length(unit.armour()) != 0 && string_length(string_digits(unit.armour())) == string_length(unit.armour())) {
+						obj_ini.armour[coh, mah] = real(obj_ini.armour[coh, mah]);
+					}
+				}
+			}
 
 
 	        if (string_count(obj_ini.spe[0,1],"$")>0) then obj_controller.born_leader=1;
