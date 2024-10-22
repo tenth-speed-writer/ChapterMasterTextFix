@@ -374,23 +374,6 @@ function scr_load(save_part, save_id) {
                     obj_ini.gear[coh,mah]=ini_read_string("Mar","ge"+string(coh)+"."+string(mah),"");
                     obj_ini.mobi[coh,mah]=ini_read_string("Mar","mb"+string(coh)+"."+string(mah),"");
 
-                    var arc,teh,teh2;arc=0;teh="";teh2="";// Give daemon weapons their dialogue lines
-                    for (arc=1;arc<6;arc++){
-                    	teh2=choose("Daemonic1a|","Daemonic2a|","Daemonic3a|","Daemonic4a|");
-                        if (arc=1) then teh=obj_ini.wep1[coh,mah];
-                        if (arc=2) then teh=obj_ini.wep2[coh,mah];
-                        if (arc=3) then teh=obj_ini.armour[coh,mah];
-                        if (arc=4) then teh=obj_ini.gear[coh,mah];
-                        if (arc=5) then teh=obj_ini.mobi[coh,mah];
-                        if (string_pos("&",teh)>0){
-                            if (string_count("Daemonic|",teh)>0) then teh=string_replace(teh,"Daemonic|",teh2);
-                            if (arc=1) then obj_ini.wep1[coh,mah]=teh;
-                            if (arc=2) then obj_ini.wep2[coh,mah]=teh;
-                            if (arc=3) then obj_ini.armour[coh,mah]=teh;
-                            if (arc=4) then obj_ini.gear[coh,mah]=teh;
-                            if (arc=5) then obj_ini.mobi[coh,mah]=teh;
-                        }
-                    }
                     obj_ini.experience[coh,mah]=ini_read_real("Mar","exp"+string(coh)+"."+string(mah),0);
                     obj_ini.age[coh,mah]=ini_read_real("Mar","ag"+string(coh)+"."+string(mah),0);
                     obj_ini.spe[coh,mah]=ini_read_string("Mar","spe"+string(coh)+"."+string(mah),"");
