@@ -692,7 +692,7 @@ function ChapterTrait(_id, _name, _description, _points_cost, _meta = []) constr
         if(array_length(meta) ==0){
             return "None";
         } else {
-            return string(meta); //idk how to get this to look good
+            return string_join_ext(", ", meta);
         }
     }
 
