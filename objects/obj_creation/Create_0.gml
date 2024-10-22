@@ -827,12 +827,6 @@ var all_advantages = [
             meta : ["Main Enemy"],
         },
         {
-            name : "Enemy: Tau",
-            description : "Tau are particularly hated by your chapter.  When fighting Tau damage is increased.",
-            value : 20,
-            meta : ["Main Enemy"],
-        },
-        {
             name : "Enemy: Tyranids",
             description : "Tyranids are particularly hated by your chapter. A large number of your veterans and marines are tyrannic war veterans and when fighting Tyranids damage is increased.",
             value : 25,
