@@ -19,6 +19,7 @@ function scr_valid_fleet_target(){
 
 function fleets_next_location(fleet="none"){
 	var targ_location ="none";
+	scr_valid_fleet_target();
 	if (fleet=="none"){
 		if (action!=""){
 	        var goal_x=action_x;
@@ -183,10 +184,16 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true,w
 	eta=floor(point_distance(xx,yy,xxx,yyy)/fleet_speed)+1;
 	if (!warp_lane) then eta*=2;
 	if (warp_lane && warp_able) then eta = ceil(eta/warp_lane);
+	if (!star2) then return eta;
+
+	//check end location for warp storm
 	if (instance_exists(star2)){
-		if (star2.storm){
-			eta += 10000;
+		if(star2.object_index == obj_star) {
+			if (star2.storm){
+				eta += 10000;
+			}
 		}
+
 	}
 	return eta;
 }
