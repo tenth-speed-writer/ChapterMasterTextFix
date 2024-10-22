@@ -176,8 +176,15 @@ function scr_load(save_part, save_id) {
 	    obj_ini.psy_powers=ini_read_string("Ini","psy_powers","default");
 
 		
-		global.chapter_icon_sprite = ini_read_real("Ini", "global_chapter_icon_sprite", "Error");
-		global.chapter_icon_frame = ini_read_real("Ini", "global_chapter_icon_frame", "Error");
+		global.chapter_icon_sprite = ini_read_real("Ini", "global_chapter_icon_sprite", spr_icon_chapters);
+		global.chapter_icon_frame = ini_read_real("Ini", "global_chapter_icon_frame", 0);
+		global.chapter_icon_path = ini_read_string("Ini", "global_chapter_icon_path", "Error");
+		global.chapter_icon_filename = ini_read_real("Ini", "global_chapter_icon_filename", 0);
+
+
+		if(!sprite_exists(global.chapter_icon_sprite) && global.chapter_icon_path != ""){
+			global.chapter_icon_sprite = scr_image_cache(global.chapter_icon_path, global.chapter_icon_filename);
+		}
 
 
 	    obj_ini.companies=ini_read_real("Ini","companies",10);

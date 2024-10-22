@@ -81,6 +81,9 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][founding_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = founding_chapters[c].icon;
+
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // Chapter is borked
@@ -116,6 +119,10 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][successor_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = successor_chapters[c].icon;
+
+
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked
@@ -190,6 +197,8 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][other_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = other_chapters[c].icon;
 
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
@@ -712,6 +721,8 @@ if (slide=2){
                         if (ic <= global.normal_icons_count){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][ic];
                             global.chapter_icon_frame = 0;
+                            global.chapter_icon_path = $"creation/chapters/icons";
+                            global.chapter_icon_filename = ic;
                         }
                         if (ic>normal_and_builtin) {
                             global.chapter_icon_sprite = obj_cuicons.spr_custom_icon[ic-normal_and_builtin];

@@ -25,7 +25,6 @@ restarted=0;custom_icon=0;
 global.chapter_icon_sprite = spr_icon_chapters;
 global.chapter_icon_frame = 0;
 global.chapter_icon_path = "";
-global.chapter_icon_filename = "";
 
 
 audio_stop_all();
