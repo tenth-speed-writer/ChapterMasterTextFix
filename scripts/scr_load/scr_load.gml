@@ -158,6 +158,7 @@ function scr_load(save_part, save_id) {
 	        }
 	    }
 
+
 	    // obj_ini
 	    obj_ini.home_name=ini_read_string("Ini","home_name","Error");
 	    obj_ini.home_type=ini_read_string("Ini","home_type","Error");
@@ -173,6 +174,11 @@ function scr_load(save_part, save_id) {
 	    obj_ini.strin=ini_read_string("Ini","strin1","");
 	    obj_ini.strin2=ini_read_string("Ini","strin2","");
 	    obj_ini.psy_powers=ini_read_string("Ini","psy_powers","default");
+
+		
+		global.chapter_icon_sprite = ini_read_real("Ini", "global_chapter_icon_sprite", "Error");
+		global.chapter_icon_frame = ini_read_real("Ini", "global_chapter_icon_frame", "Error");
+
 
 	    obj_ini.companies=ini_read_real("Ini","companies",10);
 	    var i;i=-1;repeat(21){i+=1;obj_ini.company_title[i]=ini_read_string("Ini","comp_title"+string(i),"");}

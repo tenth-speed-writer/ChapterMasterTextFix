@@ -190,6 +190,7 @@ if (slate4>0){
                         if(scr_chapter_new(chapter_name)){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][other_chapters[c].icon];
                             global.chapter_icon_frame = 0;
+
                             icon=i;custom=0;change_slide=1;goto_slide=2;chapter_string=chapter_name;
                         } else {
                             // borked
@@ -565,7 +566,7 @@ if (slide=2){
                     if  (mouse_x<=456) and (removable){
 
                         var cur_ad = obj_creation.all_advantages[adv_num[i]]
-                        cur_ad.remove();
+                        cur_ad.remove(i);
 
                         cooldown=8000;
                     }
@@ -585,31 +586,31 @@ if (slide=2){
         dis_txt.x2 = dis_txt.x1 + dis_txt.w;
         dis_txt.y2 = dis_txt.y1 + dis_txt.h;
         var max_disadvantage_count = 8;
-        for (i=1;i<=max_disadvantage_count;i++){
-            var draw_string = dis_num[i]==0?"[+]":"[-] "+dis[i];
-            draw_text(dis_txt.x1,dis_txt.y1+(i*dis_txt.h), draw_string);
-            if (scr_hit(dis_txt.x1,dis_txt.y1+(i*dis_txt.h),dis_txt.x2,dis_txt.y2+(i*dis_txt.h))){
-                if (dis_num[i]!=0){
-                    tooltip=obj_creation.all_disadvantages[dis_num[i]].name;
-                    tooltip2=obj_creation.all_disadvantages[dis_num[i]].description;
+        for (var slot =1;slot<=max_disadvantage_count;slot++){
+            var draw_string = dis_num[slot]==0?"[+]":"[-] "+dis[slot];
+            draw_text(dis_txt.x1,dis_txt.y1+(slot*dis_txt.h), draw_string);
+            if (scr_hit(dis_txt.x1,dis_txt.y1+(slot*dis_txt.h),dis_txt.x2,dis_txt.y2+(slot*dis_txt.h))){
+                if (dis_num[slot]!=0){
+                    tooltip=obj_creation.all_disadvantages[dis_num[slot]].name;
+                    tooltip2=obj_creation.all_disadvantages[dis_num[slot]].description;
                 }
                 if (advantage_click){
-                    if ((dis_num[i]=0) and (popup="")){
+                    if ((dis_num[slot]=0) and (popup="")){
                         popup="disadvantages";
                         cooldown=8000;
-                        temp=i;
+                        temp=slot;
                     }
                     var removable=false;
-                    if (i==max_disadvantage_count && dis_num[i]>0){
+                    if (slot==max_disadvantage_count && dis_num[slot]>0){
                         removable=true;
-                    } else if (dis_num[i]>0 && dis_num[i+1]==0){
+                    } else if (dis_num[slot]>0 && dis_num[slot+1]==0){
                         removable=true;
 
                     }
-                    var cur_dis = obj_creation.all_disadvantages[dis_num[i]];                    
+                    var cur_dis = obj_creation.all_disadvantages[dis_num[slot]];                    
                     if  (mouse_x<=830) and (removable) and (points+cur_dis.points<=maxpoints) {
-                        var cur_dis = obj_creation.all_disadvantages[dis_num[i]];
-                        cur_dis.remove();
+                        var cur_dis = obj_creation.all_disadvantages[dis_num[slot]];
+                        cur_dis.remove(slot);
 
                         cooldown=8000;
                     }   
@@ -710,7 +711,7 @@ if (slide=2){
                         scr_icon("");
                         if (ic <= global.normal_icons_count){
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][ic];
-                            global.chapter_icon_frame = 1;
+                            global.chapter_icon_frame = 0;
                         }
                         if (ic>normal_and_builtin) {
                             global.chapter_icon_sprite = obj_cuicons.spr_custom_icon[ic-normal_and_builtin];
@@ -780,8 +781,8 @@ if (slide=2){
         draw_set_font(fnt_40k_14b);
         draw_set_halign(fa_left);
         
-        for(var i = 0; i < array_length(obj_creation.all_advantages); i++){
-            var advantage_local_var = obj_creation.all_advantages[i];
+        for(var slot = 0; slot < array_length(obj_creation.all_advantages); slot++){
+            var advantage_local_var = obj_creation.all_advantages[slot];
             var column = {
                 x1: 436,
                 y1: 250,
@@ -795,11 +796,11 @@ if (slide=2){
                 var adv_name = advantage_local_var.name;
                 //columns of 14, shift the left boarder across
 
-                if(i >= 15 && i <29) {
+                if(slot >= 15 && slot <29) {
                     column.x1 = 670;
                     column.x2 = column.x1 + column.w;
                 };
-                if(i >= 29 && i <42) {
+                if(slot >= 29 && slot <42) {
                     column.x1 = 904;
                     column.x2 = column.x1 + column.w;
                 };
@@ -812,7 +813,7 @@ if (slide=2){
                 if (disable) then draw_set_alpha(0.5);
                 
 
-                var gap = (((i-1)%14) * column.h);
+                var gap = (((slot-1)%14) * column.h);
                 var adv_width = string_width(adv_name);
                 draw_text(column.x1,column.y1+gap,adv_name);
                 
@@ -847,8 +848,8 @@ if (slide=2){
         draw_set_halign(fa_center);
         draw_text_transformed(800,211,"Select a Disadvantage",0.6,0.6,0);
         draw_set_font(fnt_40k_14b);draw_set_halign(fa_left);
-        for(var i = 0; i < array_length(obj_creation.all_disadvantages); i++){
-            var disadvantage_local_var = obj_creation.all_disadvantages[i];
+        for(var slot = 0; slot < array_length(obj_creation.all_disadvantages); slot++){
+            var disadvantage_local_var = obj_creation.all_disadvantages[slot];
             var column = {
                 x1: 436,
                 y1: 250,
@@ -861,11 +862,11 @@ if (slide=2){
             if (disadvantage_local_var.name!=""){
                 var dis_name = disadvantage_local_var.name;
                 //columns of 14, shift the left boarder across and leave a gap at the top on cols 2 & 3
-                if(i >= 15 && i <29) {
+                if(slot >= 15 && slot <29) {
                     column.x1 = 670;
                     column.x2 = column.x1 + column.w;
                 };
-                if(i >= 29 && i <42) {
+                if(slot >= 29 && slot <42) {
                     column.x1 = 904;
                     column.x2 = column.x1 + column.w;
                 };
@@ -883,7 +884,7 @@ if (slide=2){
 
 
                 
-                var gap = (((i-1)%14) * column.h);
+                var gap = (((slot-1)%14) * column.h);
 
                 draw_text(column.x1,column.y1+gap,dis_name);
                 

@@ -249,6 +249,13 @@ function scr_save(save_part,save_id) {
 	        }
 	    }
 
+		ini_write_real("Ini", "global_chapter_icon_sprite", global.chapter_icon_sprite);
+		ini_write_real("Ini", "global_chapter_icon_frame", global.chapter_icon_frame);
+		ini_write_string("Ini", "global_chapter_icon_path", global.chapter_icon_path);
+		ini_write_string("Ini", "global_chapter_icon_filename", global.chapter_icon_filename);
+
+
+
 	    // obj_ini
 	    ini_write_string("Ini","home_name",obj_ini.home_name);
 	    ini_write_string("Ini","home_type",obj_ini.home_type);

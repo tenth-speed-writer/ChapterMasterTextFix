@@ -24,6 +24,8 @@ restarted=0;custom_icon=0;
 /// Stores the chapter icon in one spot so we dont have to keep checking whether we're using a custom image or not every time we wanna display it somewhere
 global.chapter_icon_sprite = spr_icon_chapters;
 global.chapter_icon_frame = 0;
+global.chapter_icon_path = "";
+global.chapter_icon_filename = "";
 
 
 audio_stop_all();
