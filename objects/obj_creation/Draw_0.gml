@@ -139,16 +139,20 @@ if (slate4>0){
         for(var c = 0; c < array_length(custom_chapters); c++){
             var chap = custom_chapters[c];
             i = chap.id;
-            if(chap.loaded == false){
-                chap.icon = global.normal_icons_count + 32; // should be the 'custom' icon
-            }
+            
             
             draw_sprite(spr_creation_icon,0,x2,y2);
-            if(chap.icon > global.normal_icons_count){
-                draw_sprite_stretched(spr_icon_chapters, chap.icon - global.normal_icons_count -1, x2,y2,48,48);
+            if(chap.loaded == false){
+                // should be the icon that says 'custom'
+                draw_sprite_stretched(spr_icon_chapters, 31, x2,y2,48,48); 
             } else {
-                scr_image("creation/chapters/icons", chap.icon, x2,y2,48,48);
+                if(chap.icon > global.normal_icons_count){
+                    draw_sprite_stretched(spr_icon_chapters, chap.icon - global.normal_icons_count, x2,y2,48,48);
+                } else {
+                    scr_image("creation/chapters/icons", chap.icon, x2,y2,48,48);
+                }
             }
+            
             
             if (scr_hit(x2, y2, x2+48, y2+48) && slate4>=30){
                 if (old_highlight!=highlight) and (highlight!=i) and (goto_slide!=2){old_highlight=highlight;highlighting=1;}
@@ -160,7 +164,7 @@ if (slate4>0){
 					if(chap.loaded == true && chap.disabled == false){
                         if(chap.icon > global.normal_icons_count){
                             global.chapter_icon_sprite = spr_icon_chapters;
-                            global.chapter_icon_frame = chap.icon - global.normal_icons_count -1;
+                            global.chapter_icon_frame = chap.icon - global.normal_icons_count;
                         } else {
                             global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][chap.icon];
                             global.chapter_icon_frame = 0;
@@ -725,8 +729,8 @@ if (slide=2){
                         }
                         if (ic>global.normal_icons_count && ic <=normal_and_builtin) {
                             global.chapter_icon_sprite = spr_icon_chapters;
-                            global.chapter_icon_frame = ic-global.normal_icons_count-1;
-                            custom_icon=ic-global.normal_icons_count-1;
+                            global.chapter_icon_frame = ic-global.normal_icons_count;
+                            custom_icon=ic-global.normal_icons_count;
                         }
                         // show_debug_message($"ic {ic} custom_icon {custom_icon} icon {icon}")
                         // show_message(string(icon_name));
@@ -2294,9 +2298,9 @@ if (slide=6){
     }
     
     
-    //adds "Save Chapter" button if custom chapter
+    //adds "Save Chapter" button if custom chapter in a save slot
 
-    if(custom>0){
+    if(custom>0 && global.chapter_id != CHAPTERS.UNKNOWN){
         draw_rectangle(1000,135,1180,170,1)
         draw_text_transformed(1090,140,string("Save Chapter"),0.6,0.6,0);draw_set_font(fnt_40k_14b);
 	    if (scr_hit(1000,135,1180,170)) {

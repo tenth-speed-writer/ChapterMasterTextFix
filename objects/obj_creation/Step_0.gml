@@ -208,7 +208,7 @@ if (color_to_main!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_main=col[q]) and (good=0){
             good=q;
-            color_to_main="";
+            // color_to_main="";
             main_color=q;
         }
     }
@@ -218,7 +218,7 @@ if (color_to_secondary!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_secondary=col[q]) and (good=0){
             good=q;
-            color_to_secondary="";
+            // color_to_secondary="";
             secondary_color=q;
         }
     }
@@ -228,7 +228,7 @@ if (color_to_trim!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_trim=col[q]) and (good=0){
             good=q;
-            color_to_trim="";
+            // color_to_trim="";
             trim_color=q;
         }
     }
@@ -238,7 +238,7 @@ if (color_to_pauldron!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_pauldron=col[q]) and (good=0){
             good=q;
-            color_to_pauldron="";
+            // color_to_pauldron="";
             pauldron_color=q;
         }
     }
@@ -248,7 +248,7 @@ if (color_to_pauldron2!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_pauldron2=col[q]) and (good=0){
             good=q;
-            color_to_pauldron2="";
+            // color_to_pauldron2="";
             pauldron2_color=q;
         }
     }
@@ -258,7 +258,7 @@ if (color_to_lens!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_lens=col[q]) and (good=0){
             good=q;
-            color_to_lens="";
+            // color_to_lens="";
             lens_color=q;
         }
     }
@@ -268,7 +268,7 @@ if (color_to_weapon!=""){
     for(var q=0; q<global.colors_count; q++){
         if (color_to_weapon=col[q]) and (good=0){
             good=q;
-            color_to_weapon="";
+            // color_to_weapon="";
             weapon_color=q;
         }
     }

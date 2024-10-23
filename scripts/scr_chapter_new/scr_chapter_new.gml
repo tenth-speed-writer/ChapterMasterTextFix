@@ -70,7 +70,7 @@ function ChapterData() constructor {
 		occulobe: 0,
 		mucranoid: 0,
 	};
-	battle_cry = "For the Emperor!";
+	battle_cry = "For the Emperor";
 	equal_specialists = 0;
 	load_to_ships = {
 		escort_load: 0,
