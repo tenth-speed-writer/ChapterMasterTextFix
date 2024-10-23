@@ -308,17 +308,16 @@ function load_custom_chapter_from_ini(){
         custom_chapter_obj.id = CHAPTERS.CUSTOM_1;
         custom_chapter_obj.splash = 98; //custom splash;
         custom_chapter_obj.name = ini_read_string("Save","chapter_name",chapter_name);
-        custom_chapter_obj.icon = ini_read_real("Save","icon",0);
+        custom_chapter_obj.icon = ini_read_real("Save","icon#",0);
         show_debug_message($"icon from obj {custom_chapter_obj.icon}");
 
         custom_chapter_obj.icon_name = ini_read_string("Save","icon_name","custom");
 
-        var frame = custom_chapter_obj.icon - global.normal_icons_count -1;
+        var frame = custom_chapter_obj.icon - 52;
         show_debug_message($"icon is {custom_chapter_obj.icon} global count is to {global.normal_icons_count} setting frame to {frame}")
         if(custom_chapter_obj.icon > global.normal_icons_count){
-            
             global.chapter_icon_sprite = spr_icon_chapters;
-            global.chapter_icon_frame = custom_chapter_obj.icon - global.normal_icons_count-1;
+            global.chapter_icon_frame = frame;
         }
 
 
