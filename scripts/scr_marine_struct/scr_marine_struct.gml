@@ -1368,34 +1368,37 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			// array index 1 == probability e.g 99,98 == if (irandom(99)>98){add_trait}
 			// array index 3 == probability modifiers
 			psionic = 0
-			var warp_level = irandom(299)+1{
-				if (warp_level<=190){
-					psionic=choose(0,1);
-				} else if(warp_level<=294){
-					psionic=choose(2,3,4,5,6,7);
-				}else if(warp_level<=297){
-					psionic=choose(8,9,10);
-				} else if(warp_level<=298){
-					psionic=choose(11,12);
-				} else if(warp_level<=299){
-					psionic=choose(11,12,13,14);
-				} else if warp_level<=300{
-					if(irandom(4)==4){
-						psionic=choose(15,16);
-					} else{
-						psionic=choose(13,14);
-					}
+			var warp_level = irandom(299)+1;
+			if (warp_level<=190){
+				psionic=choose(0,1);
+			} else if(warp_level<=294){
+				psionic=choose(2,3,4,5,6,7);
+			}else if(warp_level<=297){
+				psionic=choose(8,9,10);
+			} else if(warp_level<=298){
+				psionic=choose(11,12);
+			} else if(warp_level<=299){
+				psionic=choose(11,12,13,14);
+			} else if warp_level<=300{
+				if(irandom(4)==4){
+					psionic=choose(15,16);
+				} else{
+					psionic=choose(13,14);
 				}
 			}
+
 			if (array_contains(obj_ini.adv, "Psyker Abundance")){
 				if (psionic<16) then psionic++;
 				if (psionic<10) then psionic++;
-			}
-			if (array_contains(obj_ini.dis, "Psyker Intolerant")){
-				if (irandom(4)==0){
-					psionic = max(psionic-5, 0);
+			} else if (array_contains(obj_ini.dis, "Psyker Intolerant")){
+				if (warp_level<=190){
+					psionic=choose(0,1);
+				} else {
+					psionic=choose(2,3,4,5,6,7);
 				}
 			}
+
+
 			if (global.chapter_name=="Space Wolves") or (obj_ini.progenitor=3) {
 				religion_sub_cult = "The Allfather";
 			} else if(global.chapter_name=="Salamanders") or (obj_ini.progenitor==8){

@@ -56,6 +56,7 @@ All notable changes to this project will be documented in this file.
 - Equipped artifacts breaking on save/loading after their count goes over 20.
 - Fixed artifact list ping-pong that didn't work properly when going backwards.
 - Artifact list being limited to 30, even if the player has more.
+- Psyker Intolerant stuff breaking if the disadvantage is in the 5+ slot.
 
 ### Under The Hood:
 - **All constructors from now on use PascalCase, to prevent variable name overlaps with the YYC compiler.**

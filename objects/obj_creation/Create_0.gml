@@ -78,6 +78,10 @@ points=0;maxpoints=100;
 fleet_type=1;
 strength=5;cooperation=5;
 purity=5;stability=5;
+adv=[];
+adv_num=[];
+dis=[];
+dis_num=[];
 for(var i=0; i<16; i++){
     adv[i]="";
     adv_num[i]=0;
