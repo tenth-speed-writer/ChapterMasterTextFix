@@ -25,6 +25,7 @@ restarted=0;custom_icon=0;
 global.chapter_icon_sprite = spr_icon_chapters;
 global.chapter_icon_frame = 0;
 global.chapter_icon_path = "";
+global.chapter_id = 0;
 
 
 audio_stop_all();
@@ -192,6 +193,11 @@ enum CHAPTERS {
     CUSTOM_3 = 23,
     CUSTOM_4 = 24,
     CUSTOM_5 = 25,
+    CUSTOM_6 = 26,
+    CUSTOM_7 = 27,
+    CUSTOM_8 = 28,
+    CUSTOM_9 = 29,
+    CUSTOM_10 = 30
 }
 enum CHAPTER_ORIGIN {
     NONE,
@@ -217,7 +223,6 @@ function ChapterDataLite(_id, _origin,_progenitor, _name , _tooltip) constructor
     tooltip = _tooltip;
     disabled = false;
     json = false;
-    ini = false;
     loaded = true;
     icon = _id;
     splash = _id;
@@ -253,194 +258,37 @@ all_chapters = [
     new ChapterDataLite(CHAPTERS.CUSTOM_3, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
     new ChapterDataLite(CHAPTERS.CUSTOM_4, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
     new ChapterDataLite(CHAPTERS.CUSTOM_5, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_6, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_7, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_8, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_9, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_10, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
 ]
-// for now the extra custom chapters are messing with the UI too much
 
-var missing_splash = 100;
-var custom_splash = 98;
+var missing_splash = 99;
+var custom_splash = 97;
 all_chapters[CHAPTERS.EMPERORS_NIGHTMARE].splash = missing_splash;
 all_chapters[CHAPTERS.CARCHARODONS].splash = missing_splash;
 all_chapters[CHAPTERS.CONSERVATORS].splash = missing_splash;
 all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
-all_chapters[CHAPTERS.CUSTOM_1].ini = true;
 all_chapters[CHAPTERS.CUSTOM_2].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_3].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_4].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_5].loaded = false;
-
-
-
-
-
-global.normal_icons_count = 0;
-// Load from files to overwrite hardcoded ones
-for(var c = 0; c < 30; c++){
-    var json_chapter = new ChapterData();
-    var success = json_chapter.load_from_json(c); 
-    if(success){
-        all_chapters[c] = new ChapterDataLite(
-            json_chapter.id,
-            json_chapter.origin,
-            json_chapter.founding,
-            json_chapter.name,
-            json_chapter.flavor,
-        );
-        all_chapters[c].json = true;
-        all_chapters[c].icon = json_chapter.icon;
-        all_chapters[c].splash = json_chapter.splash;
-    }
-
-    var icon = file_exists($"{working_directory}\\images\\creation\\chapters\\icons\\{c}.png");
-    if(icon) {global.normal_icons_count += 1;}
-}
-
-global.chapters_count = array_length(all_chapters);
-
-function load_custom_chapter_from_ini(){
-    show_debug_message($"loading saved chapter 1 from ini file")
-    if(file_exists($"chaptersave#1.ini") == false){
-        show_debug_message($"save file doesnt exist")
-        return false;
-    }
-    try {
-        var custom_chapter_obj = new ChapterData();
-        ini_open("chaptersave#1.ini");
-        custom_chapter_obj.id = CHAPTERS.CUSTOM_1;
-        custom_chapter_obj.splash = 98; //custom splash;
-        custom_chapter_obj.name = ini_read_string("Save","chapter_name",chapter_name);
-        custom_chapter_obj.icon = ini_read_real("Save","icon#",0);
-        show_debug_message($"icon from obj {custom_chapter_obj.icon}");
-
-        custom_chapter_obj.icon_name = ini_read_string("Save","icon_name","custom");
-
-        var frame = custom_chapter_obj.icon - 52;
-        show_debug_message($"icon is {custom_chapter_obj.icon} global count is to {global.normal_icons_count} setting frame to {frame}")
-        if(custom_chapter_obj.icon > global.normal_icons_count){
-            global.chapter_icon_sprite = spr_icon_chapters;
-            global.chapter_icon_frame = frame;
-        }
-
-
-        custom_chapter_obj.strength = ini_read_real("Save","strength",strength);
-        custom_chapter_obj.purity = ini_read_real("Save","purity",purity);
-        custom_chapter_obj.stability = ini_read_real("Save","stability",stability);
-        custom_chapter_obj.cooperation =ini_read_real("Save","cooperation",cooperation);
-        custom_chapter_obj.founding = ini_read_real("Save","founding",1);
-
-        custom_chapter_obj.fleet_type =ini_read_real("Save","fleet_type",1);
-        custom_chapter_obj.homeworld = ini_read_string("Save","homeworld",homeworld);
-        custom_chapter_obj.homeworld_name = ini_read_string("Save","homeworld_name",homeworld_name);
-        custom_chapter_obj.recruiting = ini_read_string("Save","recruiting",recruiting);
-        custom_chapter_obj.recruiting_name = ini_read_string("Save","recruiting_name",recruiting_name);
-        custom_chapter_obj.homeworld_exists = ini_read_real("Save","home_worldexists",homeworld_exists);
-        custom_chapter_obj.recruiting_exists = ini_read_real("Save","recruiting_exists",recruiting_exists);
-        custom_chapter_obj.homeworld_rule = ini_read_real("Save","home_world_rule",homeworld_rule);
-        custom_chapter_obj.aspirant_trial =ini_read_real("Save","aspirant_trial",aspirant_trial);
-        custom_chapter_obj.discipline = ini_read_string("Save","discipline",discipline);
-        custom_chapter_obj.colors = {
-            main: ini_read_string("Controller","main_color","Red"),
-            secondary: ini_read_string("Controller","secondary_color","Red"),
-            pauldron_r: ini_read_string("Controller","pauldron_color","Red"),
-            pauldron_l: ini_read_string("Controller","pauldron2_color","Red"),
-            trim: ini_read_string("Controller","trim_color","Red"),
-            lens: ini_read_string("Controller","lens_color","Lime"),
-            weapon: ini_read_string("Controller","weapon_color","Red"),
-            /// 0 - normal, 1 - Breastplate, 2 - Vertical, 3 - Quadrant
-            special: ini_read_real("Controller","col_special",col_special),
-            /// 0 no, 1 yes for special trim colours
-            trim_on: ini_read_real("Controller","trimmed",trim),
-        }
-        custom_chapter_obj.equal_specialists = ini_read_real("Controller","equal_specialists",1);
-
-        custom_chapter_obj.mutations = {
-            preomnor: ini_read_real("Creation","preomnor",preomnor),
-            voice: ini_read_real("Creation","voice",voice),
-            doomed: ini_read_real("Creation","doomed",doomed),
-            lyman: ini_read_real("Creation","lyman",lyman),
-            omophagea: ini_read_real("Creation","omophagea",omophagea),
-            ossmodula: ini_read_real("Creation","ossmodula",ossmodula),
-            membrane: ini_read_real("Creation","membrane",membrane),
-            zygote: ini_read_real("Creation","zygote",zygote),
-            betchers: ini_read_real("Creation","betchers",betchers),
-            catalepsean: ini_read_real("Creation","catalepsean",catalepsean),
-            secretions: ini_read_real("Creation","secretions",secretions),
-            occulobe: ini_read_real("Creation","occulobe",occulobe),
-            mucranoid: ini_read_real("Creation","mucranoid",mucranoid),
-        }
-
-        custom_chapter_obj.battle_cry = ini_read_string("Creation","battle_cry","For The Emperor");
-
-        custom_chapter_obj.successors= ini_read_real("Creation","successors",successors);
-        custom_chapter_obj.disposition = [
-            0,
-            ini_read_real("Creation","progenitor_disposition",disposition[1]),
-            ini_read_real("Creation","imperium_disposition",disposition[2]),
-            ini_read_real("Creation","admech_disposition",disposition[3]),
-            ini_read_real("Creation","inquisition_disposition",disposition[4]),
-            ini_read_real("Creation","ecclesiarchy_disposition",disposition[5]),
-            ini_read_real("Creation","astartes_disposition",disposition[6]),
-            ini_read_real("Creation","reserved_disposition",disposition[7]),
-        ]
-        custom_chapter_obj.complex_livery = return_json_from_ini("Creation","complex_livery", complex_livery_default());
-        
-        custom_chapter_obj.names = {
-            hchaplain: ini_read_string("Creation","high_name",hchaplain),
-            clibrarian: ini_read_string("Creation","chief_name",clibrarian),
-            fmaster: ini_read_string("Creation","forgey_name",fmaster),
-            hapothecary: ini_read_string("Creation","high2_name",hapothecary),
-            honorcapt: "",
-            watchmaster: "",
-            arsenalmaster: "",
-            admiral: ini_read_string("Creation","lord_name",admiral),
-            marchmaster: "",
-            ritesmaster: "",
-            victualler: "",
-            lordexec: "",
-            relmaster: "",
-            recruiter: ini_read_string("Creation","recruiter_name",recruiter),
-        }
-
-        custom_chapter_obj.chapter_master = {
-            name:  ini_read_string("Creation","master_name",chapter_master_name),
-            melee: ini_read_real("Creation","chapter_master_melee",chapter_master_melee),
-            ranged: ini_read_string("Creation","master_ranged",chapter_master_ranged),
-            specialty: ini_read_string("Creation","master_specialty",chapter_master_specialty),
-        }
-        
-        for(var i =1;i<=8;i++){
-            custom_chapter_obj.advantages[i]=ini_read_string("Creation","adv21"+string(i),"")
-            custom_chapter_obj.disadvantages[i]=ini_read_string("Creation","dis21"+string(i),"")
-        }
-
-        // for(var i=0;i<=22;i++){
-        //     role_21[i]= ini_read_string("Save","role_21"+string(i),"Tactical");
-        //     wep1_21[i]= ini_read_string("Save","wep1_21"+string(i),"Combat Knife");
-        //     wep2_21[i]=ini_read_string("Save","wep2_21"+string(i),"Bolter")
-        //     armour_21[i]= ini_read_string("Save","armour_21"+string(i),"Power Armour");
-        //     gear_21[i]= ini_read_string("Save","gear_21"+string(i),"");
-        //     mobi_21[i]= ini_read_string("Save","mobi_21"+string(i),"");
-        // }
-        stage = 6;
-        ini_close();
-        all_chapters[CHAPTERS.CUSTOM_1] = custom_chapter_obj;
-
-        obj_creation.custom_chapter_object_1 = custom_chapter_obj;
-        
-        success = true;
-        chapter_made = true;
-        show_debug_message(custom_chapter_obj);
-        return true;
-    } catch (ex){
-        show_debug_message($"Error: Unable to load from ini: \n{ex}");
-    }
-}
-all_chapters[CHAPTERS.CUSTOM_1].loaded = load_custom_chapter_from_ini();
-show_debug_message($"loaded custom1 from ini {all_chapters[CHAPTERS.CUSTOM_1].loaded}");
-
-// test_chap = all_chapters[CHAPTERS.BLOOD_ANGELS];
-// show_debug_message(test_chap);
-// test_chap2 = all_chapters[CHAPTERS.BLACK_TEMPLARS];
-// show_debug_message(test_chap2);
+all_chapters[CHAPTERS.CUSTOM_6].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_7].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_8].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_9].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_10].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_2].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_3].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_4].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_5].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_6].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_7].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_8].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_9].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_10].splash = custom_splash;
 
 /** 
  * * Not all Chapters are implemented yet, disable the ones that arent, remove a line if the chapter gets made
@@ -455,6 +303,55 @@ all_chapters[CHAPTERS.CUSTOM_2].disabled = true;
 all_chapters[CHAPTERS.CUSTOM_3].disabled = true;
 all_chapters[CHAPTERS.CUSTOM_4].disabled = true;
 all_chapters[CHAPTERS.CUSTOM_5].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_6].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_7].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_8].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_9].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_10].disabled = true;
+
+
+
+
+global.normal_icons_count = 0;
+// Load from files to overwrite hardcoded ones
+for(var c = 0; c < 40; c++){
+    var use_app_data = false;
+    if(c < array_length(all_chapters) && all_chapters[c].origin == CHAPTER_ORIGIN.CUSTOM){
+        use_app_data = true;
+    }
+    var json_chapter = new ChapterData();
+    var success = json_chapter.load_from_json(c, use_app_data); 
+    if(success){
+        all_chapters[c] = new ChapterDataLite(
+            json_chapter.id,
+            json_chapter.origin,
+            json_chapter.founding,
+            json_chapter.name,
+            json_chapter.flavor,
+        );
+        all_chapters[c].json = true;
+        all_chapters[c].icon = json_chapter.icon;
+        all_chapters[c].splash = json_chapter.splash;
+        all_chapters[c].loaded = true;
+        all_chapters[c].disabled = false;
+    }
+    
+    var icon = file_exists($"{working_directory}\\images\\creation\\chapters\\icons\\{c}.png");
+    if(icon) {
+        show_debug_message($"icon {c}.png exists");
+        global.normal_icons_count += 1;
+    }
+}
+
+global.chapters_count = array_length(all_chapters);
+
+test_chap = all_chapters[CHAPTERS.CUSTOM_1];
+show_debug_message(test_chap);
+test_chap2 = all_chapters[CHAPTERS.CUSTOM_4];
+show_debug_message(test_chap2);
+
+
+
 
 
 // TODO refactor into struct constructors stored in which are struct arrays 
