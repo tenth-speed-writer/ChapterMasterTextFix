@@ -37,6 +37,10 @@ function array_replace_value(choice_array, value, r_value){
 	}
 }
 
-function array_random(choice_array){
+function array_random_element(choice_array){
 	return choice_array[irandom(array_length(choice_array) - 1)];
+}
+
+function array_random_index(choice_array){
+	return irandom(array_length(choice_array) - 1);
 }

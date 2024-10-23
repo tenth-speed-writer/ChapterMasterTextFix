@@ -39,8 +39,8 @@ function scr_clean(target_object, target_is_infantry, hostile_shots, hostile_dam
                 }
 
                 // Select a random vehicle from the valid list
-                random_index = array_random(valid_vehicles);
-                you = valid_vehicles[random_index];
+                var random_index = array_random_index(valid_vehicles);
+                you = random_index;
 
                 // Apply damage
                 var minus = hostile_damage - veh_ac[you];
@@ -69,7 +69,7 @@ function scr_clean(target_object, target_is_infantry, hostile_shots, hostile_dam
                     }
 
                     // Remove dead vehicles from further hits
-                    array_delete(valid_vehicles, random_index, 1);
+                    array_delete(valid_vehicles, you, 1);
                 }
             }
 
@@ -100,7 +100,7 @@ function scr_clean(target_object, target_is_infantry, hostile_shots, hostile_dam
                 if (array_length(valid_marines) == 0) break; // No valid targets left
 
                // Select a random marine from the valid list
-                var random_index = irandom(array_length(valid_marines) - 1);
+                var random_index = array_random_index(valid_marines);
                 var marine_index = valid_marines[random_index];
                 var marine = unit_struct[marine_index];
 
@@ -146,7 +146,7 @@ function scr_clean(target_object, target_is_infantry, hostile_shots, hostile_dam
                     }
                     
                     // Remove dead infantry from further hits
-                    array_delete(valid_marines, random_index, 1);
+                    array_delete(valid_marines, marine_index, 1);
 
                     // Check red thirst threadhold
                     if (
