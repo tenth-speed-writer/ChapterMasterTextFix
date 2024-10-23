@@ -22,6 +22,8 @@ function ChapterData() constructor {
 	recruiting_exists = 0;
 	recruiting = ""; 
 	homeworld_rule = HOMEWORLD_RULE.NONE;
+	flagship_name = "";
+	monastary_name = "";
 	advantages = array_create(9);
 	disadvantages = array_create(9);
 
@@ -41,20 +43,20 @@ function ChapterData() constructor {
 		trim_on: 0,
 	};
 	names = {
-		hchaplain: "",
-		clibrarian: "",
-		fmaster: "",
-		hapothecary: "",
-		honorcapt: "",
-		watchmaster: "",
-		arsenalmaster: "",
-		admiral: "",
-		marchmaster: "",
-		ritesmaster: "",
-		victualler: "",
-		lordexec: "",
-		relmaster: "",
-		recruiter: "",
+		hchaplain: global.name_generator.generate_imperial_name(),
+		clibrarian: global.name_generator.generate_imperial_name(),
+		fmaster: global.name_generator.generate_imperial_name(),
+		hapothecary: global.name_generator.generate_imperial_name(),
+		recruiter: global.name_generator.generate_imperial_name(),
+		admiral: global.name_generator.generate_imperial_name(),
+		honorcapt: global.name_generator.generate_imperial_name(),
+		watchmaster: global.name_generator.generate_imperial_name(),
+		arsenalmaster: global.name_generator.generate_imperial_name(),
+		marchmaster: global.name_generator.generate_imperial_name(),
+		ritesmaster: global.name_generator.generate_imperial_name(),
+		victualler: global.name_generator.generate_imperial_name(),
+		lordexec: global.name_generator.generate_imperial_name(),
+		relmaster: global.name_generator.generate_imperial_name(),
 	};
 	mutations = {
 		preomnor: 0,
@@ -88,18 +90,65 @@ function ChapterData() constructor {
 		ranged: 0,
 		specialty: CM_SPECIALTY.NONE,
 		/// @type {Array<String>}
-		traits: []
+		traits: [],
+		gear: "",
+		mobi: ""
 	};
+	extra_ships = {
+		battle_barges: 0,
+		gladius: 0,
+		strike_cruisers: 0,
+		hunters: 0
+	};
+	extra_specialists = {
+		chaplains: 0,
+		techmarines: 0,
+		apothecary: 0,
+		epistolary: 0,
+		codiciery: 0,
+		lexicanum: 0,
+		terminator: 0,
+		assault: 0,
+		veteran: 0,
+		devastator: 0,
+	};
+	extra_marines = {
+		second: 0,
+		third: 0,
+		fourth: 0,
+		fifth: 0,
+		sixth: 0,
+		seventh: 0,
+		eighth: 0,
+		ninth: 0,
+		tenth: 0,
+	};
+	extra_vehicles = {
+		rhino: 0,
+		whirlwind: 0,
+		predator: 0,
+		land_raider: 0,
+	}
+	extra_equipment = [];
+	custom_roles = {};
+	squad_name = "Squad";
+	custom_squads = {};
 
-	/// @desc Returns true if loaded successfully, false if not. Should probably crash the game if false
+
+	/// @desc Returns true if loaded successfully, false if not.
 	/// @param {Enum.CHAPTERS} chapter_id 
+	/// @param {Bool} use_app_data if set to true will read from %AppData%/Local/ChapterMaster instead of /datafiles
 	/// @returns {Bool} 
-	function load_from_json(chapter_id){
+	function load_from_json(chapter_id, use_app_data = false){
 		var file_loader = new JsonFileListLoader();
-
-		var load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", "chapter");
+		var load_result;
+		if(use_app_data){
+			load_result = file_loader.load_struct_from_json_file($"chaptersave#{chapter_id}.json", "chapter", true);
+		} else {
+			 load_result = file_loader.load_struct_from_json_file($"main\\chapters\\{chapter_id}.json", "chapter", false);
+		}
 		if(!load_result.is_success){
-			debugl($"No chapter json exits for chapter_id {chapter_id}");
+			// debugl($"No chapter json exits for chapter_id {chapter_id}");
 			return false;
 		}
 		var json_chapter = load_result.value.chapter;
@@ -799,9 +848,17 @@ if (argument0="Lamenters"){founding=5;points=150;
 
 	#region Custom Chapter
 	//generates custom chapter if it exists
-	if (argument0 == CHAPTERS.CUSTOM_1){
+	if (is_real(argument0) && argument0 >= CHAPTERS.CUSTOM_1 && argument0 <= CHAPTERS.CUSTOM_10){
 		obj_creation.use_chapter_object = true;
-		global.chapter_creation_object = obj_creation.custom_chapter_object_1;
+		var chapter_obj = new ChapterData();
+		var successfully_loaded = chapter_obj.load_from_json(argument0, true);
+		if(!successfully_loaded){
+			var issue = $"No json file exists for chapter id {argument0} and name {argument0}";
+			debugl (issue);
+			scr_popup("Error Loading Chapter", issue, "debug");
+			return false;
+		}
+		global.chapter_creation_object = chapter_obj;
 	}
 	#endregion
 

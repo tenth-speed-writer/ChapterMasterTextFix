@@ -30,6 +30,7 @@ custom_icon=0;
 global.chapter_icon_sprite = spr_icon_chapters;
 global.chapter_icon_frame = 0;
 global.chapter_icon_path = "";
+global.chapter_id = 0;
 
 
 audio_stop_all();
@@ -225,6 +226,11 @@ enum CHAPTERS {
     CUSTOM_3 = 23,
     CUSTOM_4 = 24,
     CUSTOM_5 = 25,
+    CUSTOM_6 = 26,
+    CUSTOM_7 = 27,
+    CUSTOM_8 = 28,
+    CUSTOM_9 = 29,
+    CUSTOM_10 = 30
 }
 enum CHAPTER_ORIGIN {
     NONE,
@@ -250,7 +256,6 @@ function ChapterDataLite(_id, _origin,_progenitor, _name , _tooltip) constructor
     tooltip = _tooltip;
     disabled = false;
     json = false;
-    ini = false;
     loaded = true;
     icon = _id;
     splash = _id;
@@ -286,16 +291,19 @@ all_chapters = [
     new ChapterDataLite(CHAPTERS.CUSTOM_3, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
     new ChapterDataLite(CHAPTERS.CUSTOM_4, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
     new ChapterDataLite(CHAPTERS.CUSTOM_5, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_6, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_7, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_8, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_9, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
+    new ChapterDataLite(CHAPTERS.CUSTOM_10, CHAPTER_ORIGIN.CUSTOM,0,"Custom","Your Chapter"),
 ]
-// for now the extra custom chapters are messing with the UI too much
 
-var missing_splash = 100;
-var custom_splash = 98;
+var missing_splash = 99;
+var custom_splash = 97;
 all_chapters[CHAPTERS.EMPERORS_NIGHTMARE].splash = missing_splash;
 all_chapters[CHAPTERS.CARCHARODONS].splash = missing_splash;
 all_chapters[CHAPTERS.CONSERVATORS].splash = missing_splash;
 all_chapters[CHAPTERS.CUSTOM_1].splash = custom_splash;
-all_chapters[CHAPTERS.CUSTOM_1].ini = true;
 all_chapters[CHAPTERS.CUSTOM_2].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_3].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_4].loaded = false;
@@ -333,7 +341,29 @@ global.chapters_count = array_length(all_chapters);
 // show_debug_message(test_chap);
 // test_chap2 = all_chapters[CHAPTERS.BLACK_TEMPLARS];
 // show_debug_message(test_chap2);
-
+all_chapters[CHAPTERS.CUSTOM_6].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_7].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_8].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_9].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_10].loaded = false;
+all_chapters[CHAPTERS.CUSTOM_2].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_3].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_4].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_5].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_6].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_7].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_8].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_9].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_10].splash = custom_splash;
+all_chapters[CHAPTERS.CUSTOM_2].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_3].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_4].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_5].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_6].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_7].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_8].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_9].disabled = true;
+all_chapters[CHAPTERS.CUSTOM_10].disabled = true;
 /** 
  * * Not all Chapters are implemented yet, disable the ones that arent, remove a line if the chapter gets made
  */
