@@ -56,6 +56,7 @@ All notable changes to this project will be documented in this file.
 - Equipped artifacts breaking on save/loading after their count goes over 20.
 - Fixed artifact list ping-pong that didn't work properly when going backwards.
 - Artifact list being limited to 30, even if the player has more.
+- Psyker Intolerant stuff breaking if the disadvantage is in the 5+ slot.
 
 ### Under The Hood:
 - **All constructors from now on use PascalCase, to prevent variable name overlaps with the YYC compiler.**
@@ -80,6 +81,7 @@ All notable changes to this project will be documented in this file.
 - Minor refactor of `scr_destroy planet`.
 - Minor refactor of alarm 7 `obj_n_combat`.
 - New function: `draw_rectangle_outline()` to draw rectangles with an outline backed in.
+- New function: `choose_weighted_range()` to generate a random number, from one of the ranges, with custom weights per each range.
 - Deprecate `int_strings[]` in `scr_load`.
 
 ## [0.9.3.3-YYC]

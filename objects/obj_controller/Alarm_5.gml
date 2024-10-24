@@ -84,7 +84,7 @@ try_and_report_loop("imperial ship build", function(){
              one third of the total imperial star systems*/
     if (mechanicus_world_total>0) and (imp_ships<ship_allowance){
         var rando=irandom(100)+1, rando2=choose(1,2,2,3,3,3);
-        var forge=array_random(mechanicus_worlds);
+        var forge=array_random_element(mechanicus_worlds);
         
         //the less mechanicus forge worlds the less likely to spawn a new fleet
         if (rando<=(12)*mechanicus_world_total){

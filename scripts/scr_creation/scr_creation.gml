@@ -7,7 +7,7 @@ function scr_creation(argument0) {
 	    if (name_bad=1){cooldown=8000;/*(sound_play(bad);*/}
 	    if (name_bad=0){
 	        change_slide=1;goto_slide=3;cooldown=8000;race[100,17]=1;
-	        var k,ahuh;k=0;ahuh=0;repeat(4){k+=1;if (dis[k]="Psyker Intolerant") then ahuh=1;}if (ahuh=1) then race[100,17]=0;
+	        if (scr_has_disadv("Psyker Intolerant")) then race[100,17]=0;
 	    }
 	}
 
@@ -15,14 +15,9 @@ function scr_creation(argument0) {
 	    change_slide=1;
 	    goto_slide=3;
 	    cooldown=8000;
-	    race[100,17]=1;
 	    race[100,14]=1;
-	    var k,ahuh;k=0;ahuh=0;
-	    repeat(4){
-	    	k+=1;
-	    	if (dis[k]="Psyker Intolerant") then ahuh=1;
-	    }
-	    if (ahuh=1) then race[100,17]=0;
+	    race[100,17]=1;
+	    if (scr_has_disadv("Psyker Intolerant")) then race[100,17]=0;
 	    if (chapter="Iron Hands") or (chapter="Space Wolves") then race[100,14]=0;
 	}
 

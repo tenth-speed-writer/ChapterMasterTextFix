@@ -116,7 +116,10 @@ strength=5;
 cooperation=5;
 purity=5;
 stability=5;
-
+adv=[];
+adv_num=[];
+dis=[];
+dis_num=[];
 for(var i=0; i<16; i++){
     adv[i]="";
     adv_num[i]=0;

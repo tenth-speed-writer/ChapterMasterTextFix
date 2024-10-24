@@ -942,6 +942,7 @@
     {"id":{"name":"spr_ws_mk3__pualdron_veteran","path":"sprites/spr_ws_mk3__pualdron_veteran/spr_ws_mk3__pualdron_veteran.yy",},},
     {"id":{"name":"scr_ini_ship_cleanup","path":"scripts/scr_ini_ship_cleanup/scr_ini_ship_cleanup.yy",},},
     {"id":{"name":"spr_ultra_honor_guard","path":"sprites/spr_ultra_honor_guard/spr_ultra_honor_guard.yy",},},
+    {"id":{"name":"scr_punit_combat_heplers","path":"scripts/scr_punit_combat_heplers/scr_punit_combat_heplers.yy",},},
     {"id":{"name":"spr_weapon_powspear3","path":"sprites/spr_weapon_powspear3/spr_weapon_powspear3.yy",},},
     {"id":{"name":"scr_drop_fiddle","path":"scripts/scr_drop_fiddle/scr_drop_fiddle.yy",},},
     {"id":{"name":"scr_target","path":"scripts/scr_target/scr_target.yy",},},
