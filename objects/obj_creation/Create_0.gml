@@ -308,39 +308,6 @@ all_chapters[CHAPTERS.CUSTOM_2].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_3].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_4].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_5].loaded = false;
-
-
-
-
-
-global.normal_icons_count = 0;
-// Load from files to overwrite hardcoded ones
-for(var c = 0; c < 30; c++){
-    var json_chapter = new ChapterData();
-    var success = json_chapter.load_from_json(c); 
-    if(success){
-        all_chapters[c] = new ChapterDataLite(
-            json_chapter.id,
-            json_chapter.origin,
-            json_chapter.founding,
-            json_chapter.name,
-            json_chapter.flavor,
-        );
-        all_chapters[c].json = true;
-        all_chapters[c].icon = json_chapter.icon;
-        all_chapters[c].splash = json_chapter.splash;
-    }
-
-    var icon = file_exists($"{working_directory}\\images\\creation\\chapters\\icons\\{c}.png");
-    if(icon) {global.normal_icons_count += 1;}
-}
-
-global.chapters_count = array_length(all_chapters);
-
-// test_chap = all_chapters[CHAPTERS.BLOOD_ANGELS];
-// show_debug_message(test_chap);
-// test_chap2 = all_chapters[CHAPTERS.BLACK_TEMPLARS];
-// show_debug_message(test_chap2);
 all_chapters[CHAPTERS.CUSTOM_6].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_7].loaded = false;
 all_chapters[CHAPTERS.CUSTOM_8].loaded = false;
@@ -355,15 +322,42 @@ all_chapters[CHAPTERS.CUSTOM_7].splash = custom_splash;
 all_chapters[CHAPTERS.CUSTOM_8].splash = custom_splash;
 all_chapters[CHAPTERS.CUSTOM_9].splash = custom_splash;
 all_chapters[CHAPTERS.CUSTOM_10].splash = custom_splash;
-all_chapters[CHAPTERS.CUSTOM_2].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_3].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_4].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_5].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_6].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_7].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_8].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_9].disabled = true;
-all_chapters[CHAPTERS.CUSTOM_10].disabled = true;
+
+
+
+global.normal_icons_count = 0;
+// Load from files to overwrite hardcoded ones
+for(var c = 0; c < 40; c++){
+    var use_app_data = false;
+    if(c < array_length(all_chapters) && all_chapters[c].origin == CHAPTER_ORIGIN.CUSTOM){
+        use_app_data = true;
+    }
+    var json_chapter = new ChapterData();
+    var success = json_chapter.load_from_json(c, use_app_data); 
+    if(success){
+        all_chapters[c] = new ChapterDataLite(
+            json_chapter.id,
+            json_chapter.origin,
+            json_chapter.founding,
+            json_chapter.name,
+            json_chapter.flavor,
+        );
+        all_chapters[c].json = true;
+        all_chapters[c].icon = json_chapter.icon;
+        all_chapters[c].splash = json_chapter.splash;
+        all_chapters[c].loaded = true;
+        all_chapters[c].disabled = false;
+    }
+    
+    var icon = file_exists($"{working_directory}\\images\\creation\\chapters\\icons\\{c}.png");
+    if(icon) {
+        show_debug_message($"icon {c}.png exists");
+        global.normal_icons_count += 1;
+    }
+}
+
+global.chapters_count = array_length(all_chapters);
+
 /** 
  * * Not all Chapters are implemented yet, disable the ones that arent, remove a line if the chapter gets made
  */
@@ -795,44 +789,6 @@ if (global.restart>0){
     scr_restart_variables(4);
     with(obj_restart_vars){instance_destroy();}
     global.restart=0;
-}
-
-
-if (skip=true){
-    fade_in=-1;
-    slate1=-1;
-    slate=22;
-    slate3=22;
-    slate4=50;
-    
-    change_slide=0;
-    slide=6;
-    slide_show=slide;
-    
-    icon_name="ih";
-    icon=6;founding=6;
-    
-    chapter_name="Sons of Duke";
-    custom=2;
-    battle_cry="The flesh is weak!  The flesh is weak!  The flesh is weak!  The flesh is weak!  The flesh is weak";
-    
-    purity=5;
-    
-    /*main_color=5;secondary_color=5;main_trim=2;
-    left_pauldron=5;// Left pauldron
-    right_pauldron=5;// Right pauldron
-    lens_color=7;weapon_color=2;col_special=0;*/
-    
-    main_color=7;
-    secondary_color=5;
-    main_trim=5;
-    left_pauldron=5;// Left pauldron
-    right_pauldron=5;// Right pauldron
-    lens_color=6;
-    weapon_color=4;
-    col_special=0;
-    
-    scr_chapter_new("Doom Benefactors");
 }
 
 /* */
