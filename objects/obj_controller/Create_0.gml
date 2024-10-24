@@ -213,7 +213,7 @@ for(var i=100; i<103; i++){
     
     obj_controller.r_role[i,6]="Dreadnought";
     obj_controller.r_wep1[i,6]="Close Combat Weapon";
-    obj_controller.r_wep2[i,6]="Lascannon";
+    obj_controller.r_wep2[i,6]="Twin Linked Lascannon";
     obj_controller.r_armour[i,6]="Dreadnought";
     obj_controller.r_mobi[i,6]="";
     obj_controller.r_gear[i,6]="";
