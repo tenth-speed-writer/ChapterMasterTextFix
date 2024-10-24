@@ -175,10 +175,10 @@ function scr_clean(target_object, target_is_infantry, hostile_shots, hostile_dam
         // If the target_object got wiped out, move it off-screen
         if ((men + veh + dreads) <= 0) {
 
-            var right = get_rightmost_pnunit();
+            var right = get_rightmost(obj_pnunit);
             if (right.id == self.id) {
                 with (obj_pnunit) {
-                    move_pnunit();
+                    move_unit_block();
                 }
             }
             x = -5000;
