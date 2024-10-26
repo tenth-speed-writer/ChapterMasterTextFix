@@ -1168,7 +1168,7 @@ function scr_draw_unit_image(_background=false){
                 }
 
                 // Draw decals, features and other stuff
-                if (slow_trait>=10) and (!modest_livery) then draw_sprite(armour_sprite,slow_trait,x_surface_offset,y_surface_offset);// Slow and Purposeful battle damage
+                if (dev_trait>=10) and (!modest_livery) then draw_sprite(armour_sprite,dev_trait,x_surface_offset,y_surface_offset);// Devastator Doctrine battle damage
                 // if (tech_brothers_trait>=0) and (modest_livery=0) then draw_sprite(spr_gear_techb,tech_brothers_trait,x_surface_offset,y_surface_offset);// Tech-Brothers bling
                 //sgt helms
                 if (specific_helm!=false){

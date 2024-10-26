@@ -892,19 +892,19 @@ var all_advantages = [
             name : "Psyker Abundance",
             description : "The Psyker mutation runs rampant in your chapter.  Librarians train in 60% the normal time and receive bonus experience.",
             value : 30,
-            meta : ["Psyker Views"],
+            meta : ["Psyker Views","Specialists"],
         }, 
         {
             name : "Reverent Guardians",
             description : "Your chapter places great faith in the Imperial Cult; you start with more Chaplains and any Ecclesiarchy disposition increases are enhanced.",
             value : 10,
-            meta : ["Faith","Imperium Trust"],
+            meta : ["Faith","Imperium Trust","Specialists"],
         },
         {
             name : "Tech-Brothers",
             description : "Your chapter has better ties to the mechanicus; you have more techmarines and higher mechanicus disposition.",
             value : 25,
-            meta : ["Mechanicus Faith"],
+            meta : ["Mechanicus Faith","Specialists"],
         }, 
         {
             name : "Tech-Scavengers",
@@ -925,19 +925,20 @@ var all_advantages = [
         {
             name : "Assault Doctrine",
             description : "Your chapter prefers quick close quarter assaults on the enemy each Company has an additional Assault Squad and your marines are more skilled in melee.",
-            value : 25,
+            value : 20,
             meta : ["Doctrine"],
         },
         {
             name : "Venerable Ancients",
             description : "Even in death they still serve. Your chapter places a staunch reverence for its forebears and has a number of additional venerable dreadnoughts in service.",
-            value : 25,
+            value : 40,
             meta : ["Doctrine"],
         },
         {
             name : "Medicae Primacy",
             description : "Your chapter reveres its Apothecarion above all of it's specialist; You start with more Apothecaries.",
             value : 25,
+            meta : ["Specialists"]
         },
         {
             name : "Ryzan Patronage",
@@ -1036,7 +1037,7 @@ var all_disadvantages = [
         name : "Obliterated",
         description : "A recent string of unfortunate events has left your chapter decimated. You have very little left, will your story continue?",
         value : 60,
-        meta : ["status"],
+        meta : ["Status"],
     },                  
 ]
 

@@ -614,11 +614,13 @@ function scr_initialize_custom() {
 
 	if (obj_creation.fleet_type != 1) {
 		battle_barges = 1;
-		if (array_contains(obj_creation.adv, "Kings of Space")) battle_barges += 1;
+		if scr_has_adv ("Kings of Space") battle_barges += 1;
 		strike_cruisers = 6;
-		if (array_contains(obj_creation.adv, "Boarders")) strike_cruisers += 2;
+		if scr_has_adv("Boarders") then strike_cruisers += 2;
 		gladius = 7;
 		hunters = 3;
+		if scr_has_disadv("Obliterated") then battle_barges = 0; strike_cruisers = 1; gladius = 2; hunters = 0;
+		
 		// obj_controller.fleet_type="Fleet";
 	}
 	if (obj_creation.fleet_type = 1) {
@@ -627,6 +629,7 @@ function scr_initialize_custom() {
 		gladius = 7;
 		hunters = 3;
 		if (array_contains(obj_creation.adv, "Kings of Space")) battle_barges += 1;
+		if scr_has_disadv("Obliterated") then battle_barges = 0; strike_cruisers = 1; gladius = 2; hunters = 0;
 		// obj_controller.fleet_type="Homeworld";
 	}
 
@@ -944,16 +947,16 @@ function scr_initialize_custom() {
 		apothecary = 0;
 		chaplains = 0;
 		terminator = 0;
-		veteran -= 90;
-		second -= 100;
-		third -= 100;
-		fourth -= 100;
-		fifth -= 100;
-		sixth -= 100;
-		seventh -= 100;
-		eighth -= 100;
-		ninth -= 100;
-		tenth -= 90; // 370
+		veteran = 0;
+		second = 0;
+		third = 0;
+		fourth = 0;
+		fifth = 0;
+		sixth = 0;
+		seventh = 0;
+		eighth = 0;
+		ninth = 0;
+		tenth = 10; 
 		assault = 0;
 		siege = 0;
 		devastator = 0;
@@ -986,6 +989,7 @@ function scr_initialize_custom() {
 		var bonus_marines = 0,
 			o = 0;
 		if (obj_creation.strength > 5) then bonus_marines = (obj_creation.strength - 5) * 50;
+		if scr_has_disadv("Obliterated") then bonus_marines = (obj_creation.strength - 5) * 5;
 		i = 0
 		while (bonus_marines >= 5) {
 			switch (i % 10) {
@@ -3522,6 +3526,7 @@ function scr_initialize_custom() {
 				rhinoy = 8;
 				whirly = 0;
 				speedy = 0;
+				if scr_has_disadv("Obliterated") then rhinoy = 0;
 
 				// if (obj_creation.custom=0) then temp1-=5;
 
