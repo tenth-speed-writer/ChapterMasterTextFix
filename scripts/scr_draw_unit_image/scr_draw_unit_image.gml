@@ -941,8 +941,9 @@ function scr_draw_unit_image(_background=false){
                     specific_armour_sprite = spr_artificer_colors;
                     if (array_contains(["Champion",obj_ini.role[100][2],obj_ini.role[100][5]], unit_role)){
                         if (unit_chapter=="Ultramarines"){
-                            armour_draw=[spr_ultra_honor_guard2,body.torso.armour_choice];
+                            armour_draw=[spr_ultra_honor_guard2, body.torso.armour_choice];
                             armour_bypass=true;
+                            // Draw cape;
                             draw_sprite(spr_ultra_honor_guard2,2,x_surface_offset,y_surface_offset);
                         } else {
                             armour_draw=[spr_generic_honor_guard,body.torso.armour_choice];
@@ -956,6 +957,7 @@ function scr_draw_unit_image(_background=false){
                             robes_bypass = true;
                             robes_hood_bypass = true;
                             armour_draw=[spr_dante,0];
+                            // Draw wings;
                             draw_sprite(spr_dante,1,x_surface_offset,y_surface_offset);
                         } else if (unit_role==obj_ini.role[100][2]){
                             armour_bypass=true;
@@ -1030,6 +1032,7 @@ function scr_draw_unit_image(_background=false){
                     }
                     draw_sprite(spr_gear_halo,halo_type+halo_color,x_surface_offset,y_surface_offset+halo_offset_y);
                 }
+
                  // Draw the backpack
                 if (draw_backpack){
                     var _backpack_sprite = "";
