@@ -817,6 +817,7 @@ var all_advantages = [
             name : "Bolter Drilling",
             description : "Bolter drills are sacred to your chapter; all marines have increased attack with Bolter weaponry.",
             value : 25,
+            meta : ["Weapon Specialty"]
         },
         {
             name : "Retinue of Renown",
@@ -942,6 +943,7 @@ var all_advantages = [
             name : "Ryzan Patronage",
             description : "Your chapter has strong ties to the Forgeworld of Ryza as a result your Techmarines are privy to the secrets of their Techpriests enhancing your Plasma and Las weaponry.",
             value : 25,
+            meta : ["Weapon Specialty"] 
         },                                                                                                                                                                             
     ]
 
@@ -1028,7 +1030,13 @@ var all_disadvantages = [
         name : "Psyker Intolerant",
         description : "Witches are hated by your chapter.  You cannot create Librarians but gain a little bonus attack against psykers.",
         value : 20,
-        meta : ["Psyker Views"]
+        meta : ["Psyker Views"],
+    },
+    {
+        name : "Obliterated",
+        description : "A recent string of unfortunate events has left your chapter decimated. You have very little left, will your story continue?",
+        value : 60,
+        meta : ["status"],
     },                  
 ]
 

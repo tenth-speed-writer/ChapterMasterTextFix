@@ -936,6 +936,28 @@ function scr_initialize_custom() {
 		ninth -= 10;
 		tenth -= 10;
 	}
+	if scr_has_disadv("Obliterated") {
+		techmarines = 0;
+		epistolary = 0;
+		codiciery = 0;
+		lexicanum = 0;
+		apothecary = 0;
+		chaplains = 0;
+		terminator = 0;
+		veteran -= 90;
+		second -= 100;
+		third -= 100;
+		fourth -= 100;
+		fifth -= 100;
+		sixth -= 100;
+		seventh -= 100;
+		eighth -= 100;
+		ninth -= 100;
+		tenth -= 90; // 370
+		assault = 0;
+		siege = 0;
+		devastator = 0;
+	}
 
 	if  scr_has_adv ("Tech-Heresy") {
 		techmarines -= 4;
