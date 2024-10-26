@@ -301,23 +301,23 @@ function scr_draw_unit_image(_background=false){
                     } else {
                         draw_sprite(spr_bionics_arm, bionic_spr_index, offset_x, offset_y);
                     }
-                } else if (arm_variant[right_left] == 1) {
-                    if (right_left==1 && (struct_exists(complex_set, "right_arm"))){
+                } else if (arm_variant[right_left] > 0) {
+                    if (right_left==1) && (struct_exists(complex_set, "right_arm")) && (arm_variant[right_left] == 1){
                         setup_complex_livery_shader(role());
                         draw_sprite(complex_set.right_arm,0,x_surface_offset,y_surface_offset);
                         shader_set(sReplaceColor);
-                    } else if (right_left==2 && (struct_exists(complex_set, "left_arm"))){
+                    } else if (right_left==2) && (struct_exists(complex_set, "left_arm")) && (arm_variant[right_left] == 1){
                         setup_complex_livery_shader(role());
                         draw_sprite(complex_set.left_arm,0,x_surface_offset,y_surface_offset);
                         shader_set(sReplaceColor);                      
-                    }
-                } else if (arm_variant[right_left] > 0) {
-                    var _spr_index = (arm_variant[right_left] - 1) * 2;
-                        if (right_left == 2) {
-                        _spr_index += (specialist_colours >= 2) ? 1 : 0;
-                        draw_sprite_flipped(_arm_spr, _spr_index, offset_x, offset_y);
                     } else {
-                        draw_sprite(_arm_spr, _spr_index, offset_x, offset_y);
+                        var _spr_index = (arm_variant[right_left] - 1) * 2;
+                            if (right_left == 2) {
+                            _spr_index += (specialist_colours >= 2) ? 1 : 0;
+                            draw_sprite_flipped(_arm_spr, _spr_index, offset_x, offset_y);
+                        } else {
+                            draw_sprite(_arm_spr, _spr_index, offset_x, offset_y);
+                        }
                     }
                 }
             }
