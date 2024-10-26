@@ -313,7 +313,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
         hand_variant[left_or_right] = 3;
     }
 
-    if (array_contains(["Sniper Rifle", "Force Staff", "Power Sword"], equiped_weapon)) {
+    if (array_contains(["Sniper Rifle", "Force Staff", "Power Sword", "Thunder Hammer"], equiped_weapon)) {
         hand_variant[left_or_right] = 2;
         hand_on_top[left_or_right] = true;
     }
