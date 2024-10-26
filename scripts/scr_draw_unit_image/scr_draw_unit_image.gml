@@ -1074,19 +1074,14 @@ function scr_draw_unit_image(_background=false){
                             _backpack_index = 1;
                         }
                     }
-                    if (complex_livery){
-                        if (struct_exists(complex_set, "backpack")){
-                            var choice = get_body_data("backpack_variation","torso")%sprite_get_number(complex_set.backpack);
-                            setup_complex_livery_shader(role());
-                            draw_sprite(complex_set.backpack,choice,x_surface_offset,y_surface_offset);
-                            shader_set(sReplaceColor);
-                        }else {
-                            draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
-                        }
+                    if (complex_livery) && (struct_exists(complex_set, "backpack")){
+                        var choice = get_body_data("backpack_variation","torso")%sprite_get_number(complex_set.backpack);
+                        setup_complex_livery_shader(role());
+                        draw_sprite(complex_set.backpack,choice,x_surface_offset,y_surface_offset);
+                        shader_set(sReplaceColor);
                     } else {
                         draw_sprite(_backpack_sprite, _backpack_index, x_surface_offset, y_surface_offset);
                     }
-
                 }else{
                     if (back_equipment==BackType.Jump){
                         var color_variant = min(specialist_colours, 2);
@@ -1095,7 +1090,8 @@ function scr_draw_unit_image(_background=false){
                         var color_variant = min(specialist_colours, 2);
                         draw_sprite(spr_pack_devastator,color_variant,x_surface_offset,y_surface_offset);
                     }
-                } 
+                }
+
                 // Draw arms
                 draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics, complex_set);
 
