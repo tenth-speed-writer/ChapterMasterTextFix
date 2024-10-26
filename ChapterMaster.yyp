@@ -100,6 +100,9 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"UI","folderPath":"folders/Sprites/UI.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"melee","folderPath":"folders/Sprites/Marine Viewer/weapons/melee.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ranged","folderPath":"folders/Sprites/Marine Viewer/weapons/ranged.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"heavy_ranged","folderPath":"folders/Sprites/Marine Viewer/weapons/heavy_ranged.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"custom_icons_help.txt","CopyToMask":153157610357391598,"filePath":"datafiles/icons",},

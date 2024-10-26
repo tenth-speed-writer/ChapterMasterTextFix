@@ -1,6 +1,7 @@
 // Displays weapon based on the armour type to change the art to match the armour type
 // TODO: Refactor a lot of individual armour/weapon checks/array_contains changes to be built-in into each weapon struct presented here.
 // TODO: Overall a refactor to weapon draw logic would be good, as current approach may be a bit too verbose and at the same time not very customizable.
+// My advice is to use Bolter and Power Sword as baselines for all origin, offset and other adjustments, to keep stuff consistent.
 function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, current_armor_type) {
     clear = false;
     display_type = "normal_ranged";
@@ -312,13 +313,13 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
         hand_variant[left_or_right] = 3;
     }
 
-    if (array_contains(["Sniper Rifle", "Force Staff"], equiped_weapon)) {
+    if (array_contains(["Sniper Rifle", "Force Staff", "Power Sword"], equiped_weapon)) {
         hand_variant[left_or_right] = 2;
         hand_on_top[left_or_right] = true;
     }
 
     // New weapon draw method
-    if (array_contains(["Sniper Rifle", "Force Staff", "Mace of Absolution", "Power Mace", "Power Axe"], equiped_weapon)) {
+    if (array_contains(["Sniper Rifle", "Force Staff", "Mace of Absolution", "Power Mace", "Power Axe", "Storm Bolter", "Bolt Pistol", "Plasma Pistol", "Bolter", "Combiflamer", "Stalker Pattern Bolter"], equiped_weapon)) {
         new_weapon_draw[left_or_right] = true;
     }
 
@@ -326,14 +327,14 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
     if (current_armor_type == ArmourType.Terminator && !array_contains(["terminator_ranged", "terminator_melee","terminator_fist"],display_type)){
         ui_ymod[left_or_right] -= 20;
         if (display_type == "normal_ranged") {
-            ui_xmod[left_or_right] -= 18;
-            ui_ymod[left_or_right] += 12;
+            ui_xmod[left_or_right] -= 24;
+            ui_ymod[left_or_right] += 24;
         }
         if (display_type == "melee_onehand" && equiped_weapon != "Company Standard") {
             arm_variant[left_or_right] = 2;
             hand_variant[left_or_right] = 2;
             ui_xmod[left_or_right] -= 14;
-            ui_ymod[left_or_right] += 24;
+            ui_ymod[left_or_right] += 23;
         }
 
         if (display_type == "melee_twohand") {
@@ -352,18 +353,17 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
             ui_ymod[left_or_right] += 15;
         }
 
-        if (array_contains(["Thunder Hammer", "Chainaxe", "Power Axe", "Crozius Arcanum", "Power Mace", "Mace of Absolution"], equiped_weapon)) {
-            hand_variant[left_or_right] = 5;
-            arm_variant[left_or_right] = 0;
-        } else if (array_contains(["Relic Blade"], equiped_weapon)) {
+        if (array_contains(["Chainaxe", "Power Axe", "Crozius Arcanum", "Power Mace", "Mace of Absolution", "Relic Blade"], equiped_weapon)) {
             hand_variant[left_or_right] = 3;
+            arm_variant[left_or_right] = 3;
         }
     } else if (current_armor_type == ArmourType.Scout){
         ui_ymod[left_or_right] = 11;
-        // This is for when weapon sprites that are touching the ground and must be independent of unit height.
-        if ((display_type == "melee_onehand" && equiped_weapon != "Combat Knife") || equiped_weapon == "Sniper Rifle") {
-            ui_ymod[left_or_right] = 0;
-        }
+    }
+
+    // This is for when weapon sprites that are touching the ground and must be independent of unit height.
+    if ((display_type == "melee_onehand" && equiped_weapon != "Combat Knife") || equiped_weapon == "Sniper Rifle") {
+        ui_ymod[left_or_right] = 0;
     }
 
     // Flip the ui_xmod for offhand
