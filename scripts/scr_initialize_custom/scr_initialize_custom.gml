@@ -3126,7 +3126,7 @@ function scr_initialize_custom() {
 		name[company][k] = global.name_generator.generate_space_marine_name();
 		spawn_unit = TTRPG[company][k]
 		spawn_unit.roll_age();
-		spawn_unit.roll_experience();
+		spawn_unit.roll_experience;
 	}
 
 	for (i = 0; i < 4; i++) {
@@ -3812,7 +3812,7 @@ function scr_initialize_custom() {
 					armour[company][k] = "Dreadnought";
 					spawn_unit = TTRPG[company][k];
 					spawn_unit.roll_age();
-					spawn_unit.roll_experience();
+					spawn_unit.roll_experience;
 					if (company = 9) then wep1[company][k] = "Missile Launcher";
 				}
 			}
