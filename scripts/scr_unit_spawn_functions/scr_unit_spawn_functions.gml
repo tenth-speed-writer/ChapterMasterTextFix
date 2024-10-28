@@ -286,7 +286,7 @@ function scr_marine_spawn_armour(){
 }
 function scr_marine_game_spawn_constructions(){
 	roll_age();
-	roll_experience;
+	roll_experience();
 	assign_reactionary_traits();
 	roll_armour();
 	
