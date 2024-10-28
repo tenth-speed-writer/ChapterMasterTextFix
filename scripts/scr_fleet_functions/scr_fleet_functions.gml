@@ -229,11 +229,11 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true,w
 
 function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 	var fleet_speed=128;
-	if (capitals>0){
+	if (capital_number>0){
 	    fleet_speed=100;
-	} else if (frigates>0){
+	} else if (frigate_number>0){
 	    fleet_speed=128;
-	}else if (escorts>0){
+	}else if (escort_number>0){
 	    fleet_speed=174;
 	}
 	if (obj_controller.stc_ships>=6) and (fleet_speed>=100) then fleet_speed*=1.2;
