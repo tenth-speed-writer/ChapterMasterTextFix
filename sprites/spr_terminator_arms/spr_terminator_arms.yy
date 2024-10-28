@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_terminator_arms",
-  "bbox_bottom": 154,
+  "bbox_bottom": 170,
   "bbox_left": 5,
   "bbox_right": 49,
   "bbox_top": 87,
@@ -25,6 +25,7 @@
   "height": 262,
   "HTile": false,
   "layers": [
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"fe74dd0c-ec84-46ac-bcbb-df531ec42d24","blendMode":0,"displayName":"pasteLayer","isLocked":false,"opacity":100.0,"visible":true,},
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"35a49b5e-7bad-4a28-be81-1e39d481638f","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,

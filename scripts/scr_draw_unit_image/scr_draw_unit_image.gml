@@ -230,6 +230,10 @@ function set_shader_array(shader_array){
 }
 function scr_draw_unit_image(_background=false){
     function draw_unit_hands(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics, right_left){
+        if (arm_variant[right_left] == 1) {
+            return;
+        }
+
         if (armour_type != ArmourType.None){
             var offset_x = x_surface_offset;
             var offset_y = y_surface_offset;
