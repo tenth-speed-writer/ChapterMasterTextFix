@@ -225,9 +225,11 @@ function calculate_fleet_eta(xx,yy,xxx,yyy, fleet_speed,star1=true, star2=true,w
 }
 
 
-
-
 function calculate_action_speed(capitals=true, frigates=true, escorts=true){
+	var _is_player_fleet = object_index==obj_p_fleet;
+	if (_is_player_fleet){
+		player_fleet_ship_count();
+	}
 	var fleet_speed=128;
 	if (capital_number>0){
 	    fleet_speed=100;
@@ -236,7 +238,9 @@ function calculate_action_speed(capitals=true, frigates=true, escorts=true){
 	}else if (escort_number>0){
 	    fleet_speed=174;
 	}
-	if (obj_controller.stc_ships>=6) and (fleet_speed>=100) then fleet_speed*=1.2;
+	if (_is_player_fleet){
+		if (obj_controller.stc_ships>=6) and (fleet_speed>=100) then fleet_speed*=1.2;
+	}
 	return fleet_speed;
 }
 
