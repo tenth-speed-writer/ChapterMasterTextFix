@@ -14,6 +14,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
                 "Assault Cannon":spr_weapon_assca,
                 "Heavy Flamer":spr_weapon_hflamer_term,
                 "Plasma Cannon":spr_weapon_plasma_cannon_term,
+                "Grav-Cannon":spr_weapon_plasma_cannon_term,
             }
             var terminator_ranged_names=struct_get_names(terminator_ranged);
             for (var i=0;i<array_length(terminator_ranged_names);i++){
@@ -68,11 +69,15 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
             "Storm Bolter":spr_weapon_sbolter,
             "Plasma Pistol":spr_weapon_plasp,
             "Plasma Gun":spr_weapon_plasg,
-            "Missile Launcher":spr_weapon_missile,
             "Flamer":spr_weapon_flamer,
             "Meltagun":spr_weapon_melta,
             "Stalker Pattern Bolter":spr_weapon_stalker,
             "Combiflamer":spr_weapon_comflamer,
+            "Combiplasma":spr_weapon_complas,
+            "Combigrav":spr_weapon_comgrav,
+            "Combimelta":spr_weapon_commelta,
+            "Grav-Pistol":spr_weapon_grav_pistol,
+            "Grav-Gun":spr_weapon_grav_gun,
             "Missile Launcher":spr_weapon_missile,
         }
         var normal_ranged_names = struct_get_names(normal_ranged);
@@ -94,6 +99,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
             "Heavy Flamer":spr_weapon_hflamer,
 			"Plasma Cannon":spr_weapon_plasc,
 			"Autocannon":spr_weapon_autocannon,
+            "Grav-Cannon":spr_weapon_grav_cannon,
         }
         var heavy_ranged_names=struct_get_names(heavy_ranged);
         for (var i=0;i<array_length(heavy_ranged_names);i++){
