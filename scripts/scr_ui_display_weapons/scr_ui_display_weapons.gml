@@ -196,6 +196,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
         ui_weapon[left_or_right] = sprite;
         arm_variant[left_or_right] = 1;
         ui_spec[left_or_right] = false;
+        new_weapon_draw[left_or_right] = true;
         display_type = "normal_ranged";
     }
     
@@ -223,6 +224,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
         arm_variant[left_or_right] = 0;
         hand_variant[left_or_right] = 0;
         ui_spec[left_or_right] = true;
+        new_weapon_draw[left_or_right] = true;
         display_type = "special_ranged";
     }
     
@@ -319,7 +321,7 @@ function scr_ui_display_weapons(left_or_right, current_armor, equiped_weapon, cu
     }
 
     // New weapon draw method
-    if (array_contains(["Sniper Rifle", "Force Staff", "Mace of Absolution", "Power Mace", "Power Axe", "Storm Bolter", "Bolt Pistol", "Plasma Pistol", "Bolter", "Combiflamer", "Stalker Pattern Bolter"], equiped_weapon)) {
+    if (array_contains(["Force Staff", "Mace of Absolution", "Power Mace", "Power Axe", "Power Sword"], equiped_weapon)) {
         new_weapon_draw[left_or_right] = true;
     }
 
