@@ -92,7 +92,7 @@ if (type=99){
         var artifact_struct = obj_ini.artifact_struct[arti_index];
         var cur_tags = obj_ini.artifact_tags[arti_index];
 
-        obj_controller.artifacts-=1;
+        // obj_controller.artifacts-=1; // this is done by delete_artifact() that is run later;
 
         obj_controller.cooldown=10;
         if (obj_controller.menu_artifact>obj_controller.artifacts) then obj_controller.menu_artifact=obj_controller.artifacts;
