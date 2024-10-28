@@ -713,6 +713,54 @@ global.weapons = {
 		"arp": 0,
 		"tags": ["immobolise"]
 	},
+	"Grav-Pistol": {
+		"abbreviation": "GrvPstl",
+		"attack": {
+			"standard": 100,
+			"master_crafted": 110,
+			"artifact": 120
+		},
+		"description": "A smaller version of the Grav-Gun which utilises the gravitic reaction principle most commonly seen powering grav-vehicles such as the Land Speeder.",
+		"melee_hands": 0,
+		"ranged_hands": 1,
+		"ammo": 4,
+		"range": 2.1,
+		"spli": 1,
+		"arp": 1,
+		"tags": ["grav", "pistol"]
+	},
+	"Grav-Gun": {
+		"abbreviation": "GrvGn",
+		"attack": {
+			"standard": 450,
+			"master_crafted": 475,
+			"artifact": 500
+		},
+		"description": "A medium-sized weapon which utilises the gravitic reaction principle most commonly seen powering grav-vehicles such as the Land Speeder.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 4,
+		"range": 4,
+		"spli": 3,
+		"arp": 1,
+		"tags": ["grav"]
+	},
+	"Grav-Cannon": {
+		"abbreviation": "GrvCan",
+		"attack": {
+			"standard": 800,
+			"master_crafted": 850,
+			"artifact": 900
+		},
+		"description": "A bigger version of the Grav-Gun which utilises the gravitic reaction principle most commonly seen powering grav-vehicles such as the Land Speeder.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 8,
+		"range": 8,
+		"spli": 6,
+		"arp": 1,
+		"tags": ["grav", "heavy_weapon"]
+	},
 	"Underslung Bolter": {
 		"abbreviation": "UndBltr",
 		"attack": {
@@ -1463,14 +1511,65 @@ global.weapons = {
 			"master_crafted": 130,
 			"artifact": 160
 		},
-		"description": "A standard Bolter with an underbarrel flamer for expanded tactical utility.",
+		"description": "A standard Bolter with an underbarrel Flamer for expanded tactical utility.",
 		"melee_hands": 1,
-		"ranged_hands": 1.5,
+		"ranged_hands": 2,
 		"ammo": 15,
 		"range": 10,
 		"spli": 3,
 		"arp": 0,
 		"second_profiles": ["Flamer"],
+		"tags": ["combi", "bolt"]
+	},
+	"Combiplasma": {
+		"abbreviation": "CmbPlsm",
+		"attack": {
+			"standard": 100,
+			"master_crafted": 130,
+			"artifact": 160
+		},
+		"description": "A standard Bolter with an underbarrel Plasma Gun for expanded tactical utility.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 15,
+		"range": 10,
+		"spli": 3,
+		"arp": 0,
+		"second_profiles": ["Plasma Gun"],
+		"tags": ["combi", "bolt"]
+	},
+	"Combigrav": {
+		"abbreviation": "CmbGrv",
+		"attack": {
+			"standard": 100,
+			"master_crafted": 130,
+			"artifact": 160
+		},
+		"description": "A standard Bolter with an underbarrel Grav-Gun for expanded tactical utility.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 15,
+		"range": 10,
+		"spli": 3,
+		"arp": 0,
+		"second_profiles": ["Grav-Gun"],
+		"tags": ["combi", "bolt"]
+	},
+	"Combimelta": {
+		"abbreviation": "CmbMlt",
+		"attack": {
+			"standard": 100,
+			"master_crafted": 130,
+			"artifact": 160
+		},
+		"description": "A standard Bolter with an underbarrel Meltagun for expanded tactical utility.",
+		"melee_hands": 1,
+		"ranged_hands": 2,
+		"ammo": 15,
+		"range": 10,
+		"spli": 3,
+		"arp": 0,
+		"second_profiles": ["Meltagun"],
 		"tags": ["combi", "bolt"]
 	},
 	"Incinerator": {
