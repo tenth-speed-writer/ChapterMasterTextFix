@@ -670,7 +670,8 @@ ye=99;i=-1;repeat(51){i+=1;
     wep2[ye,i]="";
     armour[ye,i]="";
     gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+    mobi[ye,i]="";
+    
 }
 ye=100;i=-1;repeat(51){i+=1;
     race[ye,i]=1;loc[ye,i]="";
@@ -679,7 +680,7 @@ ye=100;i=-1;repeat(51){i+=1;
     wep2[ye,i]="";
     armour[ye,i]="";
     gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+    mobi[ye,i]="";
 }
 ye=101;i=-1;repeat(51){i+=1;
     race[ye,i]=1;loc[ye,i]="";
@@ -688,7 +689,7 @@ ye=101;i=-1;repeat(51){i+=1;
     wep2[ye,i]="";
     armour[ye,i]="";
     gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+    mobi[ye,i]="";
 }
 ye=102;i=-1;repeat(51){i+=1;
     race[ye,i]=1;loc[ye,i]="";
@@ -697,7 +698,7 @@ ye=102;i=-1;repeat(51){i+=1;
     wep2[ye,i]="";
     armour[ye,i]="";
     gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+    mobi[ye,i]="";
 }
 ye=103;i=-1;repeat(51){i+=1;
     race[ye,i]=1;loc[ye,i]="";
@@ -706,7 +707,7 @@ ye=103;i=-1;repeat(51){i+=1;
     wep2[ye,i]="";
     armour[ye,i]="";
     gear[ye,i]="";
-    mobi[ye,i]="";experience[ye,i]=0;
+    mobi[ye,i]="";
 }
 
 

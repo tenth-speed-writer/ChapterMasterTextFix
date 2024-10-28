@@ -701,13 +701,13 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 	turn_stat_gains = {};
 
 	static update_exp = function(new_val){
-		obj_ini.experience[company][marine_number] = new_val
+		experience = new_val
 	}//change exp
 
 	static add_exp = function(add_val){
 		var instace_stat_point_gains = {};
 		stat_point_exp_marker += add_val;
-		obj_ini.experience[company][marine_number] += add_val;
+		experience += add_val;
 		if (base_group == "astartes"){
 			while (stat_point_exp_marker>=15){
 				var stat_gains = choose("weapon_skill", "ballistic_skill", "wisdom");
