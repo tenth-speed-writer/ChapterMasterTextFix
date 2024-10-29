@@ -37,7 +37,7 @@ jobs:
       # This step uploads the build to the artifacts, so you can download it from the GitHub Actions page or use it in another workflow
       - id: get_date_time
         name: Get current date and time
-        run: echo "::set-output name=date_time::$(date +'%d-%m-%Y-%H:%M')"
+        run: echo "::set-output name=date_time::$(date +'%d-%m-%Y-%H%M')"
       - id: upload_artifact
         name: upload-artifact
         uses: actions/upload-artifact@v4
