@@ -1,4 +1,4 @@
-name: Continuous Integration for Windows export
+name: Build-Windows-YYC
 on: 
   # push: #Uncomment this line to run the workflow on push
   workflow_dispatch: #This line allows you to run the workflow manually from the GitHub Actions page
@@ -13,31 +13,43 @@ jobs:
           lfs: true
       # This step finds the yyp file in the repository and saves the path to an output
       - id: find_yyp
-        name: Find the yyp file
+        name: find-the-yyp-file
         run: |
           $yyp = Get-ChildItem -Path ${{ github.workspace }} -Recurse -Filter *.yyp
           Write-Output "YYP file found at: $yyp"
           "yyp-path=$yyp" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
       # This step sets up the GameMaker build CLI tool Igor https://github.com/bscotch/igor-setup
-      - name: Setup Igor environment
+      - id: igor_setup
+        name: setup-igor-environment
         uses: bscotch/igor-setup@v1.1.0
-        id: igor
         with:
-          runtime-version: 2023.11.1.129
+          runtime-version: 2023.11.1.160
           target-yyp: ${{ steps.find_yyp.outputs.yyp-path }}
           access-key: ${{ secrets.ACCESS_KEY }} # 📝 To generate your Access Key, check out the Access Key section of the GameMaker Manual's Building via Command Line page: https://manual.gamemaker.io/monthly/en/#t=Settings%2FBuilding_via_Command_Line.htm
       # This step uses Igor to build the GameMaker project https://github.com/bscotch/igor-build
-      - name: Igor build
+      - id: get_date_time
+        name: Get current date and time
+        run: echo "date_time::$(date +'%d-%m-%Y-%H%M')" >> $GITHUB_OUTPUT
+      - name: Build Bump
+        uses: jaywcjlove/github-action-modify-file-content@main
+        with:
+          path: datafiles/main/version.json
+          openDelimiter: "B"
+          closeDelimiter: "BE"
+          body: "${{ steps.get_date_time.outputs.date_time }}"
+      - id: igor_build
+        name: igor-build
         uses: bscotch/igor-build@v1.0.3
-        id: build
         with:
           yyp-path: ${{ steps.find_yyp.outputs.yyp-path }}
-          user-dir: ${{ steps.igor.outputs.user-dir }}
+          user-dir: ${{ steps.igor_setup.outputs.user-dir }}
           yyc: false
       # This step uploads the build to the artifacts, so you can download it from the GitHub Actions page or use it in another workflow
-      - name: upload-build
+      - id: upload_artifact
+        name: upload-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: igor-build-windows
-          path: ${{ steps.build.outputs.out-dir }}
+          name: ChapterMaster-Windows-${{ steps.get_date_time.outputs.date_time }}
+          path: ${{ steps.igor_build.outputs.out-dir }}
           retention-days: 1 # Longer retention days can incur additional charges. See https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+          
