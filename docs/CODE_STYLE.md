@@ -40,9 +40,14 @@ Unless stated otherwise, all names should just be `variable_name`, with no addit
 This is to ensure compatibility with JavaScript formatters.
 - Indentation should be 4 **spaces**. Don't use tabs. Different editors interpret tabs differently.
 - Remember to use semicolons at the end of simple statements.
-- You can use [this](https://beautifier.io/) JavaScript formatter to format your code. The format it outputs fits our requirements. Just be sure to select:
-  - Indent with 4 spaces.
-  - Allow unlimited newlines between tokens.
-  - Don't wrap lines.
-  - Spaces before conditional.
-- **If you use JS formatters they break `$"something {variable}"` syntax, by adding a space after `$`, i.e. `$ "something {variable}"`. Be sure to manually fix this after using a formatter.**
+
+### Formatters:
+> [!WARNING]  
+> JavaScript formatters break `$"something {variable}"` syntax, by adding a space after `$`, i.e. `$ "something {variable}"`.\
+> Be sure to manually fix this after using them.
+- You can use [this](https://beautifier.io/) JavaScript formatter to format your code. The format it outputs fits general recommendations.\
+- Just be sure to select:
+  - `Indent with 4 spaces`.
+  - `Allow unlimited newlines between tokens` - this should be managed manually.
+  - `Don't wrap lines` - as if you need this, enable it in your IDE settings instead.
+  - `Spaces before conditional`.
