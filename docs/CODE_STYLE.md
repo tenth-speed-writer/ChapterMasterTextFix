@@ -18,6 +18,7 @@ Unless stated otherwise, all names should just be `variable_name`, with no addit
   - Example: `var _example_e1`.
 - **Global** variables don't require any additional rules, as they already require a `global.` prefix to use.
   - Example: `global.example_e1`.
+- **Instance** variables have no additional rules.
 - **Functions** don't require any prefixes, but to avoid accidental overlaps with instance variables:
   - Name them with at least 2 words: `draw_something()` and not `drawing()`.
   - And as an action: `draw_something()` and not `green_apple()`.
