@@ -583,6 +583,7 @@ production_research = {
     plasma : [0,{}],
     psi : [0,{}],
     melta : [0,{}],
+    grav : [0,{}],
     chasis : [0,{}],
     chain :[0,{}],
     power_fields:[1,{}],
@@ -602,6 +603,7 @@ production_research_pathways ={
     plasma : [[ "Plasma Coil Magnetization"],{}],
     psi : [["Psionic Resonance Valves"],{}],
     melta : [["Atomic Chamber Construction"],{}],
+    grav : [["Gravitic Reaction Principle"],{}],
     chasis : [[],{}],
     chain :[["Adamantine Links"],{}],
     power_fields:[["Power Field Cooling", "Mono-molecular Edge Sheathing"],{}],
@@ -1451,6 +1453,7 @@ loyalty_hidden=100;// Updated when inquisitors do an inspection
 // ** Sets up gene seed **
 gene_seed=20;
 if (string_count("Sieged",obj_ini.strin2)>0) then gene_seed=floor(random_range(250,400));
+if scr_has_disadv("Obliterated") then gene_seed=floor(random_range(50,200));
 if (global.chapter_name=="Lamenters") then gene_seed=30;
 if (global.chapter_name=="Soul Drinkers") then gene_seed=60;
 
