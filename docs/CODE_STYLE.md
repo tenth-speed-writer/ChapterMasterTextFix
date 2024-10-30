@@ -33,6 +33,8 @@ Unless stated otherwise, all names should just be `variable_name`, with no addit
   - Example: `enum eCOLORS` with entries `DarkRed`, `Blue`, etc. 
 
 ### General Styling:
+- It's recommended to initialize variables when declaring them. I.e `var variable = 0`, instead of just `var variable`.
+- It's also recommended to declaring each variable on a new line, avoiding `var variable1 = 0, variable2 = 2...`, to improve readability.
 - `&&` and `||` should be used instead of `and` and `or`.\
 This is to ensure compatibility with JavaScript formatters.
 - Indentation should be 4 **spaces**. Don't use tabs. Different editors interpret tabs differently.
