@@ -2,7 +2,7 @@ function coord_relevative_positions(coords, xx, yy){
 	return [coords[0]+xx, coords[1]+yy,coords[2]+xx, coords[3]+yy];
 }
 
-function colour_item(xx,yy) constructor{
+function ColourItem(xx,yy) constructor{
 	self.xx=xx;
 	self.yy=yy;
     static scr_unit_draw_data = function(){
@@ -35,7 +35,7 @@ function colour_item(xx,yy) constructor{
             right_backpack : 0,   
             left_backpack : 0,
             weapon_primary : 0,
-            weapon_Secondary : 0,                           
+            weapon_secondary : 0,                           
         }
         return map_colour;
     }
@@ -60,7 +60,7 @@ function colour_item(xx,yy) constructor{
             right_thorax : 0, 
 
             weapon_primary : 0,
-            weapon_Secondary : 0,
+            weapon_secondary : 0,
 
             left_pauldron :[114,31, 150,67],
             right_pauldron: [19,31, 43,71],
