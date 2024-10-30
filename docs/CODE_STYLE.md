@@ -22,24 +22,25 @@ Unless stated otherwise, all names should just be `variable_name`, with no addit
 - **Functions** don't require any prefixes, but to avoid accidental overlaps with instance variables:
   - Name them with at least 2 words: `draw_something()` and not `drawing()`.
   - And as an action: `draw_something()` and not `green_apple()`.
-  - Here we just try to follow default GM function naming scheme.
+  - Here we just try to follow the built-in GameMaker function naming scheme.
 - **Macro** constants:
   - A short `PREFIX_` should state their group in all caps.
   - After the prefix, they should be written in snake_case.
   - Examples: `COL_bright_red`, `COL_dark_green`; `DIR_left`, `DIR_up`.
-  - Here we just try to follow default GM macro naming scheme.
+  - Here we just try to follow the built-in GameMaker macro naming scheme.
 - **Enum** constants:
   - Name of the enum should start with an `e` prefix and be written in all caps.
-  - Name of the enum entries should use PascalCase.
+  - Names of enum entries should use PascalCase.
   - Example: `enum eCOLORS` with entries `DarkRed`, `Blue`, etc. 
 
 ### General Styling:
 - It's recommended to initialize variables when declaring them. I.e `var variable = 0`, instead of just `var variable`.
-- It's also recommended to declaring each variable on a new line, avoiding `var variable1 = 0, variable2 = 2...`, to improve readability.
-- `&&` and `||` should be used instead of `and` and `or`.\
-This is to ensure compatibility with JavaScript formatters.
+- It's also recommended to declare each variable on a new line, avoiding `var variable1 = 0, variable2 = 2...`, to improve readability.
+- `&&` and `||` should be used instead of `and` and `or`. This is to ensure compatibility with JavaScript formatters.
 - Indentation should be 4 **spaces**. Don't use tabs. Different editors interpret tabs differently.
 - Remember to use semicolons at the end of simple statements.
+- It's recommended to use `$"text {variable}"` for string concentration with variables, as this way is the least error prone and most readable.
+  -  It automatically applies `string()` to `{variables}`.
 
 ### Formatters:
 > [!WARNING]  
