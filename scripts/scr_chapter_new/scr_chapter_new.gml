@@ -669,7 +669,7 @@ if (argument0="Minotaurs"){founding=10;points=450;
 		founding=10;points=100;
 	    selected_chapter=12;chapter=argument0;icon=12;icon_name="br";
 	    fleet_type=2;strength=5;purity=10;stability=6;cooperation=7;
-	    adv[1]="Scavengers";adv[2]="Psyker Abundance";dis[1]="Suspicious";
+	    adv[1]="Tech-Scavengers";adv[2]="Psyker Abundance";dis[1]="Suspicious";
 	    hapothecary="Galan";hchaplain="Mikelus";clibrarian="Jonah Orion";fmaster="Martellus";
 		honorcapt="Apollo Diomedes";watchmaster="Yriel Rikarius";marchmaster="Aramus";
 		ritesmaster="Tarkus";victualler="Atanaxis";lordexec="Thaddeus";relmaster="Avitus";recruiter="Cyrus";
