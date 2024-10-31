@@ -292,7 +292,7 @@ function scr_chapter_new(argument0) {
 		    selected_chapter=2;chapter=argument0;icon=2;icon_name="ws";founding=0;fleet_type=1;strength=5;purity=10;stability=8;cooperation=5;
 		    homeworld="Feudal";homeworld_name="Chogoris";
 		    homeworld_exists=1;recruiting_exists=0;homeworld_rule=3;aspirant_trial=eTrials.SURVIVAL;discipline="rune Magick";
-			adv[1]="Lightning Warriors";adv[2]="Brothers, All";adv[3]="Melee Enthusiasts";dis[1]="Splintered";
+			adv[1]="Lightning Warriors";adv[2]="Brothers, All";adv[3]="Assault Doctrine";dis[1]="Splintered";
 		    // Pauldron2: Left, Pauldron: Right
 		    color_to_main="White";color_to_secondary="White";color_to_trim="Red";
 		    color_to_pauldron="White";color_to_pauldron2="White";color_to_lens="Red";
