@@ -1176,10 +1176,10 @@ function scr_draw_unit_image(_background=false){
                                 var choice = get_body_data("variation","head")%sprite_get_number(complex_set.head);
                                 draw_sprite(complex_set.head,choice,x_surface_offset,y_surface_offset);
                             }                            
-                            if (struct_exists(set_pieces, "right_pauldron")){
+                            if (struct_exists(complex_set, "right_pauldron")){
                                 draw_sprite(complex_set.right_pauldron,company,x_surface_offset,y_surface_offset);
                             }
-                            if (struct_exists(set_pieces, "left_knee")){
+                            if (struct_exists(complex_set, "left_knee")){
                                 draw_sprite(complex_set.left_knee,company,x_surface_offset,y_surface_offset);
                             }                                                                                                                                         
                         } else {
