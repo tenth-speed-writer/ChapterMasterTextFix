@@ -1,4 +1,4 @@
-name: Build-Windows-YYC
+name: Build-for-Windows
 on: 
   # push: #Uncomment this line to run the workflow on push
   workflow_dispatch: #This line allows you to run the workflow manually from the GitHub Actions page
@@ -50,22 +50,21 @@ jobs:
           yyp-path: ${{ steps.find_yyp.outputs.yyp-path }}
           user-dir: ${{ steps.igor_setup.outputs.user-dir }}
           yyc: false
-      # This step uploads the build to the artifacts, so you can download it from the GitHub Actions page or use it in another workflow
-      # - id: upload_artifact
-      #   name: Upload Build as an Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ChapterMaster-Windows-${{ steps.get_date_time.outputs.date_time }}
-      #     path: ${{ steps.igor_build.outputs.out-dir }}
-      #     retention-days: 1 # Longer retention days can incur additional charges. See https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
-      #
       - id: create_release
         name: Create a Pre-Release with the Build
         uses: softprops/action-gh-release@v2.0.9
         with:
           name: ChapterMaster-b${{ env.date_time }}
-          files: ${{ steps.igor_build.outputs.out-dir }}
           tag_name: b${{ env.date_time }}
           prerelease: true
           generate_release_notes: true
+      # This step uploads the build to the artifacts, so you can download it from the GitHub Actions page or use it in another workflow
+      - id: upload_artifact
+        name: Upload Build as an Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChapterMaster-Windows-b${{ env.date_time }}
+          path: ${{ steps.create_release.outputs.upload_url }}
+          retention-days: 1 # Longer retention days can incur additional charges. See https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+      
           
