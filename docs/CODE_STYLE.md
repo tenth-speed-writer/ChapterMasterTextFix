@@ -16,8 +16,10 @@ All variable names, function names, etc., should use `snake_case` unless otherwi
 
 - **Local** variables are recommended to have a `_` prefix, which can ease readability.
   - Example: `var _example_e1`.
+
 - **Global** variables require no additional prefix, as they already use `global.`.
   - Example: `global.example_e1`.
+
 - **Functions** don’t need prefixes but should:
   - Use at least two words to avoid overlap with instance variables (e.g., `draw_something()`).
   - Name functions as actions where possible (`draw_something()` vs. `green_apple()`).
@@ -28,7 +30,6 @@ All variable names, function names, etc., should use `snake_case` unless otherwi
   - Examples: `COL_bright_red`, `DIR_left`.
 
 - **Enum** constants:
-  - Enum names should start with an `e` prefix and be in all caps.
   - Enum names should start with an `e` prefix and be in all caps.
   - Enum entries should use `PascalCase`.
   - Example: `enum eCOLORS` with entries `DarkRed`, `Blue`, etc.
@@ -44,6 +45,7 @@ All variable names, function names, etc., should use `snake_case` unless otherwi
    - Example (recommended for mixed operators): `if ((condition1 && condition2) || (condition3 && condition4))`
    - Simple sequences of the same operator (like `&&` alone) don’t need extra parentheses: `if (condition1 && condition2 && condition3)`
    - Avoid wrapping each condition individually when using the same operator: `if ((condition1) && (condition2) && (condition3))`
+- Use `++`/`--` instead of `+=1`/`-=1`.
 
 ### Formatters:
 > [!WARNING]
