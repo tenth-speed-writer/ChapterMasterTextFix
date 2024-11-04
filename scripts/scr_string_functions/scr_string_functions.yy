@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "string_reverse",
+  "name": "scr_string_functions",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Sys",
-    "path": "folders/Scripts/Sys.yy",
+    "name": "Text",
+    "path": "folders/Scripts/Helpers/Text.yy",
   },
 }
