@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f57f81af-e82c-407c-9550-4a8f4341b43c" alt="Chapter Master - Adeptus Dominus Logo"/>
+  <img src="https://github.com/user-attachments/assets/47772b42-59ad-4fdf-84de-ae9bcba999be" alt="Chapter Master - Adeptus Dominus Logo"/>
 </p>
 
 # Chapter Master - Adeptus Dominus
