@@ -878,7 +878,6 @@
     {"id":{"name":"scr_shader_initialize","path":"scripts/scr_shader_initialize/scr_shader_initialize.yy",},},
     {"id":{"name":"spr_indomitus_complex","path":"sprites/spr_indomitus_complex/spr_indomitus_complex.yy",},},
     {"id":{"name":"spr_sal_mk6_helm","path":"sprites/spr_sal_mk6_helm/spr_sal_mk6_helm.yy",},},
-    {"id":{"name":"string_to_integer","path":"scripts/string_to_integer/string_to_integer.yy",},},
     {"id":{"name":"spr_mk4_chest_variants","path":"sprites/spr_mk4_chest_variants/spr_mk4_chest_variants.yy",},},
     {"id":{"name":"spr_weapon_boarding","path":"sprites/spr_weapon_boarding/spr_weapon_boarding.yy",},},
     {"id":{"name":"spr_bionics_hand","path":"sprites/spr_bionics_hand/spr_bionics_hand.yy",},},
