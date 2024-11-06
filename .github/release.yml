@@ -5,18 +5,18 @@ changelog:
     labels:
       - PR: Docs
   categories:
-    - title: Possibly Breaking Changes:
+    - title: Possibly Breaking Changes
       labels:
         - PR: Breaking!
         - PR: Major Feat!
-    - title: New/Changed:
+    - title: New/Changed
       labels:
         - PR: Feature
         - PR: Misc Change
-    - title: Fixes:
+    - title: Fixes
       labels:
         - PR: Fix
         - PR: Performance
-    - title: Other Changes:
+    - title: Other Changes
       labels:
         - "*"
