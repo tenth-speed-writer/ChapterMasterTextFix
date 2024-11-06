@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
   - everything that a normal player doesn't need to know.
 ----------------------------------
 
-## [0.9.4.1]
+## [0.9.5]
 
 ### Changed:
 - Build Date is displayed in the main menu.
