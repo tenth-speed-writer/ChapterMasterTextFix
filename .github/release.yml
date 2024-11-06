@@ -3,20 +3,20 @@
 changelog:
   exclude:
     labels:
-      - PR: Docs
+      - "PR: Docs"
   categories:
     - title: Possibly Breaking Changes
       labels:
-        - PR: Breaking!
-        - PR: Major Feat!
+        - "PR: Breaking!"
+        - "PR: Major Feat!"
     - title: New/Changed
       labels:
-        - PR: Feature
-        - PR: Misc Change
+        - "PR: Feature"
+        - "PR: Misc Change"
     - title: Fixes
       labels:
-        - PR: Fix
-        - PR: Performance
+        - "PR: Fix"
+        - "PR: Performance"
     - title: Other Changes
       labels:
         - "*"
