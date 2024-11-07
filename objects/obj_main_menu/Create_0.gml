@@ -163,6 +163,7 @@ if (_parsed_json != undefined) {
     global.game_version = _version;
 }
 
+instance_create(0, 0, obj_garbage_collector);
 
 /* */
 action_set_alarm(1, 3);
