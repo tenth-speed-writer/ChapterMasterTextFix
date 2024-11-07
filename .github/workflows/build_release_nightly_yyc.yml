@@ -43,6 +43,7 @@ jobs:
           openDelimiter: "BS"
           closeDelimiter: "BE"
           body: "${{ env.date_time }}"
+          message: "chore: update build-date."
       # This step uses Igor to build the GameMaker project https://github.com/bscotch/igor-build
       - id: igor_build
         name: Build with Igor
