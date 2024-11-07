@@ -21,6 +21,17 @@ All notable changes to this project will be documented in this file.
   - everything that a normal player doesn't need to know.
 ----------------------------------
 
+## [0.9.6]
+
+### Fixed:
+Crashes:
+  - When assigning marines to forge, loading saves and probably some other weird cases (`gml_Script_scr_ui_advisors (line 864)`).
+  - On creation screen role equip (`gml_Object_obj_creation_popup_Draw_0 (line 132)`).
+
+### Under The Hood:
+- Made the garbage collector run every minute. Doesn't seem to inflict performance loss and fixes the array corruption. Let's see if there are any caveats.
+- Reduced redundancy a bit in error report functions.
+
 ## [0.9.5]
 
 ### Changed:
