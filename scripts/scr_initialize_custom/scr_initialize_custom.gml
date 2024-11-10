@@ -3156,10 +3156,12 @@ function scr_initialize_custom() {
 	
 	scr_add_item("Bike", 40);
 
-	for(var e = 0; e < array_length(obj_creation.extra_equipment); e++){
-		var e_name = obj_creation.extra_equipment[e][0];
-		var e_qty = obj_creation.extra_equipment[e][1];
-		scr_add_item(e_name, e_qty);
+	if(struct_exists(obj_creation, "extra_equipment") ){
+		for(var e = 0; e < array_length(obj_creation.extra_equipment); e++){
+			var e_name = obj_creation.extra_equipment[e][0];
+			var e_qty = obj_creation.extra_equipment[e][1];
+			scr_add_item(e_name, e_qty);
+		}
 	}
 	
 	if(scr_has_disadv("Sieged")){
