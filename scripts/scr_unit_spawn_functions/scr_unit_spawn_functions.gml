@@ -365,8 +365,8 @@ function scr_marine_game_spawn_constructions(){
 			}
 			if (
                 (global.chapter_name == "Iron Hands") ||
-                (obj_ini.progenitor = PROGENITOR.IRON_HANDS) ||
-                array_contains(obj_ini.dis, "Tech-Heresy")
+                (obj_ini.progenitor = ePROGENITOR.IRON_HANDS) ||
+                scr_has_disadv("Tech-Heresy")
             ) {
 				add_bionics("right_arm", "standard", false);
 				bionic_count = choose(6, 6, 7, 7, 7, 8, 9);
@@ -379,7 +379,7 @@ function scr_marine_game_spawn_constructions(){
 				}
 				var tech_heresy = irandom(49);
 			}
-			if (array_contains(obj_ini.dis, "Tech-Heresy")) {
+			if (scr_has_disadv("Tech-Heresy")) {
 				var tech_heresy = irandom(10);
 				technology += 4;
 			}
@@ -401,7 +401,7 @@ function scr_marine_game_spawn_constructions(){
 				if (irandom(2) == 0) {
 					add_trait("crafter");
 				}
-			} else if (obj_ini.progenitor == PROGENITOR.SALAMANDERS || obj_ini.progenitor == PROGENITOR.IRON_HANDS) {
+			} else if (obj_ini.progenitor == ePROGENITOR.SALAMANDERS || obj_ini.progenitor == ePROGENITOR.IRON_HANDS) {
 				technology += 2;
 				if (irandom(4) == 0) {
 					add_trait("crafter");
