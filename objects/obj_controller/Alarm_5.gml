@@ -574,7 +574,7 @@ if (turn=240) and (global.chapter_name="Lamenters"){
 }
 */
 // ** Battlefield Loot **
-if (array_contains(obj_ini.adv,"Scavengers")){
+if (array_contains(obj_ini.adv,"Tech-Scavengers")){
     var lroll1,lroll2,loot="";
     lroll1=floor(random(100))+1;
     lroll2=floor(random(100))+1;
@@ -1268,8 +1268,8 @@ if (fest_scheduled>0) and (fest_repeats>0){
 // }
 
 //research and forge related actions
+
 research_end();
-apothecary_simple();
 
 //complex route plotting for player fleets
 with (obj_p_fleet){

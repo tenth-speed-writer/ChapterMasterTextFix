@@ -537,7 +537,8 @@ command_set[8]=1;
 command_set[9]=1;
 command_set[20]=1;
 command_set[24]=1;
-blandify=0;
+modest_livery=0;
+progenitor_visuals=0;
 
 // ** Default menu items **
 selecting_planet=0;
@@ -577,6 +578,7 @@ production_research = {
     plasma : [0,{}],
     psi : [0,{}],
     melta : [0,{}],
+    grav : [0,{}],
     chasis : [0,{}],
     chain :[0,{}],
     power_fields:[1,{}],
@@ -596,6 +598,7 @@ production_research_pathways ={
     plasma : [[ "Plasma Coil Magnetization"],{}],
     psi : [["Psionic Resonance Valves"],{}],
     melta : [["Atomic Chamber Construction"],{}],
+    grav : [["Gravitic Reaction Principle"],{}],
     chasis : [[],{}],
     chain :[["Adamantine Links"],{}],
     power_fields:[["Power Field Cooling", "Mono-molecular Edge Sheathing"],{}],
@@ -931,7 +934,12 @@ trade_mnum[4]=0;
 // ** Sets up starting requisition **
 requisition=500;
 if (instance_exists(obj_ini)){
-    if (obj_ini.progenitor==0) /*and (obj_creation.custom=0)*/ and (global.chapter_name!="Doom Benefactors") then requisition=2000;
+    if (
+        (obj_ini.progenitor == ePROGENITOR.NONE) &&
+        (global.chapter_name != "Doom Benefactors")
+    ) {
+        requisition=2000;
+    }
 }
 if (is_test_map==true) then requisition=50000;
 // ** Sets income **
@@ -1263,9 +1271,9 @@ recruiting_type="";
 // ** Sets up chapter colors **
 main_color=0;
 secondary_color=0;
-trim_color=0;
-pauldron2_color=0;
-pauldron_color=0;
+main_trim=0;
+left_pauldron=0;
+right_pauldron=0;
 lens_color=0;
 weapon_color=0;
 col_special=0;
@@ -1273,7 +1281,7 @@ trim=0;
 // ** Sets up names, progenitor, successors and mutations ** 
 adept_name="";
 recruiter_name="";
-progenitor="";
+progenitor=ePROGENITOR.NONE;
 successor_chapters=0;
 mutation="";
 
@@ -1328,9 +1336,9 @@ if (instance_exists(obj_ini)){
         mutation="";
         main_color=obj_ini.main_color;
         secondary_color=obj_ini.secondary_color;
-        trim_color=obj_ini.trim_color;
-        pauldron2_color=obj_ini.pauldron2_color;
-        pauldron_color=obj_ini.pauldron_color;
+        main_trim=obj_ini.main_trim;
+        left_pauldron=obj_ini.left_pauldron;
+        right_pauldron=obj_ini.right_pauldron;
         lens_color=obj_ini.lens_color;
         weapon_color=obj_ini.weapon_color;
         col_special=obj_ini.col_special;
@@ -1446,7 +1454,8 @@ loyalty=100;
 loyalty_hidden=100;// Updated when inquisitors do an inspection
 // ** Sets up gene seed **
 gene_seed=20;
-if (scr_has_disadv("Sieged")) then gene_seed = floor(random_range(250, 400));
+if (string_count("Sieged",obj_ini.strin2)>0) then gene_seed=floor(random_range(250,400));
+if scr_has_disadv("Obliterated") then gene_seed=floor(random_range(50,200));
 if (global.chapter_name=="Lamenters") then gene_seed=30;
 if (global.chapter_name=="Soul Drinkers") then gene_seed=60;
 
