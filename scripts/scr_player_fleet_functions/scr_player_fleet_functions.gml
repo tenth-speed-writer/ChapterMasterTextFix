@@ -184,7 +184,7 @@ function move_ship_between_player_fleets(out_fleet, in_fleet, class, index){
 }
 function delete_ship_from_fleet(index, fleet){
 	var _ship_class = player_ships_class(index);
-	if (class=="capital"){
+	if (_ship_class=="capital"){
 		var _delete_index = array_get_index(capital_num, index);
 		array_delete(fleet.capital, _delete_index, 1);
 		array_delete(fleet.capital_num, _delete_index, 1);
@@ -192,14 +192,14 @@ function delete_ship_from_fleet(index, fleet){
 		array_delete(fleet.capital_sel, _delete_index, 1);
 
 		fleet.capital_number--;
-	} else if (class=="frigate"){
+	} else if (_ship_class=="frigate"){
 		var _delete_index = array_get_index(frigate_num, index);
 		array_delete(fleet.frigate, _delete_index, 1);
 		array_delete(fleet.frigate_num, _delete_index, 1);
 		array_delete(fleet.frigate_uid, _delete_index, 1);
 		array_delete(fleet.frigate_sel, _delete_index, 1);
 		fleet.frigate_number--;
-	}else if (class=="escort"){
+	}else if (_ship_class=="escort"){
 		var _delete_index = array_get_index(escort_num, index);
 		array_delete(fleet.escort, _delete_index, 1);
 		array_delete(fleet.escort_num, _delete_index, 1);
