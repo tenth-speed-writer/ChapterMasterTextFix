@@ -148,6 +148,7 @@ time=0;
 
 
 init_player_fleet_arrays();
+ship_id = [];
 
 
 // screwing around below here

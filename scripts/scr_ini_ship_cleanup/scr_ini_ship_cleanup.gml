@@ -17,6 +17,10 @@ function scr_kill_ship(index){
 		if (!in_warp){
 			var _nearest_star = star_by_name(obj_ini.ship_location[index]);
 		}
+		if (_ship_fleet!="none"){
+			delete_ship_from_fleet(index,_ship_fleet);
+			_available_ships = fleet_full_ship_array(_ship_fleet);
+		}		
 		array_delete(ship,index,1);
 		array_delete(ship_uid,index,1);
 		array_delete(ship_owner,index,1);
@@ -44,10 +48,6 @@ function scr_kill_ship(index){
 		array_delete(ship_carrying,index,1);
 		array_delete(ship_contents,index,1);
 		array_delete(ship_turrets,index,1);
-		if (_ship_fleet!=""){
-			delete_ship_from_fleet(index,fleet);
-			_available_ships = fleet_full_ship_array(fleet);
-		}
 
 		_units_on_ship = array_shuffle(_units_on_ship);
 		for (var i=0;i<array_length(_available_ships);i++){
