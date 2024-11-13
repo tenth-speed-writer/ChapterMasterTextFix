@@ -22,7 +22,7 @@ function scr_dead_marines(run) {
 			for (i=1;i<comp_length;i++){
 				if (obj_ini.name[company][i]!=""){
 		            unit = fetch_unit([company, i]);
-		            if (unit.ship_location>0){
+		            if (unit.ship_location>-1){
 						if ((ship_lost[unit.ship_location]>0) or (obj_ini.ship_hp[unit.ship_location]<=0)){
 				            fallen+=1;
 				            clean = false;

@@ -151,12 +151,9 @@ repeat(110){i+=1;
     ship_conditions[i]="";ship_speed[i]=20;ship_turning[i]=0;
     ship_front_armour[i]=0;ship_other_armour[i]=0;ship_weapons[i]=0;ship_shields=0;
     
-    ship_wep[i,1]="";ship_wep_facing[i,1]="";ship_wep_condition[i,1]="";
-    ship_wep[i,2]="";ship_wep_facing[i,2]="";ship_wep_condition[i,2]="";
-    ship_wep[i,3]="";ship_wep_facing[i,3]="";ship_wep_condition[i,3]="";
-    ship_wep[i,4]="";ship_wep_facing[i,4]="";ship_wep_condition[i,4]="";
-    ship_wep[i,5]="";ship_wep_facing[i,5]="";ship_wep_condition[i,5]="";
-    
+    ship_wep = array_create(6, "");
+    ship_wep_facing=array_create(6, "");
+    ship_wep_condition=array_create(6, "");    
     
     ship_capacity[i]=0;ship_carrying[i]=0;ship_contents[i]="";ship_turrets[i]=0;
     

@@ -671,25 +671,12 @@ function scr_initialize_custom() {
 
 	var i = -1;
 	v = 0;
-	/*repeat(110){i+=1;
-	    ship[i]="";ship_owner[i]=0;ship_class[i]="";ship_size[i]=0;
-	    ship_leadership[i]=0;ship_hp[i]=0;ship_maxhp[i]=0;ship_location[i]="";ship_shields[i]=0;
-	    ship_conditions[i]="";ship_speed[i]=0;ship_turning[i]=0;
-	    ship_front_armour[i]=0;ship_other_armour[i]=0;ship_weapons[i]=0;ship_shields[i]=0;
-	    ship_wep[i,0]="";ship_wep_facing[i,0]="";ship_wep_condition[i,0]="";
-	    ship_wep[i,1]="";ship_wep_facing[i,1]="";ship_wep_condition[i,1]="";
-	    ship_wep[i,2]="";ship_wep_facing[i,2]="";ship_wep_condition[i,2]="";
-	    ship_wep[i,3]="";ship_wep_facing[i,3]="";ship_wep_condition[i,3]="";
-	    ship_wep[i,4]="";ship_wep_facing[i,4]="";ship_wep_condition[i,4]="";
-	    ship_wep[i,5]="";ship_wep_facing[i,5]="";ship_wep_condition[i,5]="";
-	    ship_capacity[i]=0;ship_carrying[i]=0;ship_contents[i]="";ship_turrets[i]=0;
-	}*/
+
 
 	if (battle_barges>=1){
-	 	for (v=1;v<=battle_barges;v++){
-	 		var new_ship = new_player_ship("Battle Barge", "home")
-		    if (flagship_name!="") and (v=1) then ship[new_ship]=flagship_name;
-		    if (flagship_name="") or (v>1) then ship[new_ship]=global.name_generator.generate_imperial_ship_name();
+	 	for (v=0;v<battle_barges;v++){
+	 		var new_ship = new_player_ship("Battle Barge", "home");
+		    if (flagship_name!="") and (v=0) then ship[new_ship]=flagship_name;
 		}
 	}
 
@@ -704,15 +691,6 @@ function scr_initialize_custom() {
 
 	for(i=0;i<hunters;i++){
 		new_player_ship("Hunter");
-	}
-
-	var j = 0,
-		f = 0;
-	var total_ship_count = battle_barges + strike_cruisers + gladius + hunters;
-	for (f = 1; f <= total_ship_count; f++) {
-		for (j = 1; j <= 30; j++) {
-			if (ship_uid[f] = ship_uid[j]) and(f != j) then ship_uid[j] = floor(random(99999999)) + 1;
-		}
 	}
 
 

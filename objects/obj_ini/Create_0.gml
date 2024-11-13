@@ -47,38 +47,38 @@ repeat(200){i+=1;
 }
 
 var i=-1;
-repeat(210){i+=1;
-    ship[i]="";
-    ship_uid[i]=0;
-    ship_owner[i]=0;
-    ship_class[i]="";
-    ship_size[i]=0;
-    ship_uid[i]=0;
-    ship_leadership[i]=0;
-    ship_hp[i]=0;
-    ship_maxhp[i]=0;
-    ship_location[i]="";
-    ship_shields[i]=0;
-    ship_conditions[i]="";
-    ship_speed[i]=0;
-    ship_turning[i]=0;
-    ship_front_armour[i]=0;
-    ship_other_armour[i]=0;
-    ship_weapons[i]=0;
-    ship_shields[i]=0;
-    for (var s=0;s<6;s++){
-         ship_wep[i,s]="";
-         ship_wep_facing[i,s]="";
-         ship_wep_condition[i,s]="";
-    }
-    ship_capacity[i]=0;
-    ship_carrying[i]=0;
-    ship_contents[i]="";
-    ship_turrets[i]=0;
-}
 
-var company,v;
-company=-1;
+ship=[];
+ship_uid=[];
+ship_owner=[];
+ship_class=[];
+ship_size=[];
+ship_leadership=[];
+ship_hp=[];
+ship_maxhp=[];
+
+ship_location=[];
+ship_shields=[];
+ship_conditions=[];
+ship_speed=[];
+ship_turning=[];
+
+ship_front_armour=[];
+ship_other_armour=[];
+ship_weapons=[];
+
+ship_wep = array_create(6, "");
+ship_wep_facing=array_create(6, "");
+ship_wep_condition=array_create(6, "");
+
+ship_capacity=[];
+ship_carrying=[];
+ship_contents=[];
+ship_turrets=[];
+
+
+var v;
+var company=-1;
 repeat(11){
     company+=1;v=-1;// show_message("v company: "+string(company));
     repeat(205){v+=1;// show_message(string(company)+"."+string(v));
