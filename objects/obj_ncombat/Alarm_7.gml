@@ -496,11 +496,7 @@ try {
             pop.text="A handful of loyalist "+string(global.chapter_name)+" make a fighting retreat to the engine of the vessel, '"+string(obj_ini.ship[battle_id])+"', and then overload the main reactor.  Your ship explodes in a brilliant cloud of fire.";
             scr_event_log("red","A handful of loyalist "+string(global.chapter_name)+" overload the main reactor of your vessel '"+string(obj_ini.ship[battle_id])+"'.");
             pop.mission="loyalist_destroy_ship";
-            
-            with(obj_fleet){
-                repeat(2){scr_dead_marines(2);
-                }
-            }
+
             with(obj_ini){scr_ini_ship_cleanup();}
         }
     }
@@ -594,7 +590,6 @@ try {
             pop.text="The daemon has slayed all of your marines onboard.  It works its way to the engine of the vessel, '"+string(obj_ini.ship[battle_id])+"', and then tears into the main reactor.  Your ship explodes in a brilliant cloud of fire.";
             scr_event_log("red","A daemon unbound from an Artifact wreaks havoc upon and destroys your vessel '"+string(obj_ini.ship[battle_id])+"'.");
             
-            with(obj_fleet){repeat(2){scr_dead_marines(2);}}
             with(obj_ini){scr_ini_ship_cleanup();}
         }
     }

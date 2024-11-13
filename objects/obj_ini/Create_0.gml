@@ -68,7 +68,7 @@ repeat(11){
         veh_hp[company,v]=100;
         veh_chaos[company,v]=0;
         veh_pilots[company,v]=0;
-        veh_lid[company,v]=0;
+        veh_lid[company,v]=-1;
         veh_wid[company,v]=2;
         veh_uid[company,v]=0;
     }

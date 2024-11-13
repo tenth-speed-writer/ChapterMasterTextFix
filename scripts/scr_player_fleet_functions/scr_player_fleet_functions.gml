@@ -62,7 +62,7 @@ function split_selected_into_new_fleet(start_fleet="none"){
         // Pass over ships to the new fleet, if they are selected
         var cap_number = array_length(capital);
 
-        for (var i=0; i<cap_number;i++){
+        for (i=0; i<cap_number;i++){
             if (capital[i]!="") and (capital_sel[i]){
             	move_ship_between_player_fleets(self, new_fleet,"capital", i);
             	i--;
@@ -70,7 +70,7 @@ function split_selected_into_new_fleet(start_fleet="none"){
             }
         }
         var frig_number = array_length(frigate);
-        for (var i=0; i<frig_number;i++){
+        for (i=0; i<frig_number;i++){
             if (frigate[i]!="") and (frigate_sel[i]){
             	move_ship_between_player_fleets(self, new_fleet,"frigate", i);
             	i--;
@@ -78,7 +78,7 @@ function split_selected_into_new_fleet(start_fleet="none"){
             }
         }
         var esc_number = array_length(escort);
-        for (var i=0; i<esc_number;i++){
+        for (i=0; i<esc_number;i++){
             if (escort[i]!="") and (escort_sel[i]){
             	move_ship_between_player_fleets(self, new_fleet,"escort", i)
             	i--;
@@ -192,13 +192,12 @@ function delete_ship_from_fleet(index, fleet){
 		array_delete(fleet.capital_sel, _delete_index, 1);
 
 		fleet.capital_number--;
-
 	} else if (class=="frigate"){
 		var _delete_index = array_get_index(frigate_num, index);
 		array_delete(fleet.frigate, _delete_index, 1);
 		array_delete(fleet.frigate_num, _delete_index, 1);
 		array_delete(fleet.frigate_uid, _delete_index, 1);
-		array_delete(fleet.frigate_sel, _delete_index, 1;
+		array_delete(fleet.frigate_sel, _delete_index, 1);
 		fleet.frigate_number--;
 	}else if (class=="escort"){
 		var _delete_index = array_get_index(escort_num, index);
@@ -350,19 +349,19 @@ function player_fleet_ship_count(fleet="none"){
 		frigate_number = 0;
 		escort_number = 0;
 
-		for (var i=0; i<array_length(capital);i++){
+		for (i=0; i<array_length(capital);i++){
 			if (capital[i]!=""){
 				ship_count++;
 				capital_number++;
 			}
 		}
-		for (var i=0; i<array_length(frigate);i++){
+		for (i=0; i<array_length(frigate);i++){
 			if (frigate[i]!=""){
 				ship_count++;
 				frigate_number++;
 			}
 		}
-		for (var i=0; i<array_length(escort);i++){
+		for (i=0; i<array_length(escort);i++){
 			if (escort[i]!=""){
 				ship_count++;
 				escort_number++;
@@ -379,13 +378,13 @@ function player_fleet_ship_count(fleet="none"){
 function player_fleet_selected_count(fleet="none"){
 	var ship_count = 0;
 	if (fleet=="none"){
-		for (var i=0; i<array_length(capital);i++){
+		for (i=0; i<array_length(capital);i++){
 			if(capital[i]!="" && capital_sel[i]) then ship_count++;
 		}
-		for (var i=0; i<array_length(frigate);i++){
+		for (i=0; i<array_length(frigate);i++){
 			if(frigate[i]!="" && frigate_sel[i]) then ship_count++;
 		}
-		for (var i=0; i<array_length(escort);i++){
+		for (i=0; i<array_length(escort);i++){
 			if(escort[i]!="" && escort_sel[i]) then ship_count++;
 		}
 	} else {

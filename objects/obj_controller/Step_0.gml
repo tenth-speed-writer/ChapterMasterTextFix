@@ -446,7 +446,7 @@ if (unload>0){
             var unit_id = display_unit[q][1];
             var company = display_unit[q][0]
             obj_ini.veh_loc[company][unit_id]=obj_ini.ship_location[b];
-            obj_ini.veh_lid[company][unit_id]=0;
+            obj_ini.veh_lid[company][unit_id]=-1;
             obj_ini.veh_wid[company][unit_id]=unload;
             obj_ini.veh_uid[company][unit_id]=0;
             
