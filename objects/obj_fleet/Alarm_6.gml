@@ -141,8 +141,9 @@ repeat(100){i+=1;
 
 
 i=0;
-repeat(100){i+=1;
-    if (fighting[i]=1) and (obj_ini.ship[i]!="") and (obj_ini.ship_hp[i]>0){onceh=0;
+for (var i=0; i<array_length(obj_ini.ship);i++){
+    if (fighting[i]=1) and (obj_ini.ship[i]!="") and (obj_ini.ship_hp[i]>0){
+        onceh=0;
         if (obj_ini.ship_size[i]=3) then capital+=1;
         if (obj_ini.ship_size[i]=2) then frigate+=1;
         if (obj_ini.ship_size[i]=1) then escort+=1;
@@ -161,7 +162,6 @@ repeat(100){i+=1;
         ship_other_armour[i]=obj_ini.ship_other_armour[i];
         ship_weapons[i]=obj_ini.ship_weapons[i];
         
-        var t=0;
         ship_wep[i] = obj_ini.ship_wep[i];
         ship_wep_facing[i] = obj_ini.ship_wep_facing[i];
         ship_wep_condition[i] = obj_ini.ship_wep_condition[i];

@@ -13,7 +13,7 @@ if (number=1){
     
     
     
-    repeat(100){// This determines the number of ships in each column
+    for (var k = 0;k<array_length(obj_fleet.ship_size);k++){// This determines the number of ships in each column
         k+=1;
         
         
