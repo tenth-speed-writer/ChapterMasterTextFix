@@ -64,7 +64,7 @@ function UnitQuickFindPanel() constructor{
 		    				array_push(garrison_log[$ unit_location].units, unit);
 		    				garrison_log[$ unit_location].vehicles++;
 		    			}
-		    		} else if (obj_ini.veh_lid[co][u]>0){
+		    		} else if (obj_ini.veh_lid[co][u]>-1){
 		    			obj_ini.ship_carrying[obj_ini.veh_lid[co][u]]+=scr_unit_size("",obj_ini.veh_role[co][u],true);
 		    		}
 		    	}

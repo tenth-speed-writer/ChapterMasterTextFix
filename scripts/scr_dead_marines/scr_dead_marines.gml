@@ -40,7 +40,7 @@ function scr_dead_marines(run) {
 		        }
 
 		        if (i<120){
-		            if (obj_ini.veh_role[company,i]!="") and ((ship_lost[obj_ini.veh_lid[company,i]]>0) or (obj_ini.ship_hp[obj_ini.veh_lid[company,i]]<=0)) and (obj_ini.veh_lid[company,i]>0){
+		            if (obj_ini.veh_role[company,i]!="") and ((ship_lost[obj_ini.veh_lid[company,i]]>0) or (obj_ini.ship_hp[obj_ini.veh_lid[company,i]]<=0)) and (obj_ini.veh_lid[company,i]>-1){
 		            	destroy_vehicle(company,i);
 		            }
 		        }
