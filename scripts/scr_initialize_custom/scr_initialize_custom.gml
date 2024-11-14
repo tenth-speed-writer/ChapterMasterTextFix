@@ -624,7 +624,6 @@ function scr_initialize_custom() {
 	man_size = 0;
 	psy_powers = obj_creation.discipline;
 
-
 	progenitor_disposition = obj_creation.disposition[1];
 	astartes_disposition = obj_creation.disposition[6];
 	imperium_disposition = obj_creation.disposition[2];
@@ -3203,7 +3202,7 @@ function scr_initialize_custom() {
 		scr_add_item("Power Weapon", 12);
 		scr_add_item("Rosarius", 4);
 	}
-	if (scr_has_disadv("Sieged") == false) {
+	if (!scr_has_disadv("Sieged")) {
 		scr_add_item("Dreadnought", 6);
 		scr_add_item("Close Combat Weapon", 6);
 	}
@@ -3217,13 +3216,13 @@ function scr_initialize_custom() {
 	// if (string_count("Crafter",strin)>0) and (string_count("Enthusi",strin)>0) then equipment_number[1]=20;
 	// if (string_count("Crafter",strin)>0) and (string_count("Enthusi",strin)=0) then equipment_number[2]=20;
 
-	if (string_count("Crafter", strin) > 0) and(string_count("Enthusi", strin) > 0) {
+	if (scr_has_adv("Crafters")) && (scr_has_adv("Melee Enthusiasts")) {
 		eqi += 1;
 		equipment[eqi] = "MK3 Iron Armour";
 		equipment_number[eqi] = round(random_range(2, 12));
 		equipment_type[eqi] = "armour";
 	}
-	if (string_count("Crafter", strin) > 0) and(string_count("Enthusi", strin) = 0) {
+	if (scr_has_adv("Crafters")) && (!scr_has_adv("Melee Enthusiasts")) {
 		eqi += 1;
 		equipment[eqi] = "MK4 Maximus";
 		equipment_number[eqi] = round(random_range(3, 18));

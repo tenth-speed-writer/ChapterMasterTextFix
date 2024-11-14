@@ -270,7 +270,7 @@ function scr_ui_advisors() {
 
         // draw_set_alpha(1);if (obj_controller.gene_seed<=0) or (obj_ini.zygote=1) then draw_set_alpha(0.5);
 
-        if (menu = 12.1) or(fest_sid + fest_wid > 0) then draw_set_alpha(0.25);
+/*         if (menu = 12.1) or(fest_sid + fest_wid > 0) then draw_set_alpha(0.25);
         draw_set_color(c_gray);
         draw_rectangle(xx + 560, yy + 780, xx + 682, yy + 805, 0);
         draw_set_alpha(1);
@@ -306,10 +306,8 @@ function scr_ui_advisors() {
                 fest_star = "";
                 fest_sid = 0;
                 fest_wid = 0;
-                fest_planet = 0;
 
-                if (obj_ini.fleet_type != home_world) then fest_planet = -1;
-                if (obj_ini.fleet_type = ePlayerBase.home_world) then fest_planet = 1;
+                fest_planet = (obj_ini.fleet_type == ePlayerBase.home_world) ? 1 : -1;
 
                 fest_lav = 0;
                 fest_locals = 0;
@@ -320,7 +318,7 @@ function scr_ui_advisors() {
                 fest_repeats = 1;
 
             }
-        }
+        } */
         draw_set_alpha(1);
         draw_set_font(fnt_40k_14);
 
