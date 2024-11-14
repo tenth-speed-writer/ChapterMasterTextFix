@@ -1,9 +1,29 @@
 name: Nightly-Windows-YYC
 on: 
-  # push: #Uncomment this line to run the workflow on push
-  workflow_dispatch: #This line allows you to run the workflow manually from the GitHub Actions page
-  # workflow_call: #This line allows you to run the workflow from another workflow
+  workflow_dispatch:
+  push:
+    branches:
+      - compile/main
 jobs:
+  build_needed:
+    name: Build Needed?
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Get the commit message of the merge
+        id: commit-check
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          echo "Merge commit message: $COMMIT_MESSAGE"
+          
+          EXCLUDE_PATTERN="^(docs|chore|style|test-only)"
+          
+          if echo "$COMMIT_MESSAGE" | grep -Eq "$EXCLUDE_PATTERN"; then
+            echo "Commit message matches excluded pattern, skipping workflow."
+            exit 0
+          fi
   gamemaker_build:
     name: Build
     uses: ./.github/workflows/gamemaker_build.yml
