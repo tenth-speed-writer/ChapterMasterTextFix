@@ -8,30 +8,41 @@ jobs:
   build_needed:
     name: Build Needed?
     runs-on: ubuntu-latest
+    outputs:
+      needed: ${{ steps.commit_check.outputs.needed }}  # Output for skipping
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
-      - name: Get the commit message of the merge
-        id: commit-check
+      - name: Check Commmit
+        id: commit_check
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           echo "Merge commit message: $COMMIT_MESSAGE"
           
           EXCLUDE_PATTERN="^(docs|chore|style|test-only)"
           
-          if echo "$COMMIT_MESSAGE" | grep -Eq "$EXCLUDE_PATTERN"; then
-            echo "Commit message matches excluded pattern, skipping workflow."
-            exit 0
-          fi
+          for PREFIX in "${EXCLUDE_PREFIXES[@]}"; do
+            if [[ "$COMMIT_MESSAGE" == $PREFIX* ]]; then
+              echo "Commit message starts with '$PREFIX', build skipped."
+              echo "::set-output name=needed::false"
+              exit 0
+            fi
+          done
+          echo "::set-output name=needed::true"
+
   gamemaker_build:
     name: Build
     uses: ./.github/workflows/gamemaker_build.yml
     secrets: inherit
+    needs: build_needed
+    if: needs.build_needed.outputs.needed == 'true'
+
   release:
     name: Release
     runs-on: windows-2022
     needs: gamemaker_build
+    if: needs.build_needed.outputs.needed == 'true'
     steps:
       - uses: actions/checkout@v4
         with:
