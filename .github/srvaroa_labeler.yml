@@ -21,6 +21,6 @@ labels:
 - label: "PR: Performance"
   body: "(perf|performance)"
 
-- label: "PR: Major Feat!"
+- label: "PR: Major Coding"
   size:
     above: 800
