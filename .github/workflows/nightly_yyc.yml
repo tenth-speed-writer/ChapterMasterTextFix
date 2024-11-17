@@ -21,7 +21,7 @@ jobs:
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           echo "Merge commit message: $COMMIT_MESSAGE"
           
-          EXCLUDE_PATTERN="^(docs|chore|style)"
+          EXCLUDE_PATTERN="^(docs|chore|style|ci)"
           
           if echo "$COMMIT_MESSAGE" | grep -Eq "$EXCLUDE_PATTERN"; then
             echo "Commit message matches excluded pattern, skipping build."
