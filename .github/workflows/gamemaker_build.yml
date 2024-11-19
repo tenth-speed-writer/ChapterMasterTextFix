@@ -48,9 +48,9 @@ jobs:
           }
 
           if ("${{ inputs.development }}" -eq "true") {
-            echo "suffix=$Version-$BuildDate" >> $GITHUB_OUTPUT
+            echo "suffix=${Version}-${BuildDate}" >> $GITHUB_OUTPUT
           } else {
-            echo "suffix=$Version" >> $GITHUB_OUTPUT
+            echo "suffix=${Version}" >> $GITHUB_OUTPUT
           }
   
           # Create the version.json content
