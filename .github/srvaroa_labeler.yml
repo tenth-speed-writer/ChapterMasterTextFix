@@ -4,42 +4,42 @@ labels:
 - label: "PR: Breaking!"
   title: "!"
 - label: "PR: Breaking!"
-  body: "\[breaking\]"
+  body: "(?i)\[breaking\]"
 
 - label: "PR: Chore"
   title: "^chore"
 - label: "PR: Chore"
-  body: "\[chore\]"
+  body: "(?i)\[chore\]"
 
 - label: "PR: Docs"
   title: "^docs"
 - label: "PR: Docs"
-  body: "(\[docs\]|\[doc\])"
+  body: "(?i)(\[docs\]|\[doc\])"
 
 - label: "PR: Code Style"
   title: "^style"
 - label: "PR: Code Style"
-  body: "\[style\]"
+  body: "(?i)\[style\]"
 
 - label: "PR: Feature"
   title: "^feat"
 - label: "PR: Feature"
-  body: "(\[feature\]|\[feat\])"
+  body: "(?i)(\[feature\]|\[feat\])"
 
 - label: "PR: Fix"
   title: "^fix"
 - label: "PR: Fix"
-  body: "\[fix\]"
+  body: "(?i)\[fix\]"
 
 - label: "PR: Refactor"
   title: "^refactor"
 - label: "PR: Refactor"
-  body: "(\[refactor\]|\[ref\])"
+  body: "(?i)(\[refactor\]|\[ref\])"
 
 - label: "PR: Performance"
   title: "^perf"
 - label: "PR: Performance"
-  body: "(\[performance\]|\[perf\])"
+  body: "(?i)(\[performance\]|\[perf\])"
 
 - label: "PR: Major Coding"
   size:
