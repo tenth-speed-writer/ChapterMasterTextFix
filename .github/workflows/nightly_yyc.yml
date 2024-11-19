@@ -66,7 +66,7 @@ jobs:
         name: Delete the existing nightly tag and release
         if: steps.check_nightly.outputs.release_exists
         run: |
-          gh release delete nightly -y --cleanup-tag
+          gh release delete nightly/${{ github.ref_name }} -y --cleanup-tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Download built file artifact
