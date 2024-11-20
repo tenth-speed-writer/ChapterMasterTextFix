@@ -16,7 +16,6 @@ changelog:
         - "PR: Feature"
         - "PR: Enhancement"
         - "PR: Balance"
-        - "PR: Text"
         - "PR: Misc Change"
     - title: Fixes
       labels:
