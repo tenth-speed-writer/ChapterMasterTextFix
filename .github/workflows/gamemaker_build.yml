@@ -50,9 +50,10 @@ jobs:
           if ("${{ inputs.development }}" -eq "true") {
             $suffix = "$Version-$BuildDate"
           } else {
-            $suffix = "$Version"
+            $suffix = $Version
           }
-          echo "suffix=$suffix" >> $GITHUB_OUTPUT
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "suffix=$suffix"
+          Write-Output "Suffix: $suffix"
   
           # Create the version.json content
           $VersionJson = @{
@@ -63,16 +64,11 @@ jobs:
       
           # Write the version.json to disk
           Set-Content -Path datafiles/main/version.json -Value $VersionJson
-          
-          # Set outputs for version, build date, and commit hash
-          # echo "version=$Version" >> $GITHUB_OUTPUT
-          # echo "build_date=$BuildDate" >> $GITHUB_OUTPUT
-          # echo "commit_hash=$CommitHash" >> $GITHUB_OUTPUT
 
       - name: Check suffix
         shell: pwsh
         run: |
-          echo "Suffix is: ${{ outputs.suffix }}"
+          echo "Suffix is: ${{ steps.version_info.outputs.suffix }}"
 
       # This step finds the yyp file in the repository and saves the path to an output
       - id: find_yyp
