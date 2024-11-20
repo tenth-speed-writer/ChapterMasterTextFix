@@ -52,7 +52,7 @@ jobs:
       - name: Check if a nightly release exists
         id: check_nightly
         run: |
-          gh release view nightly --repo ${{ github.repository }}
+          gh release view nightly/${{ github.ref_name }} --repo ${{ github.repository }}
           if [ $? -eq 0 ] ; then
             echo "release_exists=true" >> $GITHUB_OUTPUT;
           else
