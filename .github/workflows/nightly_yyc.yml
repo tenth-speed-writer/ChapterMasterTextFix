@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       needed: ${{ steps.commit_check.outputs.needed }}  # Output for skipping
+    if: ${{ github.event_name != 'workflow_dispatch' }}  # Skip this job if manually triggered
     steps:
       - uses: actions/checkout@v4
         with:
