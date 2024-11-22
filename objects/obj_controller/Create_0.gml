@@ -542,7 +542,7 @@ progenitor_visuals=0;
 
 // ** Default menu items **
 selecting_planet=0;
-selecting_ship=0;
+selecting_ship=-1;
 fleet_minimized=0;
 fleet_all=1;
 tolerant=0;
@@ -679,7 +679,7 @@ for(var i=0; i<501; i++){
     man[i]="";
     ide[i]=0;
     man_sel[i]=0;
-    ma_lid[i]=0;
+    ma_lid[i]=-1;
     ma_wid[i]=0;
     ma_promote[i]=0;
     ma_race[i]=0;
