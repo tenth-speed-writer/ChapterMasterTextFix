@@ -1593,42 +1593,9 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return (obj_ini.god[company,marine_number]>=10);
 	}
 
-	static forge_point_generation = function(turn_end=false){
-		var trained_person = IsSpecialist("forge");
-		var crafter = has_trait("crafter");
-		if (!(trained_person || crafter)) then return 0;
-		var reasons = {}
-		var points = 0;
-		if (trained_person){
-			var points = round(technology / 10);
-			reasons.trained = points;
-		}
-		if (job!="none"){
-			if (job.type == "forge"){
-				
-				if (crafter){
-					points*=3;
-					reasons.at_forge = "x3 (Crafter)";
-				} else {
-					points*=2;
-					reasons.at_forge = "x2";
-				}
-				points+=3;
-				if (turn_end){
-					add_exp(0.25);
-				}
-			}
-		}
-		if (crafter){
-			points+=3;
-			reasons.crafter = 3;
-		}
-		if (role()=="Forge Master"){
-			points+=5;
-			reasons.master = 5;
-		}
-		return [points,reasons];
-	}
+	static forge_point_generation = unit_forge_point_generation;
+
+	static apothecary_point_generation = unit_apothecary_points_gen;
 
 	static marine_assembling = scr_marine_game_spawn_constructions;
 
@@ -1783,6 +1750,19 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			};
 		return equip_data;
 	}
+	static equipment_maintenance_burden = function(){
+		var burden = 0.0;
+		burden+=get_armour_data("maintenance");
+		burden+=get_gear_data("maintenance");
+		burden+=get_mobility_data("maintenance");
+		burden+=get_weapon_one_data("maintenance");
+		burden+=get_weapon_two_data("maintenance");
+		if (has_trait("tinkerer")){
+			burden *= 0.33;
+		}
+		return burden;
+	}
+
 	static equipped_artifacts=function(){
 		artis = [
 			weapon_one(true),
