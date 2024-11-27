@@ -14,7 +14,7 @@ labels:
 - label: "PR: Docs"
   title: "^docs"
 - label: "PR: Docs"
-  body: "(?i)(\\[docs\]|\\[doc\\])"
+  body: "(?i)(\\[docs\\]|\\[doc\\])"
 
 - label: "PR: Code Style"
   title: "^style"
