@@ -660,37 +660,52 @@ if (obj_controller.selecting_planet!=0){
             if (planet_feature_bool(target.p_upgrades[obj_controller.selecting_planet], P_features.Secret_Base)) then building.lair=1;
             if (planet_feature_bool(target.p_upgrades[obj_controller.selecting_planet], P_features.Arsenal)) then building.arsenal=1;
             if (planet_feature_bool(target.p_upgrades[obj_controller.selecting_planet], P_features.Gene_Vault)) then building.gene_vault=1;
-            
-            
             obj_controller.temp[104]=string(scr_master_loc());
             obj_controller.menu=60;
             with(obj_star_select){instance_destroy();}
-        }else if (current_button=="Raid"){
-            instance_create(x,y,obj_drop_select);
-            obj_drop_select.p_target=target;
-            obj_drop_select.planet_number = obj_controller.selecting_planet;
-            obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
-            if (instance_nearest(x,y,obj_p_fleet).acted>1) then with(obj_drop_select){instance_destroy();}
+        }else if (current_button=="Raid" && instance_nearest(x,y,obj_p_fleet).acted<=1){
+            instance_create_layer(x, y, layer_get_all()[0], obj_drop_select,{
+                p_target:target,
+                planet_number : obj_controller.selecting_planet,
+                sh_target:instance_nearest(x,y,obj_p_fleet),
+                purge:0,
+            });
+
         }else if (current_button=="Attack"){
-            instance_create(x,y,obj_drop_select);
-            obj_drop_select.p_target=target;
-            obj_drop_select.planet_number = obj_controller.selecting_planet;
-            obj_drop_select.attack=1;
-            if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
-            if (target.present_fleet[1]>0){
-                obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
-                if (instance_nearest(x,y,obj_p_fleet).acted>=2) then with(obj_drop_select){instance_destroy();}
+            var _allow_attack = true;
+            var _targ = !target.present_fleet[1] ? -50 : instance_nearest(x,y,obj_p_fleet);
+            if (instance_exists(_targ)){
+                if (_targ.acted>=2){
+                    _allow_attack = false;
+                }
             }
+            if (_allow_attack){
+                instance_create_layer(x, y, layer_get_all()[0], obj_drop_select,{
+                    p_target:target,
+                    planet_number : obj_controller.selecting_planet,
+                    sh_target:instance_nearest(x,y,obj_p_fleet),
+                    attack :true,
+                    sh_target : _targ,
+                    purge:0,
+                }); 
+            }           
+
         }else if (current_button=="Purge"){
-            instance_create(x,y,obj_drop_select);
-            obj_drop_select.p_target=target;
-            obj_drop_select.purge=1;
-            obj_drop_select.planet_number = obj_controller.selecting_planet;
-            if (target.present_fleet[1]=0) then obj_drop_select.sh_target=-50;
-            if (target.present_fleet[1]>0){
-                obj_drop_select.sh_target=instance_nearest(x,y,obj_p_fleet);
-                if (instance_nearest(x,y,obj_p_fleet).acted>0) then with(obj_drop_select){instance_destroy();}
+            var _allow_attack = true;
+            var _targ = !target.present_fleet[1] ? -50 : instance_nearest(x,y,obj_p_fleet);
+            if (instance_exists(_targ)){
+                if (_targ.acted>=2){
+                    _allow_attack = false;
+                }
             }
+            if (_allow_attack){           
+                instance_create_layer(x, y, layer_get_all()[0], obj_drop_select,{
+                    p_target:target,
+                    purge:1,
+                    planet_number : obj_controller.selecting_planet,
+                });
+            }
+
         }else if (current_button=="Bombard"){
             instance_create(x,y,obj_bomb_select);
             if (instance_exists(obj_bomb_select)){
@@ -770,7 +785,7 @@ if (target!=0){
 if (debug){
     var current_planet;
     
-    if (!scr_hit([36,174,337,455]) && scr_click_left()){
+    if (!scr_hit([36,174,337,455]) && scr_click_left()) {
         debug=0;
         exit;
     }

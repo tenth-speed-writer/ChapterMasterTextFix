@@ -1,6 +1,5 @@
 // Resets vars and also checks if target can be bombarded
 ship_names="";
-sh_target=0;
 p_target=0;
 max_ships=0;
 ships_selected=0;
@@ -20,7 +19,7 @@ for(var i=0; i<31; i++){
     ship_all[i]=0;
     ship_use[i]=0;
     ship_max[i]=0;
-    ship_ide[i]=0;
+    ship_ide[i]=-1;
 }
 
 menu=0;
