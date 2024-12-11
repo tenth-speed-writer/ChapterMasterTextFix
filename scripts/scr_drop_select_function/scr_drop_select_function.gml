@@ -118,18 +118,13 @@ function drop_select_draw(){
 
         var _select_all_button = roster.select_all_ships;
 
-        _select_all_button.x1 = 700;
-        _select_all_button.y1 = 299;
-        _select_all_button.active = !_all_active;
-        _select_all_button.update();
-        _select_all_button.draw();
-        if (_select_all_button.clicked()) {
+        if (_select_all_button.draw()){
             for (var e=0;e<array_length(roster.ships);e++) {
                 var _ship_button = roster.ships[e];
-                _ship_button.active = true;
+                _ship_button.active = !_ship_button.active;
             }        
             roster.update_roster();
-        }        
+        } 
         draw_set_font(fnt_40k_14);
         draw_set_color(c_gray);
         draw_set_alpha(1);
