@@ -24,7 +24,8 @@ function destroy_all_gene_slaves(recover_gene=true){
 function add_new_gene_slave(){
     if (gene_seed>0) and (obj_ini.zygote==0) {
         var _added = false;
-        if (array_length(obj_ini.gene_slaves)){            var _last_set = obj_ini.gene_slaves[_slave_length-1];
+        if (array_length(obj_ini.gene_slaves)){
+            var _last_set = obj_ini.gene_slaves[array_length(obj_ini.gene_slaves)-1];
             if (_last_set.turn == obj_controller.turn){
                 _last_set.num++;
                 obj_controller.gene_seed--;
