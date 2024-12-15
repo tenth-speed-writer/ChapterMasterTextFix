@@ -30,6 +30,7 @@ jobs:
         with:
           name: ChapterMaster ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
+          target_commitish: ${{ github.ref_name }}
           prerelease: false
           generate_release_notes: true
           make_latest: true
