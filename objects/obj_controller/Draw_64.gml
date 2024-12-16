@@ -43,7 +43,7 @@ if (!zoomed && !zui){
     
     
     if (y_slide>0) then draw_set_alpha((100-(y_slide*2))/100);
-    
+
     draw_set_alpha(1);
     draw_sprite(spr_new_banner,0,1439+new_banner_x,62);
     draw_sprite(spr_new_ui_cover,0,0,(900-17));
