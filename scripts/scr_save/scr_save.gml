@@ -4,7 +4,7 @@ function ini_encode_and_json(ini_area, ini_code,value){
 	return ini_write_string(ini_area,ini_code,base64_encode(json_stringify(value)));
 }
 function scr_save(save_part,save_id) {
-
+	try{
 	var num=0,tot=0;
 	num=0;tot=0;
 
@@ -250,11 +250,15 @@ function scr_save(save_part,save_id) {
 	        }
 	    }
 
-		// Save chapter icon
-		ini_write_real("Ini", "global_chapter_icon_sprite", global.chapter_icon_sprite);
-		ini_write_real("Ini", "global_chapter_icon_frame", global.chapter_icon_frame);
-		ini_write_string("Ini", "global_chapter_icon_path", global.chapter_icon_path);
-		ini_write_real("Ini", "global_chapter_icon_filename", global.chapter_icon_filename);
+	    try{
+			// Save chapter icon
+			ini_write_real("Ini", "global_chapter_icon_sprite", global.chapter_icon_sprite);
+			ini_write_real("Ini", "global_chapter_icon_frame", global.chapter_icon_frame);
+			ini_write_string("Ini", "global_chapter_icon_path", global.chapter_icon_path);
+			//ini_write_real("Ini", "global_chapter_icon_filename", global.chapter_icon_filename);
+		} catch(_exception){
+            handle_exception(_exception);
+        }
 
 
 
@@ -678,6 +682,9 @@ function scr_save(save_part,save_id) {
 
 
 	*/
+	} catch(_exception){
+        handle_exception(_exception);
+    }
 
 
 }
