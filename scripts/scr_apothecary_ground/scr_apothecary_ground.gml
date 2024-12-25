@@ -226,6 +226,7 @@ function apothecary_simple(){
 							if (turn_end){
 								obj_ini.veh_hp[_unit[0]][_unit[1]]++;
 							}
+							forge_veh_maintenance.repairs++;
 							_loc_forge_points--;
 							tech_points_used++;
 						}
@@ -271,10 +272,11 @@ function apothecary_simple(){
 			_point_breakdown.forge_points_use = _point_breakdown.forge_points - _loc_forge_points;	
 			if (cur_system!=""){
 				point_breakdown.systems[$ cur_system.name][p] = DeepCloneStruct(_point_breakdown);
-			} else if (p==0){
+			} else if (p==0 && (string_count("ref instance", _cur_loc))){
 				try {
-					if (instance_exists(real(string_replace(_cur_loc, "ref instance ", "")))){
-						var _instance = real(string_replace(_cur_loc, "ref instance ", ""));
+					var _instance_int = real(string_replace(_cur_loc, "ref instance ", ""));
+					if (instance_exists(_instance_int)){
+						var _instance = _instance_int;
 						_instance.point_breakdown = DeepCloneStruct(_point_breakdown);
 					}
 				}catch(_exception) {
