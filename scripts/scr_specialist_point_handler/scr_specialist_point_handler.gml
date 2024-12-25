@@ -360,7 +360,7 @@ function SpecialistPointHandler() constructor{
                 }
             } else if (is_array(forge_queue[i].name)){
                 if (forge_queue[i].name[0]  == "research"){
-                    draw_text(xx+359,yy + item_gap,forge_queue[i].name[1]);
+                    draw_text(xx,yy + item_gap,forge_queue[i].name[1]);
                 }
             }
             draw_text(xx+271,yy + item_gap,string_hash_to_newline(forge_queue[i].forge_points));
