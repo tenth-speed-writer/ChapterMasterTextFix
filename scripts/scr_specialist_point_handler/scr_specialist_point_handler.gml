@@ -60,7 +60,9 @@ function SpecialistPointHandler() constructor{
 
         forge_string = $"Forge Production Rate#";
         forge_master=-1;
-        forge_veh_maintenance={};
+        forge_veh_maintenance={
+            repairs : 0
+        };
         healing_and_point_use();
 
         var _noticed_heresy=false, at_forge=0;
@@ -82,6 +84,7 @@ function SpecialistPointHandler() constructor{
         forge_string += $"Techmarines: +{floor(forge_points)}#";
         forge_points-=tech_points_used;        
         forge_string += $"Vehicle Repairs:#";
+        forge_string += $"   Combat Repairs : {forge_veh_maintenance.repairs}"
         if (struct_exists(forge_veh_maintenance, "land_raider")){
             forge_string += $"   Land Raider Maintenance: -{forge_veh_maintenance.land_raider}#";
             forge_points-=forge_veh_maintenance.land_raider;
@@ -357,7 +360,7 @@ function SpecialistPointHandler() constructor{
                 }
             } else if (is_array(forge_queue[i].name)){
                 if (forge_queue[i].name[0]  == "research"){
-                    draw_text(xx+359,yy + item_gap,forge_queue[i].name[1]);
+                    draw_text(xx,yy + item_gap,forge_queue[i].name[1]);
                 }
             }
             draw_text(xx+271,yy + item_gap,string_hash_to_newline(forge_queue[i].forge_points));
