@@ -468,7 +468,7 @@ function scr_ui_manage() {
 	        draw_text_outline(x1,y1,var_text);
 	        array_push(tooltip_drawing, [tooltip_text, [x1,y1,x2,y2]]); 
 
-	        if (cn.temp[113]!="") then draw_text_outline(x_left, yy+466, string_hash_to_newline($"Experience: {round(cn.temp[113])}"));
+	        if (cn.temp[113]!="") then draw_text_outline(x_left, yy+466, string_hash_to_newline($"Experience: {cn.temp[113]}"));
 
        
         		 
