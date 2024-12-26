@@ -69,7 +69,7 @@ if (load_part==6){
         scr_load(5,global.load);
         // **sets up starting forge_points
         location_viewer = new UnitQuickFindPanel();
-        specialist_point_handler = new SpecialistPointHandler();
+        
         specialist_point_handler.calculate_research_points();
 
         //** sets up marine_by_location view
