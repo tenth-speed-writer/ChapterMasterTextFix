@@ -203,6 +203,7 @@ function scr_add_man(man_role, target_company, spawn_exp, spawn_name, corruption
 		}
 
 		unit.add_exp(spawn_exp);
+		unit.update_role(man_role);
 
 		obj_ini.age[target_company][good] = ((obj_controller.millenium * 1000) + obj_controller.year); // Age here // Note: age for marines is generated later with roll_age(), this is left here as a fallback
 
