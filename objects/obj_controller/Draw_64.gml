@@ -53,7 +53,9 @@ if (!zoomed && !zui){
         sprw = 141,
         sprh = 141;
     
-    draw_sprite_stretched(global.chapter_icon_sprite, global.chapter_icon_frame, sprx, spry, sprw, sprh);
+    if (sprite_exists(global.chapter_icon_sprite)){
+        draw_sprite_stretched(global.chapter_icon_sprite, global.chapter_icon_frame, sprx, spry, sprw, sprh);
+    }
        
     
     draw_set_color(38144);
