@@ -140,6 +140,10 @@ function get_complex_set(set = eARMOUR_SET.MK7){
             armour : spr_tartaros_complex,
             left_arm : spr_tartaros_left_arm,
             right_arm : spr_tartaros_right_arm, 
+            right_leg : spr_tartaros_right_leg,
+            left_leg : spr_tartaros_left_leg,
+            chest_variants : spr_tartaros_chest,
+            gorget : spr_tartaros_gorget,
         });                
     }
 
@@ -1283,7 +1287,11 @@ function scr_draw_unit_image(_background=false){
                             if (struct_exists(complex_set, "right_eye")){
                                 var choice = get_body_data("variant","right_eye")%sprite_get_number(complex_set.right_eye);
                                 draw_sprite(complex_set.right_eye,choice,x_surface_offset,y_surface_offset);
-                            }                                                                                        
+                            }
+                            if (struct_exists(complex_set, "gorget")){
+                                var choice = get_body_data("variant","throat")%sprite_get_number(complex_set.gorget);
+                                draw_sprite(complex_set.gorget,choice,x_surface_offset,y_surface_offset);
+                            }                                                                                                                     
                             if (struct_exists(complex_set, "right_pauldron")){
                                 draw_sprite(complex_set.right_pauldron,company,x_surface_offset,y_surface_offset);
                             }
