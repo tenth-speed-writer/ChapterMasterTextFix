@@ -1713,7 +1713,10 @@ function scr_initialize_custom() {
 			["type_data", {
 				"display_data": $"{roles.tactical} {squad_name}",
 				"formation_options": ["tactical", "assault", "devastator", "scout"],
-			}]
+				"class":["troop"]
+			}],
+			
+			
 		],
 
 		"assault_squad": [
@@ -1986,7 +1989,8 @@ function scr_initialize_custom() {
 				"role": $"{roles.tactical} Bike {roles.sergeant}"
 			}, ],
 			["type_data", {
-				"display_data": $"{roles.tactical} Bike {squad_name}"
+				"display_data": $"{roles.tactical} Bike {squad_name}",
+				"class":["bike"],
 			}]
 		])
 
@@ -2153,6 +2157,10 @@ function scr_initialize_custom() {
 		for (var iter_2 = 0; iter_2 < array_length(s_group); iter_2++) {
 			squad_types[$squad_names[st_iter]][$s_group[iter_2][0]] = s_group[iter_2][1];
 		}
+	}
+	if(scr_has_adv("Ambushers")){
+		var _class_data = squad_types.tactical_squad.type_data.class;
+		array_push(_class_data, "scout")
 	}
 	// show_debug_message("Squad types");
 	// show_debug_message(squad_types);
