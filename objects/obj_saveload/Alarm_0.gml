@@ -62,25 +62,26 @@ if (save_part == 1) {
 	trickle = 10;
 	txt = "Preparing";
 }
+if (load_part==6){
+    txt="Praise to the Machine God";
+    if (global.restart>0) then txt="Praise be to the Emperor";
+    with(obj_controller){
+        scr_load(5,global.load);
+        // **sets up starting forge_points
+        location_viewer = new UnitQuickFindPanel();
+        
+        specialist_point_handler.calculate_research_points();
 
-if (load_part == 6) {
-	txt = "Praise to the Machine God";
-	if (global.restart > 0) {
-		txt = "Praise be to the Emperor";
-	}
-	with (obj_controller) {
-		scr_load(5, global.load);
-		calculate_research_points();
-		location_viewer = new UnitQuickFindPanel();
-		with (obj_controller) {
-			global.star_name_colors[1] = make_color_rgb(body_colour_replace[0], body_colour_replace[1], body_colour_replace[2]);
-		}
-	}
-	trickle = 50;
-
-	if (instance_exists(obj_cuicons)) {
-		obj_cuicons.alarm[1] = 30;
-	}
+        //** sets up marine_by_location view
+        with(obj_controller){
+            global.star_name_colors[1] = make_color_rgb(body_colour_replace[0],body_colour_replace[1],body_colour_replace[2]);
+        }
+    }
+    trickle=50;
+    
+    if (instance_exists(obj_cuicons)){
+        obj_cuicons.alarm[1]=30;
+    }
 }
 
 if (load_part == 5) {

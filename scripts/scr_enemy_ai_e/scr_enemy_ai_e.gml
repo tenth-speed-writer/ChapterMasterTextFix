@@ -20,10 +20,10 @@ function scr_enemy_ai_e() {
     var damage = array_create(20,0);
 
 
-    var i = 0;
-    repeat(13) {
-        i += 1;
-        if (present_fleet[i]) then have_fleets += 1;
+    for (var i = 1; i <= 13; i += 1) {
+        if (present_fleet[i]) {
+            have_fleets += 1;
+        }
     }
 
     if (present_fleet[1] > 0) { // Battle1 is reserved for player battles
@@ -597,18 +597,9 @@ function scr_enemy_ai_e() {
         thirdpop = p_max_population[run] / 3;
         halfpop = p_max_population[run] / 2;
 
-        if (array_length(p_feature[run]) != 0) {
+        if (array_length(p_feature[run])) {
             var planet_data = new PlanetData(run, self);
-            //initiate training logics rest to be found in scr_recruit_data
-            if (planet_feature_bool(p_feature[run], P_features.Recruiting_World)){
-                if (obj_controller.gene_seed == 0) and (obj_controller.recruiting > 0) {
-                    obj_controller.recruiting = 0;
-                    obj_controller.income_recruiting = 0;
-                    scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
-                } else if (obj_controller.recruiting > 0){
-                    planet_data.marine_training();
-                }
-            }
+
             // Transforming billions pop number to a real number so the code can handle it
             // Otherwise, 3 and a half billions get translated as 3,50 instead of 3500000000
 
@@ -743,7 +734,7 @@ function scr_enemy_ai_e() {
         }
     }
 
-    for (i=1;i<=planets;i++){
+    for (var i=1;i<=planets;i++){
         var existing_problem = has_any_problem_planet(i);
         if (!existing_problem){
             if (!irandom(50) && p_owner[i]==eFACTION.Imperium){

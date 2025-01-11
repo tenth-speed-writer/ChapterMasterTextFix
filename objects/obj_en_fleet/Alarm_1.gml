@@ -107,7 +107,7 @@ if (navy && action=="") {
                 
 	                var bombard=0,deaths=0,hurss=0,onceh=0,wob=0,kill=0;
                 
-	                for (var o=1;o<=planets;o++){
+	                for (var o=1;o<=orbiting.planets;o++){
 	                	if (orbiting.p_owner[o]==eFACTION.Player){
 	                		if (orbiting.p_population[o]+orbiting.p_pdf[o]>0) ||  (orbiting.p_player[o]>0){
 	                			bombard=o;
@@ -627,8 +627,8 @@ if (action=="" && _is_orbiting){
             
             var whom=-1;
             whom = inquisitor;
-
-            var inquis_string = $"Inquisitor {obj_controller.inquisitor[whom]}";
+            var inquisitors = obj_controller.inquisitor;
+            var inquis_string = $"Inquisitor {whom>-1 ? inquisitors[whom] : inquisitors[0]}";
             
             // INVESTIGATE DEAD HERE 137 ; INVESTIGATE DEAD HERE 137 ; INVESTIGATE DEAD HERE 137 ; INVESTIGATE DEAD HERE 137 ; 
             var cur_star,t,type,cha,dem,tem1,tem1_base,perc,popup;

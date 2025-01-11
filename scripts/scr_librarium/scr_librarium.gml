@@ -17,15 +17,6 @@ function set_chapter_arti_data(){
 }
 function scr_librarium(){
 	var blurp="";
-	var recruitment_pace = [
-        " is currently halted.",
-        " is advancing sluggishly.",
-        " is advancing slowly.",
-        " is advancing moderately fast.",
-        " is advancing fast.",
-        " is advancing frenetically.",
-        " is advancing as fast as possible."
-    ];
     var xx = __view_get(e__VW.XView, 0) + 0;
 	var yy = __view_get(e__VW.YView, 0) + 0;	
  	draw_sprite(spr_rock_bg, 0, xx, yy);
@@ -70,7 +61,10 @@ function scr_librarium(){
         var tip2 = "";
 
         // Set pace of recruitment based on training psyker value
-        if (training_psyker >= 0 && training_psyker <= 6) then blurp += recruitment_pace[training_psyker];
+        if (training_psyker >= 0 && training_psyker <= 6){
+            var _recruit_pace = ARR_recruitment_pace;
+            blurp += _recruit_pace[training_psyker];
+        }
 
         var artif = "",
             artif_descr = "",
@@ -348,11 +342,15 @@ function scr_librarium(){
                 var good = 0;
                 if (obj_controller.artifacts>0){
                     for (var i = 1; i <= 20; i++) {
-                        if (i <= 9) {
+                        if (i <= 9 && i<array_length(capital_num)) {
                             if (capital_num[i] = obj_ini.artifact_sid[obj_controller.menu_artifact] - 500) then good = 1;
                         }
-                        if (frigate_num[i] = obj_ini.artifact_sid[obj_controller.menu_artifact] - 500) then good = 1;
-                        if (escort_num[i] = obj_ini.artifact_sid[obj_controller.menu_artifact] - 500) then good = 1;
+                        if (i<array_length(frigate_num)){
+                            if (frigate_num[i] = obj_ini.artifact_sid[obj_controller.menu_artifact] - 500) then good = 1;
+                        }
+                        if (i<array_length(escort_num)){
+                            if (escort_num[i] = obj_ini.artifact_sid[obj_controller.menu_artifact] - 500) then good = 1;
+                        }
                     }
                 }
                 if (good = 1) and(capital_number > 0) then good = 2;

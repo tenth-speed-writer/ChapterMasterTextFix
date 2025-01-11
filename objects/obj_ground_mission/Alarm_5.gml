@@ -4,7 +4,7 @@ plan=instance_nearest(x,y,obj_star);
 
 var mission,mission_roll;
 mission="bad";mission_roll=floor(random(100))+1;
-if (string_count("Ambusher",obj_ini.strin)=1) then mission_roll-=15;
+if (scr_has_adv("Ambushers")) then mission_roll-=15;
 if (plan.p_owner[num]=3) then mission_roll+=20;
 if (mission_roll<=60) then mission="good";// 135
 if (plan.p_type[num]="Dead") then mission="good";
@@ -69,7 +69,7 @@ if (mission="bad") and (plan.p_first[num]=3) and (plan.p_type[num]="Forge"){
 }
 
 
-if (scr_has_adv("Scavengers")){
+if (scr_has_adv("Tech-Scavengers")){
     var ex1,ex1_num,ex2,ex2_num,ex3,ex3_num;
     ex1="";ex1_num=0;ex2="";ex2_num=0;ex3="";ex3_num=0;
     

@@ -19,7 +19,7 @@ function press_exclusive(press_choice){
 }
 
 
-function hold_exclusive(press_choice){
+function hold_exclusive(press_choice) {
 	if (keyboard_check(vk_nokey)) then return false;
 	if (!keyboard_check(press_choice)) then return false;
 	var _virtual_keys = ARR_virtual_keys;

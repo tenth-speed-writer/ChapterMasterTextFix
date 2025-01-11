@@ -71,8 +71,7 @@ if (boarding=true) and (board_cooldown>=0) and (instance_exists(target)) and (in
         o=firstest-1;difficulty=50;challenge=0;roll1=0;roll2=0;attack=0;arp=0;wep="";hits=0;hurt=0;damaged_ship=0;
         co=0;i=0;ac=0;dr=1;
         
-        repeat(boarders){
-            o+=1;
+        for (var o=0;o<array_length(origin.board_co);o++){
             if (!instance_exists(target)) then exit;
             
             // show_message(origin);
@@ -93,9 +92,9 @@ if (boarding=true) and (board_cooldown>=0) and (instance_exists(target)) and (in
                 if (array_contains(["Chainfist","Meltagun","Lascutter","Boarding Shield"], unit.weapon_one())) then difficulty+=3;
                 if (array_contains(["Chainfist","Meltagun","Lascutter","Boarding Shield"], unit.weapon_two())) then difficulty+=3;
 
-                if (array_contains(obj_ini.adv, "Boarders")) then  difficulty+=7;
-                if (array_contains(obj_ini.adv, "Melee Enthusiasts")) then  difficulty+=3;
-                if (array_contains(obj_ini.adv, "Lightning Warriors")) then  difficulty+=3;
+                if (scr_has_adv("Boarders")) then  difficulty+=7;
+                if (scr_has_adv("Assault Doctrine")) then  difficulty+=3;
+                if (scr_has_adv("Lightning Warriors")) then  difficulty+=3;
 
                 // Penalties
                 if (unit.weapon_one()=="")then difficulty-=10;

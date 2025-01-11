@@ -15,7 +15,7 @@ var i=0;
 
 var mission,mission_roll;
 mission="bad";mission_roll=floor(random(100))+1;
-if (string_count("Ambusher",obj_ini.strin)=1) then mission_roll-=15;
+if (scr_has_adv("Ambushers")) then mission_roll-=15;
 if (mission_roll<=60) then mission="good";// 135
 if (planet.p_type[num]="Dead") then mission="good";
 // mission="bad";
@@ -58,7 +58,7 @@ if (mission="bad"){
 }
 
 
-if (scr_has_adv("Scavengers")){
+if (scr_has_adv("Tech-Scavengers")){
     var ex1,ex1_num,ex2,ex2_num,ex3,ex3_num;
     ex1="";ex1_num=0;ex2="";ex2_num=0;ex3="";ex3_num=0;
     

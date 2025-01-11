@@ -5,7 +5,7 @@ var part5="",part6="",part7="",part8="",part10="";
 battle_over=1;
 
 alarm[8]=999999;
- var line_break = "------------------------------------------------------------------------------";
+var line_break = "------------------------------------------------------------------------------";
 // show_message("Final Deaths: "+string(final_deaths));
 
 
@@ -18,7 +18,7 @@ var ground_mission = (instance_exists(obj_ground_mission));
 if (final_deaths+final_command_deaths>0){
     part1+=$"Marines Lost: {final_deaths+final_command_deaths}";
     if (units_saved > 0){
-        part1+=$" ({roles[Role.APOTHECARY]}{apothecaries_alive>1?"s":""} prevented the death of {units_saved})";
+        part1+=$" ({roles[eROLE.Apothecary]}{apothecaries_alive>1?"s":""} prevented the death of {units_saved})";
     }
     if (injured>0) then part8=$"Marines Critically Injured: {injured}";
     
@@ -51,20 +51,20 @@ if (ground_mission){
 };
 
 seed_saved=(min(seed_max,apothecaries_alive*40))-gene_penalty;
-if (string_count("Doom",obj_ini.strin2)>0) then seed_saved=0;
+if (obj_ini.doomed) then seed_saved=0;
 if (seed_saved>0) then obj_controller.gene_seed+=seed_saved;
 
-if (string_count("Doom",obj_ini.strin2)>0) &&  (!apothecaries_alive){
+if (obj_ini.doomed && !apothecaries_alive){
     part3=$"Chapter Mutation prevents retrieving Gene-Seed.  {seed_max} Gene-Seed lost.";
     newline=part3;
     scr_newtext();
     newline=" ";
     scr_newtext();
-}else if (!apothecaries_alive) and (string_count("Doom",obj_ini.strin2)=0){
-    part3=$"No able-bodied {roles[Role.APOTHECARY]}.  {seed_max} Gene-Seed lost.";
+}else if (!apothecaries_alive && !obj_ini.doomed){
+    part3=$"No able-bodied {roles[eROLE.Apothecary]}.  {seed_max} Gene-Seed lost.";
     newline=part3;scr_newtext();
     newline=" ";scr_newtext();
-}else if (apothecaries_alive>0) and (final_deaths+final_command_deaths>0) and (string_count("Doom",obj_ini.strin2)=0){
+}else if (apothecaries_alive>0 && final_deaths+final_command_deaths>0 && !obj_ini.doomed){
     part3=$"Gene-Seed Recovered: {seed_saved}(";
     part3 += seed_saved ? $"{round((seed_saved/seed_max)*100)}" : "0";
     part3 += "%)";
@@ -127,11 +127,26 @@ if (post_equipment_lost[1]!=""){
     scr_newtext();
 }
 if (total_battle_exp_gain>0){
+    average_battle_exp_gain = distribute_experience(end_alive_units, total_battle_exp_gain); // Due to cool alarm timer shitshow, I couldn't think of anything but to put it here.
+    newline = $"Each marine gained {average_battle_exp_gain} experience, reduced by their total experience.";
+    scr_newtext();
+
+    var _upgraded_librarians_count = array_length(upgraded_librarians);
+    if (_upgraded_librarians_count > 0) {
+        for (var i = 0; i < _upgraded_librarians_count; i++) {
+            if (i > 0) {
+                newline += ", ";
+            }
+            newline += $"{upgraded_librarians[i].name()}";
+        }
+        newline += " learned new psychic powers after gaining enough experience."
+        scr_newtext();
+    }
+
     newline=" ";
     scr_newtext();
-    newline = $"Marines gained a total of {total_battle_exp_gain} experience";
-    scr_newtext();
 }
+
 if (ground_mission){
 	obj_ground_mission.post_equipment_lost = post_equipment_lost
 	obj_ground_mission.post_equipments_lost = post_equipments_lost
@@ -231,7 +246,7 @@ if (defeat=0) and (battle_special="space_hulk"){
     if (ex=100) then newline_color="red";
     scr_newtext();
 
-    if (string_count("Shitty",obj_ini.strin2)>0) then dicey=dicey*1.5;
+    if (scr_has_disadv("Shitty Luck")) then dicey=dicey*1.5;
     // show_message("Roll Under: "+string(enemy_power*10)+", Roll: "+string(dicey));
 
     if (dicey<=(enemy_power*10)){
@@ -413,9 +428,11 @@ if (defeat=0) and (reduce_power=true){
             part10+=$" were reduced to {new_power} after this battle. Previous power: {
                 enemy_power}. Reduction: {power_reduction}.";
         }
-        newline=part10;scr_newtext();
+        newline=part10;
+        scr_newtext();
         part10 = $"Received {requisition_reward} requisition points as a reward for slaying enemies of the Imperium.";
-        newline=part10;scr_newtext();
+        newline=part10;
+        scr_newtext();
     
         if (new_power<=0) and (enemy_power>0) then battle_object.p_raided[battle_id]=1;
     }
@@ -560,7 +577,7 @@ if (obj_ini.omophagea){
 
     if (red_thirst=3) then thirsty=1;if (red_thirst>3) then thirsty=red_thirst-2;
     if (thirsty>0) then eatme-=(thirsty*6);if (really_thirsty>0) then eatme-=(really_thirsty*15);
-    if (string_count("Shitty",obj_ini.strin2)=1) then eatme-=10;
+    if (scr_has_disadv("Shitty Luck")) then eatme-=10;
 
     if (allies>0){
         obj_controller.disposition[2]-=choose(1,0,0);
@@ -592,7 +609,7 @@ if (obj_ini.omophagea){
 
         // check for pdf/guardsmen
         eatme=floor(random(100))+1;
-        if (array_contains(obj_ini.dis,"Shitty Luck")) then eatme-=10;
+        if (scr_has_disadv("Shitty Luck")) then eatme-=10;
         if (eatme<=10) and (allies>0){
             obj_controller.disposition[2]-=2;
             if (allies=1){
@@ -608,7 +625,7 @@ if (obj_ini.omophagea){
 
         // check for inquisitor
         eatme=floor(random(100))+1;
-        if (array_contains(obj_ini.dis,"Shitty Luck")) then eatme-=5;
+        if (scr_has_disadv("Shitty Luck")) then eatme-=5;
         if (eatme<=40) and (present_inquisitor=1){
             var thatta=0,remove=0,i=0;
             obj_controller.disposition[4]-=10;
@@ -672,7 +689,6 @@ if (obj_ini.omophagea){
                 instance_deactivate_object(obj_turn_end);
 
                 with(inquisitor_ship){instance_destroy();}
-                with(obj_temp3){instance_destroy();}
                 with(obj_ground_mission){instance_destroy();}
             }
             instance_deactivate_object(obj_star);
@@ -759,13 +775,8 @@ if (obj_ini.fleet_type != ePlayerBase.home_world) and (defeat==1) and (dropping=
 	    endline=0;
 
 	    if (obj_controller.und_gene_vaults=0){
-	        obj_controller.gene_seed=0;
-            for (var w=0;w<array_length(obj_ini.slave_batch_num);w++){
-                if (obj_ini.slave_batch_num[w]>0){
-                    obj_ini.slave_batch_num[w]=0;
-                    obj_ini.slave_batch_eta[w]=0;
-                }
-            }
+            //all Gene Pod Incubators and gene seed are lost
+	        destroy_all_gene_slaves(false);
 	    }
 	    if (obj_controller.und_gene_vaults>0) then obj_controller.gene_seed-=floor(obj_controller.gene_seed/10);
 	}
@@ -788,6 +799,8 @@ if (defeat=1){
 	}
 	
 }
+
+gene_slaves = [];
 
 instance_deactivate_object(obj_star);
 instance_deactivate_object(obj_ground_mission);

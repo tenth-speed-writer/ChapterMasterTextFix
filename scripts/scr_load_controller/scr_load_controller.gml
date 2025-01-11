@@ -36,9 +36,7 @@ function scr_load_controller(save_id){
 			debugl("Could not load save game " + save_file_name + ", file does not exist.");
 			game_restart();
 		}
-	    
-		// TODO temporary disabled. Will be reenabled during ironman/autosave feature task
-		//file_decrypt("tsave.ini","p");
+
 	    ini_open("tsave.ini");
 
 	    // Global variables
@@ -208,7 +206,7 @@ function scr_load_controller(save_id){
 	    obj_controller.blood_debt=ini_read_real("Controller","penitent_blood",0);
 
 	    obj_controller.training_apothecary=ini_read_real("Controller","training_apothecary",0);
-	    obj_controller.apothecary_points=ini_read_real("Controller","apothecary_points",0);
+	    obj_controller.apothecary_recruit_points=ini_read_real("Controller","apothecary_recruit_points",0);
 	    obj_controller.apothecary_aspirant=ini_read_real("Controller","apothecary_aspirant",0);
 	    obj_controller.training_chaplain=ini_read_real("Controller","training_chaplain",0);
 	    obj_controller.chaplain_points=ini_read_real("Controller","chaplain_points",0);
@@ -232,9 +230,10 @@ function scr_load_controller(save_id){
 	    if (Production_research!=0){
 	    	obj_controller.production_research = json_parse(base64_decode(Production_research));
 	    }
-	    var Forge_queue=ini_read_string("Controller","forge_queue",0);
-	    if (Forge_queue!=0){
-	    	obj_controller.forge_queue = json_parse(base64_decode(Forge_queue));
+	    specialist_point_handler = new SpecialistPointHandler();
+	    var forge_queue=ini_read_string("Controller","forge_queue",0);
+	    if (forge_queue!=0){
+	    	obj_controller.specialist_point_handler.forge_queue = json_parse(base64_decode(forge_queue));
 	    }
 	    var Stc_research=ini_read_string("Controller","stc_research",0);
 	    if (Stc_research!=0){
@@ -248,7 +247,8 @@ function scr_load_controller(save_id){
 	    if (obj_controller.command_set[23]=0) and (obj_controller.command_set[24]=0) then obj_controller.command_set[24]=1;
 
 
-	    ini_read_real("Controller","blandify",0);
+	    ini_read_real("Controller","modest_livery",0);
+		ini_read_real("Controller","progenitor_visuals",0);
 	    var _recruit_data = return_json_from_ini("Recruit", "data", {
 	    	names:[""],
 	    	corruption :[0],
@@ -380,7 +380,7 @@ function scr_load_controller(save_id){
 		obj_controller.secondary_color = tempa2;
 		obj_ini.secondary_color = tempa2;
 
-		tempa = ini_read_string("Controller", "trim_color", "Error");
+		tempa = ini_read_string("Controller", "main_trim", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -390,10 +390,10 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.trim_color = tempa2;
-		obj_ini.trim_color = tempa2;
+		obj_controller.main_trim = tempa2;
+		obj_ini.main_trim = tempa2;
 
-		tempa = ini_read_string("Controller", "pauldron2_color", "Error");
+		tempa = ini_read_string("Controller", "left_pauldron", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -403,10 +403,10 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.pauldron2_color = tempa2;
-		obj_ini.pauldron2_color = tempa2;
+		obj_controller.left_pauldron = tempa2;
+		obj_ini.left_pauldron = tempa2;
 
-		tempa = ini_read_string("Controller", "pauldron_color", "Error");
+		tempa = ini_read_string("Controller", "right_pauldron", "Error");
 		tempa2 = 0;
 		q = 0;
 		good = 0;
@@ -416,8 +416,8 @@ function scr_load_controller(save_id){
 				tempa2 = q;
 			}
 		}
-		obj_controller.pauldron_color = tempa2;
-		obj_ini.pauldron_color = tempa2;
+		obj_controller.right_pauldron = tempa2;
+		obj_ini.right_pauldron = tempa2;
 
 		tempa = ini_read_string("Controller", "lens_color", "Error");
 		tempa2 = 0;

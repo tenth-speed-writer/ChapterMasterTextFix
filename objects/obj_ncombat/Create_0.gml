@@ -1,6 +1,6 @@
 if (instance_number(obj_ncombat)>1) then  instance_destroy();
 
-set_zoom_to_defualt();
+set_zoom_to_default();
 var co,i;co=-1;
 repeat(15){co+=1;i=-1;
     repeat(401){i+=1;
@@ -21,6 +21,8 @@ if (nope!=1){audio_sound_gain(snd_battle,0.25*obj_controller.master_volume*obj_c
 
 //limit on the size of the players forces allowed
 man_size_limit = 0;
+man_limit_reached = false;
+man_size_count = 0;
 fack=0;
 cd=0;
 owner  = eFACTION.Player;
@@ -32,6 +34,9 @@ on_ship=false;
 alpha_strike=0;
 Warlord = 0;
 total_battle_exp_gain=0;
+end_alive_units = [];
+average_battle_exp_gain=0;
+upgraded_librarians=[];
 
 view_x=obj_controller.x;view_y=obj_controller.y;
 obj_controller.x=0;obj_controller.y=0;
@@ -230,22 +235,22 @@ time=floor(random(24))+1;
 terrain="";
 weather="";
 
-ambushers=0;if (string_count("Ambushers",obj_ini.strin)>0) then ambushers=1;
-bolter_drilling=0;if (string_count("Bolter",obj_ini.strin)>0) then bolter_drilling=1;
-enemy_eldar=0;if (string_count("Enemy: Eldar",obj_ini.strin)>0) then enemy_eldar=1;
-enemy_fallen=0;if (string_count("Enemy: Fallen",obj_ini.strin)>0) then enemy_fallen=1;
-enemy_orks=0;if (string_count("Enemy: Orks",obj_ini.strin)>0) then enemy_orks=1;
-enemy_tau=0;if (string_count("Enemy: Tau",obj_ini.strin)>0) then enemy_tau=1;
-enemy_tyranids=0;if (string_count("Enemy: Tyranids",obj_ini.strin)>0) then enemy_tyranids=1;
-enemy_necrons=0;if (string_count("Enemy: Necrons",obj_ini.strin)>0) then enemy_necrons=1;
-lightning=0;if (string_count("Lightning",obj_ini.strin)>0) then lightning=1;
-siege=0;if (string_count("Siege",obj_ini.strin)>0) then siege=1;
-slow=0;if (string_count("Purposeful",obj_ini.strin)>0) then slow=1;
-melee=0;if (string_count("Melee Enthus",obj_ini.strin)>0) then melee=1;
+ambushers=0;if (scr_has_adv("Ambushers")) then ambushers=1;
+bolter_drilling=0;if (scr_has_adv("Bolter Drilling")) then bolter_drilling=1;
+enemy_eldar=0;if (scr_has_adv("Enemy: Eldar")) then enemy_eldar=1;
+enemy_fallen=0;if (scr_has_adv("Enemy: Fallen")) then enemy_fallen=1;
+enemy_orks=0;if (scr_has_adv("Enemy: Orks")) then enemy_orks=1;
+enemy_tau=0;if (scr_has_adv("Enemy: Tau")) then enemy_tau=1;
+enemy_tyranids=0;if (scr_has_adv("Enemy: Tyranids")) then enemy_tyranids=1;
+enemy_necrons=0;if (scr_has_adv("Enemy: Necrons")) then enemy_necrons=1;
+lightning=0;if (scr_has_adv("Lightning Warriors")) then lightning=1;
+siege=0;if (scr_has_adv("Siege Masters")) then siege=1;
+slow=0;if (scr_has_adv("Devastator Doctrine")) then slow=1;
+melee=0;if (scr_has_adv("Assault Doctrine")) then melee=1;
 // 
-black_rage=0;if (string_count("Black Rage",obj_ini.strin2)>0){black_rage=1;red_thirst=1;}
-shitty_luck=0;if (string_count("Shitty",obj_ini.strin2)>0) then shitty_luck=1;
-warp_touched=0;if (string_count("Warp Touched",obj_ini.strin2)>0) then warp_touched=1;
+black_rage=0;if (scr_has_disadv("Black Rage")){black_rage=1;red_thirst=1;}
+shitty_luck=0;if (scr_has_disadv("Shitty Luck")) then shitty_luck=1;
+warp_touched=0;if (scr_has_disadv("Warp Touched")) then warp_touched=1;
 
 
 lyman=obj_ini.lyman;// drop pod penalties

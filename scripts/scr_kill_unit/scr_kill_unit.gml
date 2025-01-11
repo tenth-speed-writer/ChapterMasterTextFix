@@ -10,6 +10,11 @@ function scr_kill_unit(company, unit_slot){
         alarm[7]=5;
         global.defeat=3;
     }
+    _unit = fetch_unit([company, unit_slot]);
+    if (_unit.weapon_one()=="Company Standard" || _unit.weapon_two()=="Company Standard"){
+    	scr_loyalty("Lost Standard","+");
+    }
+    _unit.remove_from_squad();
 	scr_wipe_unit(company, unit_slot)
 }
 
@@ -43,9 +48,8 @@ function kill_and_recover(company, unit_slot, equipment=true, gene_seed_collect=
 		unit.alter_equipment(strip,false, true);
 	} 
 	if (gene_seed_collect && unit.base_group=="astartes"){
-		//TODO get rid of string methods
-        if (unit.age() > 30) and (!obj_ini.zygote) and (string_count("Doom",obj_ini.strin2)==0) then obj_controller.gene_seed+=1;
-        if (unit.age() > 50) and (string_count("Doom",obj_ini.strin2)==0) then obj_controller.gene_seed+=1;		
+        if (unit.age() > 30 && !obj_ini.zygote && !obj_ini.doomed) then obj_controller.gene_seed+=1;
+        if (unit.age() > 50 && !obj_ini.doomed) then obj_controller.gene_seed+=1;		
 	}
     if (obj_ini.race[company][unit_slot]==1){
         if(is_specialist(obj_ini.role[company][unit_slot])){

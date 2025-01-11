@@ -172,7 +172,7 @@ function scr_player_combat_weapon_stacks() {
 
                 if (unit.IsSpecialist("libs",true)||(unit.role()=="Chapter Master" && obj_ncombat.chapter_master_psyker=1)){
                     var cast_dice=irandom(99)+1;
-                    if (array_contains(obj_ini.dis,"Warp Touched")) then cast_dice-=5;
+                    if (scr_has_disadv("Warp Touched")) then cast_dice-=5;
 
                     cast_dice-=(unit.psionic+(unit.experience/60))
 
@@ -255,7 +255,7 @@ function scr_player_combat_weapon_stacks() {
             var j=0,good=0,open=0, weapon, vehicle_weapon_set;
             if (veh_dead[g]!=1){
                 vehicle_weapon_set = [veh_wep1[g],veh_wep2[g],veh_wep3[g]]
-                for (wep_slot=0;wep_slot<3;wep_slot++){
+                for (var wep_slot=0;wep_slot<3;wep_slot++){
                     var weapon_check = vehicle_weapon_set[wep_slot];
                     if (weapon_check!=""){
                         weapon=gear_weapon_data("weapon",weapon_check,"all", false, "standard");
@@ -286,7 +286,7 @@ function scr_player_combat_weapon_stacks() {
 
 
     if (men==1) and (veh==0)and (obj_ncombat.player_forces=1) {
-        var i=0,h=0;
+        var h=0;
         for (var i=0;i<array_length(unit_struct);i++) {
             if (h=0) {
                 unit = unit_struct[i];
@@ -303,7 +303,7 @@ function scr_player_combat_weapon_stacks() {
 }
 
 
-function scr_add_unit_to_roster(unit, is_ally=false){
+function scr_add_unit_to_roster(unit, is_local=false,is_ally=false){
     array_push(unit_struct, unit);
     array_push(marine_co, unit.company);
     array_push(marine_id, unit.marine_number);
@@ -321,7 +321,7 @@ function scr_add_unit_to_roster(unit, is_ally=false){
     array_push(marine_powers, unit.specials());
     array_push(marine_ac, unit.armour_calc());
     array_push(marine_attack, unit.melee_attack());
-    array_push(marine_local, 0);
+    array_push(marine_local, is_local);
     array_push(marine_casting, 0);
     array_push(marine_defense, 1);
 
@@ -336,7 +336,9 @@ function scr_add_unit_to_roster(unit, is_ally=false){
     array_push(marine_spatial, 0);
     array_push(marine_dementia, 0);
     array_push(ally, is_ally);
-
+    if (is_local){
+        local_forces=true;
+    }
     if (unit.IsSpecialist("dreadnoughts")){
         dreads++;
     } else {
@@ -344,4 +346,17 @@ function scr_add_unit_to_roster(unit, is_ally=false){
     }
 }
 
-
+function cancel_combat(){
+     with(obj_pnunit) {
+        instance_destroy();
+    }
+    with(obj_enunit) {
+        instance_destroy();
+    }
+    with(obj_nfort) {
+        instance_destroy();
+    }
+    with(obj_ncombat) {
+        instance_destroy();
+    }   
+}

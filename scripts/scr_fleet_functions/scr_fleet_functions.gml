@@ -1,5 +1,19 @@
 
 
+function distribute_strength_to_fleet(strength, fleet){
+	while(strength>0){
+		var ship_type = choose(1,1,1,1,2,2,3);
+		strength-=ship_type;
+		if (ship_type==1){
+			fleet.escort_number++;
+		} else if (ship_type==2){
+			fleet.frigate_number++;
+		}else if (ship_type==3){
+			fleet.capital_number++;
+		}
+	}
+}
+
 //to be run within with scope
 function set_fleet_target(targ_x, targ_y, final_target){
 	action_x = targ_x;
@@ -182,10 +196,9 @@ function set_fleet_movement(fastest_route = true){
 function load_unit_to_fleet(fleet, unit){
 	var loaded = false;
 	var all_ships = fleet_full_ship_array(fleet);
-	var i, ship_ident;
 
-	for (i=0;i<array_length(all_ships);i++){
-		ship_ident = all_ships[i];
+	for (var i=0;i<array_length(all_ships);i++){
+		var ship_ident = all_ships[i];
 		  if (obj_ini.ship_capacity[ship_ident]>obj_ini.ship_carrying[ship_ident]){
 		  	obj_ini.ship_carrying[ship_ident]+=unit.size;
 		  	unit.planet_location=0;

@@ -15,19 +15,19 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 	var fill_squad =  obj_ini.squad_types[$ squad_type];			//grab all the squad struct info from the squad_types struct
 	squad = new UnitSquad(squad_type, company);
 	squad.base_company = company;
-	squad.add_type_data(fill_squad[$ "type_data"]);		
+	squad.add_type_data(fill_squad[$"type_data"]);		
 	squad_unit_types = squad.find_squad_unit_types();
 	var squad_fulfilment = squad.squad_fulfilment;
 
 	var roles = obj_ini.role[100];
 	var sergeant_found = false;
-	var sgt_types = [roles[Role.SERGEANT], roles[Role.VETERAN_SERGEANT]];
+	var sgt_types = [roles[eROLE.Sergeant], roles[eROLE.VeteranSergeant]];
 
 	//if squad has sergeants in find out if there are any available sergeants
 	for (var s = 0; s < 2;s++){
 		if (struct_exists(squad_fulfilment ,sgt_types[s])){
 			sergeant_found = false;
-			for (i = 0; i < array_length(obj_ini.TTRPG[company]);i++){
+			for (var i = 0; i < array_length(obj_ini.TTRPG[company]);i++){
 				if(!is_struct(obj_ini.TTRPG[company][i])){
 					obj_ini.TTRPG[company][i]= new TTRPG_stats("chapter", company,i,"blank");
 				}
@@ -44,7 +44,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 			}
 		}
 	}
-	for (i = 0; i < array_length( obj_ini.TTRPG[company]);i++){							//fill squad roles
+	for (var i = 0; i < array_length( obj_ini.TTRPG[company]);i++){							//fill squad roles
 		if(!is_struct(fetch_unit([company,i]))){ //checkposition is valid marine struct
 			obj_ini.TTRPG[company][i]= new TTRPG_stats("chapter", company,i,"blank");
 		}
@@ -71,7 +71,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 		if (struct_exists(squad_fulfilment ,sgt_types[s])) and (!sergeant_found){
 			var highest_exp = 0;
 			var exp_unit;
-			for (i = 0; i < array_length(squad.members);i++){
+			for (var i = 0; i < array_length(squad.members);i++){
 				if (i==0){
 					exp_unit = fetch_unit(squad.members[0]);
 					highest_exp = exp_unit.experience;
@@ -88,7 +88,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 	}
 	//evaluate if the minimum unit type requirements have been met to create a new squad
 	fulfilled = true;
-	for (i = 0;i < array_length(squad_unit_types);i++){
+	for (var i = 0;i < array_length(squad_unit_types);i++){
 		if (squad_fulfilment[$ squad_unit_types[i]] < fill_squad[$ squad_unit_types[i]][$ "min"]){
 			fulfilled = false;
 			break
@@ -105,7 +105,7 @@ function create_squad(squad_type, company, squad_loadout = true, squad_index=fal
 		}			
 		//update units squad marker
 		squad.squad_fulfilment = squad_fulfilment;
-		for (i = 0; i < array_length(squad.members);i++){
+		for (var i = 0; i < array_length(squad.members);i++){
 			unit = fetch_unit(squad.members[i]);
 			if (!squad_index){
 				unit.squad = squad_count;
@@ -140,7 +140,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 	type_data={};
 	formation_place=""
 	formation_options=[];
-	//nickname = scr_squad_names();
+	allow_bulk_swap = true;
 
 
 	//TODO introduce loyalty hits from long periods of exile from hierarchy nodes
@@ -157,7 +157,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 		var required_load, unit_type, load_out_name, load_out_areas, load_out_slot,load_item, optional_load, item_to_add;
 		squad_unit_types = find_squad_unit_types();
 		var full_squad_data =  obj_ini.squad_types[$ type];
-		for (i = 0;i < array_length(squad_unit_types);i++){
+		for (var i = 0;i < array_length(squad_unit_types);i++){
 			unit_type = squad_unit_types[i];
 			required_load = "none";
 			optional_load = "none";
@@ -289,7 +289,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 
 	static add_type_data = function(data){
 		type_data=data;
-		display_name = type_data[$ "display_data"];
+		display_name = type_data[$"display_data"];
 		if (struct_exists(type_data, "class")){
 			class = type_data.class;
 		}
@@ -326,7 +326,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 		var unit;
 		var highest_exp = 0;
 		var member_length = array_length(members);
-		for (i = 0; i < member_length;i++){
+		for (var i = 0; i < member_length;i++){
 			unit = fetch_unit(members[i]);
 			if (unit.name() == ""){
 				array_delete(members, i, 1);
@@ -401,7 +401,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 		required = {};
 		space = {};
 		has_space = false;
-		for (i = 0;i < array_length(squad_unit_types);i++){
+		for (var i = 0;i < array_length(squad_unit_types);i++){
 			var _wanted_unit_role = squad_unit_types[i];
 			var _max_role_count = fill_squad[$ _wanted_unit_role][$ "max"];
 			var _squad_role_current = squad_fulfilment[$ _wanted_unit_role];
@@ -470,7 +470,7 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 		var in_orbit=false;
 		var planet_side=false;
 		var exact_loc = false;
-		for (i = 0; i < member_length;i++){
+		for (var i = 0; i < member_length;i++){
 			unit = fetch_unit(members[i]);
 			if (unit.name() == ""){
 				array_delete(members, i, 1);
@@ -647,11 +647,11 @@ function UnitSquad(squad_type = undefined, company = undefined) constructor{
 function game_start_squads(){
 	obj_ini.squads = [];
 	var last_squad_count
-	for (company=2;company < 10;company++){
+	for (var company=2;company < 10;company++){
 		create_squad("command_squad", company);
 		last_squad_count = array_length(obj_ini.squads);
 		while (last_squad_count == array_length(obj_ini.squads)){ ///keep making tact squads for as long as there are enough tact marines
-			if (global.chapter_name == "White Scars") or (array_contains(obj_ini.adv, "Lightning Warriors")) {
+			if (scr_has_adv("Lightning Warriors")) {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				if(last_squad_count%2 == 0){		
 					create_squad("tactical_squad", company);
@@ -670,7 +670,7 @@ function game_start_squads(){
 		}		
 		last_squad_count = array_length(obj_ini.squads);
 		while (last_squad_count == array_length(obj_ini.squads)){
-			if (global.chapter_name == "Imperial Fists") or (array_contains(obj_ini.adv, "Boarders")) {
+			if (scr_has_adv("Boarders")) {
 				last_squad_count = (array_length(obj_ini.squads) + 1);
 				if(last_squad_count%2 == 0){		
 					create_squad("assault_squad", company);
@@ -735,10 +735,10 @@ function set_member_loc (loc_data){
 			system.p_player[member_location[1]]-=size;
 			system.p_player[wid]+=size;
 			planet_location = wid;
-			ship_location = 0;
+			ship_location = -1;
 		}
 	} else {
-		if (wid == 0 && lid>0){
+		if (wid == 0 && lid>-1){
 			load_marine(lid);
 		}
 	}

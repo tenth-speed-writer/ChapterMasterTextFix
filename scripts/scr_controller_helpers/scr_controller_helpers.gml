@@ -57,7 +57,7 @@ function scr_menu_clear_up(specific_area_function){
 function scr_change_menu(specific_area_function){
 	var continue_sequence = false;
 	with (obj_controller){
-		set_zoom_to_defualt();
+		set_zoom_to_default();
 		continue_sequence = scr_menu_clear_up(function(){
 			if (zoomed==0)  && (diplomacy==0){
 				return true;
@@ -75,7 +75,7 @@ function scr_in_game_help(){
 	scr_change_menu(function(){
 		with (obj_controller){
 			if (zoomed == 0) and (!instance_exists(obj_ingame_menu)) and (!instance_exists(obj_popup)){
-				set_zoom_to_defualt();
+				set_zoom_to_default();
 				if (menu!=17.5){
 					menu=17.5;
 					cooldown=8000;
@@ -105,7 +105,7 @@ function scr_in_game_menu(){
 				location_viewer.update_garrison_log();
 				managing=0;
 			}
-			set_zoom_to_defualt();
+			set_zoom_to_default();
 			instance_create(0,0,obj_ingame_menu);
 		}
 	});
@@ -311,22 +311,20 @@ function scr_toggle_fleet_area(){
 	        }
 
 	        var g=0,u=0,m=0,d=0;
-	        for(var i=1; i<=60; i++){
-	            if (obj_ini.ship[i]!="") and (obj_ini.ship_size[i]==3) then g+=1;
+	        temp[37] = 0;
+	        temp[38] = 0;
+	        temp[39] = 0;
+	        for(var i=0; i<array_length(obj_ini.ship); i++){
+	            if (obj_ini.ship[i]!=""){
+	            	if (obj_ini.ship_size[i]==3) then temp[37]++;
+	            	if (obj_ini.ship_size[i]==2) then temp[38]++;
+	            	if (obj_ini.ship_size[i]==1) then temp[39]++;
+	            }
 	        }
-	        temp[37]=string(g);
+
 	        g=0;
-	        for(var i=1; i<=60; i++){
-	            if (obj_ini.ship[i]!="") and (obj_ini.ship_size[i]==2) then g+=1;
-	        }
-	        temp[38]=string(g);
-	        g=0;
-	        for(var i=1; i<=60; i++){
-	            if (obj_ini.ship[i]!="") and (obj_ini.ship_size[i]==1) then g+=1;
-	        }
-	        temp[39]=string(g);
-	        g=0;
-	        for(var i=1; i<=60; i++){
+	        temp[41]="1";
+	        for (var i=0; i<array_length(obj_ini.ship); i++){
 	            if (g!=0) and (obj_ini.ship[i]!=""){
 	                if ((obj_ini.ship_hp[i]/obj_ini.ship_maxhp[i])<u){
 	                    g=i;

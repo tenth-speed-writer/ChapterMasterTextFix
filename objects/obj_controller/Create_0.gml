@@ -483,7 +483,7 @@ sel_all="";
 sel_promoting=0;
 drag_square=[];
 rectangle_action = -1;
-sel_loading=0;
+sel_loading=-1;
 sel_uid=0;
 
 // ** Sets Chapter events and celebrations **
@@ -537,11 +537,12 @@ command_set[8]=1;
 command_set[9]=1;
 command_set[20]=1;
 command_set[24]=1;
-blandify=0;
+modest_livery=0;
+progenitor_visuals=0;
 
 // ** Default menu items **
 selecting_planet=0;
-selecting_ship=0;
+selecting_ship=-1;
 fleet_minimized=0;
 fleet_all=1;
 tolerant=0;
@@ -564,7 +565,6 @@ forge_points = 0;
 master_craft_chance = 0;
 tech_status = "Cult Mechanicus";
 forge_string="";
-forge_queue=[];
 player_forge_data = {
     player_forges : 0,
     vehicle_hanger : [],
@@ -577,6 +577,7 @@ production_research = {
     plasma : [0,{}],
     psi : [0,{}],
     melta : [0,{}],
+    grav : [0,{}],
     chasis : [0,{}],
     chain :[0,{}],
     power_fields:[1,{}],
@@ -596,6 +597,7 @@ production_research_pathways ={
     plasma : [[ "Plasma Coil Magnetization"],{}],
     psi : [["Psionic Resonance Valves"],{}],
     melta : [["Atomic Chamber Construction"],{}],
+    grav : [["Gravitic Reaction Principle"],{}],
     chasis : [[],{}],
     chain :[["Adamantine Links"],{}],
     power_fields:[["Power Field Cooling", "Mono-molecular Edge Sheathing"],{}],
@@ -673,29 +675,8 @@ if (instance_exists(obj_ini)){
     if (string_count(obj_ini.spe[0,1],"$")>0) then born_leader=1;
 }
 // ** Resets marines and other vars **
-for(var i=0; i<501; i++){
-    man[i]="";
-    ide[i]=0;
-    man_sel[i]=0;
-    ma_lid[i]=0;
-    ma_wid[i]=0;
-    ma_promote[i]=0;
-    ma_race[i]=0;
-    ma_loc[i]="";
-    ma_name[i]="";
-    ma_role[i]="";
-    ma_wep1[i]="";
-    ma_mobi[i]="";
-    ma_wep2[i]="";
-    ma_armour[i]="";
-    ma_gear[i]="";
-    ma_health[i]=100;
-    ma_chaos[i]=0;
-    ma_exp[i]=0;
-    ma_god[i]=0;
-    squad[i]=0;
-    display_unit[i]=0;
 
+for(var i=0; i<501; i++){
     
     if (i<=50){
         penit_co[i]=0;
@@ -717,6 +698,7 @@ sh_loc = []
 sh_hp = []
 sh_cargo = []
 sh_cargo_max = []
+reset_manage_arrays();
 alll=0;
 //
 popup=0;// 1: fleet, 2: other, 3: system
@@ -931,7 +913,12 @@ trade_mnum[4]=0;
 // ** Sets up starting requisition **
 requisition=500;
 if (instance_exists(obj_ini)){
-    if (obj_ini.progenitor==0) /*and (obj_creation.custom=0)*/ and (global.chapter_name!="Doom Benefactors") then requisition=2000;
+    if (
+        (obj_ini.progenitor == ePROGENITOR.NONE) &&
+        (global.chapter_name != "Doom Benefactors")
+    ) {
+        requisition=2000;
+    }
 }
 if (is_test_map==true) then requisition=50000;
 // ** Sets income **
@@ -1117,7 +1104,6 @@ faction_status[eFACTION.Ecclesiarchy]="Allied";
 faction_leader[eFACTION.Eldar]=global.name_generator.generate_eldar_name(2);
 faction_title[6]="Farseer";
 faction_status[eFACTION.Eldar]="Antagonism";// If disposition = 0 then instead set it to "Antagonism"
-if (instance_exists(obj_ini)){if (string_count("Eldar",obj_ini.strin)>0) then faction_status[eFACTION.Eldar]="War";}
 // Orkz faction
 faction_leader[eFACTION.Ork]=global.name_generator.generate_ork_name();
 faction_title[7]="Warboss";
@@ -1263,9 +1249,9 @@ recruiting_type="";
 // ** Sets up chapter colors **
 main_color=0;
 secondary_color=0;
-trim_color=0;
-pauldron2_color=0;
-pauldron_color=0;
+main_trim=0;
+left_pauldron=0;
+right_pauldron=0;
 lens_color=0;
 weapon_color=0;
 col_special=0;
@@ -1273,7 +1259,7 @@ trim=0;
 // ** Sets up names, progenitor, successors and mutations ** 
 adept_name="";
 recruiter_name="";
-progenitor="";
+progenitor=ePROGENITOR.NONE;
 successor_chapters=0;
 mutation="";
 
@@ -1295,14 +1281,17 @@ other1_disposition=0;
 other1="";
 // ** Sets up bonuses once chapter is created **
 if (instance_exists(obj_ini)){
-    // Tolerant trait
-    if (global.load==0) and (string_count("Tolerant",obj_ini.strin2)>0){
-        obj_controller.disposition[6]+=5;
-        obj_controller.disposition[7]+=5;
-        obj_controller.disposition[8]+=10;
-    }
     // General setup
     if (global.load==0){
+        // Tolerant trait
+        if (scr_has_disadv("Tolerant")) {
+            obj_controller.disposition[6]+=5;
+            obj_controller.disposition[7]+=5;
+            obj_controller.disposition[8]+=10;
+        }
+        if (scr_has_adv("Enemy: Eldar")) {
+            faction_status[eFACTION.Eldar]="War";
+        }
         // Founding Chapter STC Bonuses here
         if (global.chapter_name=="Salamanders"){
             stc_wargear=4;
@@ -1316,7 +1305,9 @@ if (instance_exists(obj_ini)){
             stc_bonus[3]=3;
         }
         if (global.chapter_name=="Blood Ravens"){
-            for(var i=0; i<3; i++){scr_add_artifact("random_nodemon","",0,obj_ini.ship[1],501);}
+            for(var i=0; i<3; i++){
+                scr_add_artifact("random_nodemon","",0,obj_ini.ship[0],501);
+            }
         }
         // TODO should add special bonus to different chapters based on lore
         adept_name=global.name_generator.generate_space_marine_name();
@@ -1326,9 +1317,9 @@ if (instance_exists(obj_ini)){
         mutation="";
         main_color=obj_ini.main_color;
         secondary_color=obj_ini.secondary_color;
-        trim_color=obj_ini.trim_color;
-        pauldron2_color=obj_ini.pauldron2_color;
-        pauldron_color=obj_ini.pauldron_color;
+        main_trim=obj_ini.main_trim;
+        left_pauldron=obj_ini.left_pauldron;
+        right_pauldron=obj_ini.right_pauldron;
         lens_color=obj_ini.lens_color;
         weapon_color=obj_ini.weapon_color;
         col_special=obj_ini.col_special;
@@ -1371,7 +1362,7 @@ global.custom=1;
 
 // ** Sets up base training level and trainees at game start **
 training_apothecary=0;
-apothecary_points=0;
+apothecary_recruit_points=0;
 apothecary_aspirant=0;
 training_chaplain=0;
 chaplain_points=0;
@@ -1387,7 +1378,7 @@ penitorium=0;
 end_turn_insights = {};
 // Redefines training based on chapter
 if (instance_exists(obj_ini)){
-    if (string_count("Intolerant",obj_ini.strin2)>0) then training_psyker=0;
+    if (scr_has_disadv("Psyker Intolerant")) then training_psyker=0;
     if (global.chapter_name="Space Wolves") then training_chaplain=0;
 }
 
@@ -1445,18 +1436,21 @@ loyalty_hidden=100;// Updated when inquisitors do an inspection
 // ** Sets up gene seed **
 gene_seed=20;
 if (scr_has_disadv("Sieged")) then gene_seed = floor(random_range(250, 400));
+if scr_has_disadv("Obliterated") then gene_seed=floor(random_range(50,200));
 if (global.chapter_name=="Lamenters") then gene_seed=30;
 if (global.chapter_name=="Soul Drinkers") then gene_seed=60;
 
 //   ** sets up the starting squads**
 squads = true;
-game_start_squads()
+game_start_squads();
 squads = false;
 
 // **sets up starting forge_points
-calculate_research_points()
+specialist_point_handler = new SpecialistPointHandler();
+specialist_point_handler.calculate_research_points();
 
-//** sets up marine_by_location view
+
+//** sets up marine_by_location views
 location_viewer = new UnitQuickFindPanel();
 
 // ** Sets up the number of marines per company **
@@ -1634,7 +1628,7 @@ temp[62]="##Your fleet contains ";
 var bb=0,sk=0,glad=0,hunt=0,ships=0,bb_names=[],sk_names=[],glad_names=[],hunt_names=[];
 
 codex[0]="";codex_discovered[0]=0;
-for(var mm=0; mm<=30; mm++){
+for(var mm=0; mm<array_length(obj_ini.ship); mm++){
     if (obj_ini.ship[mm]!=""){
         ships++;
         if (obj_ini.ship_class[mm] == "Battle Barge") {
@@ -1657,10 +1651,11 @@ for(var mm=0; mm<=30; mm++){
     codex[mm]="";
     codex_discovered[mm]=0;
 }
+
 temp[62]+=string(ships)+$" {string_plural("warship")}-\n";
 
 if (obj_ini.fleet_type != ePlayerBase.home_world || bb == 1) {
-    temp[62] += $"Your flagship, Battle Barge {obj_ini.ship[1]}.";
+    temp[62] += $"Your flagship, Battle Barge {obj_ini.ship[0]}.";
     temp[62] += "\n";
     bb--;
 }
@@ -1763,7 +1758,6 @@ if (welcome_pages>=5){
     }
 }
 remov=string_length(string(temp[65])+string(temp[66])+string(temp[67])+string(temp[68])+string(temp[69]))+1;
-
 action_set_alarm(2, 0);
 
 instance_create(0,0,obj_tooltip );

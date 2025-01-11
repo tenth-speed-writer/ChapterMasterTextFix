@@ -78,12 +78,12 @@ function role_groups(group){
 			break;
 		case "captain_candidates":
 			role_list = [
-				roles[Role.SERGEANT], //sergeant
-				roles[Role.VETERAN_SERGEANT],
-				roles[Role.CHAMPION],				
-				roles[Role.CAPTAIN],								
-				roles[Role.TERMINATOR],				
-				roles[Role.VETERAN],
+				roles[eROLE.Sergeant], //sergeant
+				roles[eROLE.VeteranSergeant],
+				roles[eROLE.Champion],				
+				roles[eROLE.Captain],								
+				roles[eROLE.Terminator],				
+				roles[eROLE.Veteran],
 				 obj_ini.role[100][11],			
 			];
 			break;
@@ -224,7 +224,7 @@ function collect_role_group(group="standard", location="", opposite=false, searc
 				if (_wanted_companies != com) then continue;
 			}
 		}
-	    for (i=0;i<array_length(obj_ini.TTRPG[com]);i++){
+	    for (var i=0;i<array_length(obj_ini.TTRPG[com]);i++){
 	    	if (_max_count>0){
 	    		if (array_length(_units)>=_max_count){
 	    			break;
@@ -247,7 +247,7 @@ function collect_role_group(group="standard", location="", opposite=false, searc
 	        	if (location==""){
 	        		_add=true;
 	       		} else if (!is_array(location)){
-		       		_add=unit.is_at_location(location, 0, 0);
+		       		_add=unit.is_at_location(location);
 		       	} else {
 		       		_add=unit.is_at_location(location[0], location[1], location[2]);
 		       	}
@@ -287,7 +287,7 @@ function stat_valuator(search_params, unit){
 function collect_by_religeon(religion, sub_cult="", location=""){
 	var _units = [], unit, count=0, _add=false;
 	for (var com=0;com<=10;com++){
-	    for (i=1;i<array_length(obj_ini.TTRPG[com]);i++){
+	    for (var i=1;i<array_length(obj_ini.TTRPG[com]);i++){
 	    	_add=false;
 			unit=obj_ini.TTRPG[com][i];
 			if (unit.name()=="")then continue; 	
@@ -299,7 +299,7 @@ function collect_by_religeon(religion, sub_cult="", location=""){
 	        	}
 	        	if (location==""){
 	        		_add=true;
-	       		} else if (unit.is_at_location(location, 0, 0)){
+	       		} else if (unit.is_at_location(location)){
 	       			_add=true;
 	       		}
 	        }
@@ -313,7 +313,7 @@ function group_selection(group, selection_data){
 	try {
 		var unit, s, unit_location;
 		obj_controller.selection_data = selection_data;
-		set_zoom_to_defualt();
+		set_zoom_to_default();
 		with (obj_controller){
 				menu=1;
 				onceh=1;
@@ -338,13 +338,13 @@ function group_selection(group, selection_data){
 				man_size=0;
 				selecting_location="";
 				selecting_types="";
-				selecting_ship=0;
+				selecting_ship=-1;
 				selecting_planet=0;
 				sel_uid=0;
 				reset_manage_arrays();
 				alll=0;              
 				cooldown=10;
-				sel_loading=0;
+				sel_loading=-1;
 				unload=0;
 				alarm[6]=7;
 				company_data={};

@@ -47,32 +47,24 @@ if (!zoomed && !zui){
     draw_set_alpha(1);
     draw_sprite(spr_new_banner,0,1439+new_banner_x,62);
     draw_sprite(spr_new_ui_cover,0,0,(900-17));
-    // Handles custom chapters
-    if (is_string(obj_ini.icon_name)){
-        if (string_count("custom",obj_ini.icon_name)>0){
-            var cusl=string_replace(obj_ini.icon_name,"custom","");
-            cusl=real(cusl);
-            if (obj_cuicons.spr_custom[cusl]>0) and (obj_cuicons.spr_custom_icon[cusl]!=-1){
-                draw_sprite_stretched(obj_cuicons.spr_custom_icon[cusl],0,1451+new_banner_x,73,141,141);
-            }
-        }else {
-            var icon_sprite=spr_icon,icc=obj_ini.icon;
-            if (icc<=20) then scr_image("creation",icc,1451+new_banner_x,73,141,141);
-            if (icc>20){
-                icon_sprite=spr_icon_chapters;
-                icc-=19;
-                draw_sprite(icon_sprite,icc,1451+new_banner_x,73);
-            }
-        }        
+    
+    var sprx = 1451+new_banner_x,
+        spry = 73,
+        sprw = 141,
+        sprh = 141;
+    
+    if (sprite_exists(global.chapter_icon_sprite)){
+        draw_sprite_stretched(global.chapter_icon_sprite, global.chapter_icon_frame, sprx, spry, sprw, sprh);
     }
-
+       
     
     draw_set_color(38144);
     draw_set_font(fnt_menu);
     draw_set_halign(fa_center);
     // Draws the sector name
-    draw_text(775,17,string_hash_to_newline("Sector "+string(obj_ini.sector_name)));
-    draw_text(775.5,17.5,string_hash_to_newline("Sector "+string(obj_ini.sector_name)));
+    var _sector_string = $"Sector {obj_ini.sector_name ?? "Terra Nova"}";
+    draw_text(775,17,_sector_string);
+    draw_text(775.5,17.5,_sector_string);
     
     // Checks if you are penitent
     if (obj_controller.faction_status[eFACTION.Imperium]!="War"){
@@ -128,6 +120,10 @@ if (!zoomed && !zui){
     draw_set_color(#af5a00)
     draw_text(180,16, string(forge_points));
     draw_text(180.5,16.5, string(forge_points));
+    // Draws apothecary points
+    var _apoth_string = ($"apothecary points : {specialist_point_handler.apothecary_points}");
+    draw_text(180,32, _apoth_string);
+    draw_text(180.5,32.5, _apoth_string);
     // Draws the current loyalty
     draw_sprite(spr_new_resource,1,267,17);
     draw_set_color(1164001);

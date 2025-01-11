@@ -197,7 +197,7 @@ function scr_company_order(company) {
 			}
 			//if no new sergeants are found for squad someone gets promoted
 			//find a new_sergeant
-			var _sarge = _roles[Role.SERGEANT]
+			var _sarge = _roles[eROLE.Sergeant]
 			if (struct_exists(squad.required, _sarge)){
 				if (squad.required[$ _sarge] > 0){
 					squad.new_sergeant();
@@ -205,7 +205,7 @@ function scr_company_order(company) {
 				}
 			}
 			//find a new veteran sergeant 
-			var _vet_sarge = _roles[Role.VETERAN_SERGEANT];
+			var _vet_sarge = _roles[eROLE.VeteranSergeant];
 			if (struct_exists(squad.required, _vet_sarge)){
 				if (squad.required[$ _vet_sarge] > 0){
 					squad.new_sergeant(true);
@@ -237,14 +237,14 @@ function scr_company_order(company) {
 	var squadless_and_squad_spaces = [squadless,empty_squads];
 
 	var squad_builder = [
-		["tactical_squad",_roles[Role.TACTICAL],5],
-		["devastator_squad",_roles[Role.DEVASTATOR],5],
-		["sternguard_veteran_squad",_roles[Role.VETERAN],5],
-		["vanguard_veteran_squad",_roles[Role.VETERAN],5],
-		["terminator_squad",_roles[Role.TERMINATOR],4],
-		["terminator_assault_squad",_roles[Role.TERMINATOR],4],
-		["assault_squad",_roles[Role.ASSAULT],5],
-		["scout_squad",_roles[Role.SCOUT],5],
+		["tactical_squad",_roles[eROLE.Tactical],5],
+		["devastator_squad",_roles[eROLE.Devastator],5],
+		["sternguard_veteran_squad",_roles[eROLE.Veteran],5],
+		["vanguard_veteran_squad",_roles[eROLE.Veteran],5],
+		["terminator_squad",_roles[eROLE.Terminator],4],
+		["terminator_assault_squad",_roles[eROLE.Terminator],4],
+		["assault_squad",_roles[eROLE.Assault],5],
+		["scout_squad",_roles[eROLE.Scout],5],
 	]
 	
 	for (i=0;i<array_length(squad_builder);i++){
@@ -256,8 +256,8 @@ function scr_company_order(company) {
 	}
 
 	//comand squads only get built to a max of one and are specialist so sit outside of general squad creation
-	if (struct_exists(squadless,_roles[Role.CAPTAIN])) && (struct_exists(squadless,_roles[Role.CHAMPION])) && (struct_exists(squadless,_roles[Role.ANCIENT])){
-		if (array_length(squadless[$_roles[Role.CAPTAIN]])>0) && (array_length(squadless[$_roles[Role.CHAMPION]])>0) && (array_length(squadless[$_roles[Role.ANCIENT]])>0){
+	if (struct_exists(squadless,_roles[eROLE.Captain])) && (struct_exists(squadless,_roles[eROLE.Champion])) && (struct_exists(squadless,_roles[eROLE.Ancient])){
+		if (array_length(squadless[$_roles[eROLE.Captain]])>0) && (array_length(squadless[$_roles[eROLE.Champion]])>0) && (array_length(squadless[$_roles[eROLE.Ancient]])>0){
 			new_squad_index=false;
 			if (array_length(empty_squads)>0){
 				new_squad_index = empty_squads[0];
@@ -367,35 +367,35 @@ function role_hierarchy(){
 			"Forge Master",
 			"Master of Sanctity",
 			"Master of the Apothecarion",
-			string("Chief {0}",_roles[Role.LIBRARIAN]),
-			_roles[Role.HONOUR_GUARD],
-			_roles[Role.CAPTAIN],
-			_roles[Role.CHAPLAIN],
-			string("{0} Aspirant",_roles[Role.CHAPLAIN]),
+			string("Chief {0}",_roles[eROLE.Librarian]),
+			_roles[eROLE.HonourGuard],
+			_roles[eROLE.Captain],
+			_roles[eROLE.Chaplain],
+			string("{0} Aspirant",_roles[eROLE.Chaplain]),
 			"Death Company",
-			_roles[Role.TECHMARINE],
-			string("{0} Aspirant",_roles[Role.TECHMARINE]),
+			_roles[eROLE.Techmarine],
+			string("{0} Aspirant",_roles[eROLE.Techmarine]),
 			"Techpriest",
-			_roles[Role.APOTHECARY],
-			string("{0} Aspirant",_roles[Role.APOTHECARY]),
+			_roles[eROLE.Apothecary],
+			string("{0} Aspirant",_roles[eROLE.Apothecary]),
 			"Sister Hospitaler",
-			_roles[Role.LIBRARIAN],
+			_roles[eROLE.Librarian],
 			"Codiciery",
 			"Lexicanum",
-			string("{0} Aspirant",_roles[Role.LIBRARIAN]),
-			_roles[Role.ANCIENT],
-			_roles[Role.CHAMPION],
+			string("{0} Aspirant",_roles[eROLE.Librarian]),
+			_roles[eROLE.Ancient],
+			_roles[eROLE.Champion],
 			"Death Company",
-			_roles[Role.VETERAN_SERGEANT],
-			_roles[Role.SERGEANT],		
-			_roles[Role.TERMINATOR],
-			_roles[Role.VETERAN],
-			_roles[Role.TACTICAL],
-			_roles[Role.ASSAULT],
-			_roles[Role.DEVASTATOR],
-			_roles[Role.SCOUT],
-			$"Venerable {_roles[Role.DREADNOUGHT]}",
-			_roles[Role.DREADNOUGHT],
+			_roles[eROLE.VeteranSergeant],
+			_roles[eROLE.Sergeant],		
+			_roles[eROLE.Terminator],
+			_roles[eROLE.Veteran],
+			_roles[eROLE.Tactical],
+			_roles[eROLE.Assault],
+			_roles[eROLE.Devastator],
+			_roles[eROLE.Scout],
+			$"Venerable {_roles[eROLE.Dreadnought]}",
+			_roles[eROLE.Dreadnought],
 			"Skitarii",
 			"Crusader",
 			"Ranger",
