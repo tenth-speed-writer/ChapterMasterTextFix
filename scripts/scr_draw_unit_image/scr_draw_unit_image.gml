@@ -40,18 +40,22 @@ enum eARMOUR_SET {
 function ComplexSet() constructor{
     static add_to_area = function(area, add_sprite){
         if (!struct_exists(self, area)){
-            self.replace_area(area, add_sprite);
+            self[$ area] = sprite_duplicate(add_sprite);
         } else {
             sprite_merge(self[$ area], add_sprite);
         }
     }
 
     static replace_area = function(area, add_sprite){
+        if (struct_exists(self, area)){
+            sprite_delete(self[$area]);
+        }
         self[$ area] = sprite_duplicate(add_sprite);
     }
 
     static remove_area = function(area){
         if (struct_exists(self, area)){
+            sprite_delete(self[$area]);
             struct_remove(self, area);
         }
     }
@@ -63,14 +67,8 @@ function ComplexSet() constructor{
             add_to_area(_area, group[$_area]);
         }
     }
-
-    static add_or_replace = function(area, add_sprite){
-        if (struct_exists(self, area)){
-            sprite_delete(self[$area]);
-        }
-        self[$ area] = sprite_duplicate(add_sprite);
-    }
 }
+
 function get_complex_set(set = eARMOUR_SET.MK7){
     var set_pieces = new ComplexSet();
 
@@ -137,7 +135,7 @@ function get_complex_set(set = eARMOUR_SET.MK7){
             right_arm : spr_mk3_right_arm ,   
             head : spr_mk3_head_variants, 
             left_leg : spr_mk3_left_leg_variants,
-            right_leg : spr_mk3_left_leg_variants           
+            right_leg : spr_mk3_right_leg_variants           
         });    
     }else if (set == eARMOUR_SET.MK8){
         set_pieces.add_group({
@@ -1277,12 +1275,12 @@ function scr_draw_unit_image(_background=false){
                 draw_unit_arms(x_surface_offset, y_surface_offset, armour_type, specialist_colours, hide_bionics, complex_set);
                 if (armour_type==ArmourType.Normal && complex_livery){
                     if (struct_exists(body[$ "right_leg"], "bionic")) {
-                        complex_set.add_or_replace("right_leg",spr_bionic_leg_right);
+                        complex_set.replace_area("right_leg",spr_bionic_leg_right);
                     }
                 }
                 if (armour_type==ArmourType.Normal && complex_livery){
                     if (struct_exists(body[$ "left_leg"], "bionic")) {
-                        complex_set.add_or_replace("left_leg",spr_bionic_leg_left);
+                        complex_set.replace_area("left_leg",spr_bionic_leg_left);
                     }
                 }                
                 // Draw torso
