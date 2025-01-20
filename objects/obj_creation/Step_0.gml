@@ -35,7 +35,7 @@ if (slide==1){
             chapter_string=chapter_name;
         }
         scr_creation(2);
-        scr_creation(3.5);
+        scr_creation(3);
         scr_creation(4);
         scr_creation(5);
         scr_creation(6);
@@ -114,7 +114,8 @@ if (change_slide==35) or (change_slide==36) or (chapter_name=="Doom Benefactors"
         recruiting_name=global.name_generator.generate_star_name();
         flagship_name=global.name_generator.generate_imperial_ship_name();
         recruiting_exists=1;
-        homeworld_exists=1;homeworld_rule=1;
+        homeworld_exists=1;
+        homeworld_rule=1;
         aspirant_trial=eTrials.BLOODDUEL;
         discipline="default";
         battle_cry="For the Emperor";

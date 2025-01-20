@@ -551,6 +551,12 @@ function scr_initialize_custom() {
 	successors = obj_creation.successors;
 	homeworld_rule = obj_creation.homeworld_rule;
 
+    homeworld_relative_loc = obj_creation.buttons.home_spawn_loc_options.current_selection;
+    home_warp_position = obj_creation.buttons.home_warp.current_selection;
+    home_planet_count = obj_creation.buttons.home_planets.current_selection;
+    recruit_relative_loc = obj_creation.buttons.recruit_home_relationship.current_selection;
+
+
 	if(struct_exists(obj_creation, "custom_advisors")){
 		obj_ini.custom_advisors = obj_creation.custom_advisors;
 	}
@@ -678,7 +684,7 @@ function scr_initialize_custom() {
 	gladius = 0;
 	hunters = 0;
 
-	if (obj_creation.fleet_type == eFLEET_TYPES.HOMEWORLD) {
+	if (obj_creation.fleet_type == ePlayerBase.home_world) {
 		strike_cruisers = 8;
 		gladius = 7;
 		hunters = 3;
@@ -698,7 +704,7 @@ function scr_initialize_custom() {
 	*/
 	if (obj_creation.custom == 0) {
 		flagship_name = obj_creation.flagship_name;
-		if (obj_creation.fleet_type == eFLEET_TYPES.HOMEWORLD) {
+		if (obj_creation.fleet_type == ePlayerBase.home_world) {
 			battle_barges = 2;
 			strike_cruisers = 8;
 			gladius = 7;
@@ -3298,7 +3304,7 @@ function scr_initialize_custom() {
 			penitent_end = obj_creation.strength * 48;
 		}
 	} else {
-		if (fleet_type == eFLEET_TYPES.PENITENCE) {
+		if (fleet_type == ePlayerBase.penitent) {
 			penitent = 1;
 			penitent_max = (obj_creation.strength * 60);
 			penitent_current = 1;

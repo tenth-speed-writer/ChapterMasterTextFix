@@ -113,7 +113,8 @@ complex_selection = "sgt";
 complex_depth_selection = 0;
 //TODO probably make this array based at some point ot match other unit data
 complex_livery_data = complex_livery_default();
-
+left_data_slate = new DataSlate();
+right_data_slate = new DataSlate();
 standard_livery_components = 0;
 enum LiveryComponents{
 	Body,
@@ -144,7 +145,88 @@ heheh=0;
 icons_top=1;
 icons_max=0;
 turn_selection_change=false;
+buttons = {
+    home_world_recruit_share : new ToggleButton(),
+    complex_homeworld : new ToggleButton({
+        x1 : 550,
+        y1 :  422,
+        active : false,
+        str1 : "Spawn System Options",
+        tooltip : "Click for Complex Spawn System Options",
+        button_color : #009500,
+    }),
+    home_spawn_loc_options : new radio_set([
+        {
+            str1 : "Fringe",
+            font : fnt_40k_30b,
+            tooltip : "Your home system sits at the edge of the sector",
+        },
+        {
+            str1 : "Central",
+            font : fnt_40k_30b,
+            tooltip : "Your home system is relativly central in the sector",
+        },        
+    ], "Home Spwan\nLocation"),
 
+    recruit_home_relationship : new radio_set([
+        {
+            str1 : "Share Planet",
+            font : fnt_40k_14b,
+            tooltip : "Your recruit world will be the same planet as your home world",
+        },
+        {
+            str1 : "Share System",
+            font : fnt_40k_14b,
+            tooltip : "Your recruit world will be in the the same system as your home world",
+        },
+        {
+            str1 : "Seperate",
+            font : fnt_40k_14b,
+            tooltip : "Your recruit world will be in a different system to your homeworld",
+        },            
+    ], "Recruit world"),
+    home_warp : new radio_set([
+        {
+            str1 : "Secluded",
+            font : fnt_40k_14b,
+            tooltip : "Your home system is logistically secluded with no major warp routes",
+        },
+        {
+            str1 : "Connected",
+            font : fnt_40k_14b,
+            tooltip : "Your home system is connected to the larger imperium and system by warp routes",
+        },
+        {
+            str1 : "Warp Hub",
+            font : fnt_40k_14b,
+            tooltip : "Your home system is in a very stable warp area, accessible by several warp lanes",
+        },            
+    ], "Home warp access"),
+    home_planets : new radio_set([
+        {
+            str1 : "one",
+            font : fnt_40k_14b,
+        },
+        {
+            str1 : "two",
+            font : fnt_40k_14b
+        },
+        {
+            str1 : "three",
+            font : fnt_40k_14b
+        }, 
+        {
+            str1 : "four",
+            font : fnt_40k_14b
+        },                    
+    ], "Home System Planets"),        
+}
+with (buttons){
+    home_spawn_loc_options.current_selection = 1;
+    home_planets.current_selection = 1;
+    home_warp.current_selection = 1;
+    recruit_home_relationship.current_selection = 1;
+}
 scrollbar_engaged=0;
 
 text_selected="none";
