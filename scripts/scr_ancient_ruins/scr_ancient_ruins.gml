@@ -25,6 +25,7 @@ function scr_ruins_suprise_attack_player(){
 		instance_activate_object(obj_ground_mission);
 		var _star = star_by_name(obj_ground_mission.loc);
 		var _planet = obj_ground_mission.num;
+		var _units = obj_ground_mission.display_unit;
 		
 		instance_create(0,0,obj_ncombat);
 		
@@ -32,8 +33,24 @@ function scr_ruins_suprise_attack_player(){
 		
 		//that_one=instance_nearest(0,0,obj_star);
 	// instance_activate_object(obj_star);
-		scr_battle_roster(obj_ground_mission.loc ,_planet,true);
-		obj_controller.cooldown=10;
+		_roster = new Roster();
+		with (_roster){
+			roster_location = obj_ground_mission.loc;
+			roster_planet = _planet;
+	        selected_units = _units;
+			if (array_length(selected_units)){	
+	            setup_battle_formations();
+	            add_to_battle();
+	        } else {
+	        	instance_destroy(obj_ncombat);
+	        	instance_destroy(obj_pnunit);
+	        	instance_destroy(obj_enunit);
+	        	instance_activate_all();
+	        	scr_ruins_reward(_star,_planet,self);
+	        }				
+		}
+
+
 		obj_ncombat.battle_object=_star;
 		obj_ncombat.battle_loc=_star.name;
 		instance_deactivate_object(obj_star);    
@@ -202,7 +219,7 @@ function scr_check_for_ruins_exploration(select_planet, star){
 	var _ruins_list =  search_planet_features( _planet_features, P_features.Ancient_Ruins)
 	var _explore_ruins=0;
     if (array_length(_ruins_list) > 0){
-		for (var _ruin= 0; _ruin < array_length(_ruins_list); _ruin++){
+		for (var _ruin = 0; _ruin < array_length(_ruins_list); _ruin++){
 			var _specific_ruins = _ruins_list[_ruin];
 			var _cur_ruins = _planet_features[_specific_ruins];
 			if ( _cur_ruins.exploration_complete == false){

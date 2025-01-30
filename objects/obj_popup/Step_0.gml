@@ -1280,7 +1280,20 @@ try {
 				instance_activate_object(obj_temp8);
 
 				instance_create(0, 0, obj_ncombat);
-				scr_battle_roster(obj_temp8.loc, obj_temp8.wid, true);
+			    _roster = new Roster();
+			    with (_roster){
+			        roster_location = obj_temp8.loc;
+			        roster_planet = obj_temp8.wid;
+			        determine_full_roster();
+			        only_locals();
+			        update_roster();
+			        if (array_length(selected_units)){  
+			            setup_battle_formations();
+			            add_to_battle();
+			        }               
+			    }
+			    delete _roster				
+
 
 				instance_activate_object(obj_star);
 				with (obj_star) {
