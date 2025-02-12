@@ -575,14 +575,28 @@ function PlanetData(planet, system) constructor{
         }
         
         var temp6="???";
-        var tau_influence = population_influences[eFACTION.Tau];
         var target_planet_heresy=corruption;
-        if (max(target_planet_heresy,tau_influence)<=10) then temp6="None";
-        if (max(target_planet_heresy,tau_influence)>10) and (max(target_planet_heresy,tau_influence)<=30) then temp6="Little";
-        if (max(target_planet_heresy,tau_influence)>30) and (max(target_planet_heresy,tau_influence)<=50) then temp6="Major";
-        if (max(target_planet_heresy,tau_influence)>50) and (max(target_planet_heresy,tau_influence)<=70) then temp6="Heavy";
-        if (max(target_planet_heresy,tau_influence)>70) and (max(target_planet_heresy,tau_influence)<=96) then temp6="Extreme";
-        if (target_planet_heresy>=96) or (tau_influence>=96) then temp6="Maximum";
+
+        if (target_planet_heresy < 0) {
+            temp6 = "DEBUG: Heresy below 0!"
+        } else if (target_planet_heresy <= 10) {
+            temp6 = "None";
+        } else if (target_planet_heresy <= 30) {
+            temp6 = "Little";
+        } else if (target_planet_heresy <= 50) {
+            temp6 = "Major";
+        } else if (target_planet_heresy <= 70) {
+            temp6 = "Heavy";
+        } else if (target_planet_heresy <= 96) {
+            temp6 = "Extreme";
+        } else if (target_planet_heresy <= 100) {
+            temp6 = "Maximum";
+        } else if (target_planet_heresy > 100) {
+            temp6 = "DEBUG: Heresy above 100!";
+        } else {
+            temp6 = "DEBUG: Heresy somehow unknown value!"
+        }
+
         draw_text(xx+480,yy+300,$"Corruption: {temp6}");
         
         
