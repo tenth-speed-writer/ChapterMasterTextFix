@@ -756,6 +756,7 @@ if (research.armour[1].stealth[0] > 0 && research.armour[1].armour[0] > 1 && obj
     x_mod[i] = 9;
     item[i] = "Servo-harness";
     item_stocked[i] = scr_item_count(item[i]);
+    forge_cost[i] = 1500;
     item_cost[i] = 150;
 	 if (obj_controller.stc_wargear >= 6) {
 		forge_cost[i] = 400;
@@ -780,6 +781,7 @@ if (research.armour[1].stealth[0] > 0 && research.armour[1].armour[0] > 1 && obj
     x_mod[i] = 9;
     item[i] = "Servo-arm";
     item_stocked[i] = scr_item_count(item[i]);
+    forge_cost[i] = 750;
     item_cost[i] = 30;
 	forge_cost[i] = 150;
     if (rene = 1) {
