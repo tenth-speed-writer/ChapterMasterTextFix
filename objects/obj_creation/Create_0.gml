@@ -874,7 +874,37 @@ var all_disadvantages = [
         description : "Whether due to being cut off from forge worlds or bad luck, your chapter no longer has enough high quality gear to go around. Your elite troops will have to make do with standard armour.",
         value: 10,
         meta : ["Gear Quality"]
-    }          
+    },
+    {
+        name : "Enduring Angels",
+        description : "The Chapter's journey thus far has been arduous & unforgiving leaving them severely understrength yet not out of the fight. You begin with 5 fewer company's",
+        value : 50,
+        meta : ["Status"],
+    },
+    {
+        name : "Serpents Delight",
+        description : "Sleeper cells infiltrated your chapter. When they rose up for the decapitation strike,they slew the 5 most experienced company's and many of the HQ staff before being defeated",
+        value : 70,
+        meta : ["Status"],
+    },
+    {
+        name : "Weakened Apothecarion",
+        description : "Many of your chapter's Apothecaries have fallen in recent battles whether due to their incompetence or deliberate targetting.",
+        value : 25,
+        meta : ["Apothecaries"],
+    },
+    {
+        name : "Small Reclusiam",
+        description : "Your chapter cares little for its reclusiam compared to other chapters fewer marines have shown the desire to be chaplains.",
+        value : 25, 
+        meta : ["Faith"],
+    },
+    {
+        name : "Barren Librarius",
+        description : "Your chapter has a smaller Librarius compared to other chapters due to having fewer potent psykers.",
+        value : 25,
+        meta : ["Librarians"],
+    },
 ]
 
 obj_creation.all_disadvantages = []
