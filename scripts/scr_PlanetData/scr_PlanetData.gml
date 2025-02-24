@@ -36,16 +36,26 @@ function PlanetData(planet, system) constructor{
     	}
     }
 
-    static at_war = function(){
-    	var _at_war = false
-    	if (current_owner>5) then _at_war=true;
-        if (obj_controller.faction_status[current_owner]="War") then _at_war=true;
-        return _at_war;
-    }
-
     static owner_status = function(){
     	return obj_controller.faction_status[current_owner];
     }
+
+    static at_war = function(imperium=1, antagonism=0, war=1){
+        var _at_war = false
+        if (imperium) {
+            if (current_owner>5) then _at_war=true;
+        }
+
+        if (antagonism) {
+            if (owner_status()=="Antagonism") then _at_war=true;
+        }
+
+        if (war) {
+            if (owner_status()=="War") then _at_war=true;
+        }
+        return _at_war;
+    }
+
     guardsmen = system.p_guardsmen[planet];
     pdf = system.p_pdf[planet];
     fortification_level  = system.p_fortified[planet];
@@ -136,8 +146,6 @@ function PlanetData(planet, system) constructor{
     	return xh_force;
     }
     
-    static marine_training = planet_training_sequence;
-
     static has_feature = function(feature){
     	return planet_feature_bool(features, feature);
     }
@@ -158,28 +166,37 @@ function PlanetData(planet, system) constructor{
   		}
   		return _select_features;
     }
-    static planet_training = function(local_screening_points){
-    	var _training_happend = false;
-	    if (has_feature(P_features.Recruiting_World)){
-	        if (obj_controller.gene_seed == 0) and (obj_controller.recruiting > 0) {
 
-                obj_controller.recruiting = 0;
-                obj_controller.income_recruiting = 0;
-                scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
-
-	        }else if (obj_controller.recruiting > 0){
-	        	if (local_screening_points>0){
-
-	           		marine_training(local_screening_points);
-
-	           		_training_happend = true;
-	        	} else {
-	        		scr_alert("red", "recruiting", $"Recruitment on {name()} halted due to insufficient apothecary rescources", 0, 0);
-	        	}
-	        }
-		}
-		return _training_happend;   	
+    static get_local_apothecary_points = function() {
+        var _system_point_use = obj_controller.specialist_point_handler.point_breakdown.systems;
+        var _spare_apoth_points = 0;
+        if (struct_exists(_system_point_use, system.name)) {
+            var _point_data = _system_point_use[$ system.name][planet];
+            _spare_apoth_points = _point_data.heal_points - _point_data.heal_points_use;
+        }
+        return _spare_apoth_points;
     }
+
+    static marine_training = planet_training_sequence;
+
+    static planet_training = function(local_screening_points) {
+        var _training_happend = false;
+        if (has_feature(P_features.Recruiting_World)) {
+            if (obj_controller.gene_seed == 0 && obj_controller.recruiting > 0) {
+                obj_controller.recruiting = 0;
+                scr_alert("red", "recruiting", "The Chapter has run out of gene-seed!", 0, 0);
+            } else if (obj_controller.recruiting > 0) {
+                if (local_screening_points > 0) {
+                    marine_training(local_screening_points);
+
+                    _training_happend = true;
+                } else {
+                    scr_alert("red", "recruiting", $"Recruitment on {name()} halted due to insufficient apothecary rescources", 0, 0);
+                }
+            }
+        }
+        return _training_happend;
+    };
 
     static recover_starship = function(techs){
     	try {
