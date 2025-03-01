@@ -138,82 +138,106 @@ try {
 				}
 			}
 
-			if (artifact_struct.has_tag("MINOR")) {
-				if (giveto == eFACTION.Imperium) {
-					obj_controller.disposition[eFACTION.Imperium] += 6;
-				}
-				if (giveto == 3) {
-					obj_controller.disposition[3] += 4;
-				}
-				if ((giveto == 4) && (inq_hide != 2)) {
-					obj_controller.disposition[4] += 4;
-				}
+            if (artifact_struct.has_tag("MINOR")) {
+                obj_controller.disposition[giveto] = clamp(obj_controller.disposition[giveto] + 1, -100, 100);
+            } else {
+                var daemon_arts = function(faction, is_chaos, is_daemon) {
+                    switch (faction) {
+                        case eFACTION.Imperium:
+                            if (is_daemon) {
+                                var v = 0, ev = 0;
+                                for (var v = 1; v < array_length(obj_controller.event); v++) {
+                                    if (obj_controller.event[v] == "") {
+                                        ev = v;
+                                        break;
+                                    }
+                                }
+                                obj_controller.event[ev] = "imperium_daemon";
+                                obj_controller.event_duration[ev] = 1;
+                                with (obj_star) {
+                                    for (var i = 1; i <= planets; i++) {
+                                        if (p_owner[i] == 2) {
+                                            p_heresy[i] += choose(30, 40, 50, 60);
+                                        }
+                                    }
+                                }
+                            }
+                            if (is_chaos) {
+                                with (obj_star) {
+                                    for (var i = 1; i <= planets; i++) {
+                                        if ((p_owner[i] == 2) && (p_heresy[i] > 0)) {
+                                            p_heresy[i] += 10;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        case eFACTION.Tau:
+                            if (is_daemon) {
+                                with (obj_star) {
+                                    for (var i = 1; i <= planets; i++) {
+                                        if (p_owner[i] == 8) {
+                                            p_heresy[i] += 40;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
 
-				if ((giveto == 4) && (inq_hide == 2)) {
-					obj_controller.disposition[4] += 2;
-				}
+                var specialmod = 0
+                switch (giveto) {
+                    case eFACTION.Imperium:
+                        break;
+                    case eFACTION.Mechanicus:
+                        break;
+                    case eFACTION.Inquisition:
+                        if (inq_hide == 2) {
+                            specialmod -= 1;
+                        }
 
-				if ((giveto == 5) && (!is_daemon)) {
-					obj_controller.disposition[5] += 4;
-					var o = 0;
-					if (scr_has_adv("Reverent Guardians")) {
-						obj_controller.disposition[5] += 2;
-					}
-				}
-				if (giveto == 6) {
-					obj_controller.disposition[6] += 3;
-				}
-				if (giveto == 8) {
-					obj_controller.disposition[8] += 4;
-				}
-			}
+                        if (is_chaos) {
+                            specialmod += 2;
+                        }
 
-			// Need to modify ^^^^ based on if it is chaos or daemonic
+                        if (is_daemon) {
+                            specialmod += 4;
+                        }
+                        break;
+                    case eFACTION.Ecclesiarchy:
+                        if (!is_daemon) {
+                            if (scr_has_adv("Reverent Guardians")) {
+                                specialmod += 2;
+                            }
+                        } else {
+                            specialmod -= 2;
+                        }
+                        break;
+                    case eFACTION.Eldar:
+                        if (scr_has_disadv("Tolerant")) {
+                            specialmod += 1;
+                        }
+                        break;
+                    case eFACTION.Tau:
+                        if (scr_has_disadv("Tolerant")) {
+                            specialmod += 1;
+                        }
+                        break;
+                }
 
-			if (giveto == 2) {
-				if (is_daemon) {
-					var v = 0, ev = 0;
-					for (var v = 1; v < array_length(obj_controller.event); v++) {
-						if ((ev == 0) && (obj_controller.event[v] == "")) {
-							ev = v;
-						}
-					}
-					obj_controller.event[ev] = "imperium_daemon";
-					obj_controller.event_duration[ev] = 1;
-					with (obj_star) {
-						for (var i = 1; i <= planets; i++) {
-							if (p_owner[i] == 2) {
-								p_heresy[i] += choose(30, 40, 50, 60);
-							}
-						}
-					}
-				}
-				if (is_chaos) {
-					with (obj_star) {
-						for (var i = 1; i <= planets; i++) {
-							if ((p_owner[i] == 2) && (p_heresy[i] > 0)) {
-								p_heresy[i] += 10;
-							}
-						}
-					}
-				}
-				obj_controller.disposition[2] += 4;
-			} else if (giveto == 8) {
-				if (is_daemon) {
-					with (obj_star) {
-						for (var i = 1; i <= planets; i++) {
-							if (p_owner[i] == 8) {
-								p_heresy[i] += 40;
-							}
-						}
-					}
-				}
-			}
-			delete_artifact(arti_index);
-			instance_destroy();
-			exit;
-		}
-	}
+                daemon_arts(giveto, is_chaos, is_daemon)
+                var tagmod = artifact_struct.artifact_faction_value(giveto);
+                obj_controller.disposition[giveto] = clamp(obj_controller.disposition[giveto] + 2 + specialmod + tagmod, -100, 100);
+            }
+
+            // Need to modify ^^^^ based on if it is chaos or daemonic
+
+            delete_artifact(arti_index);
+            instance_destroy();
+            exit;
+        }
+    }
 
 	var zoom = 0;
 	if (instance_exists(obj_controller)) {
