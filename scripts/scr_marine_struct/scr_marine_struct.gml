@@ -327,6 +327,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		planet_location=2;
 	}
 	ship_location=-1;
+    last_ship = {uid : "", name : ""};
 	religion="none";
 	master_loyalty = 0;
 	job="none";
@@ -1591,6 +1592,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			 var current_location = marine_location();
 			 var system = current_location[2];
 			 var target_ship_location= obj_ini.ship_location[ship];
+			 set_last_ship();
 			 if (assignment()!="none") then return "on assignment";
 			 if (target_ship_location == "home" ){target_ship_location = obj_ini.home_name;}
 			
@@ -1619,8 +1621,22 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			 }
 		};
 
+
+	static set_last_ship = function(){
+		if (ship_location>-1){
+			last_ship.uid = obj_ini.ship_uid[ship_location];
+	        last_ship.name = obj_ini.ship[ship_location];	
+	    } else {
+	    	last_ship = {
+	    		uid : "",
+	    		name : ""
+	    	}
+	    }
+    }
+
 	static unload = function(planet_number, system){
 		var current_location = marine_location();
+		set_last_ship();
 		if (current_location[0]==location_types.ship){
 			if (!array_contains(["Warp", "Terra", "Mechanicus Vessel", "Lost"],current_location[2]) && current_location[2]==system.name){
 				obj_ini.loc[company][marine_number]=obj_ini.ship_location[current_location[1]];
