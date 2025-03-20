@@ -3,7 +3,11 @@
  * It contains data and logic for setting up custom chapters as well as populating the new game menu with data for pre-existing chapters.
  */
 keyboard_string="";
-
+try{
+    load_visual_sets();
+} catch(_exception){
+    handle_exception(_exception);
+}
 
 texturegroup_load("Defualt", true);
 
@@ -295,6 +299,10 @@ buttons = {
         },
         {   
             str1 : "Wolf Cult",
+            font : fnt_40k_14b,
+        },
+        {   
+            str1 : "Runic",
             font : fnt_40k_14b,
         },                                                                                      
     ], "Chapter Visual Styles")  
