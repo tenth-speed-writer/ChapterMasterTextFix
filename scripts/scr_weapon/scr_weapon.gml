@@ -12,7 +12,7 @@ global.weapons = {
 			"master_crafted": 10,
 			"artifact": 12
 		},
-		"melee_hands": 0.9,
+		"melee_hands": 0.75,
 		"ranged_hands": 1,
 		"tags": ["shield"],
 		"hp_mod": {
@@ -29,7 +29,7 @@ global.weapons = {
 			"master_crafted": 5,
 			"artifact": 6
 		},
-		"melee_hands": 0.9,
+		"melee_hands": 0.75,
 		"tags": ["shield","boarding"],
 		"hp_mod": {
 			"standard": 15,
@@ -1732,7 +1732,7 @@ global.weapons = {
 			"artifact": 45
 		},
 		"description": "A smaller variant of Bolter, intended to be useable by unaugmented humans.",
-		"melee_hands": 0,
+		"melee_hands": 1,
 		"ranged_hands": 1,
 		"ammo": 16,
 		"range": 10,
@@ -2243,12 +2243,12 @@ global.gear = {
 			},
 		},
 	// Sororitas and other imperials
-		"Light Power Armour": { // According to lore, lack of black carapace makes regular humans less capable to use PAs properly, but this is a concern for the future
+		"Light Power Armour": {
 			"abbreviation": "LPwrArm",
 			"armour_value": {
-				"standard": 14,
-				"master_crafted": 16,
-				"artifact": 18
+				"standard": 13,
+				"master_crafted": 15,
+				"artifact": 17
 			},
 			"ranged_mod": {
 				"standard": 0,
@@ -2261,6 +2261,25 @@ global.gear = {
 				"artifact": 10
 			},
 			"description": "A suit of light power armour, intended to be useable by the regular humans.",
+		},
+		"Sororitas Power Armour": {
+			"abbreviation": "SrPwrArm",
+			"armour_value": {
+				"standard": 14,
+				"master_crafted": 16,
+				"artifact": 18
+			},
+			"ranged_mod": {
+				"standard": 5,
+				"master_crafted": 10,
+				"artifact": 15
+			},
+			"melee_mod": {
+				"standard": 0,
+				"master_crafted": 5,
+				"artifact": 10
+			},
+			"description": "Lighter than most suits, thanks to plug ports that link the Sister's musculature directly to the enhanced fibre bundle network, while providing excellent protection. Helmet has an integrated targeter."
 		},
 	// Eldar
 		"Ranger Armour":{
@@ -2556,6 +2575,3 @@ global.gear = {
                       descr="A Predator-compatible turret housing a neutron blaster; a weapon from the Dark Age of Technology, this weapon is capable of destroying enemy armour with impunity. ";}
                 if (thawep="Volkite Saker Turret"){attack=400;arp=0;range=18;amm=50;spli=1;
                         descr="A Predator-compatible turret housing a Volkite Saker, capable of igniting entire formations of enemy forces with a single sweep. ";}
-
-
-

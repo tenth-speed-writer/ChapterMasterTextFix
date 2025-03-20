@@ -223,11 +223,11 @@ global.base_stats = { //tempory stats subject to change by anyone that wishes to
 	*/
 	"sister_of_battle":{
 			title : "Sister of Battle",
-			strength : [10,1],
-			constitution : [10,1], // TODO - consider making it that hireling armour boosts constitution, and possibly other stats
-			weapon_skill : [12,1],
-			ballistic_skill : [12,1],
-			dexterity : [10,1],
+			strength : [12,1],
+			constitution : [12,1], // TODO - consider making it that hireling armour boosts constitution, and possibly other stats
+			weapon_skill : [15,1],
+			ballistic_skill : [15,1],
+			dexterity : [22,1],
 			intelligence : [10,1],
 			wisdom : [10,1],
 			charisma : [10,1],
@@ -238,7 +238,7 @@ global.base_stats = { //tempory stats subject to change by anyone that wishes to
 			skills: {
 				weapons:{
 					"Light Bolter":1, "Bolt Pistol":1, "Chainsword":1, "Sarissa":1}},
-			start_gear:{"armour":"Light Power Armour", "wep1":"Light Bolter", "wep2":""},
+			start_gear:{"armour":"Sororitas Power Armour", "wep1":"Light Bolter", "wep2":""},
 			base_group : "human",
 			// traits:["zealous_faith"],
 	},
@@ -259,7 +259,7 @@ global.base_stats = { //tempory stats subject to change by anyone that wishes to
 			skills: {
 				weapons:{
 					"Light Bolter":2, "Bolt Pistol":2, "Chainsword":2, "Sarissa":2}},
-			start_gear:{"armour":"Light Power Armour", "wep1":"Light Bolter", "wep2":"", "gear":"Sororitas Medkit"},
+			start_gear:{"armour":"Sororitas Power Armour", "wep1":"Light Bolter", "wep2":"", "gear":"Sororitas Medkit"},
 			base_group : "human",
 			// traits:["zealous_faith"],
 	},
@@ -1080,7 +1080,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				ranged_hands_limit = 2
 			} else if base_group == "tech_priest" {
 				ranged_hands_limit = 1+(technology/100);
-			}else if base_group == "human" {
+			} else if base_group == "human" {
 				ranged_hands_limit = 1;
 			}	
 			carry_string+=$"Base: {ranged_hands_limit}#";
@@ -1259,7 +1259,7 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 				melee_hands_limit = 2
 			} else if base_group == "tech_priest" {
 				melee_hands_limit = 1+(technology/100);
-			}else if base_group == "human" {
+			} else if base_group == "human" {
 				melee_hands_limit = 1;
 			}				
 			carry_string+="Base: 2#";
