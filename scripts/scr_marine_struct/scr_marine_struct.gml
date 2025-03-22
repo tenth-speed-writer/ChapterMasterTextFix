@@ -1079,12 +1079,12 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 		return _powers_learned;
 	};
 
-	static psionic_increase = function() {
+	static roll_psionic_increase = function() {
 		if (psionic < 12) {
-			var _exp_bonus = round((experience / psionic) / 2);
-			var _dice_roll = roll_personal_dice(5, 100, "high", self);
-			var _target_roll = 500 - _exp_bonus;
-			if (_dice_roll >= _target_roll) {
+			var _psionic_difficulty = (psionic * 50) - experience;
+
+			var _dice_roll = roll_personal_dice(1, _psionic_difficulty, "high", self);
+			if (_dice_roll == _psionic_difficulty) {
 				psionic++;
 				add_battle_log_message($"{name_role()} was touched by the warp!", 999, 135);
 			}
@@ -1950,6 +1950,50 @@ function TTRPG_stats(faction, comp, mar, class = "marine", other_spawn_data={}) 
 			"weapon_skill":weapon_skill, 
 			"ballistic_skill":ballistic_skill
 		}
+	}
+
+	//TODO: Make this into a universal stat gathering function from all gear, for any stat;
+	static gear_special_value = function(special_id) {
+		var _total_special_value = 0;
+
+		var _all_data = [get_armour_data(), get_gear_data(), get_mobility_data(), get_weapon_one_data(), get_weapon_two_data()];
+
+		for (var i = 0; i < array_length(_all_data); i++) {
+			var _equipment_piece = _all_data[i];
+			if (is_struct(_equipment_piece)) {
+				_total_special_value += _equipment_piece.special_value(special_id);
+			}
+		}
+
+		return _total_special_value;
+	}
+
+	static psychic_amplification = function() {
+		return round((psionic - 2) + (experience / 100));
+	}
+
+	static psychic_focus = function() {
+		return round((experience * 0.05) + (wisdom * 0.4));
+	}
+
+	static perils_chance = function() {
+		var _perils_threshold = PSY_PERILS_CHANCE_BASE;
+
+		if (instance_exists(obj_ncombat)) {
+			_perils_threshold += obj_ncombat.global_perils;
+		}
+	
+		if (has_trait("warp_tainted")) {
+			_perils_threshold -= 5;
+		}
+	
+		if (has_trait("favoured_by_the_warp")) {
+			_perils_threshold -= 5;
+		}
+
+		_perils_threshold = max(_perils_threshold, PSY_PERILS_CHANCE_MIN);
+
+		return _perils_threshold;
 	}
 
 	static movement_after_math = function(end_company=company, end_slot=marine_number){
