@@ -64,14 +64,16 @@ function CompanyStruct(comp) constructor{
 		x1 : xx+center_width[0],
 		y1 : yy+center_height[0]+6,
 		color:c_red,
-		label : "<--"
+		label : "<--",
+                tooltip : "Press Left arrow to toggle"
 	});
 
 	next_squad_button = new UnitButtonObject({
 		x1 : xx+center_width[1]-44,
 		y1 : yy+center_height[0]+6,
 		color:c_red,
-		label : "-->"
+		label : "-->",
+                tooltip : "Press tab to toggle"
 	});
 
 	garrison_button = new UnitButtonObject({
@@ -79,7 +81,7 @@ function CompanyStruct(comp) constructor{
 		y1 : yy+center_height[0]+150,
 		color:c_red,
 		label : "Garrison Duty",
-		tooltip : "Having squads assigned to Garrison Duty will increase relations with a planet over time, it will also bolster planet defence forces in case of attack, and reduce corruption growth."
+		tooltip : "Having squads assigned to Garrison Duty will increase relations with a planet over time, it will also bolster planet defence forces in case of attack, and reduce corruption growth. Press G to toggle"
 	});
 
 	sabotage_button = new UnitButtonObject({
@@ -268,7 +270,10 @@ function CompanyStruct(comp) constructor{
 						send_on_mission=true;
 						mission_type="garrison";
 					}
-					
+
+		garrison_button.keystroke = press_exclusive(ord("G"));
+		previous_squad_button.keystroke = press_exclusive(vk_left);
+		next_squad_button.keystroke = press_exclusive(vk_tab);
 					if (array_contains(current_squad.class, "scout")) || (array_contains(current_squad.class, "bike")){
 						if (sabotage_button.draw()){
 							send_on_mission=true;
@@ -286,7 +291,7 @@ function CompanyStruct(comp) constructor{
 					draw_text_transformed(xx+bound_width[0]+5, yy+bound_height[0]+125, $"Assignment : {cur_assignment.type}",1,1,0);
 					var tooltip_text =  "Cancel Assignment"
 					var cancel_but = draw_unit_buttons([xx+bound_width[0]+5, yy+bound_height[0]+150],tooltip_text,[1,1],c_red,,,,true);
-					if(point_and_click(cancel_but)){
+					if(point_and_click(cancel_but) || keyboard_check_pressed(ord("C"))){
 						var cancel_system=noone;
 						with (obj_star){
 							if (name == squad_loc.system){
