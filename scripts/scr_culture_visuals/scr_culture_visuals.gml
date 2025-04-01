@@ -315,13 +315,13 @@ global.modular_drawing_items = [
         sprite : spr_gear_librarian,
         body_types :[0],
         position : "right_pauldron_icons",
-        role_type : ["libs"],
+        role_type : ["lib"],
     },
     {
         sprite : spr_gear_librarian_term,
         body_types :[2],
         position : "right_pauldron_icons",
-        role_type : ["libs"],
+        role_type : ["lib"],
     },
     {
         sprite : spr_roman_centurian_crest,
@@ -545,7 +545,7 @@ global.modular_drawing_items = [
         sprite : spr_gear_hood2,
         body_types :[0],
         position : "mouth_variants", 
-        role_type : ["libs"],
+        role_type : ["lib"],
         chapter_disadv : ["Warp Tainted"],    
     },
     {
@@ -801,8 +801,8 @@ function DummyMarine()constructor{
             return mobi[100][livery_picker.role_set > 0  ? livery_picker.role_set :eROLE.Tactical];
         }
     }
-    static IsSpecialist = function(search_type="standard",include_trainee=false){
-        return is_specialist(role(), search_type,include_trainee)
+    static IsSpecialist = function(search_type="standard",include_trainee=false, include_heads=true){
+        return is_specialist(role(), search_type,include_trainee, include_heads);
     }
     static has_trait = marine_has_trait;
 
