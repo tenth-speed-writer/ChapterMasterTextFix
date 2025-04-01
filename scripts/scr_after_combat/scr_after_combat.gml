@@ -174,10 +174,10 @@ function after_battle_part2() {
         var destroy;destroy=0;
         if ((marine_dead[i]>0) or (obj_ncombat.defeat!=0)) and (marine_type[i]!="") and (ally[i]=false){
             var comm=false;
-            if (_unit.IsSpecialist("standard",true)){
+            if (_unit.IsSpecialist(SPECIALISTS_STANDARD,true)){
                 obj_ncombat.final_command_deaths+=1;
                 var recent=true;
-                if (is_specialist(_unit.role, "trainee")){
+                if (is_specialist(_unit.role, SPECIALISTS_TRAINEES)){
                     recent=false
                 } else if (array_contains([string("Venerable {0}",obj_ini.role[100][6]), "Codiciery", "Lexicanum"], _unit.role())){
                     recent=false
@@ -441,7 +441,7 @@ function after_battle_part1() {
             
             if (!marine_dead[i]){
                 // Apothecaries for saving marines;
-                if (unit.IsSpecialist("apoth", true)) {
+                if (unit.IsSpecialist(SPECIALISTS_APOTHECARIES, true)) {
                     skill_level = unit.intelligence * 0.0125;
                     if (marine_gear[i]=="Narthecium"){
                         skill_level*=2;
@@ -452,7 +452,7 @@ function after_battle_part1() {
                 }
 
                 // Techmarines for saving vehicles;
-                if (unit.IsSpecialist("forge", true)) {
+                if (unit.IsSpecialist(SPECIALISTS_TECHS, true)) {
                     skill_level = unit.technology / 10;
                     if (marine_mobi[i]=="Servo-arm") {
                         skill_level *= 1.5; 
