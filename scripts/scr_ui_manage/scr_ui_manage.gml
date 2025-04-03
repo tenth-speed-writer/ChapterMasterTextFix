@@ -93,7 +93,7 @@ function load_marines_into_ship(system, ship, units, reload = false) {
 /// @param {struct} role_group_params - Parameters defining the role group
 /// @param {string} purpose - Display purpose for the selection
 /// @param {string} purpose_code - Code that identifies the selection’s purpose
-function role_slot_assign(search_params, role_group_params, purpose, purpose_code){
+function command_slot_prompt(search_params, role_group_params, purpose, purpose_code){
     var candidates = collect_role_group(role_group_params.group, role_group_params.location, role_group_params.opposite, search_params);
     group_selection(candidates, {
         purpose: purpose,
@@ -110,7 +110,7 @@ function role_slot_assign(search_params, role_group_params, purpose, purpose_cod
 /// @param {number} xx - X coordinate for the UI element
 /// @param {number} yy - Y coordinate for the UI element
 /// @param {string} slot_text - The prompt text displayed in the UI
-function role_slot_draw(xx, yy, slot_text){
+function command_slot_draw(xx, yy, slot_text){
     draw_set_color(c_black);
     draw_rectangle(xx + 25, yy + 64, xx + 974, yy + 85, 0);
     draw_set_color(c_gray);
@@ -170,6 +170,7 @@ function alternative_manage_views(x1, y1) {
     }
 }
 
+/// @mixin
 function scr_ui_manage() {
     if (combat != 0) {
         exit;
@@ -204,7 +205,6 @@ function scr_ui_manage() {
             man_size = 0;
         }
         var unit, x1, x2, x3, y1, y2, y3, text;
-        var romanNumerals = scr_roman_numerals();
         var tooltip_text = "", bionic_tooltip = "", tooltip_drawing = [];
         var invalid_locations = ["Mechanicus Vessel", "Terra"];
 
@@ -225,7 +225,7 @@ function scr_ui_manage() {
             if (managing > 20) {
                 c = managing - 10;
             } else if ((managing >= 1) && (managing <= 10)) {
-                fx = romanNumerals[managing - 1] + " Company";
+                fx = int_to_roman(managing) + " Company";
                 c = managing;
             } else if (managing > 10) {
                 switch (managing) {
@@ -684,153 +684,34 @@ function scr_ui_manage() {
         potential_tooltip = [];
         health_tooltip = [];
         promotion_tooltip = [];
-        var repetitions = min(man_max, man_see);
 
         //tooltip text to tell you if a unit is eligible for special roles
 
         if (!obj_controller.view_squad) {
+            var repetitions = min(man_max, MANAGE_MAN_SEE);
             man_count = 0;
+
+            var _command_slots_data = get_command_slots_data();
+
             if (managing > 0 && managing <= 10) {
-                var captain_exists = company_data.captain != "none";
-                var champion_exists = company_data.champion != "none";
-                var ancient_exists = company_data.ancient != "none";
-        		var chaplain_exists = company_data.chaplain != "none";
-        		var apothecary_exists = company_data.apothecary != "none";
-        		var techmarine_exists = company_data.tech_marine != "none";
-        		var librarian_exists = company_data.lib != "none";
-            }
-            var _clicked = false;
-            for (var i = 0; i < repetitions; i++) {
-                if (managing > 0 && managing <= 10 && (!captain_exists || !champion_exists || !ancient_exists || !chaplain_exists || !techmarine_exists || !apothecary_exists || !librarian_exists)) {
-                    if (!captain_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Captain Required");
+                for (var r = 0; r < array_length(_command_slots_data); r++) {
+                    var role = _command_slots_data[r];
+                    if (company_data[$ role.unit_check] == "none") {
+                        var _clicked = command_slot_draw(xx, yy, role.button_text);
                         if (_clicked) {
-                            role_slot_assign({}, {
-                                group: SPECIALISTS_CAPTAIN_CANDIDATES,
-                                location: "",
-                                opposite: false
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Captain Candidates", "captain_promote");
+                            command_slot_prompt(role.search_params, role.role_group_params, role.purpose, role.purpose_code);
                         }
                         yy += 20;
-                        captain_exists = true;
                         if (managing == -1) {
                             exit;
                         }
-                        continue;
-                    }
-                    if (!champion_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Champion Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: managing,
-                                "stat": [
-                                    ["weapon_skill", 44, "more"]
-                                ]
-                            }, {
-                                group: [SPECIALISTS_STANDARD, true, true],
-                                location: "",
-                                opposite: true
-                            }, $"{scr_roman_numerals()[managing - 1]} Champion Candidates", "champion_promote");
-                        }
-                        yy += 20;
-                        champion_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
-                    }
-                    if (!ancient_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Ancient Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: managing
-                            }, {
-                                group: [SPECIALISTS_STANDARD, true, true],
-                                location: "",
-                                opposite: true
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Ancient Candidates", "ancient_promote");
-                        }
-                        yy += 20;
-                        ancient_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
-                    }
-                    if (!chaplain_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Chaplain Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: [managing, 0]
-                            }, {
-                                group: [SPECIALISTS_CHAPLAINS, false, false],
-                                location: "",
-                                opposite: false
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Chaplain Candidates", "chaplain_promote");
-                        }
-                        yy += 20;
-                        chaplain_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
-                    }
-                    if (!apothecary_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Apothecary Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: [managing, 0]
-                            }, {
-                                group: [SPECIALISTS_APOTHECARIES, false, false],
-                                location: "",
-                                opposite: false
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Apothecary Candidates", "apothecary_promote");
-                        }
-                        yy += 20;
-                        apothecary_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
-                    }
-                    if (!techmarine_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Tech Marine Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: [managing, 0]
-                            }, {
-                                group: [SPECIALISTS_TECHS, false, false],
-                                location: "",
-                                opposite: false
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Tech Marine Candidates", "tech_marine_promote");
-                        }
-                        yy += 20;
-                        techmarine_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
-                    }
-                    if (!librarian_exists) {
-                        _clicked = role_slot_draw(xx, yy, "Librarian Required");
-                        if (_clicked) {
-                            role_slot_assign({
-                                companies: [managing, 0]
-                            }, {
-                                group: [SPECIALISTS_LIBRARIANS, false, false],
-                                location: "",
-                                opposite: false
-                            }, $"{scr_roman_numerals()[managing - 1]} Company Librarian Candidates", "librarian_promote");
-                        }
-                        yy += 20;
-                        librarian_exists = true;
-                        if (managing == -1) {
-                            exit;
-                        }
-                        continue;
+                        repetitions--;
                     }
                 }
-                
+            }
+
+            for (var i = 0; i < max(0, repetitions); i++) {
+
                 if (sel >= array_length(display_unit)) {
                     break;
                 }
@@ -848,7 +729,7 @@ function scr_ui_manage() {
                     }
                 } else if (i == repetitions - 1) {
                     if (point_in_rectangle(mouse_x, mouse_y, xx + 25 + 8, yy + 64, xx + 974, yy + 85) && mouse_check_button(mb_left)) {
-                        man_current = man_current < man_max - man_see ? man_current + 1 : man_current == (man_max - man_see);
+                        man_current = man_current < man_max - MANAGE_MAN_SEE ? man_current + 1 : man_current == (man_max - MANAGE_MAN_SEE);
                         man_current++;
                     }
                 }
@@ -1293,7 +1174,7 @@ function scr_ui_manage() {
         // Draw companies
         if (managing > 0) {
             if (managing >= 1 && managing <= 10) {
-                fx = scr_roman_numerals()[managing - 1] + " Company";
+                fx = int_to_roman(managing) + " Company";
             } else if (managing > 10) {
                 switch (managing) {
                     case 11:
