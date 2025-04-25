@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_inquisition_mission",
+  "%Name":"scr_mechanicus_missions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_inquisition_mission",
+  "name":"scr_mechanicus_missions",
   "parent":{
-    "name":"Turn",
-    "path":"folders/Scripts/Turn.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

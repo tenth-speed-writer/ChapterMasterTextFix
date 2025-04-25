@@ -97,7 +97,26 @@ function scr_new_governor_mission(planet, problem = ""){
 	}
 }
 
+function init_marine_acting_strange(){
+	log_message("RE: Strange Behavior");
+    var marine_and_company = scr_random_marine("",0);
+	if(marine_and_company == "none")
+	{
+		log_error("RE: Strange Behavior, couldn't pick a space marine");
+		exit;
+	}
 
+	var unit = fetch_unit(marine_and_company);
+	var role=unit.role();
+	var text = unit.name_role();
+	var company_text = scr_convert_company_to_string(unit.company);
+	if(company_text != ""){
+		company_text = "("+company_text+")";
+		text += company_text;
+	}
+	text += " is behaving strangely.";
+	scr_alert("color","lol",text,0,0);
+}
 
 function init_garrison_mission(planet, star, mission_slot){
 	var problems_data = star.p_problem_other_data[planet]
@@ -580,6 +599,14 @@ function add_new_problem(planet, problem, timer,star="none", other_data={}){
 	return 	problem_added;
 }
 
+
+function increment_mission_completion(mission_data){
+	if (!struct_exists(mission_data, "completion")){
+		mission_data.completion = 0;
+	}
+	mission_data.completion++;
+	return (mission_data.completion/mission_data.required_months)*100;
+}
 //search problem data for a given and key and iff applicable value on that key
 //TODO increase filtering and search options
 function problem_has_key_and_value(planet, problem,key,value="",star="none"){

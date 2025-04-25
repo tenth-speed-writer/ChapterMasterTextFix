@@ -36,12 +36,7 @@ enum INQUISITION_MISSION {
     ethereal,
     demon_world
 }
-enum MECHANICUS_MISSION {
-    bionics,
-    land_raider,
-    mars_voyage,
-    necron_study
-}
+
 enum EVENT {
     //good
     space_hulk,

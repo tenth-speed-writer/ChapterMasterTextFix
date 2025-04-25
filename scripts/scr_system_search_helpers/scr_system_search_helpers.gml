@@ -69,12 +69,11 @@ function scr_is_star_owned_by_allies(star) {
 }
 
 function scr_get_planet_with_type(star, type){
-	for(var i = 1; i <= star.planets; i++){
-		if(star.p_type[i] == type)
-			{
-				return i;
-			}
+	for (var i = 1; i <= star.planets; i++){
+		if(star.p_type[i] == type){
+			return i;
 		}
+	}
 	return -1;
 }
 
@@ -101,11 +100,10 @@ function scr_star_has_planet_with_type(star, type){
 
 function scr_get_planet_with_owner(star, owner){
 	for(var i = 1; i <= star.planets; i++){
-		if(star.p_owner[i] == owner)
-			{
-				return i;
-			}
+		if (star.p_owner[i] == owner){
+			return i;
 		}
+	}
 	return -1;
 }
 
@@ -113,17 +111,34 @@ function scr_star_has_planet_with_owner(star, owner){
 	return scr_get_planet_with_owner(star,owner) != -1;
 }
 
+
 /// @returns {Array<Id.Instance.obj_star>} stars
-function scr_get_stars(shuffled=false, ownership=[]) {
+function scr_get_stars(shuffled=false, ownership=[], types = []) {
 	var stars = [];
 	var _owner_sort = array_length(ownership);
+	var _types_sort = array_length(types);
 	with(obj_star){
-		if (!_owner_sort){
-			array_push(stars,id);
+		if (!_owner_sort && !_types_sort){
+			var _add = true;
 		} else {
-			if (array_contains(ownership,owner)){
-				array_push(stars,id);
+			var _add = true
+			if (_owner_sort && !array_contains(ownership,owner)){
+				_add = false
 			}
+			if (_add && _types_sort){
+				for (var i=1;i<=planets;i++){
+					array_delete_value(types, p_type[i]);
+					if (!array_length(types)){
+						break;
+					}
+				}
+				if (array_length(types)){
+					_add = false;
+				}				
+			}
+		}
+		if (_add){
+			array_push(stars,id);
 		}
 	}
 	if (shuffled){
@@ -235,10 +250,12 @@ function find_population_doners(doner_to=0){
 
 function planet_numeral_name(planet, star="none"){
 	if (star=="none"){
-		return $"{name} {scr_roman(planet)}";
+		//show_debug_message($"{planet}, numeral name")
+		return $"{name} {int_to_roman(planet)}";
 	} else {
 		with (star){
-			return $"{name} {scr_roman(planet)}";
+			//show_debug_message($"{planet}, numeral name")
+			return $"{name} {int_to_roman(planet)}";
 		}		
 	}
 }
