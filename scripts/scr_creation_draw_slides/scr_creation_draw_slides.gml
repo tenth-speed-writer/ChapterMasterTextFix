@@ -100,10 +100,7 @@ function draw_chapter_select(){
 				chapter_name = chap.name;
 				if (!chap.disabled) {
 					if (scr_chapter_new(chapter_name)) {
-						global.chapter_icon_sprite = obj_img.image_cache[$ "creation/chapters/icons"][chap.icon];
-						global.chapter_icon_frame = 0;
-						global.chapter_icon_path = $"creation/chapters/icons";
-						global.chapter_icon_filename = chap.icon;
+                        scr_load_chapter_icon("chapters", chap.icon, true);
 
 						icon = i;
 						custom = 0;
@@ -149,10 +146,7 @@ function draw_chapter_select(){
 				chapter_name = chap.name;
 				if (!chap.disabled) {
 					if (scr_chapter_new(chapter_name)) {
-						global.chapter_icon_sprite = obj_img.image_cache[$ "creation/chapters/icons"][chap.icon];
-						global.chapter_icon_frame = 0;
-						global.chapter_icon_path = $"creation/chapters/icons";
-						global.chapter_icon_filename = chap.icon;
+                        scr_load_chapter_icon("chapters", chap.icon, true);
 
 						icon = chap.icon;
 						custom = 0;
@@ -179,22 +173,21 @@ function draw_chapter_select(){
 		draw_sprite(spr_creation_icon, 0, grid.x1, grid.y1);
 		if (chap.loaded == false) {
 			// should be the icon that says 'custom'
-			draw_sprite_stretched(spr_icon_chapters, 31, grid.x1, grid.y1, grid.w, grid.h);
+			draw_sprite_stretched(scr_load_chapter_icon("game", 31), 0, grid.x1, grid.y1, grid.w, grid.h);
 		} else {
-			if (chap.icon > global.normal_icons_count) {
-				if (string_starts_with(chap.icon_name, "custom")) {
-					var cuicon = obj_cuicons.spr_custom_icon[chap.icon - normal_and_builtin];
-                    if (cuicon != -1) {
-                        draw_sprite_stretched(cuicon, 0, grid.x1, grid.y1, grid.w, grid.h);
-                    } else {
-                        draw_sprite_stretched(spr_icon_chapters, 0, grid.x1, grid.y1, grid.w, grid.h);
-                    }
-				} else {
-					draw_sprite_stretched(spr_icon_chapters, chap.icon - global.normal_icons_count, grid.x1, grid.y1, grid.w, grid.h);
-				}
-			} else {
-				scr_image("creation/chapters/icons", chap.icon, grid.x1, grid.y1, grid.w, grid.h);
-			}
+            var spr = -1;
+			if (chap.icon_type == "chapters") {
+                spr = scr_load_chapter_icon("chapters", chap.icon);
+            }  else if (chap.icon_type == "game") {
+                spr = scr_load_chapter_icon("game", chap.icon);
+            } else if (chap.icon_type == "player"){
+                spr = scr_load_chapter_icon("player", chap.icon);
+            }
+            if(spr == -1){
+                draw_sprite_stretched(scr_load_chapter_icon("game", 31), 0, grid.x1, grid.y1, grid.w, grid.h);
+            } else {
+                draw_sprite_stretched(spr, 0, grid.x1, grid.y1, grid.w, grid.h);
+            }
 		}
 
 		// Hover
@@ -213,22 +206,7 @@ function draw_chapter_select(){
 			//Click
 			if (grid.clicked()) {
 				if (chap.loaded == true && chap.disabled == false) {
-					if (chap.icon > global.normal_icons_count) {
-						if (string_starts_with(chap.icon_name, "custom")) {
-							var cuicon = obj_cuicons.spr_custom_icon[chap.icon - normal_and_builtin];
-							global.chapter_icon_sprite = sprite_duplicate(cuicon);
-							global.chapter_icon_frame = 0;
-							global.chapter_icon_filename = chap.icon_name;
-						} else {
-							global.chapter_icon_sprite = spr_icon_chapters;
-							global.chapter_icon_frame = chap.icon - global.normal_icons_count;
-						}
-					} else {
-						global.chapter_icon_sprite = obj_img.image_cache[$ "creation/chapters/icons"][chap.icon];
-						global.chapter_icon_frame = 0;
-						global.chapter_icon_path = $"creation/chapters/icons";
-						global.chapter_icon_filename = chap.icon;
-					}
+                    scr_load_chapter_icon(chap.icon_type, chap.icon, true);
 					chapter_name = chap.name;
 					global.chapter_id = chap.id;
 					change_slide = 1;
@@ -276,10 +254,11 @@ function draw_chapter_select(){
 				chapter_name = chap.name;
 				if (!chap.disabled) {
 					if (scr_chapter_new(chapter_name)) {
-						global.chapter_icon_sprite = obj_img.image_cache[$ "creation/chapters/icons"][chap.icon];
-						global.chapter_icon_frame = 0;
-						global.chapter_icon_path = $"creation/chapters/icons";
-						global.chapter_icon_filename = chap.icon;
+                        scr_load_chapter_icon(chap.icon_type, chap.icon, true);
+						// global.chapter_icon_sprite = obj_img.image_cache[$ "creation/chapters/icons"][chap.icon];
+						// global.chapter_icon_frame = 0;
+						// global.chapter_icon_path = $"creation/chapters/icons";
+						// global.chapter_icon_filename = chap.icon;
 						global.chapter_id = chap.id;
 
 						icon = i;
@@ -317,7 +296,6 @@ function draw_chapter_select(){
 			draw_rectangle_color_simple(grid.x1, grid.y1, grid.x2, grid.y2, 0, c_white, 0.1);
 			if (grid.clicked()) {
 				icon = 1;
-				icon_name = "da";
 				change_slide = 1;
 				goto_slide = 2;
 				if (c == 1001) {
@@ -681,7 +659,7 @@ function draw_chapter_trait_select(){
             tooltip="Chapter Disadvantages";
             tooltip2="Disadvantages grant additional points, and penalize the performance of your chapter. You can only have 1 trait of the same category, shown in brackets.";
         }
-    }else if (popup="icons"){
+    }else if (popup=="icons"){
         draw_set_alpha(1);
         draw_set_color(0);
         draw_rectangle(450,206,1144,711,0);
@@ -734,10 +712,12 @@ function draw_chapter_trait_select(){
                     scr_image("creation/chapters/icons",ic,x3,y3,96,96);
                 } 
                 if (ic>=global.normal_icons_count) and (ic<normal_and_builtin) {
-                    draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count,x3,y3,96,96);
+                    scr_image("creation/customicons", ic-global.normal_icons_count,x3,y3,96,96)
+                    // draw_sprite_stretched(spr_icon_chapters,,);
                 } 
-                if (ic>=normal_and_builtin) and (obj_cuicons.spr_custom[ic-normal_and_builtin]>0) and (obj_cuicons.spr_custom_icon[ic-normal_and_builtin]!=-1){
-                    draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-normal_and_builtin],0,x3,y3,96,96);
+            
+                if (ic>=normal_and_builtin){
+                    draw_sprite_stretched(scr_load_chapter_icon("player", ic-normal_and_builtin),0,x3,y3,96,96);
                 }
                 
                 // highlight on hover
@@ -752,8 +732,8 @@ function draw_chapter_trait_select(){
                     if (ic>=global.normal_icons_count) and (ic<normal_and_builtin) {
                         draw_sprite_stretched(spr_icon_chapters,ic-global.normal_icons_count,x3,y3,96,96);
                     } 
-                    if (ic>=normal_and_builtin) and (obj_cuicons.spr_custom[ic-normal_and_builtin]>0) and (obj_cuicons.spr_custom_icon[ic-normal_and_builtin]!=-1){
-                        draw_sprite_stretched(obj_cuicons.spr_custom_icon[ic-normal_and_builtin],0,x3,y3,96,96);
+                    if (ic>=normal_and_builtin){
+                        draw_sprite_stretched(scr_load_chapter_icon("player", ic-normal_and_builtin),0,x3,y3,96,96);
                     }
                     draw_set_blend_mode(bm_normal);
                     draw_set_alpha(1);
@@ -762,26 +742,21 @@ function draw_chapter_trait_select(){
                     if (scr_click_left()){
                         popup="";
                         icon=ic;
-                        icon_name="";
-                        scr_icon("");
+                        var _id, _type;
                         if (ic <= global.normal_icons_count){
-                            global.chapter_icon_sprite = obj_img.image_cache[$"creation/chapters/icons"][ic];
-                            global.chapter_icon_frame = 0;
-                            global.chapter_icon_path = $"creation/chapters/icons";
-                            global.chapter_icon_filename = ic;
+                            _type = "chapters";
+                            _id = ic;
                         }
-                        if (ic>normal_and_builtin) {
-                            var cuicon_idx = ic-normal_and_builtin;
-                            global.chapter_icon_sprite = sprite_duplicate(obj_cuicons.spr_custom_icon[cuicon_idx]);
-                            global.chapter_icon_frame = 0;
-                            obj_creation.icon_name = string_concat("custom", cuicon_idx);
+                        if (ic>=normal_and_builtin) {
+                            _type = "player";
+                            _id = ic-normal_and_builtin;
                         }
-                        if (ic>global.normal_icons_count && ic <=normal_and_builtin) {
-                            global.chapter_icon_sprite = spr_icon_chapters;
-                            global.chapter_icon_frame = ic-global.normal_icons_count;
-                            custom_icon=ic-global.normal_icons_count;
+                        if (ic>global.normal_icons_count && ic <normal_and_builtin) {
+                            _type = "game";
+                            _id = ic-global.normal_icons_count;
                         }
-                        // show_debug_message($"ic {ic} custom_icon {custom_icon} icon {icon}")
+                        scr_load_chapter_icon(_type, _id, true);
+                        show_debug_message($"icon selected ic {ic} _type {_type} _id {_id} icon {icon}")
                         // show_message(string(icon_name));
                     }
                     
