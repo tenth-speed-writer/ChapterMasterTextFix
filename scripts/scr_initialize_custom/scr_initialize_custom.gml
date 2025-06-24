@@ -1100,7 +1100,7 @@ function scr_initialize_custom() {
 		tenth += 5;
 	}
 	if  scr_has_disadv ("Small Reclusiam") {
-		chaplains -= 5;
+		chaplains = max(1, chaplains - 5);
 		tenth += 5;
 	}
 	if scr_has_adv ("Reverent Guardians") {
